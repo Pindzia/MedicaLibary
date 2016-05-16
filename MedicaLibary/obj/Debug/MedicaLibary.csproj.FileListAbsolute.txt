@@ -1,0 +1,37 @@
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.exe.config
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.exe
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.pdb
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csprojResolveAssemblyReference.cache
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MainWindow.baml
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MainWindow.g.cs
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\App.g.cs
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary_MarkupCompile.cache
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.g.resources
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.Properties.Resources.resources
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csproj.GenerateResource.Cache
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.exe
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.pdb
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\AddPatientPage.baml
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\GetListPage.baml
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\AddPatientPage.g.cs
+c:\users\pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\GetListPage.g.cs
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.exe.config
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.exe
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.pdb
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.exe
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.pdb
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csprojResolveAssemblyReference.cache
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\AddPatientPage.baml
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\GetListPage.baml
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\MainWindow.baml
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\AddPatientPage.g.cs
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\GetListPage.g.cs
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\MainWindow.g.cs
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\App.g.cs
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary_MarkupCompile.cache
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.g.resources
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.Properties.Resources.resources
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csproj.GenerateResource.Cache
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\SearchEngine.g.cs
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary_MarkupCompile.lref
+C:\Users\user\Desktop\MedicaLibary\MedicaLibary\obj\Debug\SearchEngine.baml

@@ -1,0 +1,31 @@
+<lib>
+  <patient id="1">
+    <imie>Jan</imie>
+    <nazwisko>Kowalski</nazwisko>
+	<pesel>48042817604</pesel>
+  </patient>
+  
+  <patient id="2">
+    <imie>Marek</imie>
+	<nazwisko>Nowak</nazwisko>
+	<pesel>24110901684</pesel>
+  </patient>
+
+  <patient id="3">
+    <imie>Anna</imie>
+	<nazwisko>Beksa</nazwisko>
+	<pesel>61031313642</pesel>
+  </patient>
+
+  <patient id="4">
+	<imie>Marcin</imie>
+	<nazwisko>Długi</nazwisko>
+	<pesel>41042610758</pesel>
+  </patient>
+
+  <patient id="5">
+	<imie>Rafał</imie>
+	<nazwisko>Pindzia</nazwisko>
+	<pesel>19092506369</pesel>
+  </patient>
+</lib>
