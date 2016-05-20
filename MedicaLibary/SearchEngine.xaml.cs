@@ -43,86 +43,53 @@ namespace MedicaLibary
             XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
 
             database.Elements().ToList();
-
-            IEnumerable<XElement> found = null;
-
-            //var found = database;
-
-
-            /*
-            XDocument found = new XDocument(
-                new XElement("patient",
-                new XElement("id", 0),
-                new XElement("imie", "Imie"),
-                new XElement("nazwisko", "Nazwisko"),
-                new XElement("pesel","00000000000")));
-
-            //Jesli któreś jest wypełnione */
             
-            if (Id != "" || imie != "" || nazwisko != "" || pesel != "")
-            {
-                
-                if (((imie != "" && nazwisko == "") || (imie == "" && nazwisko != "")) && Id == "" && pesel == "")
-                {
-                    MessageBox.Show("Jeśli chcesz szukać po imieniu i nazwisku musisz podać oba");
-                } else if (pesel !="")
-                {
-                    //Nie działa
-                    found =
-                        (from elem in database.Elements()
-                        where elem.Attribute("pesel").Value == pesel
-                        select elem);
-                } else if (Id !="")
-                {
-                    found =
-                        (from elem in database.Element("patient").Elements("patient")
-                         where elem.Attribute("id").Value == Id
-                         select elem).ToList();
+            //var found = from c in database.Descendants("lib") select a;
 
-                    
-
-                    if (found != null)
-                    {
-                        MessageBox.Show("Znalazłem id\n" + found);
-                    }
-                } else if (imie !="" && nazwisko !="")
-                {
-                    found =
-                        from elem in database.Elements()
-                        where (string)elem.Attribute("imie") == imie
-                        && (string)elem.Attribute("nazwisko") == nazwisko
-                        select elem;
-                }
-                //*/
-                
-                if (found == null)
-                {
-                    MessageBox.Show("Brak wyników wyszukiwania");
-                }
-                else
-                {
                     /*
                     Patient token = new Patient();
                     XmlSerializer serek = new XmlSerializer(typeof(DataSet));
                     token = serek.Deserialize<Patient>(found);
                     */
+
+            var result = from c in database.Descendants("patient")
+                                 select c;
+            if (Id != "")
+            {
+                result = result
+                    .Where(b => b.Elements("id")
+                        .Any(f => (string)f == Id));
+            }
+
+            if (imie != "")
+            {
+                result = result
+                    .Where(b => b.Elements("imie")
+                        .Any(f => (string)f == imie));
+            }
+
+            if (nazwisko != "")
+            {
+                result = result
+                    .Where(b => b.Elements("nazwisko")
+                        .Any(f => (string)f == nazwisko));
+            }
+
+            if (pesel != "")
+            {
+                result = result
+                    .Where(b => b.Elements("pesel")
+                        .Any(f => (string)f == pesel));
+            }
                     
 
-                    MessageBox.Show(found.ToString());
-                    MessageBox.Show(database.ToString());
                     //Dane do Wyników
-                    DataGrid.ItemsSource = found; //Nie działa ani na XElement ani na XElement.Elements()
+                    DataGrid.ItemsSource = result;
                     //DataGrid.DataContext = database;
                     DataGrid.AutoGenerateColumns = false;
                     //Zamiana Grida
                     results.Visibility = Visibility.Visible;
                     parameters.Visibility = Visibility.Hidden;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Uzupełnij przynamniej jedno pole");
-            }
         }
 
         private void ShowPatient(object sender, RoutedEventArgs e)
