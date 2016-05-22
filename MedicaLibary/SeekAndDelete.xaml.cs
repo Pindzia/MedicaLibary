@@ -19,21 +19,18 @@ using System.Data;
 
 namespace MedicaLibary
 {
-    /// <summary>
-    /// Potrzebna nowa klasa żeby serializować to co wyszukamy: http://xmltocsharp.azurewebsites.net/
-    /// XmlSerializer
-    /// jako token ta nowa klasa, przykład z josnem: https://github.com/ProgramerPanda/In-Prot
-    /// </summary>
-    public partial class SearchEngine : Page
+    public partial class SeekAndDelete : Page
     {
-        public SearchEngine()
+        public SeekAndDelete()
         {
             InitializeComponent();
         }
 
+        TaskCompletionSource<bool> _tcs;
+        private bool yesClicked = false;
+        private bool noClicked = false;
         
-
-        private void searchInXML(object sender, RoutedEventArgs e)
+        private async void seekAndDestroy(object sender, RoutedEventArgs e)
         {
             var Id = ID.Text;
             var imie = Imię.Text;
@@ -45,7 +42,8 @@ namespace MedicaLibary
             database.Elements().ToList();
 
             var result = from c in database.Descendants("patient")
-                                 select c;
+                         select c;
+
             if (Id != "")
             {
                 result = result
@@ -73,20 +71,45 @@ namespace MedicaLibary
                     .Where(b => b.Elements("pesel")
                         .Any(f => (string)f == pesel));
             }
-                    
+            
+            DataGrid.ItemsSource = result;
+            DataGrid.AutoGenerateColumns = false;
+            results.Visibility = Visibility.Visible;
+            parameters.Visibility = Visibility.Hidden;
 
-                    //Dane do Wyników
-                    DataGrid.ItemsSource = result;
-                    //DataGrid.DataContext = database;
-                    DataGrid.AutoGenerateColumns = false;
-                    //Zamiana Grida
-                    results.Visibility = Visibility.Visible;
-                    parameters.Visibility = Visibility.Hidden;
+            _tcs = new TaskCompletionSource<bool>();
+            await _tcs.Task;
+
+            if (yesClicked)
+            {
+                result.Remove();
+                database.Save(Environment.CurrentDirectory + "\\lib.xml");
+                MessageBox.Show("Usunięto");
+                results.Visibility = Visibility.Hidden;
+            }
+            else if (noClicked)
+            {
+                MessageBox.Show("Nic nie usunięto, powracanie do ekranu startowego");
+                // Brzydko
+                results.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                MessageBox.Show("Niestety program natrafił na błąd, przepraszamy :(");
+                return;
+            }
         }
 
-        private void ShowPatient(object sender, RoutedEventArgs e)
+        private void Yes(object sender, RoutedEventArgs e)
         {
+            _tcs.SetResult(false);
+            yesClicked = true;
+        }
 
+        private void No(object sender, RoutedEventArgs e)
+        {
+            _tcs.SetResult(false);
+            noClicked = true;
         }
     }
 }

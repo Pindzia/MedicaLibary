@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Piotr\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\
 MedicaLibary
 none
 false
 DEBUG;TRACE
-C:\Users\Piotr\Documents\GitHub\MedicaLibary\MedicaLibary\App.xaml
-4-132049411
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\App.xaml
+5867268692
 
-91006708132
+10-560204755
 12-1401562060
-AddPatientPage.xaml;GetListPage.xaml;MainWindow.xaml;SearchEngine.xaml;
+AddPatientPage.xaml;GetListPage.xaml;MainWindow.xaml;SearchEngine.xaml;SeekAndDelete.xaml;
 
 False
 
