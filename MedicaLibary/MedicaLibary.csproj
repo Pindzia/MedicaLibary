@@ -56,6 +56,9 @@
     <Compile Include="SearchEngine.xaml.cs">
       <DependentUpon>SearchEngine.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SeekAndDelete.xaml.cs">
+      <DependentUpon>SeekAndDelete.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Token.cs" />
     <Page Include="AddPatientPage.xaml">
       <SubType>Designer</SubType>
@@ -84,6 +87,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SearchEngine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SeekAndDelete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -41,6 +41,11 @@ namespace MedicaLibary
             RemoteFrame.Source = new Uri("SearchEngine.xaml", UriKind.Relative);
         }
 
+        private void seekAndDelete(object sender, RoutedEventArgs e)
+        {
+            RemoteFrame.Source = new Uri("SeekAndDelete.xaml", UriKind.Relative);
+        }
+
         private void killApp(object sender, RoutedEventArgs e)
         {
             Close();
