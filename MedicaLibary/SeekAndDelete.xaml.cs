@@ -82,7 +82,15 @@ namespace MedicaLibary
 
             if (yesClicked)
             {
+
+                foreach (var c in result.Elements("id"))
+                {
+                    XElement nowy = new XElement("open", c.Value);
+                    database.Add(nowy);
+                }
+
                 result.Remove();
+
                 database.Save(Environment.CurrentDirectory + "\\lib.xml");
                 MessageBox.Show("Usunięto");
                 results.Visibility = Visibility.Hidden;

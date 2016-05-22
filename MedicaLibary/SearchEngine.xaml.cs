@@ -73,6 +73,7 @@ namespace MedicaLibary
                     .Where(b => b.Elements("pesel")
                         .Any(f => (string)f == pesel));
             }
+
                     
 
                     //Dane do Wyników

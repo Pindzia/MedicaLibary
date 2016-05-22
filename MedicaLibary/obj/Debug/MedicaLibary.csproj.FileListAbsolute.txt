@@ -77,3 +77,5 @@ C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csproj.GenerateResource.Cache
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.g.cs
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.baml
+C:\Users\Piotr\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.g.cs
+C:\Users\Piotr\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.baml

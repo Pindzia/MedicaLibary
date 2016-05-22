@@ -28,12 +28,33 @@ namespace MedicaLibary
 
         private void saveToXML(object sender, RoutedEventArgs e)
         {
-            var Id = ID.Text;
+            //var Id = ID.Text;
+            string Id;
             var imie = Imię.Text;
             var nazwisko = Nazwisko.Text;
             var pesel = Pesel.Text;
 
-            XElement doc = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
+            XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
+
+            //open - 'dziury' po wycięciu czegoś innego, 'wolne miejsca', max - maxid+1
+            var open = database.Descendants("open").FirstOrDefault(); //OrDefault żeby nie rzucał wyjątkami lecz przypisywał nulla w przypadku braku
+            if (open != null)
+            {
+                int nid = Convert.ToInt16(open.Value);
+                Id = nid.ToString();
+                open.Remove();
+                database.Save(Environment.CurrentDirectory + "\\lib.xml");
+            }
+            else
+            {
+                var max = database.Descendants("max").First();
+                Id = max.Value;
+                max.Value = (Convert.ToInt16(Id) + 1).ToString();
+                database.Save(Environment.CurrentDirectory + "\\lib.xml");
+            }
+
+
+
             if (Id != "" && imie != "" && nazwisko != "" && pesel != "")
             {
                 XElement nowy = new XElement(
@@ -43,8 +64,8 @@ namespace MedicaLibary
                 new XElement("nazwisko", nazwisko),
                 new XElement("pesel", pesel)));
 
-                doc.Add(nowy);
-                doc.Save(Environment.CurrentDirectory + "\\lib.xml");
+                database.Add(nowy);
+                database.Save(Environment.CurrentDirectory + "\\lib.xml");
                 MessageBox.Show("Pomyślnie Dodano");
             }
             else

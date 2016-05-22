@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <lib>
+  <max>10</max>
+  <open>8</open>
   <patient>
     <id>1</id>
     <imie>Jan</imie>
@@ -41,5 +43,11 @@
     <imie>Anna</imie>
     <nazwisko>Nowak</nazwisko>
     <pesel>56112018901</pesel>
+  </patient>
+  <patient>
+    <id>9</id>
+    <imie>Joanna</imie>
+    <nazwisko>Mann</nazwisko>
+    <pesel>69102112921</pesel>
   </patient>
 </lib>
