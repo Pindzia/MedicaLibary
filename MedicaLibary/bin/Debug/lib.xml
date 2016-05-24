@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <lib>
-  <max>10</max>
-  <open>8</open>
+  <max>11</max>
   <patient>
     <id>1</id>
     <imie>Jan</imie>
@@ -50,4 +49,11 @@
     <nazwisko>Mann</nazwisko>
     <pesel>69102112921</pesel>
   </patient>
+  <patient>
+    <id>10</id>
+    <imie>b</imie>
+    <nazwisko>b</nazwisko>
+    <pesel>1</pesel>
+  </patient>
+  <open>8</open>
 </lib>

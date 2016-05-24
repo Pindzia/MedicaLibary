@@ -11,9 +11,11 @@
         <Grid Name="parameters" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition/>
+                <RowDefinition Height="200"/>
                 <RowDefinition Height="45"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -21,22 +23,24 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="ID:" />
-                <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Imię:" />
-                <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Nazwisko:" />
-                <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Pesel:" />
+                <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="ID:" />
+                <Label Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Imię:" />
+                <Label Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Nazwisko:" />
+                <Label Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Pesel:" />
 
-                <TextBox Grid.Column="1" Grid.Row="0" x:Name="ID"  Width="125" Height="25"/>
-                <TextBox Grid.Column="1" Grid.Row="1" x:Name="Imię"  Width="125" Height="25"/>
-                <TextBox Grid.Column="1" Grid.Row="2" x:Name="Nazwisko"  Width="125" Height="25"/>
-                <TextBox Grid.Column="1" Grid.Row="3" x:Name="Pesel"  Width="125" Height="25"/>
+                <TextBox Grid.Column="2" Grid.Row="0" x:Name="ID"  Width="125" Height="25"/>
+                <TextBox Grid.Column="2" Grid.Row="1" x:Name="Imię"  Width="125" Height="25"/>
+                <TextBox Grid.Column="2" Grid.Row="2" x:Name="Nazwisko"  Width="125" Height="25"/>
+                <TextBox Grid.Column="2" Grid.Row="3" x:Name="Pesel"  Width="125" Height="25"/>
 
             
             </Grid>
-            <Button Grid.Row="1" Width="120" Height="25" Click="searchInXML">Szukaj</Button>
+            <Button Grid.Row="2" Width="120" Height="25" Click="searchInXML">Szukaj</Button>
         </Grid>
 
         <Grid Name="results" Visibility="Hidden">
