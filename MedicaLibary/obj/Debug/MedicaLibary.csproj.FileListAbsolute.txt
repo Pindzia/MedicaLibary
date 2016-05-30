@@ -81,3 +81,5 @@ C:\Users\Piotr\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelet
 C:\Users\Piotr\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.baml
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\AppointmentViewer.baml
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\AppointmentViewer.g.cs
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\StartingScreen.baml
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\StartingScreen.g.cs
