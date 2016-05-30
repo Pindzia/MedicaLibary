@@ -62,6 +62,9 @@
     <Compile Include="SeekAndDelete.xaml.cs">
       <DependentUpon>SeekAndDelete.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StartingScreen.xaml.cs">
+      <DependentUpon>StartingScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Token.cs" />
     <Page Include="AddPatientPage.xaml">
       <SubType>Designer</SubType>
@@ -98,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SeekAndDelete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartingScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

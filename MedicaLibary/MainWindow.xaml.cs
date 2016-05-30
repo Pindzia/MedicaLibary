@@ -24,6 +24,12 @@ namespace MedicaLibary
         public MainWindow()
         {
             InitializeComponent();
+            RemoteFrame.Source = new Uri("StartingScreen.xaml", UriKind.Relative);
+        }
+
+        private void startMe(object sender, RoutedEventArgs e)
+        {
+            RemoteFrame.Source = new Uri("StartingScreen.xaml", UriKind.Relative);
         }
 
         private void addPatient(object sender, RoutedEventArgs e)
