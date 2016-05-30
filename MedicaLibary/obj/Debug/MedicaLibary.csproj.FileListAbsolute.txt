@@ -79,3 +79,5 @@ C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.baml
 C:\Users\Piotr\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.g.cs
 C:\Users\Piotr\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.baml
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\AppointmentViewer.baml
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\AppointmentViewer.g.cs

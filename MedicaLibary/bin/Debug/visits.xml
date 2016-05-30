@@ -1,0 +1,10 @@
+<visits>
+	<visit>
+		<id>id</id>
+		<imie>imie</imie>
+		<nazwisko>nazwisko</nazwisko>
+		<pesel>pesel</pesel>
+		<badania>badania</badania>
+		<notatka>notatka</notatka>
+	</visit>
+</visits>
