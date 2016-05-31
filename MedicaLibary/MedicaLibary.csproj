@@ -53,6 +53,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddVisitPage.xaml.cs">
+      <DependentUpon>AddVisitPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditPatientPage.xaml.cs">
+      <DependentUpon>EditPatientPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GetPatientVisits.xaml.cs">
+      <DependentUpon>GetPatientVisits.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SearchEngine.xaml.cs">
       <DependentUpon>SearchEngine.xaml</DependentUpon>
     </Compile>
@@ -60,9 +69,21 @@
       <DependentUpon>SeekAndDelete.xaml</DependentUpon>
     </Compile>
     <Compile Include="Token.cs" />
+    <Page Include="AddVisitPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EditPatientPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AddPatientPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GetPatientVisits.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="GetListPage.xaml">
       <SubType>Designer</SubType>

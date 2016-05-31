@@ -1,12 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <lib>
   <max>10</max>
-  <open>8</open>
   <patient>
     <id>1</id>
-    <imie>Jan</imie>
+    <imie>Janin</imie>
     <nazwisko>Kowalski</nazwisko>
     <pesel>48042817604</pesel>
+    <wizyta>
+      <data_wizyty>2016-05-31 01:25:46</data_wizyty>
+      <komentarz>a</komentarz>
+    </wizyta>
   </patient>
   <patient>
     <id>2</id>
