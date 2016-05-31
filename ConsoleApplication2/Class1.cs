@@ -26,6 +26,9 @@ namespace ConsoleApplication2
                 writeStream.Write(cipher, 0, cipher.Length);
                 writeStream.Close();
 
+                StreamWriter liczbaKrypt = new StreamWriter("liczbaKrypt.dll",false);
+                liczbaKrypt.Write(cipher.Length);
+                liczbaKrypt.Close();
 
                 FileStream readStream = new FileStream("encrypted.xml", FileMode.Open);
                 byte [] toDecrypt = new byte [cipher.Length];
@@ -35,7 +38,29 @@ namespace ConsoleApplication2
                 StreamWriter decrypt = new StreamWriter("decrypted.xml",false);
                 decrypt.Write(decripted);
                 decrypt.Close();
+                XElement nowyplik = XElement.Parse(decripted);
+                System.Console.WriteLine("nie pierdol ze to przejdzie {0}", nowyplik);
 
+                FileStream klucz = new FileStream("key.dll", FileMode.Create);
+                klucz.Write(aes.Key, 0, aes.Key.Length);
+                klucz.Close();
+                StreamWriter liczbaKl = new StreamWriter("liczbaKl.dll", false);
+                liczbaKl.Write(aes.Key.Length);
+                liczbaKl.Close();
+
+                FileStream IV = new FileStream("IV.dll", FileMode.Create);
+                IV.Write(aes.IV, 0, aes.IV.Length);
+                IV.Close();
+                StreamWriter liczbaIV = new StreamWriter("liczbaIV.dll", false);
+                liczbaIV.Write(aes.IV.Length);
+                liczbaIV.Close();
+
+
+                /*
+                byte[] buffer;
+                FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                int length = (int)fileStream.Length;  // get file length
+                buffer = new byte[length];            // create buffer  */
             }
 
             

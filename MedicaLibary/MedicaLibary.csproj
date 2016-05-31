@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CryptoClass.cs" />
     <Compile Include="SearchEngine.xaml.cs">
       <DependentUpon>SearchEngine.xaml</DependentUpon>
     </Compile>
@@ -60,6 +61,7 @@
       <DependentUpon>SeekAndDelete.xaml</DependentUpon>
     </Compile>
     <Compile Include="Token.cs" />
+    <Compile Include="XElementon.cs" />
     <Page Include="AddPatientPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

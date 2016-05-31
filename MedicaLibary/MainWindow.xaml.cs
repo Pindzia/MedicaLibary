@@ -24,6 +24,8 @@ namespace MedicaLibary
         public MainWindow()
         {
             InitializeComponent();
+            Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            XElementon.Instance.Initialize();
         }
 
         private void addPatient(object sender, RoutedEventArgs e)
@@ -48,6 +50,7 @@ namespace MedicaLibary
 
         private void killApp(object sender, RoutedEventArgs e)
         {
+            XElementon.Instance.Disable();
             Close();
         }
 
