@@ -13,11 +13,25 @@ namespace MedicaLibary
 {
     class CryptoClass
     {
-        public CryptoClass()
+        public static CryptoClass Instance
         {
-            aesM = new AesManaged();    
-            this.setKey(aesM);
-            this.setIV(aesM);
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new CryptoClass();
+                }
+                return instance;
+            }
+        }
+
+        private static CryptoClass instance;
+
+        private CryptoClass()
+        {
+            aesM = new AesManaged();
+            loadKey();
+            loadIV();
         }
 
         public byte[] getKey()
@@ -35,66 +49,63 @@ namespace MedicaLibary
             return aesM;
         }
 
-        public static byte[] Encrypt(string text, byte[] Key, byte[] IV)
+        public byte[] Encrypt(string text)
         {
             if (text == null || text.Length <= 0)
                 throw new ArgumentNullException("plainText");
-            if (Key == null || Key.Length <= 0)
+            if (aesM.Key == null || aesM.Key.Length <= 0)
                 throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
+            if (aesM.IV == null || aesM.IV.Length <= 0)
                 throw new ArgumentNullException("IV");
 
             byte[] encrypted;
 
-            using (AesManaged aesM = new AesManaged())
+            ICryptoTransform encryptor = aesM.CreateEncryptor(aesM.Key, aesM.IV);
+
+            using (MemoryStream msEnc = new MemoryStream())
             {
-                aesM.Key = Key;
-                aesM.IV = IV;
-
-                ICryptoTransform encryptor = aesM.CreateEncryptor(aesM.Key, aesM.IV);
-
-                using (MemoryStream msEnc = new MemoryStream())
+                using (CryptoStream csEnc = new CryptoStream(msEnc, encryptor, CryptoStreamMode.Write))
                 {
-                    using (CryptoStream csEnc = new CryptoStream(msEnc, encryptor, CryptoStreamMode.Write))
+                    using (StreamWriter swEnc = new StreamWriter(csEnc))
                     {
-                        using (StreamWriter swEnc = new StreamWriter(csEnc))
-                        {
-                            swEnc.Write(text);
-                        }
-                        encrypted = msEnc.ToArray();
+                        swEnc.Write(text);
                     }
+                    encrypted = msEnc.ToArray();
                 }
             }
 
             return encrypted;
         }
 
-        public static string Decrypt(byte[] cipherT, byte[] Key, byte[] IV)
+        public string Decrypt(byte[] cipherT)
         {
             if (cipherT == null || cipherT.Length <= 0)
                 throw new ArgumentNullException("cipherText");
-            if (Key == null || Key.Length <= 0)
+            if (aesM.Key == null || aesM.Key.Length <= 0)
                 throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
+            if (aesM.IV == null || aesM.IV.Length <= 0)
                 throw new ArgumentNullException("IV");
 
             string decrypted;
+            aesM.Padding = PaddingMode.PKCS7;
 
-            using (AesManaged aesM = new AesManaged())
+            //byte[] decryptedBytes;
+
+            ICryptoTransform decryptor = aesM.CreateDecryptor(aesM.Key, aesM.IV);
+
+            using (MemoryStream msDec = new MemoryStream(cipherT))
             {
-                aesM.Key = Key;
-                aesM.IV = IV;
-
-                ICryptoTransform decryptor = aesM.CreateDecryptor(aesM.Key, aesM.IV);
-
-                using (MemoryStream msDec = new MemoryStream(cipherT))
+                using (CryptoStream csDec = new CryptoStream(msDec, decryptor, CryptoStreamMode.Read))
                 {
-                    using (CryptoStream csDec = new CryptoStream(msDec, decryptor, CryptoStreamMode.Read))
+                    //int length = (int)csDec.Length;
+                    //decryptedBytes = new byte[length];
+                    //
+                    //
+                    //csDec.Read(decryptedBytes, 0, length);
+
+                    using (StreamReader swDec = new StreamReader(csDec))
                     {
-                        using (StreamReader swDec = new StreamReader(csDec))
-                        {
-                            decrypted = swDec.ReadToEnd();
-                        }
+                        decrypted = swDec.ReadToEnd();
                     }
                 }
             }
@@ -103,24 +114,42 @@ namespace MedicaLibary
         }
 
 
-        private void setKey(AesManaged aes)
+        private void loadKey()
         {
-            FileStream file = new FileStream("key.dll", FileMode.Open);
-            StreamReader liczbaKl = new StreamReader("liczbaKl.dll");
-            int length = Convert.ToInt32(liczbaKl.ReadToEnd());
-            liczbaKl.Close();
-            file.Read(aes.Key, 0, length);
-            file.Close();
+            if (File.Exists("key"))
+            {
+                FileStream file = new FileStream("key", FileMode.Open, FileAccess.Read);
+                int length = (int)file.Length;
+
+                aesM.Key = new byte[length];
+                file.Read(aesM.Key, 0, length);
+                file.Close();
+            }
+            else
+            {
+                FileStream file = new FileStream("key", FileMode.CreateNew);
+                file.Write(aesM.Key, 0, aesM.Key.Length);
+                file.Close();
+            }
         }
 
-        private void setIV(AesManaged aes)
+        private void loadIV()
         {
-            FileStream file = new FileStream("IV.dll", FileMode.Open);
-            StreamReader liczbaIV = new StreamReader("liczbaIV.dll");
-            int length = Convert.ToInt32(liczbaIV.ReadToEnd());
-            liczbaIV.Close();
-            file.Read(aes.IV, 0, length);
-            file.Close();
+            if (File.Exists("IV"))
+            {
+                FileStream file = new FileStream("IV", FileMode.Open, FileAccess.Read);
+                int length = (int)file.Length;
+
+                aesM.IV = new byte[length];
+                file.Read(aesM.IV, 0, length);
+                file.Close();
+            }
+            else
+            {
+                FileStream file = new FileStream("IV", FileMode.CreateNew);
+                file.Write(aesM.IV, 0, aesM.IV.Length);
+                file.Close();
+            }
         }
 
         private AesManaged aesM;

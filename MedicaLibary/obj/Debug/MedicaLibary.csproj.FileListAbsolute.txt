@@ -83,3 +83,47 @@ C:\Users\Pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary
 C:\Users\Pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csproj.GenerateResource.Cache
 C:\Users\Pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.exe
 C:\Users\Pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.pdb
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.exe.config
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.exe
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.pdb
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.exe
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.pdb
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csprojResolveAssemblyReference.cache
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\AddPatientPage.baml
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\GetListPage.baml
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\MainWindow.baml
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\AddPatientPage.g.cs
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\GetListPage.g.cs
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\MainWindow.g.cs
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\SearchEngine.g.cs
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.g.cs
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\App.g.cs
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary_MarkupCompile.cache
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary_MarkupCompile.lref
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\SearchEngine.baml
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.baml
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.g.resources
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.Properties.Resources.resources
+E:\Poligon\Pomoc Rafałowi\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csproj.GenerateResource.Cache
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.exe.config
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.exe
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.pdb
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.exe
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.pdb
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csprojResolveAssemblyReference.cache
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\AddPatientPage.baml
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\GetListPage.baml
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MainWindow.baml
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\AddPatientPage.g.cs
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\GetListPage.g.cs
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MainWindow.g.cs
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\SearchEngine.g.cs
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.g.cs
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\App.g.cs
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary_MarkupCompile.cache
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary_MarkupCompile.lref
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\SearchEngine.baml
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.baml
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.g.resources
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.Properties.Resources.resources
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csproj.GenerateResource.Cache

@@ -14,27 +14,55 @@ namespace MedicaLibary
     public sealed class XElementon
     {
 
-        public void Initialize()
+        public void Load()
         {
-            CryptoClass crypt = new CryptoClass();
-            this.setDatabase(CryptoClass.Decrypt(this.loadEncrypted(crypt), crypt.getKey(), crypt.getIV()));
-        }
-
-        public void Disable()
-        {
-            CryptoClass crypt = new CryptoClass();
-            using (AesManaged aesM = new AesManaged())
+            CryptoClass crypt = CryptoClass.Instance;
+            if (File.Exists("encrypted.xml"))
             {
-                this.exportEncrypted(CryptoClass.Encrypt(this.getDatabase().ToString(), crypt.getKey(), crypt.getIV()));
+                setDatabase(crypt.Decrypt(LoadEncrypted(crypt)));
             }
-            
+            else
+            {
+                LoadRaw();
+                Save();
+
+                //test
+                Load();
+            }
         }
 
-
-
-        public void setDatabase (string xml)
+        public void LoadRaw()
         {
-            this.database = XElement.Parse(xml);
+            FileStream file = new FileStream("lib.xml", FileMode.Open, FileAccess.Read);
+            int length = (int)file.Length;
+
+            byte[] buffer = new byte[length];
+            file.Read(buffer, 0, length);
+            file.Close();
+
+            string test = "";
+
+            test = test + Encoding.UTF8.GetString(buffer);
+
+            setDatabase(buffer);
+        }
+
+        public void Save()
+        {
+            CryptoClass crypt = CryptoClass.Instance;
+            SaveEncrypted(crypt.Encrypt(this.getDatabase().ToString()));
+        }
+
+        public void setDatabase(byte[] xml)
+        {
+            XDocument document = XDocument.Load(new MemoryStream(xml));
+            database = document.Root;
+        }
+
+        public void setDatabase(string xml)
+        {
+            XDocument document = XDocument.Parse(xml);
+            database = document.Root;
         }
 
         public XElement getDatabase()
@@ -52,18 +80,14 @@ namespace MedicaLibary
                 }
                 return instance;
             }
-
         }
 
         private static XElementon instance;
 
-        private byte [] loadEncrypted (CryptoClass cryptor)
+        private byte [] LoadEncrypted (CryptoClass cryptor)
         {
             FileStream file = new FileStream("encrypted.xml", FileMode.Open, FileAccess.Read);
-
-            StreamReader liczbaKrypt = new StreamReader("liczbaKrypt.dll");
-            int length = Convert.ToInt32(liczbaKrypt.ReadToEnd());
-            liczbaKrypt.Close();
+            int length = (int)file.Length;
 
             byte[] buffer = new byte[length];
             file.Read(buffer, 0, length);
@@ -72,17 +96,12 @@ namespace MedicaLibary
             return buffer;
         }
 
-        private void exportEncrypted(byte [] cipher)
+        private void SaveEncrypted(byte [] cipher)
         {
             FileStream writeStream = new FileStream("encrypted.xml", FileMode.Create);
             writeStream.Write(cipher, 0, cipher.Length);
             writeStream.Close();
-
-            StreamWriter liczbaKrypt = new StreamWriter("liczbaKrypt.dll",false);
-            liczbaKrypt.Write(cipher.Length);
-            liczbaKrypt.Close();
         }
-
 
         private XElementon() { }
 
