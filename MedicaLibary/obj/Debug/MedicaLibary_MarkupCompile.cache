@@ -17,18 +17,12 @@ DEBUG;TRACE
 j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\App.xaml
 =======
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\App.xaml
-<<<<<<< HEAD
-71799885584
-
-121957310330
-=======
 >>>>>>> master
 5867268692
 
 12-1442168555
->>>>>>> refs/remotes/origin/master
 12-1401562060
-AddPatientPage.xaml;AppointmentViewer.xaml;GetListPage.xaml;MainWindow.xaml;SearchEngine.xaml;SeekAndDelete.xaml;StartingScreen.xaml;
+AddPatientPage.xaml;GetListPage.xaml;MainWindow.xaml;SearchEngine.xaml;SeekAndDelete.xaml;
 
 False
 
