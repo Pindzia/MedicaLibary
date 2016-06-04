@@ -53,29 +53,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-<<<<<<< HEAD
-    <Compile Include="AppointmentViewer.xaml.cs">
-      <DependentUpon>AppointmentViewer.xaml</DependentUpon>
-    </Compile>
-=======
     <Compile Include="CryptoClass.cs" />
->>>>>>> refs/remotes/origin/master
     <Compile Include="SearchEngine.xaml.cs">
       <DependentUpon>SearchEngine.xaml</DependentUpon>
     </Compile>
     <Compile Include="SeekAndDelete.xaml.cs">
       <DependentUpon>SeekAndDelete.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StartingScreen.xaml.cs">
-      <DependentUpon>StartingScreen.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Token.cs" />
     <Compile Include="XElementon.cs" />
     <Page Include="AddPatientPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AppointmentViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,10 +93,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SeekAndDelete.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="StartingScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
