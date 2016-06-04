@@ -20,12 +20,16 @@ j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\App.xaml
 16547343313
 =======
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\App.xaml
-5867268692
+71799885584
 
+<<<<<<< HEAD
+161087745507
+=======
 14-1429769578
 >>>>>>> master
+>>>>>>> refs/remotes/origin/master
 12-1401562060
-AddPatientPage.xaml;GetListPage.xaml;MainWindow.xaml;SearchEngine.xaml;SeekAndDelete.xaml;
+AddPatientPage.xaml;AppointmentViewer.xaml;GetListPage.xaml;MainWindow.xaml;SearchEngine.xaml;SeekAndDelete.xaml;StartingScreen.xaml;
 
 False
 

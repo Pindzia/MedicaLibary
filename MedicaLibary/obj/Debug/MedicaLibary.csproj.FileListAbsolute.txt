@@ -62,6 +62,12 @@ C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.baml
 C:\Users\Piotr\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.g.cs
 C:\Users\Piotr\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelete.baml
+<<<<<<< HEAD
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\AppointmentViewer.baml
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\AppointmentViewer.g.cs
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\StartingScreen.baml
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\StartingScreen.g.cs
+=======
 C:\Users\Pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.exe.config
 C:\Users\Pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.exe
 C:\Users\Pindzia\documents\visual studio 2013\Projects\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.pdb
@@ -127,3 +133,4 @@ j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelet
 j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.g.resources
 j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.Properties.Resources.resources
 j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csproj.GenerateResource.Cache
+>>>>>>> refs/remotes/origin/master
