@@ -24,12 +24,17 @@ namespace MedicaLibary
         public MainWindow()
         {
             InitializeComponent();
+<<<<<<< HEAD
             RemoteFrame.Source = new Uri("StartingScreen.xaml", UriKind.Relative);
         }
 
         private void startMe(object sender, RoutedEventArgs e)
         {
             RemoteFrame.Source = new Uri("StartingScreen.xaml", UriKind.Relative);
+=======
+            Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            XElementon.Instance.Load();
+>>>>>>> refs/remotes/origin/master
         }
 
         private void addPatient(object sender, RoutedEventArgs e)
@@ -59,6 +64,7 @@ namespace MedicaLibary
 
         private void killApp(object sender, RoutedEventArgs e)
         {
+            XElementon.Instance.Save();
             Close();
         }
 
