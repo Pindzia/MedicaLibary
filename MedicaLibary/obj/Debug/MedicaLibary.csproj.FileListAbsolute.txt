@@ -127,3 +127,6 @@ j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\SeekAndDelet
 j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.g.resources
 j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.Properties.Resources.resources
 j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.csproj.GenerateResource.Cache
+C:\Users\Piolun\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\bin\Debug\MedicaLibary.exe.config
+C:\Users\Piolun\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.exe
+C:\Users\Piolun\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\MedicaLibary.pdb
