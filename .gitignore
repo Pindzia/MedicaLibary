@@ -1,2 +1,6 @@
 *.exe
-*.exe
+*.cache
+*.pdb
+*.Iref
+*.Cache
+*.suo
