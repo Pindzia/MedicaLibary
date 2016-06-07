@@ -1,15 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <lib>
-  <max>10</max>
+  <meta>
+    <max>10</max>
+    <max_idv>3</max_idv>
+  </meta>
   <patient>
     <id>1</id>
     <imie>Janin</imie>
     <nazwisko>Kowalski</nazwisko>
     <pesel>48042817604</pesel>
-    <wizyta>
-      <data_wizyty>2016-05-31 01:25:46</data_wizyty>
-      <komentarz>a</komentarz>
-    </wizyta>
+    <visit>
+      <idv>1</idv>
+      <visit_addition_date>2016-05-31 01:25:46</visit_addition_date>
+      <comment>abc</comment>
+    </visit>
+    <visit>
+      <idv>2</idv>
+      <visit_addition_date>2016-06-06 07:15:02</visit_addition_date>
+      <comment>asdf</comment>
+    </visit>
   </patient>
   <patient>
     <id>2</id>

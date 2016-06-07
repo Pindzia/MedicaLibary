@@ -28,12 +28,17 @@ namespace MedicaLibary
 
         private void addPatient(object sender, RoutedEventArgs e)
         {
-            RemoteFrame.Source = new Uri("GetPatientVisits.xaml", UriKind.Relative);
+            RemoteFrame.Source = new Uri("addPatientPage.xaml", UriKind.Relative);
         }
 
         private void getListPatient(object sender, RoutedEventArgs e)
         {
             RemoteFrame.Source = new Uri("GetListPage.xaml", UriKind.Relative);
+        }
+
+        private void getPatientVisits(object sender, RoutedEventArgs e)
+        {
+            RemoteFrame.Source = new Uri("GetPatientVisits.xaml", UriKind.Relative);
         }
 
         private void searchEngine(object sender, RoutedEventArgs e)
