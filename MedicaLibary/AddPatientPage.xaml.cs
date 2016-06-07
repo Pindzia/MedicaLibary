@@ -66,7 +66,7 @@ namespace MedicaLibary
 
                 database.Add(nowy);
                 database.Save(Environment.CurrentDirectory + "\\lib.xml");
-                MessageBox.Show("Pomyślnie Dodano");
+                MessageBox.Show("Pomyślnie dodano");
             }
             else
             {

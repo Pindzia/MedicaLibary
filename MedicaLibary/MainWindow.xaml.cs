@@ -30,12 +30,17 @@ namespace MedicaLibary
 
         private void addPatient(object sender, RoutedEventArgs e)
         {
-            RemoteFrame.Source = new Uri("AddPatientPage.xaml", UriKind.Relative);
+            RemoteFrame.Source = new Uri("addPatientPage.xaml", UriKind.Relative);
         }
 
         private void getListPatient(object sender, RoutedEventArgs e)
         {
             RemoteFrame.Source = new Uri("GetListPage.xaml", UriKind.Relative);
+        }
+
+        private void getPatientVisits(object sender, RoutedEventArgs e)
+        {
+            RemoteFrame.Source = new Uri("GetPatientVisits.xaml", UriKind.Relative);
         }
 
         private void searchEngine(object sender, RoutedEventArgs e)
@@ -46,6 +51,16 @@ namespace MedicaLibary
         private void seekAndDelete(object sender, RoutedEventArgs e)
         {
             RemoteFrame.Source = new Uri("SeekAndDelete.xaml", UriKind.Relative);
+        }
+
+        private void editPatient(object sender, RoutedEventArgs e)
+        {
+            RemoteFrame.Source = new Uri("EditPatientPage.xaml", UriKind.Relative);
+        }
+
+        private void addVisit(object sender, RoutedEventArgs e)
+        {
+            RemoteFrame.Source = new Uri("AddVisitPage.xaml", UriKind.Relative);
         }
 
         private void killApp(object sender, RoutedEventArgs e)

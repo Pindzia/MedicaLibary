@@ -22,18 +22,52 @@ namespace MedicaLibary
     /// </summary>
     public partial class GetListPage : Page
     {
+        XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
+        XElement SelItem;
+
         public GetListPage()
         {
             InitializeComponent();
-            XElement TrackList = XElement.Load(Environment.CurrentDirectory +"\\lib.xml");
-            DataGrid.DataContext = TrackList;
+            DataGrid.DataContext = database;
             DataGrid.AutoGenerateColumns = false;
         }
 
 
-        private void ShowPatient(object sender, RoutedEventArgs e)
-        {
 
+        private void DeletePatient(object sender, RoutedEventArgs e)
+        {
+            for(int i = DataGrid.SelectedItems.Count - 1; i >= 0; i--)
+            {
+                var a = (XElement)DataGrid.SelectedItems[0];
+                a.Remove();
+            }
+            database.Save(Environment.CurrentDirectory + "\\lib.xml");
         }
-    }
+
+        private void EditPatient(object sender, RoutedEventArgs e)
+        {
+            list.Visibility = Visibility.Hidden;
+            parameters.Visibility = Visibility.Visible;
+
+            SelItem = (XElement)DataGrid.SelectedItem;
+
+            ID.Text = SelItem.Element("id").Value;
+            Imię.Text = SelItem.Element("imie").Value;
+            Nazwisko.Text = SelItem.Element("nazwisko").Value;
+            Pesel.Text= SelItem.Element("pesel").Value;
+        }
+
+
+        private void EditPatientConfirm(object sender, RoutedEventArgs e)
+        {
+            parameters.Visibility = Visibility.Hidden;
+
+            SelItem.Element("id").Value = ID.Text;
+            SelItem.Element("imie").Value = Imię.Text;
+            SelItem.Element("nazwisko").Value = Nazwisko.Text;
+            SelItem.Element("pesel").Value = Pesel.Text;
+            database.Save(Environment.CurrentDirectory + "\\lib.xml");
+            MessageBox.Show("Pomyślnie Edytowano Pacjenta");
+        }
+    } 
 }
