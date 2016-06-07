@@ -1,0 +1,42 @@
+﻿MedicaLibary
+
+
+winexe
+C#
+.cs
+<<<<<<< HEAD
+C:\Users\Piolun\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\
+=======
+<<<<<<< HEAD
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\obj\Debug\
+=======
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\
+>>>>>>> master
+>>>>>>> master
+MedicaLibary
+none
+false
+DEBUG;TRACE
+<<<<<<< HEAD
+C:\Users\Piolun\Documents\GitHub\MedicaLibary\MedicaLibary\App.xaml
+81920548233
+
+17-2031262421
+=======
+<<<<<<< HEAD
+j:\Desktop\MedicaLibary_updated\MedicaLibary\MedicaLibary\App.xaml
+5867268692
+
+16547343313
+=======
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\App.xaml
+5867268692
+
+14-1429769578
+>>>>>>> master
+>>>>>>> master
+12-1401562060
+AddVisitPage.xaml;EditPatientPage.xaml;AddPatientPage.xaml;GetPatientVisits.xaml;GetListPage.xaml;MainWindow.xaml;SearchEngine.xaml;SeekAndDelete.xaml;
+
+False
+
