@@ -63,6 +63,9 @@
     <Compile Include="GetPatientVisits.xaml.cs">
       <DependentUpon>GetPatientVisits.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LastChanges.xaml.cs">
+      <DependentUpon>LastChanges.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SearchEngine.xaml.cs">
       <DependentUpon>SearchEngine.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GetListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LastChanges.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

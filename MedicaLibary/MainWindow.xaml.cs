@@ -26,6 +26,7 @@ namespace MedicaLibary
             InitializeComponent();
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
             XElementon.Instance.Load();
+            RemoteFrame.Source = new Uri("LastChanges.xaml", UriKind.Relative);
         }
 
         private void addPatient(object sender, RoutedEventArgs e)

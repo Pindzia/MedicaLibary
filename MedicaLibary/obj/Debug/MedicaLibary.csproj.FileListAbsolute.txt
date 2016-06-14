@@ -107,3 +107,11 @@ C:\Users\Piolun\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\AddVisitPag
 C:\Users\Piolun\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\AddVisitPage.g.cs
 C:\Users\Piolun\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\GetPatientVisits.baml
 C:\Users\Piolun\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\GetPatientVisits.g.cs
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\AddVisitPage.baml
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\EditPatientPage.baml
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\GetPatientVisits.baml
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\LastChanges.baml
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\AddVisitPage.g.cs
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\EditPatientPage.g.cs
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\GetPatientVisits.g.cs
+C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\LastChanges.g.cs

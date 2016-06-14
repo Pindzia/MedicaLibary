@@ -8,7 +8,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2" Margin="3,3,3,3">
-            <Frame Name="RemoteFrame" Grid.Column="1" Margin="5,5,5,5" Source="{Binding}" NavigationUIVisibility="Hidden">
+            <Frame x:FieldModifier="public" Name="RemoteFrame" Grid.Column="1" Margin="5,5,5,5" Source="{Binding}" NavigationUIVisibility="Hidden">
             </Frame>
         </Border>
         <Border BorderBrush="Black" BorderThickness="2" Margin="3,3,3,6">
