@@ -38,6 +38,8 @@ namespace MedicaLibary
 
             //open - 'dziury' po wycięciu czegoś innego, 'wolne miejsca', max - maxid+1
             var open = database.Descendants("open").FirstOrDefault(); //OrDefault żeby nie rzucał wyjątkami lecz przypisywał nulla w przypadku braku
+
+
             if (open != null)
             {
                 int nid = Convert.ToInt16(open.Value);
@@ -64,6 +66,13 @@ namespace MedicaLibary
                 new XElement("nazwisko", nazwisko),
                 new XElement("pesel", pesel)));
 
+                XElement patient_change = new XElement("id", nowy.Element("id").Value);
+                database.Descendants("patient_changes").First().Add(patient_change);
+                if (database.Element("meta").Element("patient_changes").Elements("id").Count() > 5)
+                    database.Element("meta").Element("patient_changes").Elements("id").First().Remove();
+
+
+
                 database.Add(nowy);
                 database.Save(Environment.CurrentDirectory + "\\lib.xml");
                 MessageBox.Show("Pomyślnie dodano");
@@ -72,6 +81,10 @@ namespace MedicaLibary
             {
                 MessageBox.Show("Wszystkie pola są wymagane");
             }
+
+
+
+
         }
     }
 }

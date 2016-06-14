@@ -2,7 +2,20 @@
 <lib>
   <meta>
     <max>10</max>
-    <max_idv>3</max_idv>
+    <max_idv>4</max_idv>
+    <patient_changes>
+      <id>1</id>
+      <id>2</id>
+      <id>3</id>
+      <id>4</id>
+      <id>5</id>
+    </patient_changes>
+    <visit_changes>
+      <idv>1</idv>
+      <idv>2</idv>
+      <idv>3</idv>
+    </visit_changes>
+    <modifications></modifications>
   </meta>
   <patient>
     <id>1</id>
@@ -31,6 +44,11 @@
     <imie>Anna</imie>
     <nazwisko>Beksa</nazwisko>
     <pesel>61031313642</pesel>
+    <visit>
+      <idv>3</idv>
+      <visit_addition_date>2016-06-14 08:51:12</visit_addition_date>
+      <comment>test idv</comment>
+    </visit>
   </patient>
   <patient>
     <id>4</id>

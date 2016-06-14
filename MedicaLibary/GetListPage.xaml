@@ -17,7 +17,7 @@
             <Label Grid.Row="0" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontSize="24" Foreground="Black">
                 Lista Danych Pacjentów:
             </Label>
-            <DataGrid Grid.Row="1" Margin="10,10,10,10" x:Name="DataGrid" ItemsSource="{Binding Path=Elements[patient]}">
+            <DataGrid Grid.Row="1" Margin="10,10,10,10" x:Name="DataGrid" IsReadOnly="True" ItemsSource="{Binding Path=Elements[patient]}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Path=Element[id].Value}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
