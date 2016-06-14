@@ -1,21 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <lib>
   <meta>
-    <max>10</max>
+    <max>12</max>
     <max_idv>4</max_idv>
     <patient_changes>
-      <id>1</id>
-      <id>2</id>
       <id>3</id>
       <id>4</id>
       <id>5</id>
+      <id>10</id>
+      <id>11</id>
     </patient_changes>
     <visit_changes>
       <idv>1</idv>
       <idv>2</idv>
       <idv>3</idv>
     </visit_changes>
-    <modifications></modifications>
+    <modifications>
+      <modification>
+        <operation>A</operation>
+        <node_type>patient</node_type>
+        <id>2</id>
+      </modification>
+      <modification>
+        <operation>E</operation>
+        <node_type>patient</node_type>
+        <id>4</id>
+        <data>
+          <id>4</id>
+          <imie>Marcin</imie>
+          <nazwisko>Krótki</nazwisko>
+          <pesel>41042610758</pesel>
+        </data>
+      </modification>
+      <modification>
+        <operation>D</operation>
+        <node_type>patient</node_type>
+        <id>9</id>
+        <data>
+          <id>9</id>
+          <imie>Joanna</imie>
+          <nazwisko>Mann</nazwisko>
+          <pesel>69102112921</pesel>
+        </data>
+      </modification>
+    </modifications>
   </meta>
   <patient>
     <id>1</id>
@@ -75,9 +103,15 @@
     <pesel>56112018901</pesel>
   </patient>
   <patient>
-    <id>9</id>
-    <imie>Joanna</imie>
-    <nazwisko>Mann</nazwisko>
-    <pesel>69102112921</pesel>
+    <id>10</id>
+    <imie>Pacjent</imie>
+    <nazwisko>test</nazwisko>
+    <pesel>1234567890</pesel>
+  </patient>
+  <patient>
+    <id>11</id>
+    <imie>a</imie>
+    <nazwisko>b</nazwisko>
+    <pesel>c</pesel>
   </patient>
 </lib>
