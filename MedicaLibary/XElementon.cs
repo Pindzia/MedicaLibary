@@ -59,12 +59,22 @@ namespace MedicaLibary
             database = document.Root;
         }
 
+
+        public void setAccess()
+        {
+            access = true;
+        }
+
         public void setDatabase(string xml)
         {
             XDocument document = XDocument.Parse(xml);
             database = document.Root;
         }
 
+        public bool getAccess()
+        {
+            return access;
+        }
         public XElement getDatabase()
         {
             return database;
@@ -106,6 +116,8 @@ namespace MedicaLibary
         private XElementon() { }
 
         private XElement database = null;
+
+        private bool access = false;
 
     }
 }

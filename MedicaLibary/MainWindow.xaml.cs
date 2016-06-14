@@ -23,19 +23,39 @@ namespace MedicaLibary
     {
         public MainWindow()
         {
-            InitializeComponent();
-            Application.Current.MainWindow.WindowState = WindowState.Maximized;
-            XElementon.Instance.Load();
+            if (XElementon.Instance.getAccess() == false)
+            {
+                Registry_and_Login window = new Registry_and_Login();
+                window.ShowDialog();
+            }
+            if(XElementon.Instance.getAccess() == true)
+            {
+                InitializeComponent();
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+                XElementon.Instance.Load();
+                RemoteFrame.Source = new Uri("LastChanges.xaml", UriKind.Relative);
+            }
+            else
+            {
+                Close();
+            }
+            
+            
         }
 
         private void addPatient(object sender, RoutedEventArgs e)
         {
-            RemoteFrame.Source = new Uri("AddPatientPage.xaml", UriKind.Relative);
+            RemoteFrame.Source = new Uri("addPatientPage.xaml", UriKind.Relative);
         }
 
         private void getListPatient(object sender, RoutedEventArgs e)
         {
             RemoteFrame.Source = new Uri("GetListPage.xaml", UriKind.Relative);
+        }
+
+        private void getPatientVisits(object sender, RoutedEventArgs e)
+        {
+            RemoteFrame.Source = new Uri("GetPatientVisits.xaml", UriKind.Relative);
         }
 
         private void searchEngine(object sender, RoutedEventArgs e)
@@ -46,6 +66,16 @@ namespace MedicaLibary
         private void seekAndDelete(object sender, RoutedEventArgs e)
         {
             RemoteFrame.Source = new Uri("SeekAndDelete.xaml", UriKind.Relative);
+        }
+
+        private void editPatient(object sender, RoutedEventArgs e)
+        {
+            RemoteFrame.Source = new Uri("EditPatientPage.xaml", UriKind.Relative);
+        }
+
+        private void addVisit(object sender, RoutedEventArgs e)
+        {
+            RemoteFrame.Source = new Uri("AddVisitPage.xaml", UriKind.Relative);
         }
 
         private void killApp(object sender, RoutedEventArgs e)

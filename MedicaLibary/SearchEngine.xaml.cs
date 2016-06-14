@@ -20,9 +20,6 @@ using System.Data;
 namespace MedicaLibary
 {
     /// <summary>
-    /// Potrzebna nowa klasa żeby serializować to co wyszukamy: http://xmltocsharp.azurewebsites.net/
-    /// XmlSerializer
-    /// jako token ta nowa klasa, przykład z josnem: https://github.com/ProgramerPanda/In-Prot
     /// </summary>
     public partial class SearchEngine : Page
     {
@@ -42,7 +39,7 @@ namespace MedicaLibary
 
             XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
 
-            database.Elements().ToList();
+            //database.Elements().ToList();
 
             var result = from c in database.Descendants("patient")
                                  select c;
@@ -87,7 +84,7 @@ namespace MedicaLibary
 
         private void ShowPatient(object sender, RoutedEventArgs e)
         {
-
+            //SearchEngine.Source = new Uri("EditPatientPage.xaml", UriKind.Relative);
         }
     }
 }
