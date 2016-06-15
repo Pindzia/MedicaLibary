@@ -83,6 +83,7 @@ namespace MedicaLibary
 
 
             XElement data = new XElement(SelItem);
+            data.Descendants("visit").Remove(); //do historii zmian pacjenta nie wrzucam historii jego wizyt
             data.Name = "data";
 
             XElement modification = new XElement("modification",

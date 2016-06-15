@@ -115,3 +115,5 @@ C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\AddVisitPage.
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\EditPatientPage.g.cs
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\GetPatientVisits.g.cs
 C:\Users\user\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\LastChanges.g.cs
+C:\Users\Piolun\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\LastChanges.baml
+C:\Users\Piolun\Documents\GitHub\MedicaLibary\MedicaLibary\obj\Debug\LastChanges.g.cs

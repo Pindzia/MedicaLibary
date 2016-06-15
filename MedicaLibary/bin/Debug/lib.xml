@@ -15,7 +15,19 @@
       <idv>2</idv>
       <idv>3</idv>
     </visit_changes>
-    <modifications />
+    <modifications>
+      <modification>
+        <operation>E</operation>
+        <node_type>patient</node_type>
+        <id>5</id>
+        <data>
+          <id>5</id>
+          <imie>Rafał</imie>
+          <nazwisko>Pindzia</nazwisko>
+          <pesel>19092506369</pesel>
+        </data>
+      </modification>
+    </modifications>
   </meta>
   <patient>
     <id>1</id>
@@ -59,7 +71,7 @@
   <patient>
     <id>5</id>
     <imie>Rafał</imie>
-    <nazwisko>Pindzia</nazwisko>
+    <nazwisko>Piiiingot</nazwisko>
     <pesel>19092506369</pesel>
   </patient>
   <patient>
