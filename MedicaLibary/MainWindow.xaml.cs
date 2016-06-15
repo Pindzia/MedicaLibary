@@ -34,6 +34,11 @@ namespace MedicaLibary
             RemoteFrame.Source = new Uri("addPatientPage.xaml", UriKind.Relative);
         }
 
+        private void startMe(object sender, RoutedEventArgs e) //placeholder
+        {
+            RemoteFrame.Source = new Uri("LastChanges.xaml", UriKind.Relative);
+        }
+
         private void getListPatient(object sender, RoutedEventArgs e)
         {
             RemoteFrame.Source = new Uri("GetListPage.xaml", UriKind.Relative);

@@ -39,9 +39,28 @@ namespace MedicaLibary
             for(int i = DataGrid.SelectedItems.Count - 1; i >= 0; i--)
             {
                 var a = (XElement)DataGrid.SelectedItems[0];
+
+               XElement data = new XElement(a);
+               data.Name = "data";
+
+                XElement modification = new XElement("modification",
+                new XElement("operation", "D"),
+                new XElement("node_type", "patient"),
+                new XElement("id", a.Element("id").Value),
+                new XElement(data)
+                );
+                database.Descendants("modifications").First().Add(modification);
+                while (database.Element("meta").Element("modifications").Elements("modifications").Count() > 5)
+                    database.Element("meta").Element("modifications").Elements("modifications").First().Remove();
+
                 a.Remove();
+
             }
             database.Save(Environment.CurrentDirectory + "\\lib.xml");
+
+
+
+
         }
 
         private void EditPatient(object sender, RoutedEventArgs e)
@@ -62,12 +81,32 @@ namespace MedicaLibary
         {
             parameters.Visibility = Visibility.Hidden;
 
+
+            XElement data = new XElement(SelItem);
+            data.Name = "data";
+
+            XElement modification = new XElement("modification",
+            new XElement("operation", "E"),
+            new XElement("node_type", "patient"),
+            new XElement("id", SelItem.Element("id").Value),
+            new XElement(data)
+            );
+            database.Descendants("modifications").First().Add(modification);
+            while (database.Element("meta").Element("modifications").Elements("modifications").Count() > 5)
+                database.Element("meta").Element("modifications").Elements("modifications").First().Remove();
+
             SelItem.Element("id").Value = ID.Text;
             SelItem.Element("imie").Value = Imię.Text;
             SelItem.Element("nazwisko").Value = Nazwisko.Text;
             SelItem.Element("pesel").Value = Pesel.Text;
             database.Save(Environment.CurrentDirectory + "\\lib.xml");
             MessageBox.Show("Pomyślnie Edytowano Pacjenta");
+
+
+            XElement patient_change = new XElement("id", SelItem.Element("id").Value);
+            database.Descendants("patient_changes").First().Add(patient_change);
+            while (database.Element("meta").Element("patient_changes").Elements("id").Count() > 5)
+                database.Element("meta").Element("patient_changes").Elements("id").First().Remove();
         }
     } 
 }

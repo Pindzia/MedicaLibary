@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <lib>
   <meta>
-    <max>10</max>
+    <max>11</max>
     <max_idv>4</max_idv>
     <patient_changes>
-      <id>1</id>
-      <id>2</id>
-      <id>3</id>
-      <id>4</id>
+      <id>7</id>
+      <id>10</id>
       <id>5</id>
+      <id>6</id>
+      <id>7</id>
     </patient_changes>
     <visit_changes>
       <idv>1</idv>
       <idv>2</idv>
       <idv>3</idv>
     </visit_changes>
-    <modifications></modifications>
+    <modifications />
   </meta>
   <patient>
     <id>1</id>
@@ -24,8 +24,8 @@
     <pesel>48042817604</pesel>
     <visit>
       <idv>1</idv>
-      <visit_addition_date>2016-05-31 01:25:46</visit_addition_date>
-      <comment>abc</comment>
+      <visit_addition_date>2016-06-06 07:15:02</visit_addition_date>
+      <comment>asdf</comment>
     </visit>
     <visit>
       <idv>2</idv>
@@ -73,11 +73,5 @@
     <imie>Anna</imie>
     <nazwisko>Nowak</nazwisko>
     <pesel>56112018901</pesel>
-  </patient>
-  <patient>
-    <id>9</id>
-    <imie>Joanna</imie>
-    <nazwisko>Mann</nazwisko>
-    <pesel>69102112921</pesel>
   </patient>
 </lib>

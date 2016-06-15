@@ -17,9 +17,9 @@
             <Label Grid.Row="0" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontSize="20" Foreground="Black">
                 Lista Wizyt Podanego Pacjenta:
             </Label>
-            <DataGrid Grid.Row="1" Margin="10,10,10,10" x:Name="DataGrid" IsReadOnly="True" ItemsSource="{Binding Path=Elements[patient]}">
+            <DataGrid Grid.Row="1" Margin="10,10,10,10" x:Name="DataGrid" IsReadOnly="True" ItemsSource="{Binding Path=Descendants[visit]}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID Pacjenta" Binding="{Binding Path=.Parent.Element[id].Value}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ID Pacjenta" Binding="{Binding Path=Parent.Element[id].Value}"></DataGridTextColumn>
                     <DataGridTextColumn Header="ID Wizyty" Binding="{Binding Path=Element[idv].Value}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Data Dodania Wizyty" Binding="{Binding Path=Element[visit_addition_date].Value}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Komentarz" Binding="{Binding Path=Element[comment].Value}"></DataGridTextColumn>

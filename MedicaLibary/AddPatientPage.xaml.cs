@@ -26,6 +26,11 @@ namespace MedicaLibary
             InitializeComponent();
         }
 
+        public void RevertChange()
+        {
+
+        }
+
         private void saveToXML(object sender, RoutedEventArgs e)
         {
             //var Id = ID.Text;
@@ -66,11 +71,21 @@ namespace MedicaLibary
                 new XElement("nazwisko", nazwisko),
                 new XElement("pesel", pesel)));
 
+
                 XElement patient_change = new XElement("id", nowy.Element("id").Value);
                 database.Descendants("patient_changes").First().Add(patient_change);
-                if (database.Element("meta").Element("patient_changes").Elements("id").Count() > 5)
+                while (database.Element("meta").Element("patient_changes").Elements("id").Count() > 5)
                     database.Element("meta").Element("patient_changes").Elements("id").First().Remove();
 
+
+                XElement modification = new XElement("modification",
+                    new XElement("operation", "A"),
+                    new XElement("node_type", "patient"),
+                    new XElement("id", nowy.Element("id").Value)
+                    );
+                database.Descendants("modifications").First().Add(modification);
+                while (database.Element("meta").Element("modifications").Elements("modifications").Count() > 5)
+                    database.Element("meta").Element("modifications").Elements("modifications").First().Remove();
 
 
                 database.Add(nowy);
@@ -81,10 +96,6 @@ namespace MedicaLibary
             {
                 MessageBox.Show("Wszystkie pola są wymagane");
             }
-
-
-
-
         }
     }
 }
