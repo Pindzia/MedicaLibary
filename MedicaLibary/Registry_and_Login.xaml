@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedicaLibary"
         mc:Ignorable="d"
-        Title="Registry_and_Login" Height="300" Width="400">
+        Title="Registry_and_Login" Height="400" Width="500">
     <Frame Name="RegistryFrame" x:FieldModifier="public" Source="{Binding}" NavigationUIVisibility="Hidden">
     </Frame>
 </Window>

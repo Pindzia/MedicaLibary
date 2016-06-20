@@ -26,6 +26,7 @@ namespace MedicaLibary
         public Login()
         {
             InitializeComponent();
+            Password.Focus();
         }
 
         private void LogIn(object sender, RoutedEventArgs e)
@@ -51,7 +52,16 @@ namespace MedicaLibary
             byte[] byteCompare = new byte[length];
             file.Read(byteCompare, 0, length);
             file.Close();
-            compare = CryptoClass.Instance.Decrypt(byteCompare);
+            try
+            {
+                CryptoClass.Instance.set_KeyIV(current);
+                compare = CryptoClass.Instance.Decrypt(byteCompare);
+            }
+            catch (CryptographicException)
+            {
+                compare = "";
+            }
+            
 
 
             if (current == compare)

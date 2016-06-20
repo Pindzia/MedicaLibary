@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Pindzia\Desktop\MedicaLibary-master\MedicaLibary\obj\Debug\
+C:\Users\Pindzia\Desktop\MedicaLibary-Pindzioland\MedicaLibary\obj\Debug\
 MedicaLibary
 none
 false
 DEBUG;TRACE
-C:\Users\Pindzia\Desktop\MedicaLibary-master\MedicaLibary\App.xaml
+C:\Users\Pindzia\Desktop\MedicaLibary-Pindzioland\MedicaLibary\App.xaml
 12-176949917
 
 23-1403206247
 14-496939820
 AddVisitPage.xaml;EditPatientPage.xaml;AddPatientPage.xaml;GetPatientVisits.xaml;GetListPage.xaml;LastChanges.xaml;Login.xaml;MainWindow.xaml;Registry.xaml;Registry_and_Login.xaml;SearchEngine.xaml;SeekAndDelete.xaml;
 
-True
+False
 

@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("lib.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("notok.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ok.jpg")]
 
 

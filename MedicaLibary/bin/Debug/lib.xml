@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <lib>
   <meta>
-    <max>12</max>
+    <max>13</max>
     <max_idv>4</max_idv>
     <patient_changes>
-      <id>5</id>
       <id>7</id>
       <id>7</id>
       <id>10</id>
       <id>11</id>
+      <id>12</id>
     </patient_changes>
     <visit_changes>
       <idv>1</idv>
@@ -85,11 +85,5 @@
     <imie>a</imie>
     <nazwisko>a</nazwisko>
     <pesel>a</pesel>
-  </patient>
-  <patient>
-    <id>11</id>
-    <imie>;rbhgoljbroew</imie>
-    <nazwisko>oohrbfgohwberfob</nazwisko>
-    <pesel>khrwbfhbrwkf</pesel>
   </patient>
 </lib>
