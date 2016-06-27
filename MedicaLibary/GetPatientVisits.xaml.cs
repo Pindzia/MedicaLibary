@@ -23,6 +23,7 @@ namespace MedicaLibary
     public partial class GetPatientVisits : Page
     {
         XElement database = XElementon.Instance.getDatabase();
+        //XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
 
         public GetPatientVisits(/*string a*/)
         {
@@ -32,7 +33,16 @@ namespace MedicaLibary
             DataGrid.DataContext = database;
             DataGrid.AutoGenerateColumns = false;
 
+            //database.Elements().ToList();
 
+            //var result = from c in database.Descendants("visit")
+            //             select c;
+
+
+            ////Dane do Wyników
+            //DataGrid.ItemsSource = result;
+            ////DataGrid.DataContext = database;
+            //DataGrid.AutoGenerateColumns = false;
         }
 
         private void DeleteVisit(object sender, RoutedEventArgs e)
@@ -42,9 +52,10 @@ namespace MedicaLibary
                 var a = (XElement)DataGrid.SelectedItems[i]; //Tutaj musi być [i], a w GetListPage musi być [0]? !!! Tutaj nie odświerza nam się datagrid na bieżąco pomimo +/- identycznego kodu? !!!
                 a.Remove();
             }
+            //DataGrid.Items.Refresh(); //dziwno - i nie działa. Lepsze bindingi?
 
             //database.Save(Environment.CurrentDirectory + "\\lib.xml");
-
+            list.Visibility = Visibility.Hidden; //nie wiem jak dobrze refreshować liste więc ją ukrywam xd
         }
 
         private void EditVisit(object sender, RoutedEventArgs e)

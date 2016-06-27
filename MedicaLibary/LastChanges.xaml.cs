@@ -72,13 +72,12 @@ public class AEDConverter : IValueConverter
 
 namespace MedicaLibary
 {
-
     public partial class LastChanges : Page
     {
         //XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
         //IEnumerable<XElement> result;
         XElement database = XElementon.Instance.getDatabase();
-
+        
         public LastChanges()
         {
             InitializeComponent();

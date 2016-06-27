@@ -22,6 +22,7 @@ namespace MedicaLibary
     public partial class AddVisit : Page
     {
         XElement database = XElementon.Instance.getDatabase();
+        //XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
         IEnumerable<XElement> result;
         string time;
 

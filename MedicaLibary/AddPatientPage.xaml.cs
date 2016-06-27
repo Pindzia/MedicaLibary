@@ -40,6 +40,7 @@ namespace MedicaLibary
             var pesel = Pesel.Text;
 
             XElement database = XElementon.Instance.getDatabase();
+                //XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
 
             //open - 'dziury' po wycięciu czegoś innego, 'wolne miejsca', max - maxid+1
             var open = database.Descendants("open").FirstOrDefault(); //OrDefault żeby nie rzucał wyjątkami lecz przypisywał nulla w przypadku braku
@@ -96,6 +97,10 @@ namespace MedicaLibary
             {
                 MessageBox.Show("Wszystkie pola są wymagane");
             }
+
+
+
+
         }
     }
 }

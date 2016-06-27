@@ -21,6 +21,7 @@ namespace MedicaLibary
     /// </summary>
     public partial class EditPatient : Page
     {
+        //XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
         XElement database = XElementon.Instance.getDatabase();
         IEnumerable<XElement> result;
 
@@ -60,6 +61,7 @@ namespace MedicaLibary
             var nazwisko = Nazwisko.Text;
             var pesel = Pesel.Text;
 
+            //XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
 
             if (Id != "" && imie != "" && nazwisko != "" && pesel != "")
             {

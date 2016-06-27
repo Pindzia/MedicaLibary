@@ -23,10 +23,24 @@ namespace MedicaLibary
     {
         public MainWindow()
         {
-            InitializeComponent();
-            Application.Current.MainWindow.WindowState = WindowState.Maximized;
-            XElementon.Instance.Load();
-            RemoteFrame.Source = new Uri("LastChanges.xaml", UriKind.Relative);
+            if (XElementon.Instance.getAccess() == false)
+            {
+                Registry_and_Login window = new Registry_and_Login();
+                window.ShowDialog();
+            }
+            if(XElementon.Instance.getAccess() == true)
+            {
+                InitializeComponent();
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+                XElementon.Instance.Load();
+                RemoteFrame.Source = new Uri("LastChanges.xaml", UriKind.Relative);
+            }
+            else
+            {
+                Close();
+            }
+            
+            
         }
 
         private void addPatient(object sender, RoutedEventArgs e)

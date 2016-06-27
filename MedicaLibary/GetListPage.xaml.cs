@@ -22,6 +22,7 @@ namespace MedicaLibary
     /// </summary>
     public partial class GetListPage : Page
     {
+        //XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
         XElement database = XElementon.Instance.getDatabase();
         XElement SelItem;
 
@@ -57,7 +58,6 @@ namespace MedicaLibary
 
             }
             //database.Save(Environment.CurrentDirectory + "\\lib.xml");
-
 
 
 
@@ -108,6 +108,7 @@ namespace MedicaLibary
             database.Descendants("patient_changes").First().Add(patient_change);
             while (database.Element("meta").Element("patient_changes").Elements("id").Count() > 5)
                 database.Element("meta").Element("patient_changes").Elements("id").First().Remove();
+            MessageBox.Show("Pomyślnie Edytowano Pacjenta");
         }
     } 
 }
