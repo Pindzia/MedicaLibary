@@ -1,8 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <lib>
   <meta>
-    <max>10</max>
-    <max_idv>3</max_idv>
+    <max>17</max>
+    <max_idv>4</max_idv>
+    <patient_changes>
+      <id>10</id>
+      <id>11</id>
+      <id>12</id>
+      <id>13</id>
+      <id>16</id>
+    </patient_changes>
+    <visit_changes>
+      <idv>1</idv>
+      <idv>2</idv>
+      <idv>3</idv>
+    </visit_changes>
+    <modifications>
+      <modification>
+        <operation>A</operation>
+        <node_type>patient</node_type>
+        <id>10</id>
+      </modification>
+    </modifications>
   </meta>
   <patient>
     <id>1</id>
@@ -31,6 +50,11 @@
     <imie>Anna</imie>
     <nazwisko>Beksa</nazwisko>
     <pesel>61031313642</pesel>
+    <visit>
+      <idv>3</idv>
+      <visit_addition_date>2016-06-14 08:51:12</visit_addition_date>
+      <comment>test idv</comment>
+    </visit>
   </patient>
   <patient>
     <id>4</id>
@@ -57,9 +81,21 @@
     <pesel>56112018901</pesel>
   </patient>
   <patient>
-    <id>9</id>
-    <imie>Joanna</imie>
-    <nazwisko>Mann</nazwisko>
-    <pesel>69102112921</pesel>
+    <id>10</id>
+    <imie>a</imie>
+    <nazwisko>a</nazwisko>
+    <pesel>a</pesel>
+  </patient>
+  <patient>
+    <id>13</id>
+    <imie>pedał</imie>
+    <nazwisko>jakiś</nazwisko>
+    <pesel>biegazpeslem999</pesel>
+  </patient>
+  <patient>
+    <id>16</id>
+    <imie>jhgbfdvkhbwjkh</imie>
+    <nazwisko>kjhbdsfkvjbeskwjhb</nazwisko>
+    <pesel>qkjbfdsvkjhbswkhj</pesel>
   </patient>
 </lib>

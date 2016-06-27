@@ -30,8 +30,8 @@ namespace MedicaLibary
         private CryptoClass()
         {
             aesM = new AesManaged();
-            loadKey();
-            loadIV();
+            /*loadKey();
+            loadIV();*/
         }
 
         public byte[] getKey()
@@ -47,6 +47,12 @@ namespace MedicaLibary
         public AesManaged getCrypt()
         {
             return aesM;
+        }
+
+        public void set_KeyIV(string a)
+        {
+            aesM.Key = GetBytes(a,32);
+            aesM.IV = GetBytes(a,16);
         }
 
         public byte[] Encrypt(string text)
@@ -150,6 +156,18 @@ namespace MedicaLibary
                 file.Write(aesM.IV, 0, aesM.IV.Length);
                 file.Close();
             }
+        }
+
+        private byte[] GetBytes(string str, int a)
+        {
+            byte [] corrBytes = new byte [a];
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            for (int i = 0; i < a; i++)
+            {
+                corrBytes[i] = bytes[i];
+            }
+            return corrBytes;
         }
 
         private AesManaged aesM;
