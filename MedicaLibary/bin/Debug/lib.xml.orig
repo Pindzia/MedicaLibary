@@ -1,14 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <lib>
   <meta>
-    <max>17</max>
+    <max>12</max>
     <max_idv>4</max_idv>
     <patient_changes>
+<<<<<<< HEAD
+      <id>11</id>
+      <id>5</id>
+      <id>5</id>
+      <id>5</id>
+=======
+      <id>3</id>
+      <id>4</id>
+>>>>>>> refs/remotes/origin/StartingScreen
+      <id>5</id>
       <id>10</id>
       <id>11</id>
-      <id>12</id>
-      <id>13</id>
-      <id>16</id>
     </patient_changes>
     <visit_changes>
       <idv>1</idv>
@@ -17,9 +24,63 @@
     </visit_changes>
     <modifications>
       <modification>
+<<<<<<< HEAD
+        <operation>E</operation>
+        <node_type>patient</node_type>
+        <id>5</id>
+        <data>
+          <id>5</id>
+          <imie>Rafał</imie>
+          <nazwisko>Pindzia</nazwisko>
+          <pesel>19092506369</pesel>
+        </data>
+=======
         <operation>A</operation>
         <node_type>patient</node_type>
-        <id>10</id>
+        <id>2</id>
+>>>>>>> refs/remotes/origin/StartingScreen
+      </modification>
+      <modification>
+        <operation>E</operation>
+        <node_type>patient</node_type>
+<<<<<<< HEAD
+        <id>5</id>
+        <data>
+          <id>5</id>
+          <imie>Rafał</imie>
+          <nazwisko>Pingot</nazwisko>
+          <pesel>19092506369</pesel>
+        </data>
+      </modification>
+      <modification>
+        <operation>E</operation>
+        <node_type>patient</node_type>
+        <id>5</id>
+        <data>
+          <id>5</id>
+          <imie>Rafał</imie>
+          <nazwisko>Pingotto</nazwisko>
+          <pesel>19092506369</pesel>
+=======
+        <id>4</id>
+        <data>
+          <id>4</id>
+          <imie>Marcin</imie>
+          <nazwisko>Krótki</nazwisko>
+          <pesel>41042610758</pesel>
+        </data>
+      </modification>
+      <modification>
+        <operation>D</operation>
+        <node_type>patient</node_type>
+        <id>9</id>
+        <data>
+          <id>9</id>
+          <imie>Joanna</imie>
+          <nazwisko>Mann</nazwisko>
+          <pesel>69102112921</pesel>
+>>>>>>> refs/remotes/origin/StartingScreen
+        </data>
       </modification>
     </modifications>
   </meta>
@@ -30,8 +91,8 @@
     <pesel>48042817604</pesel>
     <visit>
       <idv>1</idv>
-      <visit_addition_date>2016-05-31 01:25:46</visit_addition_date>
-      <comment>abc</comment>
+      <visit_addition_date>2016-06-06 07:15:02</visit_addition_date>
+      <comment>asdf</comment>
     </visit>
     <visit>
       <idv>2</idv>
@@ -63,12 +124,6 @@
     <pesel>41042610758</pesel>
   </patient>
   <patient>
-    <id>5</id>
-    <imie>Rafał</imie>
-    <nazwisko>Pindzia</nazwisko>
-    <pesel>19092506369</pesel>
-  </patient>
-  <patient>
     <id>6</id>
     <imie>Jan</imie>
     <nazwisko>Krótki</nazwisko>
@@ -81,21 +136,22 @@
     <pesel>56112018901</pesel>
   </patient>
   <patient>
+<<<<<<< HEAD
+    <id>5</id>
+    <imie>Rafał</imie>
+    <nazwisko>Pingotto Fafritto</nazwisko>
+    <pesel>19092506369</pesel>
+=======
     <id>10</id>
+    <imie>Pacjent</imie>
+    <nazwisko>test</nazwisko>
+    <pesel>1234567890</pesel>
+  </patient>
+  <patient>
+    <id>11</id>
     <imie>a</imie>
-    <nazwisko>a</nazwisko>
-    <pesel>a</pesel>
-  </patient>
-  <patient>
-    <id>13</id>
-    <imie>pedał</imie>
-    <nazwisko>jakiś</nazwisko>
-    <pesel>biegazpeslem999</pesel>
-  </patient>
-  <patient>
-    <id>16</id>
-    <imie>jhgbfdvkhbwjkh</imie>
-    <nazwisko>kjhbdsfkvjbeskwjhb</nazwisko>
-    <pesel>qkjbfdsvkjhbswkhj</pesel>
+    <nazwisko>b</nazwisko>
+    <pesel>c</pesel>
+>>>>>>> refs/remotes/origin/StartingScreen
   </patient>
 </lib>
