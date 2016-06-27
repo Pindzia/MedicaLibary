@@ -21,7 +21,7 @@ namespace MedicaLibary
     /// </summary>
     public partial class AddVisit : Page
     {
-        XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
+        XElement database = XElementon.Instance.getDatabase();
         IEnumerable<XElement> result;
         string time;
 
@@ -68,7 +68,7 @@ namespace MedicaLibary
             var max= database.Descendants("max_idv").First();
             var idv = max.Value;
             max.Value = (Convert.ToInt16(max.Value) + 1).ToString();
-            database.Save(Environment.CurrentDirectory + "\\lib.xml");
+            //database.Save(Environment.CurrentDirectory + "\\lib.xml");
 
             if (Imię.Text!="") //Imie autouzupełnia gdy pacjent o podanym ID istnieje, i zamienia na puste gdy nie istnieje
             {
@@ -80,7 +80,7 @@ namespace MedicaLibary
                 ));
 
                 result.FirstOrDefault().Add(nowy);
-                database.Save(Environment.CurrentDirectory + "\\lib.xml");
+                //database.Save(Environment.CurrentDirectory + "\\lib.xml");
                 MessageBox.Show("Pomyślnie dodano");
                 addgrid.Visibility = Visibility.Hidden;
             }

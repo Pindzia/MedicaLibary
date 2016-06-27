@@ -26,6 +26,11 @@ namespace MedicaLibary
             InitializeComponent();
         }
 
+        public void RevertChange()
+        {
+
+        }
+
         private void saveToXML(object sender, RoutedEventArgs e)
         {
             //var Id = ID.Text;
@@ -34,7 +39,7 @@ namespace MedicaLibary
             var nazwisko = Nazwisko.Text;
             var pesel = Pesel.Text;
 
-            XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
+            XElement database = XElementon.Instance.getDatabase();
 
             //open - 'dziury' po wycięciu czegoś innego, 'wolne miejsca', max - maxid+1
             var open = database.Descendants("open").FirstOrDefault(); //OrDefault żeby nie rzucał wyjątkami lecz przypisywał nulla w przypadku braku
@@ -45,14 +50,14 @@ namespace MedicaLibary
                 int nid = Convert.ToInt16(open.Value);
                 Id = nid.ToString();
                 open.Remove();
-                database.Save(Environment.CurrentDirectory + "\\lib.xml");
+                //database.Save(Environment.CurrentDirectory + "\\lib.xml");
             }
             else
             {
                 var max = database.Descendants("max").First();
                 Id = max.Value;
                 max.Value = (Convert.ToInt16(Id) + 1).ToString();
-                database.Save(Environment.CurrentDirectory + "\\lib.xml");
+                //database.Save(Environment.CurrentDirectory + "\\lib.xml");
             }
 
 
@@ -66,25 +71,31 @@ namespace MedicaLibary
                 new XElement("nazwisko", nazwisko),
                 new XElement("pesel", pesel)));
 
+
                 XElement patient_change = new XElement("id", nowy.Element("id").Value);
                 database.Descendants("patient_changes").First().Add(patient_change);
-                if (database.Element("meta").Element("patient_changes").Elements("id").Count() > 5)
+                while (database.Element("meta").Element("patient_changes").Elements("id").Count() > 5)
                     database.Element("meta").Element("patient_changes").Elements("id").First().Remove();
 
 
+                XElement modification = new XElement("modification",
+                    new XElement("operation", "A"),
+                    new XElement("node_type", "patient"),
+                    new XElement("id", nowy.Element("id").Value)
+                    );
+                database.Descendants("modifications").First().Add(modification);
+                while (database.Element("meta").Element("modifications").Elements("modifications").Count() > 5)
+                    database.Element("meta").Element("modifications").Elements("modifications").First().Remove();
+
 
                 database.Add(nowy);
-                database.Save(Environment.CurrentDirectory + "\\lib.xml");
+                //database.Save(Environment.CurrentDirectory + "\\lib.xml");
                 MessageBox.Show("Pomyślnie dodano");
             }
             else
             {
                 MessageBox.Show("Wszystkie pola są wymagane");
             }
-
-
-
-
         }
     }
 }

@@ -37,7 +37,7 @@ namespace MedicaLibary
             var nazwisko = Nazwisko.Text;
             var pesel = Pesel.Text;
 
-            XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
+            XElement database = XElementon.Instance.getDatabase();
 
             //database.Elements().ToList();
 
