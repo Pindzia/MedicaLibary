@@ -31,7 +31,7 @@ namespace MedicaLibary
 
         private void Register(object sender, RoutedEventArgs e)
         {
-            if (Password.Password.Length <= 6)
+            if (!pwdCorr)
             {
                 MessageBox.Show("Nie spełnia podanych wymagań");
             }

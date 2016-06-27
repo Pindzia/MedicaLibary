@@ -27,7 +27,7 @@
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,20">
                 <Label Grid.Row="1" Width="100"  >Ustal hasło:</Label>
-                <PasswordBox Grid.Row="1" Name="Password"  PasswordChanged="Password_PasswordChanged" Width="125" Height="25"/>
+                <PasswordBox Grid.Row="1" Name="Password" PasswordChanged="Password_PasswordChanged" Width="125" Height="25"/>
             </StackPanel>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,20">
@@ -40,20 +40,24 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,20">
-                        <Label Grid.Row="0">Hasło musi mieć od 7 do 16 znaków:</Label>
-                        <Image Name="first" Source="notok.jpg"></Image>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,20">
+                        <Label Grid.Row="0" FontSize="15" FontWeight="Black">Wymagania hasła:</Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,20">
+                        <Label Grid.Row="1">Hasło musi mieć od 7 do 16 znaków:</Label>
+                        <Image Name="first" Source="notok.jpg" HorizontalAlignment="Right"></Image>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,20">
-                        <Label Grid.Row="1">Hasło musi posiadać dużą conajmniej jedną dużą i małą literę:</Label>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,20">
+                        <Label Grid.Row="2">Hasło musi posiadać dużą conajmniej jedną dużą i małą literę:</Label>
                         <Image Name="second" Source="notok.jpg"></Image>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,20">
-                        <Label Grid.Row="2">Hasło Musi mieć conajmniej jedną cyfrę:</Label>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,20">
+                        <Label Grid.Row="3">Hasło Musi mieć conajmniej jedną cyfrę:</Label>
                         <Image Name="third" Source="notok.jpg"></Image>
                     </StackPanel>
                     
