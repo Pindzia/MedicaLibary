@@ -22,7 +22,7 @@ namespace MedicaLibary
     /// </summary>
     public partial class GetListPage : Page
     {
-        XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
+        XElement database = XElementon.Instance.getDatabase();
         XElement SelItem;
 
         public GetListPage()
@@ -56,7 +56,7 @@ namespace MedicaLibary
                 a.Remove();
 
             }
-            database.Save(Environment.CurrentDirectory + "\\lib.xml");
+            //database.Save(Environment.CurrentDirectory + "\\lib.xml");
 
 
 
@@ -83,7 +83,7 @@ namespace MedicaLibary
 
 
             XElement data = new XElement(SelItem);
-            data.Descendants("visit").Remove(); //do historii zmian pacjenta nie wrzucam historii jego wizyt
+            data.Descendants("visit").Remove(); //usuwam węzły <visit> od dodawanego pacjenta, wizyty podczas edycji są zapamiętywane osobno
             data.Name = "data";
 
             XElement modification = new XElement("modification",
@@ -100,7 +100,7 @@ namespace MedicaLibary
             SelItem.Element("imie").Value = Imię.Text;
             SelItem.Element("nazwisko").Value = Nazwisko.Text;
             SelItem.Element("pesel").Value = Pesel.Text;
-            database.Save(Environment.CurrentDirectory + "\\lib.xml");
+            //database.Save(Environment.CurrentDirectory + "\\lib.xml");
             MessageBox.Show("Pomyślnie Edytowano Pacjenta");
 
 

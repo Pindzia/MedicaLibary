@@ -22,7 +22,7 @@ namespace MedicaLibary
     /// </summary>
     public partial class GetPatientVisits : Page
     {
-        XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
+        XElement database = XElementon.Instance.getDatabase();
 
         public GetPatientVisits(/*string a*/)
         {
@@ -43,7 +43,7 @@ namespace MedicaLibary
                 a.Remove();
             }
 
-            database.Save(Environment.CurrentDirectory + "\\lib.xml");
+            //database.Save(Environment.CurrentDirectory + "\\lib.xml");
 
         }
 
@@ -66,7 +66,7 @@ namespace MedicaLibary
             edit.Visibility = Visibility.Hidden;
 
             ((XElement)DataGrid.SelectedItem).Element("comment").Value = Komentarz.Text;
-            database.Save(Environment.CurrentDirectory + "\\lib.xml");
+            //database.Save(Environment.CurrentDirectory + "\\lib.xml");
             MessageBox.Show("Pomyślnie Edytowano Wizytę");
         }
 

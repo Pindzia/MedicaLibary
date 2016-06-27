@@ -39,7 +39,7 @@ namespace MedicaLibary
             var nazwisko = Nazwisko.Text;
             var pesel = Pesel.Text;
 
-            XElement database = XElement.Load(Environment.CurrentDirectory + "\\lib.xml");
+            XElement database = XElementon.Instance.getDatabase();
 
             //open - 'dziury' po wycięciu czegoś innego, 'wolne miejsca', max - maxid+1
             var open = database.Descendants("open").FirstOrDefault(); //OrDefault żeby nie rzucał wyjątkami lecz przypisywał nulla w przypadku braku
@@ -50,14 +50,14 @@ namespace MedicaLibary
                 int nid = Convert.ToInt16(open.Value);
                 Id = nid.ToString();
                 open.Remove();
-                database.Save(Environment.CurrentDirectory + "\\lib.xml");
+                //database.Save(Environment.CurrentDirectory + "\\lib.xml");
             }
             else
             {
                 var max = database.Descendants("max").First();
                 Id = max.Value;
                 max.Value = (Convert.ToInt16(Id) + 1).ToString();
-                database.Save(Environment.CurrentDirectory + "\\lib.xml");
+                //database.Save(Environment.CurrentDirectory + "\\lib.xml");
             }
 
 
@@ -89,7 +89,7 @@ namespace MedicaLibary
 
 
                 database.Add(nowy);
-                database.Save(Environment.CurrentDirectory + "\\lib.xml");
+                //database.Save(Environment.CurrentDirectory + "\\lib.xml");
                 MessageBox.Show("Pomyślnie dodano");
             }
             else

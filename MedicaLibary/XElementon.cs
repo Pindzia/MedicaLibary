@@ -51,6 +51,8 @@ namespace MedicaLibary
         {
             CryptoClass crypt = CryptoClass.Instance;
             SaveEncrypted(crypt.Encrypt(this.getDatabase().ToString()));
+            database.Save(Environment.CurrentDirectory + "\\lib.xml");
+            //this.changeRaw();
         }
 
         public void setDatabase(byte[] xml)
@@ -63,6 +65,14 @@ namespace MedicaLibary
         {
             XDocument document = XDocument.Parse(xml);
             database = document.Root;
+        }
+
+        public void changeRaw()
+        {
+            string lol = database.Elements().ToString();
+            StreamWriter writter = new StreamWriter("lib.xml");
+            writter.Write(lol);
+            writter.Close();
         }
 
         public XElement getDatabase()
@@ -105,7 +115,7 @@ namespace MedicaLibary
 
         private XElementon() { }
 
-        private XElement database = null;
+        private XElement database = null;   
 
     }
 }
