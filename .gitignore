@@ -2,3 +2,4 @@
 MedicaLibrary/bin/*
 !MedicaLibrary/bin/Debug/lib.xml
 MedicaLibrary/obj/*
+.vs/*
