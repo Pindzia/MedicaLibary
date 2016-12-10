@@ -31,3 +31,6 @@ C:\Users\Pindzia\documents\visual studio 2015\Projects\MedicalLibrary\MedicalLib
 C:\Users\Pindzia\documents\visual studio 2015\Projects\MedicalLibrary\MedicalLibrary\obj\Debug\View\Pages\CalendarPage.baml
 C:\Users\Pindzia\documents\visual studio 2015\Projects\MedicalLibrary\MedicalLibrary\obj\Debug\View\Pages\MagazinePage.baml
 C:\Users\Pindzia\documents\visual studio 2015\Projects\MedicalLibrary\MedicalLibrary\obj\Debug\View\Pages\VisitPage.baml
+C:\Users\Pindzia\Documents\GitHub\MedicaLibary\MedicalLibrary\bin\Debug\MedicalLibrary.exe.config
+C:\Users\Pindzia\Documents\GitHub\MedicaLibary\MedicalLibrary\obj\Debug\MedicalLibrary.exe
+C:\Users\Pindzia\Documents\GitHub\MedicaLibary\MedicalLibrary\obj\Debug\MedicalLibrary.pdb

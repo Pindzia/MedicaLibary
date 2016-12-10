@@ -1,4 +1,4 @@
-!MedicaLibary/bin/
-MedicaLibary/bin/*
-!MedicaLibary/bin/Debug/lib.xml
-MedicaLibary/obj/*
+!MedicaLibrary/bin/
+MedicaLibrary/bin/*
+!MedicaLibrary/bin/Debug/lib.xml
+MedicaLibrary/obj/*
