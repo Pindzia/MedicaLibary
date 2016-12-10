@@ -7,6 +7,7 @@ using MedicalLibrary.ViewModel.PatientPageViewModel;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Generic;
+using MedicalLibrary.Model.MappedModels;
 
 namespace MedicalLibrary.ViewModel.WindowsViewModel
 {
@@ -17,10 +18,16 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             AddPatient = new RelayCommand(pars => Add());
             EditPatient = new RelayCommand(pars => Edit());
+            
+            for(int i=0;i<=9;i++)
+            {
+                Patient first = new Patient(i, 1, true, "Name", "Surname", 10111213141, 1, 0);
+                DataToBind.Add(first);
+            }
         }
         public event PropertyChangedEventHandler PropertyChanged = null;
-        private XElement _DataToBind = XElement.Load("lib.xml");
-        public XElement DataToBind
+        private ObservableCollection<Patient> _DataToBind = new ObservableCollection<Patient>();
+        public ObservableCollection<Patient> DataToBind
         {
             get
             {
@@ -35,8 +42,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         }
         //todo chancge typesto select item to xelement and observablecollection jako databind
 
-        private ObservableCollection<XElement> _SelectedItem = new ObservableCollection<XElement>();
-        public ObservableCollection<XElement> SelectedItem
+        private Patient _SelectedItem = null;
+        public Patient SelectedItem
         {
             get
             {
@@ -83,7 +90,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             if (result == true)
             {
                 NewPatient = viewModel.Patient;
-                DataToBind.Add(NewPatient);
+                //DataToBind.Add(NewPatient);
             }
         }
 

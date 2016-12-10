@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MedicalLibrary.TestFolder
 {
@@ -12,11 +14,17 @@ namespace MedicalLibrary.TestFolder
     {
         public TestPageViewModel()
         {
-           
+            ObservableCollection<XElement> listToBind = new ObservableCollection<XElement>();
+            foreach(var p in XElement.Load("lib.xml").Elements())
+            {
+                listToBind.Add((XElement)p);
+            }
+            DataView = listToBind;
+
         }
         public event PropertyChangedEventHandler PropertyChanged = null;
-        private DataView _DataView = new DataView(DataTableTemplate.Table);
-        public DataView DataView
+        private ObservableCollection<XElement> _DataView = null;
+        public ObservableCollection<XElement> DataView
         {
             get
             {

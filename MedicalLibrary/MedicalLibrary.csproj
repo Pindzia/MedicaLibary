@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\MappedModels\Patient.cs" />
     <Compile Include="Model\XElementon.cs" />
     <Compile Include="TestFolder\DataTableTemplate.cs" />
     <Compile Include="TestFolder\TestPage.xaml.cs">
