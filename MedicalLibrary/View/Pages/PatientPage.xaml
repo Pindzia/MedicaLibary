@@ -1,0 +1,42 @@
+﻿<Page x:Class="MedicalLibrary.PatientPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MedicalLibrary"
+      mc:Ignorable="d"
+      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+      Title="PatientPage" Name="UI">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Margin="20,10,20,10" Grid.Row="0">
+                <DataGrid DataContext="{Binding DataToBind}"  ItemsSource="{Binding Path=Elements[patient]}" SelectedItem="{Binding Path=SelectedItem, Mode=OneWay ,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Path=Element[id].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse_id].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="{Binding labelBind}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type mui:ModernButton}">
+                        <Setter Property="Margin" Value="25,10,25,10"/>
+                    </Style>
+                </StackPanel.Resources>
+                <mui:ModernButton Command="{Binding AddPatient}" Height="25" Width="120">Dodaj Pacjenta</mui:ModernButton>
+                <mui:ModernButton Command="{Binding EditPatient}" Height="25" Width="120">Edytuj Pacjenta</mui:ModernButton>
+                <mui:ModernButton Command="{Binding DeletePatient}" Height="25" Width="120">Usuń Pacjenta</mui:ModernButton>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
