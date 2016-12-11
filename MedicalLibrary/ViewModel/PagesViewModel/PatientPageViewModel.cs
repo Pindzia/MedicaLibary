@@ -17,10 +17,13 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             AddPatient = new RelayCommand(pars => Add());
             EditPatient = new RelayCommand(pars => Edit());
+            //foreach (var xelement in MedicaLibrary.Model.XElementon.Instance.GetAllPatients())
+            //    DataToBind.Add(xelement);
+            DataToBind = MedicaLibrary.Model.ObserverCollectionConverter.Instance.Observe(MedicaLibrary.Model.XElementon.Instance.GetAllPatients());
         }
         public event PropertyChangedEventHandler PropertyChanged = null;
-        private XElement _DataToBind = XElement.Load("lib.xml");
-        public XElement DataToBind
+        private ObservableCollection<XElement> _DataToBind = new ObservableCollection<XElement>();
+        public ObservableCollection<XElement> DataToBind
         {
             get
             {
@@ -35,8 +38,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         }
         //todo chancge typesto select item to xelement and observablecollection jako databind
 
-        private ObservableCollection<XElement> _SelectedItem = new ObservableCollection<XElement>();
-        public ObservableCollection<XElement> SelectedItem
+        private XElement _SelectedItem = null;
+        public XElement SelectedItem
         {
             get
             {

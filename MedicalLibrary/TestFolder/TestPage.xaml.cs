@@ -24,6 +24,7 @@ namespace MedicalLibrary.TestFolder
         {
             InitializeComponent();
             this.DataContext = new TestPageViewModel();
+
         }
     }
 }

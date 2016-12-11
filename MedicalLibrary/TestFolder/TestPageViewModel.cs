@@ -1,22 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Globalization;//Ivalueconverter
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;//Ivalueconverter
+using System.Xml.Linq;
 
 namespace MedicalLibrary.TestFolder
 {
     class TestPageViewModel: INotifyPropertyChanged
     {
+
+
         public TestPageViewModel()
         {
-           
+            //DataView = MedicaLibrary.Model.ObserverCollectionConverter.Instance.Observe(MedicaLibrary.Model.XElementon.Instance.GetAllPatients());
+            var a  = (MedicaLibrary.Model.XElementon.Instance.GetAllPatients()).ToList();
+            DataView = (MedicaLibrary.Model.XElementon.Instance.GetAllPatients()).ToList(); //ObservableCollection<XElement>
         }
         public event PropertyChangedEventHandler PropertyChanged = null;
-        private DataView _DataView = new DataView(DataTableTemplate.Table);
-        public DataView DataView
+        private List<XElement> _DataView = new List<XElement>();
+        public List<XElement> DataView
         {
             get
             {
@@ -27,6 +35,21 @@ namespace MedicalLibrary.TestFolder
             {
                 _DataView = value;
                 OnPropertyChanged("DataView");
+            }
+        }
+
+            private XElement _SelectedItem = null;
+        public XElement SelectedItem
+        {
+            get
+            {
+                return _SelectedItem;
+            }
+
+            set
+            {
+                _SelectedItem = value;
+                OnPropertyChanged("SelectedItem");
             }
 
 

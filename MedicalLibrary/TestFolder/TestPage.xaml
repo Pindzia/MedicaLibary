@@ -8,8 +8,26 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="TestPage">
 
+    <Page.Resources>
+        <XmlDataProvider x:Key="XMLData" Source="/lib.xml" XPath="/lib/patient" />
+    </Page.Resources>
+
     <Grid>
-        <DataGrid ItemsSource="{Binding DataView, Mode=TwoWay}" AutoGenerateColumns="True" Height="150" Width="200"></DataGrid>
+        <DataGrid DataContext="{Binding DataView}" ItemsSource="{Binding}" SelectedItem="{Binding SelectedItem}" SelectionMode="Single" SelectionUnit="FullRow"  AutoGenerateColumns="False" Height="150" Width="200">
+            <DataGrid.Columns>
+            
+                
+            <DataGridTextColumn Header="imie" Binding="{Binding XPath=/imie}"/>
+            <DataGridTextColumn Header="nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
+
+                <!-- <DataGridTextColumn Header="imie1" Binding="{Binding Path=Element[patient].Element[imie].Value}"></DataGridTextColumn> -->
+                <!-- <DataGridTextColumn Header="imie2" Binding="{Binding Path=Element[patient].Element[imie].Value}"></DataGridTextColumn> -->
+                <!-- <DataGridTextColumn Header="imie4" Binding="{Binding Path=Descendants[imie].Value}"></DataGridTextColumn> -->
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <Label Content="{Binding SelectedItem}"></Label>
         
     </Grid>
 </Page>

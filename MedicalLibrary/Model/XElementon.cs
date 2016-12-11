@@ -90,7 +90,7 @@ namespace MedicaLibrary.Model
             var sorted_storehouse = from qmeta in database.Elements("meta")
                                     from storehouses in database.Elements("storehouses")
                                     from qstorehouse in storehouses.Elements("storehouse")
-                                    //where qstorehouse.Elements("rule").Any()
+                                        //where qstorehouse.Elements("rule").Any()
                                     orderby int.Parse(qstorehouse.Element("priority").Value) descending
                                     select qstorehouse;
 
@@ -102,7 +102,28 @@ namespace MedicaLibrary.Model
                 foreach (var qrule in qstorehouse.Elements("rule"))
                 {
                     fits = false;
-                    if (nowy_pacjent.Elements(qrule.Element("attribute").Value).Any()){
+
+                    if (qrule.Element("attribute").Value == "lastvisit" && nowy_pacjent.Elements("visit").Any()) //Check does it work
+                    {
+                        if (qrule.Element("operation").Value == "greater")
+                        {
+                            //nowy_pacjent.Element(qrule.Element("attribute").Value).Value
+                            var a = nowy_pacjent.Elements("visit").Max(x => x.Element("visit_addition_date"));
+                            var b = a.Element("visit_addition_date").Value;
+
+
+                            var datetime = Convert.ToDateTime(Convert.ToInt64(b));
+                            if ((DateTime.Now - datetime).TotalDays > Convert.ToInt64(qrule.Element("value")))
+                            {
+                                fits = true;
+                            }
+                        }
+                    }
+
+
+
+                    if (nowy_pacjent.Elements(qrule.Element("attribute").Value).Any())
+                    {
                         if (qrule.Element("operation").Value == "greater")
                         {
                             if (Convert.ToInt64(nowy_pacjent.Element(qrule.Element("attribute").Value).Value) > Convert.ToInt64(qrule.Element("value").Value)) //TODO - krzaczy się gdy lewa strona nie istnieje!
@@ -164,19 +185,20 @@ namespace MedicaLibrary.Model
             return error;
         }
 
-
-        //Wyświetl wszystkich pacjentów:
-        public IEnumerable<XElement> GetAllPatients() { //TODO - zwróć patienty bez wizyt (zawsze zwracaj elementy bez dzieciów?); //todo tak żeby autogenerate banglal
-            var patient = database.Elements("patient");
-
-            foreach (var xelement in patient)
-            {
-                var b = xelement.Value;
-            }
-
-            return patient;
+        private string AutonumerateModifications()
+        {
+            //Autonumeracja ID
+            var max_idm = database.Descendants("max_idm").First();
+            var idm = max_idm.Value;
+            return max_idm.Value = (Convert.ToInt16(max_idm.Value) + 1).ToString();
         }
 
+        //Wyświetl wszystkich pacjentów:
+        public IEnumerable<XElement> GetAllPatients()
+        { //TODO - zwróć patienty bez wizyt (zawsze zwracaj elementy bez dzieciów?); //todo tak żeby autogenerate banglal
+            var patients = database.Elements("patient");
+            return patients;
+        }
 
         //Wyświetl pacjenta spełniającego filtr: - w tym magazyn
         public IEnumerable<XElement> GetFilteredPatients(int idp)
@@ -186,19 +208,29 @@ namespace MedicaLibrary.Model
         }
 
         //Wyświetl wszystkie wizyty
-        public IEnumerable<XElement> GetAllVisits() { 
-        var visits = from qpatients in database.Elements("patient")
+        public IEnumerable<XElement> GetAllVisits()
+        {
+            var visits = from qpatients in database.Elements("patient")
                          from qvisits in qpatients.Elements("visit")
                          select qvisits;
             return visits;
         }
 
         //Wyświetl wszystkie wizyty danego pacjenta
-        public IEnumerable<XElement> GetFilteredVisits(int idv)
+        public IEnumerable<XElement> GetFilteredVisits(int idp)
         {
             var spvisit = from qpatients in database.Elements("patient")
-                          where (int)qpatients.Element("idp") == idv
+                          where (int)qpatients.Element("idp") == idp
                           from qvisits in qpatients.Elements("visit")
+                          select qvisits;
+            return spvisit;
+        }
+
+        public IEnumerable<XElement> GetSpecificVisit(int idv)
+        {
+            var spvisit = from qpatients in database.Elements("patient")
+                          from qvisits in qpatients.Elements("visit")
+                          where (int)qvisits.Element("idv") == idv
                           select qvisits;
             return spvisit;
         }
@@ -261,12 +293,13 @@ namespace MedicaLibrary.Model
         public IEnumerable<XElement> GetAllFields()
         {
             var field = from qmeta in database.Elements("meta")
-                       from qstorehouses in qmeta.Elements("customfields") //zmieniamy z bezpośrednio storehouse do storehouse -> storehouses
-                       from qstorehouse in qstorehouses.Elements("customfield")
-                       select qstorehouse;
+                        from qstorehouses in qmeta.Elements("customfields") //zmieniamy z bezpośrednio storehouse do storehouse -> storehouses
+                        from qstorehouse in qstorehouses.Elements("customfield")
+                        select qstorehouse;
             return field;
         }
 
+        //Wyświetl wszystkie customowe pola pacjenta o podanym id 
         public IEnumerable<XElement> GetFilteredFields(int idf)
         {
             var sprule = from qmeta in database.Elements("meta")
@@ -275,6 +308,27 @@ namespace MedicaLibrary.Model
                          where (string)qstorehouse.Element("idf") == idf.ToString()
                          select qstorehouse;
             return sprule;
+        }
+
+        //Wyświetl wszystkie modyfikacje
+        public IEnumerable<XElement> GetAllModifications()
+        {
+            var modification = from qmeta in database.Elements("meta")
+                               from qmodifications in qmeta.Elements("modifications")
+                               from qmodification in qmodifications.Elements("modification")
+                               select qmodification;
+            return modification;
+        }
+
+        //Wyświetl wszystkie modyfikacje o podanym id
+        public IEnumerable<XElement> GetFilteredModifications(int idm)
+        {
+            var modification = from qmeta in database.Elements("meta")
+                               from qmodifications in qmeta.Elements("modifications")
+                               from qmodification in qmodifications.Elements("modification")
+                               where (string)qmodification.Element("idm") == idm.ToString()
+                               select qmodification;
+            return modification;
         }
 
         //Wyświetl wszystkich pacjentów którzy są w niepoprawnym magazynie
@@ -351,7 +405,7 @@ namespace MedicaLibrary.Model
         }
 
         //Dodaj pacjenta
-        public void AddPatient(Tuple<string, string>[] data) //TODO argumenty
+        public void AddPatient(Tuple<string, string>[] data, bool log = true) //TODO argumenty
         {
             string imie = "", nazwisko = "", pesel = "";
             var customfields = XElementon.Instance.GetAllFields();
@@ -360,7 +414,7 @@ namespace MedicaLibrary.Model
             //Szczytywanie danych z źródła
             foreach (var dat in data)
             {
-                if(dat.Item1 == "imie")
+                if (dat.Item1 == "imie")
                     imie = dat.Item2;
                 else if (dat.Item1 == "nazwisko")
                     nazwisko = dat.Item2;
@@ -377,8 +431,8 @@ namespace MedicaLibrary.Model
                     }
                 }
             }
-            
-            if(imie == "" || nazwisko == "" || pesel == "")
+
+            if (imie == "" || nazwisko == "" || pesel == "")
             {
                 return;
             }
@@ -413,19 +467,26 @@ namespace MedicaLibrary.Model
             nowy_pacjent.Add(warenvelope[1]);
 
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
-            XElement pamodification = new XElement("modification",
-                new XElement("operation", "A"),
-                new XElement("node_type", "patient"),
-                new XElement("id", nowy_pacjent.Element("idp").Value)
-                );
-            database.Descendants("modifications").First().Add(pamodification);
+            if (log)
+            {
+                XElement pamodification = new XElement("modification",
+                    new XElement("idm", AutonumerateModifications()),
+                    new XElement("operation", "A"),
+                    new XElement("node_type", "patient"),
+                    new XElement("id", nowy_pacjent.Element("idp").Value),
+                    new XElement("olddata"),
+                    new XElement("newdata", nowy_pacjent.Elements())
+                    );
+                database.Descendants("modifications").First().Add(pamodification);
+            }
 
             database.Add(nowy_pacjent); //- samo doddawanie, nie dodaje do Operations() coby przy odpalaniu tego dla debuga nie mieszać w bazie danych
             return;
         }
 
         //Dodaj wizytę
-        public void AddVisit(int idp, Tuple<string, string>[] data) {
+        public void AddVisit(int idp, Tuple<string, string>[] data, bool log = true)
+        {
 
             //Szczytywanie danych z źródła
             string comment = "";
@@ -436,7 +497,7 @@ namespace MedicaLibrary.Model
             }
 
 
-            string time = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            string time = DateTime.Now.ToString();
 
             //Autonumeracja ID
             var max_idv = database.Descendants("max_idv").First();
@@ -448,16 +509,24 @@ namespace MedicaLibrary.Model
             new XElement("visit",
                 new XElement("idv", idv),
                 new XElement("visit_addition_date", time),
-                new XElement("comment", comment) //fix
+                new XElement("comment", comment), //fix
+                new XElement("idp", idp)
             ));
 
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
-            XElement vamodification = new XElement("modification",
-                new XElement("operation", "A"),
-                new XElement("node_type", "visit"),
-                new XElement("id", nowa_wizyta.Element("idv").Value)
-                );
-            database.Descendants("modifications").First().Add(vamodification);
+            if (log)
+            {
+                XElement vamodification = new XElement("modification",
+                    new XElement("idm", AutonumerateModifications()),
+                    new XElement("operation", "A"),
+                    new XElement("node_type", "visit"),
+                    new XElement("id", idv),
+                    new XElement("idp", idp),
+                    new XElement("olddata"),
+                    new XElement("newdata", nowa_wizyta.Elements())
+                    );
+                database.Descendants("modifications").First().Add(vamodification);
+            }
 
             var pacjent = GetFilteredPatients(idp);
             pacjent.First().Add(nowa_wizyta); // TODO- samo doddawanie, nie dodaje do Operations() coby przy odpalaniu tego dla debuga nie mieszać w bazie danych
@@ -465,7 +534,8 @@ namespace MedicaLibrary.Model
         }
 
         //Dodaj magazyn
-        public void AddStorehouse(Tuple<string, string>[] data) {
+        public void AddStorehouse(Tuple<string, string>[] data, bool log = true)
+        {
             //Szczytywanie danych z źródła
             string nazwa = "", priority = "", size = "";
 
@@ -479,7 +549,7 @@ namespace MedicaLibrary.Model
                     priority = dat.Item2;
             }
 
-            if(nazwa == "" || size == "" || priority == "")
+            if (nazwa == "" || size == "" || priority == "")
             {
                 return;
             }
@@ -504,19 +574,26 @@ namespace MedicaLibrary.Model
                 ));
 
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
-            XElement samodification = new XElement("modification",
-                new XElement("operation", "A"),
-                new XElement("node_type", "storehouse"),
-                new XElement("id", nowy_magazyn.Element("ids").Value)
-                );
-            database.Descendants("modifications").First().Add(samodification);
+            if (log)
+            {
+                XElement samodification = new XElement("modification",
+                    new XElement("idm", AutonumerateModifications()),
+                    new XElement("operation", "A"),
+                    new XElement("node_type", "storehouse"),
+                    new XElement("id", nowy_magazyn.Element("ids").Value),
+                    new XElement("olddata"),
+                    new XElement("newdata", nowy_magazyn.Elements())
+                    );
+                database.Descendants("modifications").First().Add(samodification);
+            }
 
             database.Element("meta").Element("storehouses").Add(nowy_magazyn); //- samo doddawanie, nie dodaje do Operations() coby przy odpalaniu tego dla debuga nie mieszać w bazie danych
             return;
         }
 
         //Dodaj zasadę
-        public void AddRule(int ids, Tuple<string, string>[] data) {
+        public void AddRule(int ids, Tuple<string, string>[] data, bool log = true)
+        {
 
             //Szczytywanie danych z źródła
             string attribute = "", operation = "", value = "";
@@ -531,7 +608,7 @@ namespace MedicaLibrary.Model
                     value = dat.Item2;
             }
 
-            if(attribute =="" || value == "" || (operation != "greater" && operation != "equal" && operation != "lesser"))
+            if (attribute == "" || value == "" || (operation != "greater" && operation != "equal" && operation != "lesser"))
             {
                 return;
             }
@@ -551,20 +628,27 @@ namespace MedicaLibrary.Model
                 ));
 
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
-            XElement ramodification = new XElement("modification",
-                new XElement("operation", "A"),
-                new XElement("node_type", "rule"),
-                new XElement("id", idr)
-                );
-            database.Descendants("modifications").First().Add(ramodification);
+            if (log)
+            {
+                XElement ramodification = new XElement("modification",
+                    new XElement("idm", AutonumerateModifications()),
+                    new XElement("operation", "A"),
+                    new XElement("node_type", "rule"),
+                    new XElement("id", idr),
+                    new XElement("ids", ids),
+                    new XElement("olddata"),
+                    new XElement("newdata", nowa_zasada.Elements())
+                    );
+                database.Descendants("modifications").First().Add(ramodification);
+            }
 
-            var a = GetAllStorehouses();
+            var a = GetFilteredStorehouses(ids);
             a.First().Add(nowa_zasada); //- samo doddawanie, nie dodaje do Operations() coby przy odpalaniu tego dla debuga nie mieszać w bazie danych
             return;
         }
 
         //Dodaj customowe pole (f - field - customfield)
-        public void AddField(Tuple<string, string>[] data)
+        public void AddField(Tuple<string, string>[] data, bool log = true)
         {
 
             //Szczytywanie danych z źródła
@@ -600,19 +684,25 @@ namespace MedicaLibrary.Model
                 ));
 
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
-            XElement famodification = new XElement("modification",
-                new XElement("operation", "A"),
-                new XElement("node_type", "customfield"),
-                new XElement("id", nowe_pole.Element("idf").Value)
-                );
-            database.Descendants("modifications").First().Add(famodification);
+            if (log)
+            {
+                XElement famodification = new XElement("modification",
+                    new XElement("idm", AutonumerateModifications()),
+                    new XElement("operation", "A"),
+                    new XElement("node_type", "customfield"),
+                    new XElement("id", idf),
+                    new XElement("olddata"),
+                    new XElement("newdata", nowe_pole.Elements())
+                    );
+                database.Descendants("modifications").First().Add(famodification);
+            }
 
             database.Descendants("customfields").First().Add(nowe_pole);
             return;
         }
 
         //Zmień-cokolwiek
-        public void ChangeX(string datatype, int id, Tuple<string,string>[] modifications)
+        public void ChangeX(string datatype, int id, Tuple<string, string>[] modifications, bool log = true)
         {
             XElement modify = null;
             var nodetype = "";
@@ -648,38 +738,63 @@ namespace MedicaLibrary.Model
                 return;
             }
 
-            List<XElement> modlist = new List<XElement>();
+            List<XElement> olddatalist = new List<XElement>();
+            List<XElement> newdatalist = new List<XElement>();
             foreach (var modification in modifications)
             {
                 if (modify.Elements(modification.Item1).Any())
                 {
-                    modlist.Add(new XElement(XElement.Parse("<" + modification.Item1 + ">" + modify.Element(modification.Item1).Value + "</" + modification.Item1 + ">")));
+                    olddatalist.Add(new XElement(XElement.Parse("<" + modification.Item1 + ">" + modify.Element(modification.Item1).Value + "</" + modification.Item1 + ">")));
+                    newdatalist.Add(new XElement(XElement.Parse("<" + modification.Item1 + ">" + modification.Item2 + "</" + modification.Item1 + ">")));
                     modify.Element(modification.Item1).Value = modification.Item2;
                 }
                 else
                 {
-                    modlist.Add(new XElement(XElement.Parse("<" + modification.Item1 + ">" + "</" + modification.Item1 + ">")));
+                    olddatalist.Add(new XElement(XElement.Parse("<" + modification.Item1 + ">" + "</" + modification.Item1 + ">")));
+                    newdatalist.Add(new XElement(XElement.Parse("<" + modification.Item1 + ">" + modification.Item2 + "</" + modification.Item1 + ">")));
                     modify.Add(new XElement(XElement.Parse("<" + modification.Item1 + ">" + modification.Item2 + "</" + modification.Item1 + ">")));
                 }
             }
-
-            XElement mdpamodification = new XElement("modification");
-            mdpamodification.Add(new XElement("operation", "E"));
-            mdpamodification.Add(new XElement("node_type", nodetype));
-            mdpamodification.Add(new XElement("id", id));
-
-            XElement changes = new XElement("changes");
-            foreach (var mod in modlist)
+            //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
+            if (log)
             {
-                changes.Add(mod);
-            }
-            mdpamodification.Add(changes);
+                XElement mdpamodification = new XElement("modification");
+                mdpamodification.Add(new XElement("idm", AutonumerateModifications()));
+                mdpamodification.Add(new XElement("operation", "E"));
+                mdpamodification.Add(new XElement("node_type", nodetype));
+                mdpamodification.Add(new XElement("id", id));
 
-            database.Descendants("modifications").First().Add(mdpamodification);
+                if (nodetype == "visit")
+                {
+                    string idp = modify.Parent.Element("idp").Value;
+                    mdpamodification.Add(new XElement("idp", idp));
+                }
+                else if (nodetype == "rule")
+                {
+                    string ids = modify.Parent.Element("ids").Value;
+                    mdpamodification.Add(new XElement("ids", ids));
+                }
+
+                XElement olddata = new XElement("olddata");
+                foreach (var mod in olddatalist)
+                {
+                    olddata.Add(mod);
+                }
+                XElement newdata = new XElement("newdata");
+                foreach (var mod in newdatalist)
+                {
+                    newdata.Add(mod);
+                }
+
+                mdpamodification.Add(olddata);
+                mdpamodification.Add(newdata);
+
+                database.Descendants("modifications").First().Add(mdpamodification);
+            }
         }
 
         //Usuń-cokolwiek
-        public void DeleteX(string datatype, int id)
+        public void DeleteX(string datatype, int id, bool log = true)
         {
             XElement modify = null;
             var nodetype = "";
@@ -719,8 +834,9 @@ namespace MedicaLibrary.Model
             {
                 var storename = modify.Element("storehouse").Value;
                 var storehouse = GetFilteredStorehouses(storename);
-                if(storehouse.Any()) { 
-                    storehouse.First().Element("autonumeration").Element("holes").Add(new XElement("hole",id));
+                if (storehouse.Any())
+                {
+                    storehouse.First().Element("autonumeration").Element("holes").Add(new XElement("hole", id));
                 }
                 else
                 {
@@ -728,20 +844,119 @@ namespace MedicaLibrary.Model
                 }
             }
 
-            XElement mdpamodification = new XElement("modification");
-            mdpamodification.Add(new XElement("operation", "D"));
-            mdpamodification.Add(new XElement("node_type", nodetype));
-            mdpamodification.Add(new XElement("id", id));
-
-            XElement changes = new XElement("changes");
-            foreach (var node in modify.Elements())
+            //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
+            if (log)
             {
-                changes.Add(node);
-            }
-            mdpamodification.Add(changes);
+                XElement mdpamodification = new XElement("modification");
+                mdpamodification.Add(new XElement("idm", AutonumerateModifications()));
+                mdpamodification.Add(new XElement("operation", "D"));
+                mdpamodification.Add(new XElement("node_type", nodetype));
+                mdpamodification.Add(new XElement("id", id));
 
+                if (nodetype == "visit")
+                {
+                    string idp = modify.Parent.Element("idp").Value;
+                    mdpamodification.Add(new XElement("idp", idp));
+                }
+                else if (nodetype == "rule")
+                {
+                    string ids = modify.Parent.Element("ids").Value;
+                    mdpamodification.Add(new XElement("ids", ids));
+                }
+
+                XElement olddata = new XElement("olddata");
+                foreach (var node in modify.Elements())
+                {
+                    olddata.Add(node);
+                }
+                mdpamodification.Add(olddata);
+                mdpamodification.Add(new XElement("newdata"));
+
+                database.Descendants("modifications").First().Add(mdpamodification);
+            }
             modify.Remove();
-            database.Descendants("modifications").First().Add(mdpamodification);
+        }
+
+        public void RevertX(int idm) //reverty nigdy nie logują (reverty to de-logowanie)
+        {
+            var revert = GetFilteredModifications(idm).FirstOrDefault();
+            XElement reverted = null;
+
+            if (revert == null)
+            {
+                return;
+            }
+
+            //TODO - zakładam że istnieją te elementy - jeśli będzie głupia modyfikacja to rzuci exceptionem!
+            var operation = revert.Elements("operation").FirstOrDefault().Value;
+            var nodetype = revert.Elements("node_type").FirstOrDefault().Value;
+
+            var olddata = revert.Element("olddata").Elements();
+
+            List<Tuple<string, string>> datalist = new List<Tuple<string, string>>();
+            if (operation == "D")
+            {
+
+                foreach (var dat in olddata)
+                {
+                    datalist.Add(new Tuple<string, string>(dat.Name.LocalName, dat.Value));
+                }
+
+            }
+            Tuple<string, string>[] datatable = datalist.ToArray();
+
+            //TODO - czy podczas odwracania Usuwania (czyli podczas dodawania historycznego) przywracać mu jego stare ID czy kontynuować autonumerację?
+            if (nodetype == "patient")
+            {
+                reverted = GetFilteredPatients(Convert.ToInt16(revert.Element("id").Value)).FirstOrDefault();
+                if (operation == "D")
+                    AddPatient(datatable, false);
+            }
+            else if (nodetype == "visit")
+            {
+                reverted = GetFilteredVisits(Convert.ToInt16(revert.Element("id").Value)).FirstOrDefault();
+                if (operation == "D")
+                    AddVisit(Convert.ToInt16(revert.Element("idv")), datatable, false);
+            }
+            else if (nodetype == "storehouse")
+            {
+                reverted = GetFilteredStorehouses(Convert.ToInt16(revert.Element("id").Value)).FirstOrDefault();
+                if (operation == "D")
+                    AddStorehouse(datatable, false);
+            }
+            else if (nodetype == "rule")
+            {
+                reverted = GetFilteredRules(Convert.ToInt16(revert.Element("id").Value)).FirstOrDefault();
+                if (operation == "D")
+                    AddRule(Convert.ToInt16(revert.Element("ids")), datatable, false);
+            }
+            else if (nodetype == "field")
+            {
+                reverted = GetFilteredFields(Convert.ToInt16(revert.Element("id").Value)).FirstOrDefault();
+                if (operation == "D")
+                    AddField(datatable, false);
+            }
+
+            if (operation == "E")
+            {
+                foreach (var dat in olddata)
+                {
+                    if (reverted.Elements(dat.Name).Any()) //TODO: element vs elements
+                    {
+                        reverted.Element(dat.Name).Value = dat.Value;
+                    }
+                    else
+                    {
+                        reverted.Element(dat.Name).Remove();
+                    }
+                }
+            }
+            else if (operation == "A")
+            {
+                DeleteX(nodetype, Convert.ToInt16(revert.Element("id").Value), false);
+            }
+
+            revert.Remove();
         }
     }
 }

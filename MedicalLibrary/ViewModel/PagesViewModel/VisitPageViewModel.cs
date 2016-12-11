@@ -63,7 +63,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
             if (int.TryParse(idv, out idV))
             {
-                VisitInfo = XElementon.Instance.GetFilteredVisits(idV).Elements().ToString();
+                VisitInfo = XElementon.Instance.GetSpecificVisit(idV).Elements("idv").FirstOrDefault().Value;
             }
             else
             {

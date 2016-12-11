@@ -15,17 +15,17 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <StackPanel Margin="20,10,20,10" Grid.Row="0">
-                <DataGrid DataContext="{Binding DataToBind}"  ItemsSource="{Binding Path=Elements[patient]}" SelectedItem="{Binding Path=SelectedItem, Mode=OneWay ,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid DataContext="{Binding DataToBind}"  ItemsSource="{Binding}" SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" IsReadOnly="True" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Path=Element[id].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse_id].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Label Content="{Binding labelBind}"/>
+                <Label Content="{Binding SelectedItem.Element[idp].Value}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
                 <StackPanel.Resources>
