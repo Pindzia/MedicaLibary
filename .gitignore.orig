@@ -1,0 +1,13 @@
+<<<<<<< HEAD
+!MedicalLibrary/bin/
+MedicalLibrary/bin/*
+!MedicalLibrary/bin/Debug/lib.xml
+MedicalLibrary/obj/*
+.vs
+=======
+!MedicaLibrary/bin/
+MedicaLibrary/bin/*
+!MedicaLibrary/bin/Debug/lib.xml
+MedicaLibrary/obj/*
+.vs/*
+>>>>>>> 5efdc6a0b1ea8f85e53410e1d2d17a76759137da

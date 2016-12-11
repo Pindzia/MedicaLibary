@@ -1,0 +1,81 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Data;
+using System.Globalization;//Ivalueconverter
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+<<<<<<< HEAD
+using System.Windows.Data;//Ivalueconverter
+=======
+>>>>>>> 5efdc6a0b1ea8f85e53410e1d2d17a76759137da
+using System.Xml.Linq;
+
+namespace MedicalLibrary.TestFolder
+{
+    class TestPageViewModel: INotifyPropertyChanged
+    {
+
+
+        public TestPageViewModel()
+        {
+<<<<<<< HEAD
+            //DataView = MedicaLibrary.Model.ObserverCollectionConverter.Instance.Observe(MedicaLibrary.Model.XElementon.Instance.GetAllPatients());
+            var a  = (MedicaLibrary.Model.XElementon.Instance.GetAllPatients()).ToList();
+            DataView = (MedicaLibrary.Model.XElementon.Instance.GetAllPatients()).ToList(); //ObservableCollection<XElement>
+        }
+        public event PropertyChangedEventHandler PropertyChanged = null;
+        private List<XElement> _DataView = new List<XElement>();
+        public List<XElement> DataView
+=======
+            ObservableCollection<XElement> listToBind = new ObservableCollection<XElement>();
+            foreach(var p in XElement.Load("lib.xml").Elements())
+            {
+                listToBind.Add((XElement)p);
+            }
+            DataView = listToBind;
+
+        }
+        public event PropertyChangedEventHandler PropertyChanged = null;
+        private ObservableCollection<XElement> _DataView = null;
+        public ObservableCollection<XElement> DataView
+>>>>>>> 5efdc6a0b1ea8f85e53410e1d2d17a76759137da
+        {
+            get
+            {
+                return _DataView;
+            }
+
+            set
+            {
+                _DataView = value;
+                OnPropertyChanged("DataView");
+            }
+        }
+
+            private XElement _SelectedItem = null;
+        public XElement SelectedItem
+        {
+            get
+            {
+                return _SelectedItem;
+            }
+
+            set
+            {
+                _SelectedItem = value;
+                OnPropertyChanged("SelectedItem");
+            }
+
+
+        }
+
+        virtual protected void OnPropertyChanged(string propName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
+    }
+}

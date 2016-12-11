@@ -1,0 +1,57 @@
+﻿<Page x:Class="MedicalLibrary.PatientPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MedicalLibrary"
+      mc:Ignorable="d"
+      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+      Title="PatientPage" Name="UI">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Margin="20,10,20,10" Grid.Row="0">
+<<<<<<< HEAD
+                <DataGrid DataContext="{Binding DataToBind}"  ItemsSource="{Binding}" SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="{Binding SelectedItem.Element[idp].Value}"/>
+=======
+                <DataGrid DataContext="{Binding DataToBind}" ItemsSource="{Binding}"  SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Magazyn" Binding="{Binding Id_Magazine}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="NumerKarty" Binding="{Binding CardNum}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Aktywność" Binding="{Binding Active}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Imie" Binding="{Binding Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Pesel" Binding="{Binding Pesel}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="{Binding SelectedItem.Id}"/>
+>>>>>>> 5efdc6a0b1ea8f85e53410e1d2d17a76759137da
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type mui:ModernButton}">
+                        <Setter Property="Margin" Value="25,10,25,10"/>
+                    </Style>
+                </StackPanel.Resources>
+                <mui:ModernButton Command="{Binding AddPatient}" Height="25" Width="120">Dodaj Pacjenta</mui:ModernButton>
+                <mui:ModernButton Command="{Binding EditPatient}" Height="25" Width="120">Edytuj Pacjenta</mui:ModernButton>
+                <mui:ModernButton Command="{Binding DeletePatient}" Height="25" Width="120">Usuń Pacjenta</mui:ModernButton>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
