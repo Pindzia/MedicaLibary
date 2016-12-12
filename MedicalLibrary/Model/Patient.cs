@@ -24,6 +24,14 @@ namespace MedicaLibrary.Model
             return sppatient;
         }
 
+
+        public IEnumerable<XElement> WithStorehouseName(string storehousename)
+        {
+            var sppatient = database.Elements("patient").
+                Where(i => i.Element("storehouse").Value == storehousename);
+            return sppatient;
+        }
+
         //Wyświetl wszystkich pacjentów którzy są w niepoprawnym magazynie
         public IEnumerable<XElement> InWrongStorehouse()
         {
