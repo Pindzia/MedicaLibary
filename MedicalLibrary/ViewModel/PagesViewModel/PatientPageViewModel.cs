@@ -3,25 +3,26 @@ using System.Windows.Input;
 using System.Xml.Linq;
 using MedicalLibrary.View.Windows;
 using System;
-using MedicalLibrary.ViewModel.PatientPageViewModel;
+using MedicalLibrary.ViewModel.WindowsViewModel;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Generic;
+using System.Windows;
+using MedicalLibrary.ViewModel.PagesViewModel;
+using MedicaLibrary.Model;
 
 namespace MedicalLibrary.ViewModel.WindowsViewModel
 {
-    public class PatientPageViewModel : INotifyPropertyChanged
+    public class PatientPageViewModel : BaseViewModel
     {
 
         public PatientPageViewModel()
         {
             AddPatient = new RelayCommand(pars => Add());
             EditPatient = new RelayCommand(pars => Edit());
-            //foreach (var xelement in MedicaLibrary.Model.XElementon.Instance.GetAllPatients())
-            //    DataToBind.Add(xelement);
-            DataToBind = MedicaLibrary.Model.ObserverCollectionConverter.Instance.Observe(MedicaLibrary.Model.XElementon.Instance.GetAllPatients());
+            DeletePatient = new RelayCommand(pars => Delete());
+            DataToBind = ObserverCollectionConverter.Instance.Observe(MedicaLibrary.Model.XElementon.Instance.GetAllPatients());
         }
-        public event PropertyChangedEventHandler PropertyChanged = null;
         private ObservableCollection<XElement> _DataToBind = new ObservableCollection<XElement>();
         public ObservableCollection<XElement> DataToBind
         {
@@ -36,7 +37,6 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 OnPropertyChanged("DataToBind");
             }
         }
-        //todo chancge typesto select item to xelement and observablecollection jako databind
 
         private XElement _SelectedItem = null;
         public XElement SelectedItem
@@ -49,7 +49,23 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _SelectedItem = value;
+                SelectedItemIndex = DataToBind.IndexOf(SelectedItem);
                 OnPropertyChanged("SelectedItem");
+            }
+        }
+
+        private int _SelectedItemIndex = 0;
+        public int SelectedItemIndex
+        {
+            get
+            {
+                return _SelectedItemIndex;
+            }
+
+            set
+            {
+                _SelectedItemIndex = value;
+                OnPropertyChanged("SelectedItemIndex");
             }
         }
 
@@ -69,19 +85,14 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         }
 
 
-        virtual protected void OnPropertyChanged(string propName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-
         public ICommand AddPatient { get; set; }
         public ICommand EditPatient { get; set; }
+        public ICommand DeletePatient { get; set; }
 
         private void Add()
         {
-            AddPatientViewModel viewModel = new AddPatientViewModel();
-            AddPatientWindow window = new AddPatientWindow(ref viewModel);
+            AddEditPatientViewModel viewModel = new AddEditPatientViewModel();
+            AddEditPatientWindow window = new AddEditPatientWindow(ref viewModel);
             Nullable<bool> result = window.ShowDialog();
             if (result == true)
             {
@@ -92,7 +103,23 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void Edit()
         {
-           // MessageBox.Show();
+            AddEditPatientViewModel viewModel = new AddEditPatientViewModel(SelectedItem);
+            AddEditPatientWindow window = new AddEditPatientWindow(ref viewModel);
+            Nullable<bool> result = window.ShowDialog();
+            if(result == true)
+            {
+                NewPatient = viewModel.Patient;
+                DataToBind[SelectedItemIndex] = NewPatient;
+            }
+            //only downloading Data to do wait for implement
+        }
+
+        private void Delete()
+        {
+            if(MessageBox.Show("Czy chcesz wykasować Pacjenta :"+SelectedItem.Element("imie").Value +" "+SelectedItem.Element("nazwisko").Value,"Potwierdzenie",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                DataToBind.RemoveAt(SelectedItemIndex);
+            }
         }
     }
 }

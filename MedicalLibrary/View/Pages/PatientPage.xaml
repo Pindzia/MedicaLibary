@@ -15,7 +15,12 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <StackPanel Margin="20,10,20,10" Grid.Row="0">
-                <DataGrid DataContext="{Binding DataToBind}"  ItemsSource="{Binding}" SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid DataContext="{Binding DataToBind}"  
+                          ItemsSource="{Binding}" 
+                          SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" 
+                          IsReadOnly="True" 
+                          SelectionMode="Single"
+                          AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"></DataGridTextColumn>

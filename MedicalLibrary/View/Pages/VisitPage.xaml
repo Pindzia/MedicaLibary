@@ -13,10 +13,10 @@
         <ListBox x:Name="List" ItemsSource="{Binding VisitToBind}"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="200">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                    <Button Content="{Binding Path=Element[visit_addition_date].Value}" Command="{Binding Path=DataContext.ShowVisit , ElementName=List}" CommandParameter="{Binding Path=Element[idv].Value}" BorderBrush="White"/>
+                        <Button Content="{Binding Path=Element[visit_addition_date].Value}" Command="{Binding Path=DataContext.ShowVisit , ElementName=List}" CommandParameter="{Binding Path=Element[idv].Value}" BorderBrush="White"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-            </ListBox>
+        </ListBox>
         <Label Content="{Binding VisitInfo}" Margin="20,20,20,20" Height="Auto" Width="300" VerticalAlignment="Top" HorizontalAlignment="Right"/>
     </Grid>
 </Page>

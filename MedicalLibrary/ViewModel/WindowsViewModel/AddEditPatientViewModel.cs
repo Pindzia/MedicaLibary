@@ -1,4 +1,5 @@
 ﻿using MedicalLibrary.View.Windows;
+using MedicalLibrary.ViewModel.PagesViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,17 +10,24 @@ using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 
-namespace MedicalLibrary.ViewModel.PatientPageViewModel
+namespace MedicalLibrary.ViewModel.WindowsViewModel
 {
-    public class AddPatientViewModel : INotifyPropertyChanged
+    public class AddEditPatientViewModel : BaseViewModel
     {
 
-        public AddPatientViewModel()
+        public AddEditPatientViewModel()
         {
-            SavePatient = new RelayCommand(pars=>Save((AddPatientWindow)pars));
+            SavePatient = new RelayCommand(pars=>Save((AddEditPatientWindow)pars));
         }
 
-        public event PropertyChangedEventHandler PropertyChanged = null;
+        public AddEditPatientViewModel(XElement EditPatient)
+        {
+            SavePatient = new RelayCommand(pars => Save((AddEditPatientWindow)pars));
+            LastName = EditPatient.Element("nazwisko").Value;
+            FirstName = EditPatient.Element("imie").Value;
+            Pesel = EditPatient.Element("pesel").Value;
+        }
+
         public ICommand SavePatient { get; set; }
 
         private string _LastName = "";
@@ -74,15 +82,10 @@ namespace MedicalLibrary.ViewModel.PatientPageViewModel
             {
                 _Patient = value;
                 OnPropertyChanged("Patient");
-}
-        }
-        virtual protected void OnPropertyChanged(string propName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
         }
 
-        private void Save(AddPatientWindow window)
+        private void Save(AddEditPatientWindow window)
         {
 
             if (FirstName.Length >= 4)
@@ -104,7 +107,7 @@ namespace MedicalLibrary.ViewModel.PatientPageViewModel
                         //Tworzymy element pacjent który później wszczepimy w nasz dokument
                         Patient = new XElement(
                             new XElement("patient",
-                            new XElement("id", Id),
+                            new XElement("idp", Id),
                             new XElement("imie", imie),
                             new XElement("nazwisko", nazwisko),
                             new XElement("pesel", pesel)));

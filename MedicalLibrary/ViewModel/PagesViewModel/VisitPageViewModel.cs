@@ -11,14 +11,13 @@ using System.Windows;
 
 namespace MedicalLibrary.ViewModel.PagesViewModel
 {
-    class VisitPageViewModel : INotifyPropertyChanged
+    public class VisitPageViewModel : BaseViewModel
     {
 
         public VisitPageViewModel()
         {
             ShowVisit = new RelayCommand(pars => ShowVisitInfo((string)pars));
         }
-        public event PropertyChangedEventHandler PropertyChanged = null;
         private IEnumerable<XElement> _VisitToBind = XElementon.Instance.GetAllVisits();
         public IEnumerable<XElement> VisitToBind
         {
@@ -48,13 +47,6 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 OnPropertyChanged("VisitInfo");
             }
         }
-
-        virtual protected void OnPropertyChanged(string propName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-
 
         public ICommand ShowVisit { get; set; }
         private void ShowVisitInfo(string idv)

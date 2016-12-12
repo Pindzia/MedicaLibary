@@ -74,8 +74,10 @@
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestFolder\TestPageViewModel.cs" />
+    <Compile Include="ViewModel\PagesViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\PagesViewModel\MagazinePageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\VisitPageViewModel.cs" />
-    <Compile Include="ViewModel\WindowsViewModel\AddPatientViewModel.cs" />
+    <Compile Include="ViewModel\WindowsViewModel\AddEditPatientViewModel.cs" />
     <Compile Include="View\Pages\CalendarPage.xaml.cs">
       <DependentUpon>CalendarPage.xaml</DependentUpon>
     </Compile>
@@ -85,8 +87,8 @@
     <Compile Include="View\Pages\VisitPage.xaml.cs">
       <DependentUpon>VisitPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Windows\AddPatientWindow.xaml.cs">
-      <DependentUpon>AddPatientWindow.xaml</DependentUpon>
+    <Compile Include="View\Windows\AddEditPatientWindow.xaml.cs">
+      <DependentUpon>AddEditPatientWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -124,7 +126,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Windows\AddPatientWindow.xaml">
+    <Page Include="View\Windows\AddEditPatientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

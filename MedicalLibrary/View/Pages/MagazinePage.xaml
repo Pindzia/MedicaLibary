@@ -4,11 +4,68 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
+      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
       Title="MagazinePage">
-
-    <Grid>
-        
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <Grid>
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="6*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="List" ItemsSource="{Binding ListMagazine}" AlternationCount="100"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="240" Grid.Column="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding Path=Element[name].Value}" Command="{Binding Path=DataContext.ShowMagazine , ElementName=List}" CommandParameter="{Binding Path=Element[ids].Value}" BorderBrush="White" Width="230" Height="35"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Orientation="Vertical" Grid.Column="1" Margin="0,10,0,10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="8*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Vertical" Margin="60,20,0,20" Grid.IsSharedSizeScope="True" Width="270">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type DockPanel}">
+                                        <Setter Property="Margin" Value="0,10,0,10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <DockPanel>
+                                    <Label Content ="Magazyn :" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="{Binding MagazineName}" HorizontalAlignment="Right"/>
+                                </DockPanel>
+                                <DockPanel>
+                                    <Label Content ="ID Magazynu :" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="{Binding MagazineId}" HorizontalAlignment="Right"/>
+                                </DockPanel>
+                                <DockPanel>
+                                    <Label Content ="Ilość Pacjentów :" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="{Binding MagazineCount}" HorizontalAlignment="Right"/>
+                                </DockPanel>
+                            </StackPanel>
+                            <DataGrid DataContext="{Binding PatientsOfMagazine}" 
+                                      Grid.Row="1"
+                                      ItemsSource="{Binding}"  
+                                      IsReadOnly="True" 
+                                      SelectionMode="Single"
+                                      AutoGenerateColumns="False">
+                                     <DataGrid.Columns>
+                                         <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"></DataGridTextColumn>
+                                         <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"></DataGridTextColumn>
+                                         <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"></DataGridTextColumn>
+                                         <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
+                                         <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
+                                         <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"></DataGridTextColumn>
+                                     </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
 </Page>

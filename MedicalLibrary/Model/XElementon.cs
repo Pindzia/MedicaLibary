@@ -207,6 +207,12 @@ namespace MedicaLibrary.Model
             return sppatient;
         }
 
+        public IEnumerable<XElement> GetFilteredPatients(string storehouseName)
+        {
+            var sppatient = database.Elements("patient").Where(i => i.Element("storehouse").Value  == storehouseName);
+            return sppatient;
+        }
+
         //Wyświetl wszystkie wizyty
         public IEnumerable<XElement> GetAllVisits()
         {
