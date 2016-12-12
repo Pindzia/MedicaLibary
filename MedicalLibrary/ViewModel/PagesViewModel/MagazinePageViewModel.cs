@@ -113,7 +113,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             int.TryParse(storehouseId, out index);
             XElement magazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Storehouse.WithIDS(index)).FirstOrDefault();
             MagazineName = magazine.Element("name").Value;
-            //PatientsOfMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.(MagazineName)); Naprawa
+            PatientsOfMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.WithStorehouseName(MagazineName));
             MagazineId = magazine.Element("ids").Value;
             MagazineCount = PatientsOfMagazine.Count.ToString() + "/" + magazine.Element("size").Value;
         }
