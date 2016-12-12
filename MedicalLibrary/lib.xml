@@ -183,12 +183,16 @@
     <imie>Marek</imie>
     <nazwisko>Nowak</nazwisko>
     <pesel>24110901684</pesel>
+	<storehouse>NazwiskoPingot</storehouse>
+    <envelope>1</envelope>
   </patient>
   <patient>
     <idp>3</idp>
     <imie>Anna</imie>
     <nazwisko>Beksa</nazwisko>
     <pesel>61031313642</pesel>
+	<storehouse>NazwiskoPingot</storehouse>
+    <envelope>2</envelope>
     <visit>
       <idv>3</idv>
       <visit_addition_date>2016-06-14 08:51:12</visit_addition_date>
@@ -200,6 +204,8 @@
     <imie>Marcin</imie>
     <nazwisko>Długi</nazwisko>
     <pesel>41042610758</pesel>
+	<storehouse>NazwiskoPingot</storehouse>
+    <envelope>3</envelope>
   </patient>
   <patient>
     <idp>5</idp>
@@ -207,7 +213,7 @@
     <nazwisko>Pingotówna</nazwisko>
     <pesel>19092506369</pesel>
     <storehouse>NazwiskoPingot</storehouse>
-    <envelope>1</envelope>
+    <envelope>4</envelope>
     <wzrost>150</wzrost>
     <visit>
       <idv>5</idv>
@@ -220,18 +226,24 @@
     <imie>Jan</imie>
     <nazwisko>Krótki</nazwisko>
     <pesel>720824127452</pesel>
+    <storehouse>NazwiskoPingot</storehouse>
+    <envelope>5</envelope>
   </patient>
   <patient>
     <idp>7</idp>
     <imie>Anna</imie>
     <nazwisko>Nowak</nazwisko>
     <pesel>56112018901</pesel>
+    <storehouse>NazwiskoPingot</storehouse>
+    <envelope>6</envelope>
   </patient>
   <patient>
     <idp>9</idp>
     <imie>Joanna</imie>
     <nazwisko>Mann</nazwisko>
     <pesel>69102112921</pesel>
+	<storehouse>NazwiskoPingot</storehouse>
+    <envelope>7</envelope>
   </patient>
   <patient>
     <idp>10</idp>
@@ -239,7 +251,7 @@
     <nazwisko>Pingot</nazwisko>
     <pesel>123123123123</pesel>
     <storehouse>NazwiskoPingot</storehouse>
-    <envelope>1</envelope>
+    <envelope>8</envelope>
     <wzrost>150</wzrost>
     <ciąża>true</ciąża>
   </patient>
