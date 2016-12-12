@@ -6,15 +6,21 @@
     <max_ids>7</max_ids>
     <max_idr>9</max_idr>
     <max_idf>3</max_idf>
+    <max_idm>2</max_idm>
     <modifications>
       <modification>
+        <idm>2</idm>
         <operation>E</operation>
         <node_type>patient</node_type>
         <id>5</id>
-        <changes>
-          <imie>Rafałek</imie>
-          <pesel>19092506369</pesel>
-        </changes>
+        <olddata>
+          <imie>Rafał</imie>
+          <nazwisko>Pingot</nazwisko>
+        </olddata>
+        <newdata>
+          <imie>Rafalala</imie>
+          <nazwisko>Pingotówna</nazwisko>
+        </newdata>
       </modification>
     </modifications>
     <storehouses>
@@ -171,6 +177,61 @@
       <visit_addition_date>2016-11-29 12:58:23</visit_addition_date>
       <comment>debug_comment</comment>
     </visit>
+  </patient>
+  <patient>
+    <idp>2</idp>
+    <imie>Marek</imie>
+    <nazwisko>Nowak</nazwisko>
+    <pesel>24110901684</pesel>
+  </patient>
+  <patient>
+    <idp>3</idp>
+    <imie>Anna</imie>
+    <nazwisko>Beksa</nazwisko>
+    <pesel>61031313642</pesel>
+    <visit>
+      <idv>3</idv>
+      <visit_addition_date>2016-06-14 08:51:12</visit_addition_date>
+      <comment>test idv</comment>
+    </visit>
+  </patient>
+  <patient>
+    <idp>4</idp>
+    <imie>Marcin</imie>
+    <nazwisko>Długi</nazwisko>
+    <pesel>41042610758</pesel>
+  </patient>
+  <patient>
+    <idp>5</idp>
+    <imie>Rafalala</imie>
+    <nazwisko>Pingotówna</nazwisko>
+    <pesel>19092506369</pesel>
+    <storehouse>NazwiskoPingot</storehouse>
+    <envelope>1</envelope>
+    <wzrost>150</wzrost>
+    <visit>
+      <idv>5</idv>
+      <visit_addition_date>2016-11-29 12:58:23</visit_addition_date>
+      <comment>debug_comment</comment>
+    </visit>
+  </patient>
+  <patient>
+    <idp>6</idp>
+    <imie>Jan</imie>
+    <nazwisko>Krótki</nazwisko>
+    <pesel>720824127452</pesel>
+  </patient>
+  <patient>
+    <idp>7</idp>
+    <imie>Anna</imie>
+    <nazwisko>Nowak</nazwisko>
+    <pesel>56112018901</pesel>
+  </patient>
+  <patient>
+    <idp>9</idp>
+    <imie>Joanna</imie>
+    <nazwisko>Mann</nazwisko>
+    <pesel>69102112921</pesel>
   </patient>
   <patient>
     <idp>10</idp>
