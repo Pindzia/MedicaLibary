@@ -19,8 +19,8 @@ namespace MedicalLibrary.TestFolder
         public TestPageViewModel()
         {
             //DataView = MedicaLibrary.Model.ObserverCollectionConverter.Instance.Observe(MedicaLibrary.Model.XElementon.Instance.GetAllPatients());
-            var a  = (MedicaLibrary.Model.XElementon.Instance.Patient.GetAllPatients()).ToList();
-            DataView = (MedicaLibrary.Model.XElementon.Instance.Patient.GetAllPatients()).ToList(); //ObservableCollection<XElement>
+           // var a  = (MedicaLibrary.Model.XElementon.Instance.Patient.GetAllPatients()).ToList();
+            //DataView = (MedicaLibrary.Model.XElementon.Instance.Patient.GetAllPatients()).ToList(); //ObservableCollection<XElement>
         }
         public event PropertyChangedEventHandler PropertyChanged = null;
         private List<XElement> _DataView = new List<XElement>();

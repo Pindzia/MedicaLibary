@@ -18,7 +18,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             ShowVisit = new RelayCommand(pars => ShowVisitInfo((string)pars));
         }
-        private IEnumerable<XElement> _VisitToBind = XElementon.Instance.GetAllVisits();
+        private IEnumerable<XElement> _VisitToBind = XElementon.Instance.Visit.Visits();
         public IEnumerable<XElement> VisitToBind
         {
             get
@@ -55,7 +55,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
             if (int.TryParse(idv, out idV))
             {
-                VisitInfo = XElementon.Instance.GetSpecificVisit(idV).Elements("idv").FirstOrDefault().Value;
+                VisitInfo = XElementon.Instance.Visit.WithIDV(idV).Elements("idv").FirstOrDefault().Value;
             }
             else
             {

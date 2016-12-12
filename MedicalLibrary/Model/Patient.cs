@@ -25,6 +25,7 @@ namespace MedicaLibrary.Model
         }
 
 
+        //Wyświetl wszystkich pacjentów należących do magazynu o podanej nazwie:
         public IEnumerable<XElement> WithStorehouseName(string storehousename)
         {
             var sppatient = database.Elements("patient").

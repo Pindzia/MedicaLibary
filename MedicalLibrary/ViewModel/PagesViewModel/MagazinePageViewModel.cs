@@ -15,7 +15,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         public MagazinePageViewModel()
         {
             ShowMagazine = new RelayCommand(pars => ShowMagazineDetails((string)pars));
-            ListMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.GetAllStorehouses());
+            ListMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Storehouse.Storehouses());
             ShowMagazineDetails(ListMagazine.FirstOrDefault().Element("ids").Value);
             
         }
@@ -107,13 +107,13 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         public ICommand ShowMagazine { get; set; }
 
-        private void ShowMagazineDetails(string storehouseName)
+        private void ShowMagazineDetails(string storehouseId)
         {
             int index;
-            int.TryParse(storehouseName, out index);
-            XElement magazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.GetFilteredStorehouses(index)).FirstOrDefault();
+            int.TryParse(storehouseId, out index);
+            XElement magazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Storehouse.WithIDS(index)).FirstOrDefault();
             MagazineName = magazine.Element("name").Value;
-            PatientsOfMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.GetFilteredPatients(MagazineName));
+            //PatientsOfMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.(MagazineName)); Naprawa
             MagazineId = magazine.Element("ids").Value;
             MagazineCount = PatientsOfMagazine.Count.ToString() + "/" + magazine.Element("size").Value;
         }
