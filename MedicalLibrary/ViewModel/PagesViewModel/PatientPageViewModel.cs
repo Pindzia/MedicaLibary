@@ -21,7 +21,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             AddPatient = new RelayCommand(pars => Add());
             EditPatient = new RelayCommand(pars => Edit());
             DeletePatient = new RelayCommand(pars => Delete());
-            DataToBind = ObserverCollectionConverter.Instance.Observe(MedicaLibrary.Model.XElementon.Instance.Patient.GetAllPatients());
+            UpdateData();
+            
         }
         private ObservableCollection<XElement> _DataToBind = new ObservableCollection<XElement>();
         public ObservableCollection<XElement> DataToBind
@@ -85,6 +86,11 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         }
 
 
+        private void UpdateData()
+        {
+            DataToBind = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Patients());
+        }
+
         public ICommand AddPatient { get; set; }
         public ICommand EditPatient { get; set; }
         public ICommand DeletePatient { get; set; }
@@ -103,11 +109,9 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 Tuple<string, string> c = new Tuple<string, string>("pesel", NewPatient.Element("pesel").Value);
                 Tuple<string, string>[] tup = { a, b, c };
 
-                XElementon.Instance.AddPatient(tup);
+                XElementon.Instance.Patient.Add(tup);
 
-                DataToBind = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.GetAllPatients());
-
-                //DataToBind.Add(NewPatient);
+                UpdateData();
             }
         }
 

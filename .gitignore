@@ -3,3 +3,5 @@ MedicalLibrary/bin/*
 !MedicalLibrary/bin/Debug/lib.xml
 MedicalLibrary/obj/*
 .vs
+MedicalLibrary/obj/Debug/MedicalLibrary_MarkupCompile.lref
+.vs/MedicalLibrary/v14/.suo
