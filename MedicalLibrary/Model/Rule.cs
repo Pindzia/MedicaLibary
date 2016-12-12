@@ -57,7 +57,7 @@ namespace MedicaLibrary.Model
 
             //Autonumeracja ID
             var max_idr = database.Descendants("max_idr").First();
-            var idr = max_idr.Value;
+            var idr = (string)max_idr;
             max_idr.Value = (Convert.ToInt16(max_idr.Value) + 1).ToString();
 
             //Tworzymy element rule który później wszczepimy w nasz dokument

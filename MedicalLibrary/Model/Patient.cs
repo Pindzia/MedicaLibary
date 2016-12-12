@@ -20,7 +20,7 @@ namespace MedicaLibrary.Model
         //Wyświetl pacjenta o podanym idp
         public IEnumerable<XElement> WithIDP(int idp)
         {
-            var sppatient = database.Elements("patient").Where(i => i.Element("idp").Value == idp.ToString());
+            var sppatient = database.Elements("patient").Where(i => (string)i.Element("idp") == idp.ToString());
             return sppatient;
         }
 
@@ -29,7 +29,7 @@ namespace MedicaLibrary.Model
         public IEnumerable<XElement> WithStorehouseName(string storehousename)
         {
             var sppatient = database.Elements("patient").
-                Where(i => i.Element("storehouse").Value == storehousename);
+                Where(i => (string)i.Element("storehouse") == storehousename);
             return sppatient;
         }
 
@@ -40,7 +40,7 @@ namespace MedicaLibrary.Model
                               let left = XElementon.Instance.CheckingRules(qpatient)[0]
                               let right = qpatient.Element("storehouse")
                               where (left != null && right != null)
-                              where (left.Value == right.Value)
+                              where ((string)left == (string)right)
                               select qpatient;
 
             var wrwarehouse1 = from qpatient in database.Elements("patient")
@@ -52,7 +52,7 @@ namespace MedicaLibrary.Model
                                let left = XElementon.Instance.CheckingRules(qpatient)
                                let right = qpatient.Element("storehouse")
                                where (left[0] != null && right != null)
-                               where (left[0].Value != right.Value)
+                               where ((string)left[0] != (string)right)
                                select qpatient; //select new { qpatient, left};
 
             var wrwarehouse = wrwarehouse1.Concat(wrwarehouse2);
@@ -86,7 +86,7 @@ namespace MedicaLibrary.Model
                 {
                     foreach (var customfield in customfields)
                     {
-                        if (dat.Item1 == customfield.Element("fieldname").Value.ToString())
+                        if (dat.Item1 == (string)customfield.Element("fieldname"))
                         {
                             fieldsindata.Add(new XElement(dat.Item1, dat.Item2));
                         }
@@ -101,7 +101,7 @@ namespace MedicaLibrary.Model
 
             //Autonumeracja po id - olewamy 'dziury'
             var max = database.Descendants("max_idp").First();
-            var idp = max.Value;
+            var idp = (string)max;
             max.Value = (Convert.ToInt16(idp) + 1).ToString();
 
             //Tworzymy element pacjent który później wszczepimy w nasz dokument
@@ -135,7 +135,7 @@ namespace MedicaLibrary.Model
                     new XElement("idm", XElementon.Instance.AutonumerateModifications()),
                     new XElement("operation", "A"),
                     new XElement("node_type", "patient"),
-                    new XElement("id", nowy_pacjent.Element("idp").Value),
+                    new XElement("id", (string)nowy_pacjent.Element("idp")),
                     new XElement("olddata"),
                     new XElement("newdata", nowy_pacjent.Elements())
                     );

@@ -65,8 +65,8 @@ namespace MedicaLibrary.Model
 
             //Autonumeracja ID
             var max_ids = database.Descendants("max_ids").First();
-            var ids = max_ids.Value;
-            max_ids.Value = (Convert.ToInt16(max_ids.Value) + 1).ToString();
+            var ids = (string)max_ids;
+            max_ids.Value = (Convert.ToInt16((string)max_ids) + 1).ToString();
 
             //TODO: Fragment kodu zapewniający brak kolizji na priority?
 
@@ -89,7 +89,7 @@ namespace MedicaLibrary.Model
                     new XElement("idm", XElementon.Instance.AutonumerateModifications()),
                     new XElement("operation", "A"),
                     new XElement("node_type", "storehouse"),
-                    new XElement("id", nowy_magazyn.Element("ids").Value),
+                    new XElement("id", (string)nowy_magazyn.Element("ids")),
                     new XElement("olddata"),
                     new XElement("newdata", nowy_magazyn.Elements())
                     );

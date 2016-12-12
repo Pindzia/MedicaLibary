@@ -183,7 +183,7 @@
     <imie>Marek</imie>
     <nazwisko>Nowak</nazwisko>
     <pesel>24110901684</pesel>
-	<storehouse>NazwiskoPingot</storehouse>
+    <storehouse>NazwiskoPingot</storehouse>
     <envelope>1</envelope>
   </patient>
   <patient>
@@ -191,7 +191,7 @@
     <imie>Anna</imie>
     <nazwisko>Beksa</nazwisko>
     <pesel>61031313642</pesel>
-	<storehouse>NazwiskoPingot</storehouse>
+    <storehouse>NazwiskoPingot</storehouse>
     <envelope>2</envelope>
     <visit>
       <idv>3</idv>
@@ -204,7 +204,7 @@
     <imie>Marcin</imie>
     <nazwisko>Długi</nazwisko>
     <pesel>41042610758</pesel>
-	<storehouse>NazwiskoPingot</storehouse>
+    <storehouse>NazwiskoPingot</storehouse>
     <envelope>3</envelope>
   </patient>
   <patient>
@@ -242,7 +242,7 @@
     <imie>Joanna</imie>
     <nazwisko>Mann</nazwisko>
     <pesel>69102112921</pesel>
-	<storehouse>NazwiskoPingot</storehouse>
+    <storehouse>NazwiskoPingot</storehouse>
     <envelope>7</envelope>
   </patient>
   <patient>

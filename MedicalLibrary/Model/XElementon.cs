@@ -140,7 +140,7 @@ namespace MedicaLibrary.Model
                                     from storehouses in database.Elements("storehouses")
                                     from qstorehouse in storehouses.Elements("storehouse")
                                         //where qstorehouse.Elements("rule").Any()
-                                    orderby int.Parse(qstorehouse.Element("priority").Value) descending
+                                    orderby int.Parse((string)qstorehouse.Element("priority")) descending
                                     select qstorehouse;
 
             XElement forwarehouse = null;
@@ -152,13 +152,13 @@ namespace MedicaLibrary.Model
                 {
                     fits = false;
 
-                    if (qrule.Element("attribute").Value == "lastvisit" && nowy_pacjent.Elements("visit").Any()) //Check does it work
+                    if ((string)qrule.Element("attribute") == "lastvisit" && nowy_pacjent.Elements("visit").Any()) //Check does it work
                     {
-                        if (qrule.Element("operation").Value == "greater")
+                        if ((string)qrule.Element("operation") == "greater")
                         {
-                            //nowy_pacjent.Element(qrule.Element("attribute").Value).Value
+                            //nowy_pacjent.Element(qrule.Element("attribute").Value).Value //używamy (string)x a nie x.Value od dziś!
                             var a = nowy_pacjent.Elements("visit").Max(x => x.Element("visit_addition_date"));
-                            var b = a.Element("visit_addition_date").Value;
+                            var b = (string)a.Element("visit_addition_date");
 
 
                             var datetime = Convert.ToDateTime(Convert.ToInt64(b));
@@ -171,25 +171,25 @@ namespace MedicaLibrary.Model
 
 
 
-                    if (nowy_pacjent.Elements(qrule.Element("attribute").Value).Any())
+                    if (nowy_pacjent.Elements((string)qrule.Element("attribute")).Any())
                     {
-                        if (qrule.Element("operation").Value == "greater")
+                        if ((string)qrule.Element("operation") == "greater")
                         {
-                            if (Convert.ToInt64(nowy_pacjent.Element(qrule.Element("attribute").Value).Value) > Convert.ToInt64(qrule.Element("value").Value)) //TODO - krzaczy się gdy lewa strona nie istnieje!
+                            if (Convert.ToInt64((string)nowy_pacjent.Element((string)qrule.Element("attribute"))) > Convert.ToInt64((string)qrule.Element("value"))) //TODO - krzaczy się gdy lewa strona nie istnieje!
                             {
                                 fits = true;
                             }
                         }
-                        else if (qrule.Element("operation").Value == "lesser")
+                        else if ((string)qrule.Element("operation") == "lesser")
                         {
-                            if (Convert.ToInt64(nowy_pacjent.Element(qrule.Element("attribute").Value).Value) < Convert.ToInt64(qrule.Element("value").Value))
+                            if (Convert.ToInt64((string)nowy_pacjent.Element((string)qrule.Element("attribute"))) < Convert.ToInt64((string)qrule.Element("value")))
                             {
                                 fits = true;
                             }
                         }
-                        else if (qrule.Element("operation").Value == "equal")
+                        else if ((string)qrule.Element("operation") == "equal")
                         {
-                            if (nowy_pacjent.Element(qrule.Element("attribute").Value).Value == qrule.Element("value").Value)
+                            if ((string)nowy_pacjent.Element((string)qrule.Element("attribute")) == (string)qrule.Element("value"))
                             {
                                 fits = true;
                             }
@@ -208,16 +208,16 @@ namespace MedicaLibrary.Model
                     if (envelope == null) //Jeśli nie ma dziur to chwytaj max
                     {
                         var maxe = qstorehouse.Descendants("max_envelope").First(); //TODO: gdzie istnieje max? zmienić nazwę naszego maxe.
-                        envelope = new XElement(XElement.Parse("<envelope>" + maxe.Value + "</envelope>")); //kopia a nie wskaźnik
+                        envelope = new XElement(XElement.Parse("<envelope>" + (string)maxe + "</envelope>")); //kopia a nie wskaźnik
                         maxe.Value = (Convert.ToInt32(maxe.Value) + 1).ToString(); //Zwiększamy element max o 1!
                     }
                     else
                     {
-                        var temp = envelope.Value;
+                        var temp = (string)envelope;
                         envelope.Remove();
                         envelope = new XElement(XElement.Parse("<envelope>" + temp + "</envelope>")); //kopia a nie wskaźnik, whatever żeby envelope wciąż było XElement i dało się wykonać XElement.value
                     }
-                    warehouse = new XElement(XElement.Parse("<storehouse>" + forwarehouse.Value + "</storehouse>"));
+                    warehouse = new XElement(XElement.Parse("<storehouse>" + (string)forwarehouse + "</storehouse>"));
 
                     XElement[] result = new XElement[2];
                     result[0] = warehouse;
@@ -286,7 +286,7 @@ namespace MedicaLibrary.Model
             {
                 if (modify.Elements(modification.Item1).Any())
                 {
-                    olddatalist.Add(new XElement(XElement.Parse("<" + modification.Item1 + ">" + modify.Element(modification.Item1).Value + "</" + modification.Item1 + ">")));
+                    olddatalist.Add(new XElement(XElement.Parse("<" + modification.Item1 + ">" + (string)modify.Element(modification.Item1) + "</" + modification.Item1 + ">")));
                     newdatalist.Add(new XElement(XElement.Parse("<" + modification.Item1 + ">" + modification.Item2 + "</" + modification.Item1 + ">")));
                     modify.Element(modification.Item1).Value = modification.Item2;
                 }
@@ -308,12 +308,12 @@ namespace MedicaLibrary.Model
 
                 if (nodetype == "visit")
                 {
-                    string idp = modify.Parent.Element("idp").Value;
+                    string idp = (string)modify.Parent.Element("idp");
                     mdpamodification.Add(new XElement("idp", idp));
                 }
                 else if (nodetype == "rule")
                 {
-                    string ids = modify.Parent.Element("ids").Value;
+                    string ids = (string)modify.Parent.Element("ids");
                     mdpamodification.Add(new XElement("ids", ids));
                 }
 
@@ -374,7 +374,7 @@ namespace MedicaLibrary.Model
 
             if (nodetype == "patient")
             {
-                var storename = modify.Element("storehouse").Value;
+                var storename = (string)modify.Element("storehouse");
                 var storehouse = XElementon.Instance.Storehouse.WithName(storename);
                 if (storehouse.Any())
                 {
@@ -397,12 +397,12 @@ namespace MedicaLibrary.Model
 
                 if (nodetype == "visit")
                 {
-                    string idp = modify.Parent.Element("idp").Value;
+                    string idp = (string)modify.Parent.Element("idp");
                     mdpamodification.Add(new XElement("idp", idp));
                 }
                 else if (nodetype == "rule")
                 {
-                    string ids = modify.Parent.Element("ids").Value;
+                    string ids = (string)modify.Parent.Element("ids");
                     mdpamodification.Add(new XElement("ids", ids));
                 }
 

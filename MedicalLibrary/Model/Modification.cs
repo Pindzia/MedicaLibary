@@ -83,8 +83,8 @@ namespace MedicaLibrary.Model
             }
 
             //TODO - zakładam że istnieją te elementy - jeśli będzie głupia modyfikacja to rzuci exceptionem!
-            var operation = revert.Elements("operation").FirstOrDefault().Value;
-            var nodetype = revert.Elements("node_type").FirstOrDefault().Value;
+            var operation = (string)revert.Elements("operation").FirstOrDefault();
+            var nodetype = (string)revert.Elements("node_type").FirstOrDefault();
 
             var olddata = revert.Element("olddata").Elements();
 
@@ -94,7 +94,7 @@ namespace MedicaLibrary.Model
 
                 foreach (var dat in olddata)
                 {
-                    datalist.Add(new Tuple<string, string>(dat.Name.LocalName, dat.Value));
+                    datalist.Add(new Tuple<string, string>(dat.Name.LocalName, (string)dat));
                 }
 
             }
@@ -138,7 +138,7 @@ namespace MedicaLibrary.Model
                 {
                     if (reverted.Elements(dat.Name).Any()) //TODO: element vs elements
                     {
-                        reverted.Element(dat.Name).Value = dat.Value;
+                        reverted.Element(dat.Name).Value = (string)dat;
                     }
                     else
                     {
