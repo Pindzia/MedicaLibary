@@ -1,10 +1,12 @@
 ﻿using MedicaLibrary.Model;
+using MedicalLibrary.View.Windows;
 using MedicalLibrary.ViewModel.PagesViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 
@@ -16,6 +18,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             ListAttributes = XElementon.Instance.Storehouse.Attributes();
             SelectedAttribute = ListAttributes.FirstOrDefault();
+            SaveMagazine = new RelayCommand(pars => Save((AddEditMagazineWindow)pars));
         }
 
         public AddEditMagazineViewModel(XElement magazine)
@@ -61,7 +64,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _SelectedAttribute = value;
-                // place to update lis oper
+                ListOperation = XElementon.Instance.Storehouse.Operations(_SelectedAttribute);
                 OnPropertyChanged("SelectedAttribute");
             }
         }
@@ -96,6 +99,63 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
-        public ICommand SavePatient { get; set; }
+        private string _VarOfRule = "";
+        public string VarOfRule
+        {
+            get
+            {
+                return _VarOfRule;
+            }
+            set
+            {
+                _VarOfRule = value;
+                OnPropertyChanged("VarOfRule");
+            }
+        }
+
+        private string _MagazineSize = "";
+        public string MagazineSize
+        {
+            get
+            {
+                return _MagazineSize;
+            }
+            set
+            {
+                _MagazineSize = value;
+                OnPropertyChanged("MagazineSize");
+            }
+        }
+
+
+        public ICommand SaveMagazine { get; set; }
+
+        private void Save(AddEditMagazineWindow window)
+        {
+            if (MagazineName.Length >= 4)
+            {
+                if (System.Text.RegularExpressions.Regex.IsMatch(MagazineSize, "\\d{1,}"))
+                {
+                    if (SelectedAttribute != "" && SelectedOperation != "" && VarOfRule != "")
+                    {
+                        //New magazine as Xelement implementation
+                        window.DialogResult = true;
+                        window.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wartość w polu Zasada jest niewybrana");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Podaj wartość liczbową rozmiaru Magazynu");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nazwa jest za krótka");
+            }
+        }
     }
 }

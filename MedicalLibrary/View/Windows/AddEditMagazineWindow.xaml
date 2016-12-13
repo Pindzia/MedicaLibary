@@ -62,7 +62,7 @@
                 </DockPanel>
                 <DockPanel>
                     <Label  HorizontalAlignment="Left" VerticalAlignment="Center" >Wartość:</Label>
-                    <TextBox Text="Example" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <TextBox Text="{Binding VarOfRule}" HorizontalAlignment="Right" VerticalAlignment="Center">
 
                     </TextBox>
                 </DockPanel>
