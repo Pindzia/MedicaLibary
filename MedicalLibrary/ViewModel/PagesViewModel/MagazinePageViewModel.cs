@@ -1,4 +1,6 @@
 ﻿using MedicaLibrary.Model;
+using MedicalLibrary.View.Windows;
+using MedicalLibrary.ViewModel.WindowsViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +17,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         public MagazinePageViewModel()
         {
             ShowMagazine = new RelayCommand(pars => ShowMagazineDetails((string)pars));
+            AddMagazine = new RelayCommand(pars => Add());
+            PushButton = new RelayCommand(pars =>Push());
             ListMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Storehouse.Storehouses());
             ShowMagazineDetails(ListMagazine.FirstOrDefault().Element("ids").Value);
             
@@ -46,6 +50,37 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             {
                 _ColMaxIndex = value;
                 OnPropertyChanged("ColMaxIndex");
+            }
+        }
+
+        private XElement _SelectedButton = null;
+        public XElement SelectedButton
+        {
+            get
+            {
+                return _SelectedButton;
+            }
+
+            set
+            {
+                _SelectedButton = value;
+                SelectedButtonIndex = ListMagazine.IndexOf(SelectedButton);
+                OnPropertyChanged("SelectedButton");
+            }
+        }
+
+        private int _SelectedButtonIndex = 0;
+        public int SelectedButtonIndex
+        {
+            get
+            {
+                return _SelectedButtonIndex;
+            }
+
+            set
+            {
+                _SelectedButtonIndex = value;
+                OnPropertyChanged("SelectedButtonIndex");
             }
         }
 
@@ -106,17 +141,36 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         }
 
         public ICommand ShowMagazine { get; set; }
+        public ICommand AddMagazine { get; set; }
+        public ICommand EditMagazine { get; set; }
+        public ICommand DeleteMagazine { get; set; }
+        public ICommand PushButton { get; set; }
 
         private void ShowMagazineDetails(string storehouseId)
         {
             int index;
             int.TryParse(storehouseId, out index);
-            XElement magazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Storehouse.WithIDS(index)).FirstOrDefault();
-            MagazineName = magazine.Element("name").Value;
+            SelectedButton = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Storehouse.WithIDS(index)).FirstOrDefault();
+            MagazineName = SelectedButton.Element("name").Value;
             PatientsOfMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.WithStorehouseName(MagazineName));
-            MagazineId = magazine.Element("ids").Value;
-            MagazineCount = PatientsOfMagazine.Count.ToString() + "/" + magazine.Element("size").Value;
+            MagazineId = SelectedButton.Element("ids").Value;
+            MagazineCount = PatientsOfMagazine.Count.ToString() + "/" + SelectedButton.Element("size").Value;
         }
 
+        private void Add()
+        {
+            AddEditMagazineViewModel viewModel = new AddEditMagazineViewModel();
+            AddEditMagazineWindow window = new AddEditMagazineWindow();
+            Nullable<bool> result = window.ShowDialog();
+            if (result == true)
+            {
+                
+            }
+        }
+
+        private void Push()
+        {
+            //
+        }
     }
 }

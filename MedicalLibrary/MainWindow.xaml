@@ -7,7 +7,7 @@
         xmlns:custom="clr-namespace:MedicalLibrary"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         mc:Ignorable="d"
-        Title="Medical Library" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterScreen">
+        Title="Medical Library" MinHeight="768" MinWidth="1024" WindowStartupLocation="CenterScreen">
     <mui:ModernWindow.MenuLinkGroups>
         <mui:LinkGroupCollection x:Name="Menu">
             <mui:LinkGroup DisplayName="Pacjenci">

@@ -39,8 +39,16 @@
       <HintPath>..\packages\ModernUI.WPF.1.0.9\lib\net45\FirstFloor.ModernUI.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -83,6 +91,7 @@
     <Compile Include="ViewModel\PagesViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\MagazinePageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\VisitPageViewModel.cs" />
+    <Compile Include="ViewModel\WindowsViewModel\AddEditMagazineViewModel.cs" />
     <Compile Include="ViewModel\WindowsViewModel\AddEditPatientViewModel.cs" />
     <Compile Include="View\Pages\CalendarPage.xaml.cs">
       <DependentUpon>CalendarPage.xaml</DependentUpon>
@@ -92,6 +101,9 @@
     </Compile>
     <Compile Include="View\Pages\VisitPage.xaml.cs">
       <DependentUpon>VisitPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\AddEditMagazineWindow.xaml.cs">
+      <DependentUpon>AddEditMagazineWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\AddEditPatientWindow.xaml.cs">
       <DependentUpon>AddEditPatientWindow.xaml</DependentUpon>
@@ -129,6 +141,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Pages\VisitPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\AddEditMagazineWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
