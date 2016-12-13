@@ -114,40 +114,54 @@ namespace MedicaLibrary.Model
 
 
         //Otrzymanie listy możliwych Atybutów
-        public List<List<string>> Attributes()
+        public List<string> Attributes()
         {
             List<List<string>> attributes = new List<List<string>>();
             List<string> attributelist = new List<string> { "idp", "imie", "nazwisko", "pesel" };
             List<string> typelist = new List<string> { "int", "string", "string", "int" };
             
-
             foreach (var field in XElementon.Instance.Field.Fields())
             {
                 attributelist.Add((string)field.Element("fieldname"));
-                typelist.Add((string)field.Element("fieldtype"));
             }
 
-            attributes.Add(attributelist);
 
-            List<string> operationlist = new List<string>();
-            foreach (var typ in typelist)
+            return attributelist;
+        }
+
+        public List<string> Operations(string attribute)
+        {
+            List<String> operationlist = new List<String>();
+            string typ ="";
+
+            if(attribute == "idp" || attribute == "pesel")
             {
-                operationlist.Clear();
-                if (typ == "int")
+                typ = "int";
+            } else if (attribute == "imie" || attribute == "nazwisko")
+            {
+                typ = "string";
+            } else
+            {
+                foreach (var field in XElementon.Instance.Field.Fields())
                 {
-                    operationlist.Add("greater");
-                    operationlist.Add("equal");
-                    operationlist.Add("lesser");
+                    if (attribute == (string)field.Element("fieldname"))
+                    {
+                        typ = (string)field.Element("fieldtype");
+                    }
                 }
-                else
-                {
-                    operationlist.Add("equal");
-                }
-                attributes.Add(operationlist);
             }
 
-
-            return attributes;
+            if (typ == "int")
+            {
+                operationlist.Add("greater");
+                operationlist.Add("equal");
+                operationlist.Add("lesser");
+            }
+            else //if (type == "imie" || type == "nazwisko")
+            {
+                operationlist.Add("equal");
+            }
+            return operationlist;
         }
 
     }
