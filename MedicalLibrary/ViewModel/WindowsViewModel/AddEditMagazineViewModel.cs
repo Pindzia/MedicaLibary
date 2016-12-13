@@ -15,6 +15,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         public AddEditMagazineViewModel()
         {
             ListAttributes = XElementon.Instance.Storehouse.Attributes()[0];
+            SelectedAttribute = ListAttributes.FirstOrDefault();
         }
 
         public AddEditMagazineViewModel(XElement magazine)
@@ -50,6 +51,50 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
+        private string _SelectedAttribute = "";
+        public string SelectedAttribute
+        {
+            get
+            {
+                return _SelectedAttribute;
+            }
+            set
+            {
+                _SelectedAttribute = value;
+                // place to update lis oper
+                OnPropertyChanged("SelectedAttribute");
+            }
+        }
+
+
+
+        private List<string> _ListOperation = new List<string>();
+        public List<string> ListOperation
+        {
+            get
+            {
+                return _ListOperation;
+            }
+            set
+            {
+                _ListOperation = value;
+                OnPropertyChanged("ListOperation");
+            }
+        }
+
+        private string _SelectedOperation = "";
+        public string SelectedOperation
+        {
+            get
+            {
+                return _SelectedOperation;
+            }
+            set
+            {
+                _SelectedOperation = value;
+                OnPropertyChanged("SelectedOperation");
+            }
+        }
 
         public ICommand SavePatient { get; set; }
     }
