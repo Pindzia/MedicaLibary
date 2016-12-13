@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedicalLibrary.View.Windows"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         x:Name="WindowToClose"
         mc:Ignorable="d"
@@ -29,7 +30,7 @@
             <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" >Zasada:</Label>
             <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" >Rozmiar:</Label>
 
-            <TextBox Grid.Column="1" Grid.Row="0" Name="Nazwa"   Width="125" Height="25" Text="" HorizontalAlignment="Left" Margin="38,0,0,0"/>
+            <TextBox Grid.Column="1" Grid.Row="0" Name="Nazwa"   Width="125" Height="25" Text="{Binding MagazineName}" HorizontalAlignment="Left" Margin="38,0,0,0"/>
             <StackPanel Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="220">
                 <StackPanel.Resources>
                     <Style TargetType="{x:Type ComboBox}">
@@ -45,8 +46,7 @@
                 </StackPanel.Resources>
                 <DockPanel>
                     <Label  HorizontalAlignment="Left" VerticalAlignment="Center" >Atrybut:</Label>
-                    <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <ComboBoxItem>one</ComboBoxItem>
+                    <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" DataContext="{Binding ListAttributes}" ItemsSource="{Binding}">
                     </ComboBox>
                 </DockPanel>
                 <DockPanel>
@@ -62,8 +62,8 @@
                     </TextBox>
                 </DockPanel>
             </StackPanel>
-            <TextBox Grid.Column="1" Grid.Row="4" Name="Pesel"  Width="125" Height="25" Text="" HorizontalAlignment="Left" Margin="38,0,0,0"/>
-
+            <TextBox Grid.Column="1" Grid.Row="4" Name="Pesel"  Width="125" Height="25" Text="{Binding MagazineSize}" HorizontalAlignment="Left" Margin="38,0,0,0">
+            </TextBox>
         </Grid>
         <mui:ModernButton Grid.Row="1" Width="120" Height="25" Command="{Binding SaveMagazine}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</mui:ModernButton>
     </Grid>

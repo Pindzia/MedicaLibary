@@ -33,7 +33,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="{Binding Path=Element[name].Value}" 
                                         Command="{Binding Path=DataContext.ShowMagazine , ElementName=List}" 
-                                        CommandParameter="{Binding Path=Element[ids].Value}" 
+                                        CommandParameter="{Binding Path=Element[ids].Value}"
                                         BorderBrush="White" 
                                         Width="230" 
                                         Height="35"

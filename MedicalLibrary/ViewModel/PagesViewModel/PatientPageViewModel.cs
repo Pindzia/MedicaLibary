@@ -124,6 +124,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 NewPatient = viewModel.Patient;
                 DataToBind[SelectedItemIndex] = NewPatient;
+                //XElementon.Instance.Patient.Change()
             }
             //only downloading Data to do wait for implement
         }
@@ -132,7 +133,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             if(MessageBox.Show("Czy chcesz wykasować Pacjenta :"+SelectedItem.Element("imie").Value +" "+SelectedItem.Element("nazwisko").Value,"Potwierdzenie",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                DataToBind.RemoveAt(SelectedItemIndex);
+                //XElementon.Instance.Patient.Delete()
             }
         }
     }

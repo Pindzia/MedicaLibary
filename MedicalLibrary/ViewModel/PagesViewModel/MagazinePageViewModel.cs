@@ -160,7 +160,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         private void Add()
         {
             AddEditMagazineViewModel viewModel = new AddEditMagazineViewModel();
-            AddEditMagazineWindow window = new AddEditMagazineWindow();
+            AddEditMagazineWindow window = new AddEditMagazineWindow(ref viewModel);
             Nullable<bool> result = window.ShowDialog();
             if (result == true)
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicalLibrary.ViewModel.WindowsViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,10 @@ namespace MedicalLibrary.View.Windows
     /// </summary>
     public partial class AddEditMagazineWindow : Window
     {
-        public AddEditMagazineWindow()
+        public AddEditMagazineWindow( ref AddEditMagazineViewModel ViewModel)
         {
             InitializeComponent();
+            DataContext = ViewModel;
         }
     }
 }
