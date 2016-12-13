@@ -113,6 +113,15 @@ namespace MedicaLibrary.Model
         }
 
 
+        //Otrzymanie listy możliwych Atybutów
+        public List<string> Attributes()
+        {
+            List<string> attributelist = new List<string> { "idp", "imie", "nazwisko", "pesel" };
+            attributelist.Add((string)((XElement)XElementon.Instance.Rule.Rules()).Element("fieldname"));
+            return attributelist;
+        }
+
+
     }
 
 }
