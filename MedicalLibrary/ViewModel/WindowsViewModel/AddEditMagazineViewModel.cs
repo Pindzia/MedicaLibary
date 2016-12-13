@@ -14,7 +14,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
     {
         public AddEditMagazineViewModel()
         {
-            ListAttributes = XElementon.Instance.Storehouse.Attributes();
+            ListAttributes = XElementon.Instance.Storehouse.Attributes()[0];
         }
 
         public AddEditMagazineViewModel(XElement magazine)

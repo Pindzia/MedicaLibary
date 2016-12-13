@@ -64,6 +64,7 @@ namespace MedicaLibrary.Model
             Patient = new Patient();
             Visit = new Visit();
             Storehouse = new Storehouse();
+            Rule = new Rule();
             Field = new Field();
             Modification = new Modification();
         }

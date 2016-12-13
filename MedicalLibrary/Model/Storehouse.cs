@@ -114,13 +114,41 @@ namespace MedicaLibrary.Model
 
 
         //Otrzymanie listy możliwych Atybutów
-        public List<string> Attributes()
+        public List<List<string>> Attributes()
         {
+            List<List<string>> attributes = new List<List<string>>();
             List<string> attributelist = new List<string> { "idp", "imie", "nazwisko", "pesel" };
-            attributelist.Add((string)((XElement)XElementon.Instance.Rule.Rules()).Element("fieldname"));
-            return attributelist;
-        }
+            List<string> typelist = new List<string> { "int", "string", "string", "int" };
+            
 
+            foreach (var field in XElementon.Instance.Field.Fields())
+            {
+                attributelist.Add((string)field.Element("fieldname"));
+                typelist.Add((string)field.Element("fieldtype"));
+            }
+
+            attributes.Add(attributelist);
+
+            List<string> operationlist = new List<string>();
+            foreach (var typ in typelist)
+            {
+                operationlist.Clear();
+                if (typ == "int")
+                {
+                    operationlist.Add("greater");
+                    operationlist.Add("equal");
+                    operationlist.Add("lesser");
+                }
+                else
+                {
+                    operationlist.Add("equal");
+                }
+                attributes.Add(operationlist);
+            }
+
+
+            return attributes;
+        }
 
     }
 
