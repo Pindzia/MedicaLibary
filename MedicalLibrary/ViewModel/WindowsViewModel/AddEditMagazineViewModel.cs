@@ -127,6 +127,34 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
+        private XElement _Rule = null;
+        public XElement Rule
+        {
+            get
+            {
+                return _Rule;
+            }
+            set
+            {
+                _Rule = value;
+                OnPropertyChanged("Rule");
+            }
+        }
+
+        private XElement _Magazine = null;
+        public XElement Magazine
+        {
+            get
+            {
+                return _Magazine;
+            }
+            set
+            {
+                _Magazine = value;
+                OnPropertyChanged("Patient");
+            }
+        }
+
 
         public ICommand SaveMagazine { get; set; }
 
@@ -138,7 +166,24 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 {
                     if (SelectedAttribute != "" && SelectedOperation != "" && VarOfRule != "")
                     {
+                        //dodawanie XElementa
                         //New magazine as Xelement implementation
+
+
+                        //Tworzymy element Rule który później wszczepimy w nasz dokument
+                        Rule = new XElement(
+                            new XElement("rule",
+                            new XElement("attribute", ListAttributes),
+                            new XElement("operation", ListOperation),
+                            new XElement("value", VarOfRule)));
+
+
+                        //Tworzymy element Storehouse który później wszczepimy w nasz dokument
+                        Magazine = new XElement(
+                            new XElement("storehouse",
+                            new XElement("name", MagazineName),
+                            new XElement("size", MagazineSize),
+                            new XElement("priority", -1))); //nocolision! napisać to smart!
                         window.DialogResult = true;
                         window.Close();
                     }
