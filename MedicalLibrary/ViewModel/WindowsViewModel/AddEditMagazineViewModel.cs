@@ -21,9 +21,15 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             SaveMagazine = new RelayCommand(pars => Save((AddEditMagazineWindow)pars));
         }
 
-        public AddEditMagazineViewModel(XElement magazine)
+        public AddEditMagazineViewModel(XElement ParsedMagazine)
         {
-
+            ListAttributes = XElementon.Instance.Storehouse.Attributes();
+            MagazineName = ParsedMagazine.Element("name").Value;
+            SelectedAttribute = ParsedMagazine.Element("rule").Element("attribute").Value;
+            SelectedOperation = ParsedMagazine.Element("rule").Element("operation").Value;
+            VarOfRule = ParsedMagazine.Element("rule").Element("value").Value;
+            MagazineSize = ParsedMagazine.Element("size").Value;
+            SaveMagazine = new RelayCommand(pars => Save((AddEditMagazineWindow)pars));
         }
 
         private string _MagazineName = "";
@@ -151,7 +157,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _Magazine = value;
-                OnPropertyChanged("Patient");
+                OnPropertyChanged("Magazine");
             }
         }
 

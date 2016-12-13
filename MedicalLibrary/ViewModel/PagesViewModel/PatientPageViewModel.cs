@@ -140,7 +140,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void Delete()
         {
-            if(MessageBox.Show("Czy chcesz wykasować Pacjenta :"+SelectedItem.Element("imie").Value +" "+SelectedItem.Element("nazwisko").Value,"Potwierdzenie",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if(MessageBox.Show("Czy chcesz wykasować Pacjenta : "+SelectedItem.Element("imie").Value +" "+SelectedItem.Element("nazwisko").Value,"Potwierdzenie",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 //SelectedItem <- data to delete
                 XElementon.Instance.Patient.Delete((int)SelectedItem.Element("idp"));

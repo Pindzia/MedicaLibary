@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 
@@ -18,9 +19,10 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             ShowMagazine = new RelayCommand(pars => ShowMagazineDetails((string)pars));
             AddMagazine = new RelayCommand(pars => Add());
+            EditMagazine = new RelayCommand(pars => Edit());
+            DeleteMagazine = new RelayCommand(pars => Delete());
             PushButton = new RelayCommand(pars =>Push());
-            ListMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Storehouse.Storehouses());
-            ShowMagazineDetails(ListMagazine.FirstOrDefault().Element("ids").Value);
+            UpdateData();
             
         }
 
@@ -140,12 +142,45 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
+        private XElement _NewRule = null;
+        public XElement NewRule
+        {
+            get
+            {
+                return _NewRule;
+            }
+            set
+            {
+                _NewRule = value;
+                OnPropertyChanged("NewRule");
+            }
+        }
+
+        private XElement _NewMagazine = null;
+        public XElement NewMagazine
+        {
+            get
+            {
+                return _NewMagazine;
+            }
+            set
+            {
+                _NewMagazine = value;
+                OnPropertyChanged("NewMagazine");
+            }
+        }
+
         public ICommand ShowMagazine { get; set; }
         public ICommand AddMagazine { get; set; }
         public ICommand EditMagazine { get; set; }
         public ICommand DeleteMagazine { get; set; }
         public ICommand PushButton { get; set; }
 
+        private void UpdateData()
+        {
+            ListMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Storehouse.Storehouses());
+            ShowMagazineDetails(ListMagazine.FirstOrDefault().Element("ids").Value);
+        }
         private void ShowMagazineDetails(string storehouseId)
         {
             int index;
@@ -164,7 +199,49 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             Nullable<bool> result = window.ShowDialog();
             if (result == true)
             {
+                NewRule = viewModel.Rule;
+                NewMagazine = viewModel.Magazine;
+                Tuple<string, string> a = new Tuple<string, string>("name", (string)NewMagazine.Element("name"));
+                Tuple<string, string> b = new Tuple<string, string>("size", (string)NewMagazine.Element("size"));
+                Tuple<string, string> c = new Tuple<string, string>("priority", (string)NewMagazine.Element("priority"));
+                Tuple<string, string>[] tup = { a, b, c };
+
+                XElementon.Instance.Storehouse.Add(tup);
+
+                Tuple<string, string> e = new Tuple<string, string>("attribute", (string)NewRule.Element("attribute"));
+                Tuple<string, string> f = new Tuple<string, string>("operation", (string)NewRule.Element("operation"));
+                Tuple<string, string> g = new Tuple<string, string>("value", (string)NewRule.Element("value"));
+                Tuple<string, string>[] tup2 = { e, f, g };
+
+
+                int addedIDS = XElementon.Instance.GetMaxIDS(); //TODO - wywalić te haxy, nie polecam
+                XElementon.Instance.Rule.Add(addedIDS, tup2);
+                UpdateData();
+            }
+        }
+
+        private void Edit()
+        {
+            AddEditMagazineViewModel viewModel = new AddEditMagazineViewModel(SelectedButton);
+            AddEditMagazineWindow window = new AddEditMagazineWindow(ref viewModel);
+            Nullable<bool> result = window.ShowDialog();
+            if (result == true)
+            {
+                NewRule = viewModel.Rule;
+                NewMagazine = viewModel.Magazine;
+                //tupology with edition
+                UpdateData();
+            }
+        }
+
+
+        private void Delete()
+        {
+            if (MessageBox.Show("Czy chcesz wykasować Magazyn : " + SelectedButton.Element("name").Value , "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                //SelectedButton <- data to delete
                 
+                UpdateData();
             }
         }
 
