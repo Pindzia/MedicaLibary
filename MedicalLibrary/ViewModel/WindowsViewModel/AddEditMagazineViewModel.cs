@@ -179,8 +179,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                         //Tworzymy element Rule który później wszczepimy w nasz dokument
                         Rule = new XElement(
                             new XElement("rule",
-                            new XElement("attribute", ListAttributes),
-                            new XElement("operation", ListOperation),
+                            new XElement("attribute", SelectedAttribute),
+                            new XElement("operation", SelectedOperation),
                             new XElement("value", VarOfRule)));
 
 

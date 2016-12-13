@@ -423,9 +423,7 @@ namespace MedicaLibrary.Model
         //HAXY na potrzeby MagazinePageViewModel
         public int GetMaxIDS()
         {
-            int newInt;
-            bool succes = int.TryParse((string)database.Element("max_ids"), out newInt);
-            return newInt-1;
+            return (int)database.Element("meta").Element("max_ids") - 1;
         }
     }
 }

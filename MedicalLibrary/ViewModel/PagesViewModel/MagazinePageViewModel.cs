@@ -229,7 +229,24 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             {
                 NewRule = viewModel.Rule;
                 NewMagazine = viewModel.Magazine;
-                //tupology with edition
+
+                Tuple<string, string> a = new Tuple<string, string>("name", (string)NewMagazine.Element("name"));
+                Tuple<string, string> b = new Tuple<string, string>("size", (string)NewMagazine.Element("size"));
+                Tuple<string, string> c = new Tuple<string, string>("priority", (string)NewMagazine.Element("priority"));
+                Tuple<string, string>[] tup = { a, b, c };
+
+                XElementon.Instance.Storehouse.Change((int)SelectedButton.Element("ids"),tup);
+
+                Tuple<string, string> e = new Tuple<string, string>("attribute", (string)NewRule.Element("attribute"));
+                Tuple<string, string> f = new Tuple<string, string>("operation", (string)NewRule.Element("operation"));
+                Tuple<string, string> g = new Tuple<string, string>("value", (string)NewRule.Element("value"));
+                Tuple<string, string>[] tup2 = { e, f, g };
+
+
+                int addedIDS = XElementon.Instance.GetMaxIDS(); //TODO - wywalić te haxy, nie polecam
+                XElementon.Instance.Rule.Change(addedIDS, tup2);
+
+
                 UpdateData();
             }
         }
@@ -240,7 +257,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             if (MessageBox.Show("Czy chcesz wykasować Magazyn : " + SelectedButton.Element("name").Value , "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 //SelectedButton <- data to delete
-                
+                XElementon.Instance.Storehouse.Delete((int)SelectedButton.Element("ids"));
                 UpdateData();
             }
         }
