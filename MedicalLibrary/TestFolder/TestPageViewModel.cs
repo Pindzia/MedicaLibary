@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MedicaLibrary.Model;
+using MedicalLibrary.ViewModel;
+using MedicalLibrary.ViewModel.PagesViewModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,38 +10,45 @@ using System.Globalization;//Ivalueconverter
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;//Ivalueconverter
+using System.Windows.Input;
 using System.Xml.Linq;
 
 namespace MedicalLibrary.TestFolder
 {
-    class TestPageViewModel: INotifyPropertyChanged
+    class TestPageViewModel: BaseViewModel
     {
 
 
         public TestPageViewModel()
         {
-            //DataView = MedicaLibrary.Model.ObserverCollectionConverter.Instance.Observe(MedicaLibrary.Model.XElementon.Instance.GetAllPatients());
-           // var a  = (MedicaLibrary.Model.XElementon.Instance.Patient.GetAllPatients()).ToList();
-            //DataView = (MedicaLibrary.Model.XElementon.Instance.Patient.GetAllPatients()).ToList(); //ObservableCollection<XElement>
+            UpdateData();
+            WhatStorehouse = new RelayCommand(pars => What());
+            FixStorehouse = new RelayCommand(pars => Fix());
         }
-        public event PropertyChangedEventHandler PropertyChanged = null;
-        private List<XElement> _DataView = new List<XElement>();
-        public List<XElement> DataView
+
+        private void UpdateData()
+        {
+            WrongPatients = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.InWrongStorehouse());
+        }
+
+        private ObservableCollection<XElement> _WrongPatients = new ObservableCollection<XElement>();
+        public ObservableCollection<XElement> WrongPatients
         {
             get
             {
-                return _DataView;
+                return _WrongPatients;
             }
 
             set
             {
-                _DataView = value;
-                OnPropertyChanged("DataView");
+                _WrongPatients = value;
+                OnPropertyChanged("WrongPatients");
             }
         }
 
-            private XElement _SelectedItem = null;
+        private XElement _SelectedItem = null;
         public XElement SelectedItem
         {
             get
@@ -49,16 +59,39 @@ namespace MedicalLibrary.TestFolder
             set
             {
                 _SelectedItem = value;
+                SelectedItemIndex = WrongPatients.IndexOf(SelectedItem);
                 OnPropertyChanged("SelectedItem");
             }
-
-
         }
 
-        virtual protected void OnPropertyChanged(string propName)
+        private int _SelectedItemIndex = 0;
+        public int SelectedItemIndex
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            get
+            {
+                return _SelectedItemIndex;
+            }
+
+            set
+            {
+                _SelectedItemIndex = value;
+                OnPropertyChanged("SelectedItemIndex");
+            }
+        }
+
+        public ICommand WhatStorehouse { get; set; }
+        public ICommand FixStorehouse { get; set; }
+
+        private void What()
+        {
+            Tuple <string,string>Answer = XElementon.Instance.Patient.WhatStorehouseEnvelope((int)SelectedItem.Element("idp"));
+            MessageBox.Show("Powinno sie przenieś wybranego pacjenta do magazynu o nazwie: "+ Answer.Item1 +"\nw kopercie o numerze: "+Answer.Item2);
+        }
+
+        private void Fix()
+        {
+            XElementon.Instance.Patient.FixStorehouseEnvelope((int)SelectedItem.Element("idp"));
+            UpdateData();
         }
     }
 }

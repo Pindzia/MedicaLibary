@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalLibrary.TestFolder"
+      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="TestPage">
@@ -13,21 +14,38 @@
     </Page.Resources>
 
     <Grid>
-        <DataGrid DataContext="{Binding DataView}" ItemsSource="{Binding}" SelectedItem="{Binding SelectedItem}" SelectionMode="Single" SelectionUnit="FullRow"  AutoGenerateColumns="False" Height="150" Width="200">
-            <DataGrid.Columns>
-            
-                
-            <DataGridTextColumn Header="imie" Binding="{Binding XPath=/imie}"/>
-            <DataGridTextColumn Header="nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
-
-                <!-- <DataGridTextColumn Header="imie1" Binding="{Binding Path=Element[patient].Element[imie].Value}"></DataGridTextColumn> -->
-                <!-- <DataGridTextColumn Header="imie2" Binding="{Binding Path=Element[patient].Element[imie].Value}"></DataGridTextColumn> -->
-                <!-- <DataGridTextColumn Header="imie4" Binding="{Binding Path=Descendants[imie].Value}"></DataGridTextColumn> -->
-            </DataGrid.Columns>
-        </DataGrid>
-
-
-        <Label Content="{Binding SelectedItem}"></Label>
-        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Margin="20,10,20,10" Grid.Row="0">
+                <DataGrid DataContext="{Binding WrongPatients}"  
+                          ItemsSource="{Binding}" 
+                          SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" 
+                          IsReadOnly="True" 
+                          SelectionMode="Single"
+                          AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="{Binding SelectedItem.Element[idp].Value}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type mui:ModernButton}">
+                        <Setter Property="Margin" Value="25,10,25,10"/>
+                    </Style>
+                </StackPanel.Resources>
+                <mui:ModernButton Command="{Binding WhatStorehouse}" Height="25" Width="120">Zasugeruj Magazyn</mui:ModernButton>
+                <mui:ModernButton Command="{Binding FixStorehouse}" Height="25" Width="120">Popraw Pacjenta</mui:ModernButton>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>
