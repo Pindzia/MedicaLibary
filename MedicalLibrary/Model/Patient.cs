@@ -152,6 +152,24 @@ namespace MedicaLibrary.Model
             XElementon.Instance.ChangeX("patient", id, modifications, log);
         }
 
+        //Do jakiego magazynu i jakiej koperty X'a?
+        public Tuple<string, string> WhatStorehouseEnvelope(int id)
+        {
+            var a = XElementon.Instance.CheckingRules(XElementon.Instance.Patient.WithIDP(id).First()); //todo - bezpieczeństwo?
+            return new Tuple<string, string>((string)a[0], (string)a[1]);
+        }
+
+        //Wstawiłem X'a do poprawnegomagazynu!
+        public void FixStorehouseEnvelope(int id)
+        {
+
+            var a = XElementon.Instance.Patient.WhatStorehouseEnvelope(id);
+            Tuple<string, string> ZmianaMagazynu = new Tuple<string, string>("storehouse", a.Item1);
+            Tuple<string, string> ZmianaEnvelope = new Tuple<string, string>("envelope", a.Item2);
+
+            Tuple<string, string>[] modifications = { ZmianaMagazynu, ZmianaEnvelope };
+            XElementon.Instance.Patient.Change(id, modifications);
+        }
 
         
         //Zmiana pacjenta przy użyciu tupli
