@@ -46,13 +46,18 @@
                 </StackPanel.Resources>
                 <DockPanel>
                     <Label  HorizontalAlignment="Left" VerticalAlignment="Center" >Atrybut:</Label>
-                    <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" DataContext="{Binding ListAttributes}" ItemsSource="{Binding}">
+                    <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" 
+                              DataContext="{Binding ListAttributes}" 
+                              ItemsSource="{Binding}" 
+                              SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedAttribute}">
                     </ComboBox>
                 </DockPanel>
                 <DockPanel>
                     <Label  HorizontalAlignment="Left" VerticalAlignment="Center" >Operacja:</Label>
-                    <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <ComboBoxItem>one</ComboBoxItem>
+                    <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center"
+                              DataContext="{Binding ListOperation}" 
+                              ItemsSource="{Binding}" 
+                              SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedOperation}">
                     </ComboBox>
                 </DockPanel>
                 <DockPanel>
