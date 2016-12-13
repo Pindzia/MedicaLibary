@@ -104,9 +104,9 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 NewPatient = viewModel.Patient;
 
-                Tuple<string, string> a = new Tuple<string, string>("imie", NewPatient.Element("imie").Value);
-                Tuple<string, string> b = new Tuple<string, string>("nazwisko", NewPatient.Element("nazwisko").Value);
-                Tuple<string, string> c = new Tuple<string, string>("pesel", NewPatient.Element("pesel").Value);
+                Tuple<string, string> a = new Tuple<string, string>("imie", (string)NewPatient.Element("imie"));
+                Tuple<string, string> b = new Tuple<string, string>("nazwisko", (string)NewPatient.Element("nazwisko"));
+                Tuple<string, string> c = new Tuple<string, string>("pesel", (string)NewPatient.Element("pesel"));
                 Tuple<string, string>[] tup = { a, b, c };
 
                 XElementon.Instance.Patient.Add(tup);
@@ -123,8 +123,15 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             if(result == true)
             {
                 NewPatient = viewModel.Patient;
+
+                //TODO - Pingot - tak żeby w modyfikacjach nie było nie-zmian "Stary - Pingot, Nowy - Pingot"
                 //DataToBind[SelectedItemIndex] = NewPatient; old implementation
-                //edition place
+                Tuple<string, string> a = new Tuple<string, string>("imie", (string)NewPatient.Element("imie"));
+                Tuple<string, string> b = new Tuple<string, string>("nazwisko", (string)NewPatient.Element("nazwisko"));
+                Tuple<string, string> c = new Tuple<string, string>("pesel", (string)NewPatient.Element("pesel"));
+                Tuple<string, string>[] tup = { a, b, c };
+
+                XElementon.Instance.Patient.Change((int)SelectedItem.Element("idp"),tup);
                 UpdateData();
 
             }
@@ -136,7 +143,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             if(MessageBox.Show("Czy chcesz wykasować Pacjenta :"+SelectedItem.Element("imie").Value +" "+SelectedItem.Element("nazwisko").Value,"Potwierdzenie",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 //SelectedItem <- data to delete
-                //XElementon.Instance.Patient.Delete() deletion place
+                XElementon.Instance.Patient.Delete((int)SelectedItem.Element("idp"));
                 UpdateData();
             }
         }

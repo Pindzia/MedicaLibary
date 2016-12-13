@@ -101,7 +101,7 @@ namespace MedicaLibrary.Model
         }
 
         //Zmiana wizyty przy użyciu tupli
-        public void Change(string datatype, int id, Tuple<string, string>[] modifications, bool log = true)
+        public void Change(int id, Tuple<string, string>[] modifications, bool log = true)
         {
             XElementon.Instance.ChangeX("storehouse", id, modifications, log);
         }
