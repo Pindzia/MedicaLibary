@@ -155,7 +155,7 @@ namespace MedicaLibrary.Model
 
         
         //Zmiana pacjenta przy użyciu tupli
-        public void Delete(string datatype, int id, bool log = true)
+        public void Delete(int id, bool log = true)
         {
             XElementon.Instance.DeleteX("patient", id, log);
         }
