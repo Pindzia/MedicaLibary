@@ -131,7 +131,7 @@ namespace MedicaLibrary.Model
 
         public List<string> Operations(string attribute)
         {
-            List<String> operationlist = new List<String>();
+            List<string> operationlist = new List<string>();
             string typ ="";
 
             if(attribute == "idp" || attribute == "pesel")

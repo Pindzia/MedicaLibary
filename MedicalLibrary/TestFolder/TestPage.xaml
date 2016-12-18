@@ -33,7 +33,9 @@
                         <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"></DataGridTextColumn>
-                    </DataGrid.Columns>
+                        <DataGridTextColumn Header="Sugerowany Magazyn" Binding="{Binding Path=Element[SuggestedStorehouse].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Sugerowana Koperta" Binding="{Binding Path=Element[SugestedEnvelope].Value}"></DataGridTextColumn>
+                    </DataGrid.Columns> 
                 </DataGrid>
                 <Label Content="{Binding SelectedItem.Element[idp].Value}"/>
             </StackPanel>

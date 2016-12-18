@@ -4,7 +4,7 @@
     <max_idp>12</max_idp>
     <max_idv>6</max_idv>
     <max_ids>8</max_ids>
-    <max_idr>9</max_idr>
+    <max_idr>10</max_idr>
     <max_idf>3</max_idf>
     <max_idm>2</max_idm>
     <modifications>
@@ -137,25 +137,19 @@
         </rule>
         <priority>0</priority>
       </storehouse>
-	  <storehouse>
+      <storehouse>
         <ids>7</ids>
-        <name>Wysoki i w ciąży</name>
+        <name>DomyslnyMagazyn</name>
         <autonumeration>
           <max_envelope>1</max_envelope>
           <holes></holes>
         </autonumeration>
-        <size>500</size>
+        <size>5000</size>
         <rule>
-          <idr>7</idr>
-          <attribute>ciąża</attribute>
-          <operation>equal</operation>
-          <value>true</value>
-        </rule>
-        <rule>
-          <idr>8</idr>
-          <attribute>id</attribute>
+          <idr>9</idr>
+          <attribute>idp</attribute>
           <operation>greater</operation>
-          <value>1</value>
+          <value>0</value>
         </rule>
         <priority>100</priority>
       </storehouse>
