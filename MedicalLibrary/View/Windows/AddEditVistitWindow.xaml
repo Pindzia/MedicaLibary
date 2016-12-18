@@ -1,0 +1,36 @@
+﻿<Window x:Class="MedicalLibrary.View.Windows.AddEditVistitWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MedicalLibrary.View.Windows"
+        xmlns:custom="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        x:Name="WindowToClose"
+        mc:Ignorable="d"
+        Title="AddEditVistitWindow" Height="275" Width="420" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3.5*"/>
+                <ColumnDefinition Width="6.5*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" >Data Wizyty:</Label>
+            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" >Komentarz:</Label>
+
+            <custom:DateTimePicker Grid.Column ="1" Grid.Row="0"  Width="200" Height="25"  HorizontalAlignment="Center" Format="Custom" FormatString="yyyy/MM/dd HH/mm/ss" Value="{Binding FullDate}"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Name="Nazwisko"  Width="200" Height="25" Text="{Binding Comment}"/>
+
+        </Grid>
+        <mui:ModernButton Grid.Row="1" Width="120" Height="25" Command="{Binding SaveVisit}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</mui:ModernButton>
+    </Grid>
+</Window>

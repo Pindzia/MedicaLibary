@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using MedicaLibrary.Model;
 using System.Windows;
 using System.Collections.ObjectModel;
+using MedicalLibrary.View.Windows;
 
 namespace MedicalLibrary.ViewModel.PagesViewModel
 {
@@ -101,7 +102,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void Add()
         {
-            throw new NotImplementedException();
+            AddEditVistitWindow window = new AddEditVistitWindow();
+            window.Show();
         }
 
         private void Edit()

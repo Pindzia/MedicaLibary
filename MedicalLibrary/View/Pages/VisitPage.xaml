@@ -75,7 +75,7 @@
                     </StackPanel>
                 </DockPanel>
                 <DockPanel Grid.Row="1">
-                    <Label Content="Lista Spotkań Danego Pacjenta:" FontSize="14" FontWeight="Bold" DockPanel.Dock="Top" Margin="0,0,0,10"/>
+                    <Label Content="Lista Spotkań Danego Pacjenta:" FontSize="14" FontWeight="Bold" DockPanel.Dock="Top" Margin="80,0,0,10"/>
                     <DataGrid DataContext="{Binding VisitList}"  
                           ItemsSource="{Binding}" 
                           SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedVisit, Mode=TwoWay}" 
@@ -97,9 +97,9 @@
                     <Setter Property="Margin" Value="25,10,25,10"/>
                 </Style>
             </StackPanel.Resources>
-            <mui:ModernButton Command="{Binding AddVisit}" Height="25" Width="120">Dodaj Pacjenta</mui:ModernButton>
-            <mui:ModernButton Command="{Binding EditVisit}" Height="25" Width="120">Edytuj Pacjenta</mui:ModernButton>
-            <mui:ModernButton Command="{Binding DeleteVisit}" Height="25" Width="120">Usuń Pacjenta</mui:ModernButton>
+            <mui:ModernButton Command="{Binding AddVisit}" Height="25" Width="120">Dodaj Wizytę</mui:ModernButton>
+            <mui:ModernButton Command="{Binding EditVisit}" Height="25" Width="120">Edytuj Wizytę</mui:ModernButton>
+            <mui:ModernButton Command="{Binding DeleteVisit}" Height="25" Width="120">Usuń Wizytę</mui:ModernButton>
         </StackPanel>
     </Grid>
 </Page>
