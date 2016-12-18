@@ -9,14 +9,97 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="VisitPage">
 
+
     <Grid>
-        <ListBox x:Name="List" ItemsSource="{Binding VisitToBind}"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="200">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Button Content="{Binding Path=Element[visit_addition_date].Value}" Command="{Binding Path=DataContext.ShowVisit , ElementName=List}" CommandParameter="{Binding Path=Element[idv].Value}" BorderBrush="White"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-        </ListBox>
-        <Label Content="{Binding VisitInfo}" Margin="20,20,20,20" Height="Auto" Width="300" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.Column="0">
+                <Label Content="Lista Pacjentów:" FontSize="14" FontWeight="Bold" DockPanel.Dock="Top" Margin="0,0,0,10"/>
+                <ListBox x:Name="List"
+                         DataContext="{Binding PatientList}"
+                         ItemsSource="{Binding}"
+                         SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}"
+                         VerticalAlignment="Top" 
+                         HorizontalAlignment="Left"
+                         Height="560"
+                         Width="270">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}: {2}">
+                                        <Binding Path="Element[imie].Value"/>
+                                        <Binding Path="Element[nazwisko].Value"/>
+                                        <Binding Path="Element[pesel].Value"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+            <GridSplitter Grid.Column="1"/>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0">
+                    <Label Content="Dane Wybranego Pacjenta" FontSize="14" FontWeight="Bold" Margin="80,0,0,0" DockPanel.Dock="Top"/>
+                    <StackPanel Orientation="Vertical" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type DockPanel}">
+                                <Setter Property="Margin" Value="0,10,0,10"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <DockPanel>
+                            <Label Content ="Imie :" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding SelectedItem.Element[imie].Value}" HorizontalAlignment="Right"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content ="Nazwisko :" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding SelectedItem.Element[nazwisko].Value}" HorizontalAlignment="Right"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content ="Pesel :" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding SelectedItem.Element[pesel].Value}" HorizontalAlignment="Right"/>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel Grid.Row="1">
+                    <Label Content="Lista Spotkań Danego Pacjenta:" FontSize="14" FontWeight="Bold" DockPanel.Dock="Top" Margin="0,0,0,10"/>
+                    <DataGrid DataContext="{Binding VisitList}"  
+                          ItemsSource="{Binding}" 
+                          SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedVisit, Mode=TwoWay}" 
+                          IsReadOnly="True" 
+                          SelectionMode="Single"
+                          AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Path=Element[idv].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Data Wizyty" Binding="{Binding Path=Element[visit_addition_date].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Komentarz" Binding="{Binding Path=Element[comment].Value}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Grid>
+        </Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type mui:ModernButton}">
+                    <Setter Property="Margin" Value="25,10,25,10"/>
+                </Style>
+            </StackPanel.Resources>
+            <mui:ModernButton Command="{Binding AddVisit}" Height="25" Width="120">Dodaj Pacjenta</mui:ModernButton>
+            <mui:ModernButton Command="{Binding EditVisit}" Height="25" Width="120">Edytuj Pacjenta</mui:ModernButton>
+            <mui:ModernButton Command="{Binding DeleteVisit}" Height="25" Width="120">Usuń Pacjenta</mui:ModernButton>
+        </StackPanel>
     </Grid>
 </Page>

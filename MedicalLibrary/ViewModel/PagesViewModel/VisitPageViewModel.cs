@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Xml.Linq;
 using MedicaLibrary.Model;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace MedicalLibrary.ViewModel.PagesViewModel
 {
@@ -16,51 +17,101 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         public VisitPageViewModel()
         {
-            ShowVisit = new RelayCommand(pars => ShowVisitInfo((string)pars));
+            UpdateData();
+            AddVisit = new RelayCommand(pars => Add());
+            EditVisit = new RelayCommand(pars => Edit());
+            DeleteVisit = new RelayCommand(pars => Delete());
         }
-        private IEnumerable<XElement> _VisitToBind = XElementon.Instance.Visit.Visits();
-        public IEnumerable<XElement> VisitToBind
+
+        private ObservableCollection<XElement> _PatientList = new ObservableCollection<XElement>();
+        public ObservableCollection<XElement> PatientList
         {
             get
             {
-                return _VisitToBind;
+                return _PatientList;
             }
 
             set
             {
-                _VisitToBind = value;
-                OnPropertyChanged("VisitToBind");
+                _PatientList = value;
+                OnPropertyChanged("PatientList");
             }
         }
 
-        private string _VisitInfo = null;
-        public string VisitInfo
+        private XElement _SelectedItem = null;
+        public XElement SelectedItem
         {
             get
             {
-                return _VisitInfo;
+                return _SelectedItem;
             }
 
             set
             {
-                _VisitInfo = value;
-                OnPropertyChanged("VisitInfo");
+                _SelectedItem = value;
+                UpdateVisits();
+                OnPropertyChanged("SelectedItem");
             }
         }
 
-        public ICommand ShowVisit { get; set; }
-        private void ShowVisitInfo(string idv)
+        private ObservableCollection<XElement> _VisitList = new ObservableCollection<XElement>();
+        public ObservableCollection<XElement> VisitList
         {
-            int idV = 0;
+            get
+            {
+                return _VisitList;
+            }
 
-            if (int.TryParse(idv, out idV))
+            set
             {
-                VisitInfo = XElementon.Instance.Visit.WithIDV(idV).Elements("idv").FirstOrDefault().Value;
+                _VisitList = value;
+                OnPropertyChanged("VisitList");
             }
-            else
+        }
+
+        private XElement _SelectedVisit = null;
+        public XElement SelectedVisit
+        {
+            get
             {
-                MessageBox.Show("zły parsing");
+                return _SelectedVisit;
             }
+
+            set
+            {
+                _SelectedVisit = value;
+                OnPropertyChanged("SelectedVisit");
+            }
+        }
+
+        public ICommand AddVisit { get; set; }
+        public ICommand EditVisit { get; set; }
+        public ICommand DeleteVisit { get; set; }
+
+        private void UpdateData()
+        {
+            PatientList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Patients());
+            SelectedItem = PatientList.FirstOrDefault();
+        }
+
+        private void UpdateVisits()
+        {
+            VisitList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Visit.Visits());
+        }
+
+        private void Add()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Edit()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Delete()
+        {
+            throw new NotImplementedException();
         }
 
     }

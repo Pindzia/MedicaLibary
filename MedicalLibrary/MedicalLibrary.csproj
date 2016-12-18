@@ -75,6 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\NameConverter.cs" />
     <Compile Include="Model\Modification.cs" />
     <Compile Include="Model\ObserverCollectionConverter.cs" />
     <Compile Include="Model\Field.cs" />
@@ -121,6 +122,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="TestFolder\TestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Header.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

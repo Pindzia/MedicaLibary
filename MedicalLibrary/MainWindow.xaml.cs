@@ -26,6 +26,7 @@ namespace MedicalLibrary
         {
             InitializeComponent();
             XElementon.Instance.Load();
+            ContentSource = MenuLinkGroups.First().Links.First().Source;
         }
     }
 }

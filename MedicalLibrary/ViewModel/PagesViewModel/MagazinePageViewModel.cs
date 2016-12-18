@@ -170,6 +170,21 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
+        private int _NumOfWrong = 0;
+        public int NumOfWrong
+        {
+            get
+            {
+                return _NumOfWrong;
+            }
+
+            set
+            {
+                _NumOfWrong = value;
+                OnPropertyChanged("NumOfWrong");
+            }
+        }
+
         public ICommand ShowMagazine { get; set; }
         public ICommand AddMagazine { get; set; }
         public ICommand EditMagazine { get; set; }
@@ -180,6 +195,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             ListMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Storehouse.Storehouses());
             ShowMagazineDetails(ListMagazine.FirstOrDefault().Element("ids").Value);
+            NumOfWrong = XElementon.Instance.Patient.InWrongStorehouse().Count();
         }
         private void ShowMagazineDetails(string storehouseId)
         {

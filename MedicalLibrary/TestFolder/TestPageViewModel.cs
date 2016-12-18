@@ -44,6 +44,7 @@ namespace MedicalLibrary.TestFolder
             set
             {
                 _WrongPatients = value;
+                NumOfWrong = WrongPatients.Count;
                 OnPropertyChanged("WrongPatients");
             }
         }
@@ -79,13 +80,28 @@ namespace MedicalLibrary.TestFolder
             }
         }
 
+        private int _NumOfWrong = 0;
+        public int NumOfWrong
+        {
+            get
+            {
+                return _NumOfWrong;
+            }
+
+            set
+            {
+                _NumOfWrong = value;
+                OnPropertyChanged("NumOfWrong");
+            }
+        }
+
         public ICommand WhatStorehouse { get; set; }
         public ICommand FixStorehouse { get; set; }
 
         private void What()
         {
             Tuple <string,string>Answer = XElementon.Instance.Patient.WhatStorehouseEnvelope((int)SelectedItem.Element("idp"));
-            MessageBox.Show("Powinno sie przenieś wybranego pacjenta do magazynu o nazwie: "+ Answer.Item1 +"\nw kopercie o numerze: "+Answer.Item2);
+            MessageBox.Show("Powinno sie przenieś wybranego pacjenta do magazynu o nazwie: \n"+ Answer.Item1 +"\nw kopercie o numerze: "+Answer.Item2);
         }
 
         private void Fix()

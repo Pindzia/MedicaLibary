@@ -22,7 +22,7 @@
                           SelectionMode="Single"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Path=Element[idp].Value}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
