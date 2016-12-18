@@ -37,23 +37,23 @@ namespace MedicaLibrary.Model
         public IEnumerable<XElement> InWrongStorehouse()
         {
             var gjwarehouse = from qpatient in database.Elements("patient")
-                              let left = XElementon.Instance.CheckingRules(qpatient)[0]
+                              let left = XElementon.Instance.CheckingRules(qpatient, false)[0]
                               let right = qpatient.Element("storehouse")
                               where (left != null && right != null)
                               where ((string)left == (string)right)
                               select qpatient;
 
             var wrwarehouse1 = from qpatient in database.Elements("patient")
-                               let left = XElementon.Instance.CheckingRules(qpatient)
+                               let left = XElementon.Instance.CheckingRules(qpatient, false)
                                let right = qpatient.Element("storehouse")
                                where (left[0] == null || right == null)
                                select qpatient; //select new { qpatient, left};
             var wrwarehouse2 = from qpatient in database.Elements("patient")
-                               let left = XElementon.Instance.CheckingRules(qpatient)
+                               let left = XElementon.Instance.CheckingRules(qpatient, false)
                                let right = qpatient.Element("storehouse")
                                where (left[0] != null && right != null)
                                where ((string)left[0] != (string)right)
-                               select qpatient; //select new { qpatient, left};
+                               select new XElement(qpatient.Name, qpatient.Elements(), new XElement("SuggestedStorehouse", (string)left[0]), new XElement("SugestedEnvelope", (string)left[1])); //select new { qpatient, left};
 
             var wrwarehouse = wrwarehouse1.Concat(wrwarehouse2);
             //TODO - przekazywanie również wartości jakie powinny być oraz rysowanie ich w dodatkowych kolumnach
@@ -141,6 +141,10 @@ namespace MedicaLibrary.Model
                     );
                 database.Descendants("modifications").First().Add(pamodification);
             }
+            
+
+
+
 
             database.Add(nowy_pacjent); //- samo doddawanie, nie dodaje do Operations() coby przy odpalaniu tego dla debuga nie mieszać w bazie danych
             return;
@@ -155,7 +159,7 @@ namespace MedicaLibrary.Model
         //Do jakiego magazynu i jakiej koperty X'a?
         public Tuple<string, string> WhatStorehouseEnvelope(int id)
         {
-            var a = XElementon.Instance.CheckingRules(XElementon.Instance.Patient.WithIDP(id).First()); //todo - bezpieczeństwo?
+            var a = XElementon.Instance.CheckingRules(XElementon.Instance.Patient.WithIDP(id).First(), false); //todo - bezpieczeństwo?
             return new Tuple<string, string>((string)a[0], (string)a[1]);
         }
 

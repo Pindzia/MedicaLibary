@@ -130,7 +130,7 @@ namespace MedicaLibrary.Model
         //XML
         //TODO: Sprawdzić .Element vs .Elements - kiedy działają
 
-        public XElement[] CheckingRules(XElement np)
+        public XElement[] CheckingRules(XElement np, bool autonumeration = true)
         {
             XElement warehouse = null;
             XElement envelope = null;
@@ -210,6 +210,7 @@ namespace MedicaLibrary.Model
                     {
                         var maxe = qstorehouse.Descendants("max_envelope").First(); //TODO: gdzie istnieje max? zmienić nazwę naszego maxe.
                         envelope = new XElement(XElement.Parse("<envelope>" + (string)maxe + "</envelope>")); //kopia a nie wskaźnik
+                        if(autonumeration)
                         maxe.Value = (Convert.ToInt32(maxe.Value) + 1).ToString(); //Zwiększamy element max o 1!
                     }
                     else
@@ -233,7 +234,7 @@ namespace MedicaLibrary.Model
             error[1] = new XElement(XElement.Parse("<envelope>" + "error:envelopenotfound" + "</envelope>"));
 
             return error;
-        } //TODO - protected
+        } //TODO - protected //TODO NIE ZAWSZE AUTONUMERUJ
 
         public string AutonumerateModifications()
         {
@@ -425,5 +426,29 @@ namespace MedicaLibrary.Model
         {
             return (int)database.Element("meta").Element("max_ids") - 1;
         }
+
+
+
+
+
+        public void SendModification() //idm? z góry na dół?
+        {
+            var modification = database.Element("meta").Element("modifications").Elements("modification").First();
+
+            var operacja = (string)modification.Element("operation");
+            var dana = (string)modification.Element("node_type");
+            var id = (string)modification.Element("id");
+
+
+            //Wyślij modyfikacje "modyfikacja.dbo"
+            //Wyślij modyfikacje "dane_modyfikacji.dbo"
+
+            //Pobierz z RESTa ów element (dana o podanym id)
+            //Zmień wczytanego elementa
+            //Przeczytaj operację i Wysłać nowego elementa (ze zmienionymi danymi na podstawie newdata)
+
+        }
+
+
     }
 }
