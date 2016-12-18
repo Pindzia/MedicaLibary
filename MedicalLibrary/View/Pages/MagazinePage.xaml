@@ -21,85 +21,94 @@
                 <ColumnDefinition Width="2"/>
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
-            <ListBox x:Name="List" 
+            <GroupBox Grid.Column="0" Header="Lista Magazynów">
+                <ListBox x:Name="List" 
                          ItemsSource="{Binding ListMagazine}" 
                          VerticalAlignment="Top" 
                          HorizontalAlignment="Left" 
-                         Width="230" 
+                         Width="233"
+                         Height="560"
                          Grid.Column="0"
                          Margin="0,20,10,0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="{Binding Path=Element[name].Value}" 
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="{Binding Path=Element[name].Value}" 
                                         Command="{Binding Path=DataContext.ShowMagazine , ElementName=List}" 
                                         CommandParameter="{Binding Path=Element[ids].Value}"
                                         BorderBrush="White" 
                                         Width="230" 
                                         Height="35"
                                         x:Name="Button">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click" SourceName="Button">
-                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}},Path=DataContext.PushButton}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Button>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <GridSplitter Grid.Column="1" Background="AliceBlue"/>
-            <Grid Grid.Column="2" Margin="20,0,20,0" Height="Auto" Width="Auto">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="7*"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Orientation="Vertical" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type DockPanel}">
-                            <Setter Property="Margin" Value="0,10,0,10"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <DockPanel>
-                        <Label Content ="Magazyn :" HorizontalAlignment="Left"/>
-                        <TextBlock Text="{Binding MagazineName}" HorizontalAlignment="Right"/>
-                    </DockPanel>
-                    <DockPanel>
-                        <Label Content ="ID Magazynu :" HorizontalAlignment="Left"/>
-                        <TextBlock Text="{Binding MagazineId}" HorizontalAlignment="Right"/>
-                    </DockPanel>
-                    <DockPanel>
-                        <Label Content ="Ilość Pacjentów :" HorizontalAlignment="Left"/>
-                        <TextBlock Text="{Binding MagazineCount}" HorizontalAlignment="Right"/>
-                    </DockPanel>
-                </StackPanel>
-                <DockPanel Grid.Row="1" Width="Auto" Height="Auto" >
-                    <Label Content="Lista Pacjentów Danego Magazynu:" FontSize="14" DockPanel.Dock="Top" FontWeight="Bold"/>
-                    <DataGrid DataContext="{Binding PatientsOfMagazine}" 
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click" SourceName="Button">
+                                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}},Path=DataContext.PushButton}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </GroupBox>
+            <GroupBox Grid.Column="2" Header="Dane Magazynu" Margin="10,0,10,0">
+                <Grid  Margin="20,0,0,0" Height="Auto" Width="Auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="7*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Vertical" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type DockPanel}">
+                                <Setter Property="Margin" Value="0,10,0,10"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <DockPanel>
+                            <Label Content ="Nazwa Magazynu :" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding MagazineName}" HorizontalAlignment="Right"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content ="ID Magazynu :" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding MagazineId}" HorizontalAlignment="Right"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content ="Ilość Pacjentów :" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding MagazineCount}" HorizontalAlignment="Right"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content ="Priorytet :" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding MagazinePriority}" HorizontalAlignment="Right"/>
+                        </DockPanel>
+                    </StackPanel>
+                    <DockPanel Grid.Row="1" Width="Auto" Height="Auto" >
+                        <Label Content="Lista Pacjentów Danego Magazynu:" FontSize="14" DockPanel.Dock="Top" FontWeight="Bold"/>
+                        <DataGrid DataContext="{Binding PatientsOfMagazine}" 
                                           Grid.Row="1"
                                           ItemsSource="{Binding}"  
                                           IsReadOnly="True" 
                                           SelectionMode="Single"
                                           AutoGenerateColumns="False"
                                           ColumnWidth="*"
-                                          Width="670"
+                                          Width="650"
                                           Height="300"
                                           RowHeaderWidth="1"
                                           VerticalContentAlignment="Center"
                                           HorizontalContentAlignment="Center" 
                                           BorderBrush="AliceBlue" 
                                           BorderThickness="2">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"/>
-                            <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"/>
-                            <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"/>
-                            <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"/>
-                            <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"/>
-                            <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </DockPanel>
-            </Grid>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"/>
+                                <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"/>
+                                <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"/>
+                                <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"/>
+                                <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"/>
+                                <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                </Grid>
+        
+        </GroupBox>
         </Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
             <StackPanel.Resources>

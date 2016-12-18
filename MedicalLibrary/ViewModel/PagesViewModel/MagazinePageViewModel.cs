@@ -142,6 +142,20 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
+        private string _MagazinePriority = "";
+        public string MagazinePriority
+        {
+            get
+            {
+                return _MagazinePriority;
+            }
+            set
+            {
+                _MagazinePriority = value;
+                OnPropertyChanged("MagazinePriority");
+            }
+        }
+
         private XElement _NewRule = null;
         public XElement NewRule
         {
@@ -206,6 +220,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             PatientsOfMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.WithStorehouseName(MagazineName));
             MagazineId = SelectedButton.Element("ids").Value;
             MagazineCount = PatientsOfMagazine.Count.ToString() + "/" + SelectedButton.Element("size").Value;
+            MagazinePriority = SelectedButton.Element("priority").Value;
         }
 
         private void Add()
