@@ -25,5 +25,11 @@ namespace MedicalLibrary.View.Windows
             InitializeComponent();
             DataContext = new AddEditVisitViewModel();
         }
+
+        public AddEditVistitWindow( ref AddEditVisitViewModel viewModel)
+        {
+            InitializeComponent();
+            DataContext = viewModel;
+        }
     }
 }

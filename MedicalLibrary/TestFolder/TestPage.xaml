@@ -5,7 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalLibrary.TestFolder"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
+      x:Name="Page"
       d:DesignHeight="300" d:DesignWidth="300"
       Title="TestPage">
 
@@ -13,6 +15,11 @@
         <XmlDataProvider x:Key="XMLData" Source="/lib.xml" XPath="/lib/patient" />
     </Page.Resources>
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceName="Page" EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>

@@ -95,6 +95,15 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         public ICommand EditPatient { get; set; }
         public ICommand DeletePatient { get; set; }
 
+        private Tuple<string, string>[] TupleList ()
+        {
+            Tuple<string, string> a = new Tuple<string, string>("imie", (string)NewPatient.Element("imie"));
+            Tuple<string, string> b = new Tuple<string, string>("nazwisko", (string)NewPatient.Element("nazwisko"));
+            Tuple<string, string> c = new Tuple<string, string>("pesel", (string)NewPatient.Element("pesel"));
+            Tuple<string, string>[] tup = { a, b, c };
+            return tup;
+        }
+
         private void Add()
         {
             AddEditPatientViewModel viewModel = new AddEditPatientViewModel();
@@ -103,14 +112,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             if (result == true)
             {
                 NewPatient = viewModel.Patient;
-
-                Tuple<string, string> a = new Tuple<string, string>("imie", (string)NewPatient.Element("imie"));
-                Tuple<string, string> b = new Tuple<string, string>("nazwisko", (string)NewPatient.Element("nazwisko"));
-                Tuple<string, string> c = new Tuple<string, string>("pesel", (string)NewPatient.Element("pesel"));
-                Tuple<string, string>[] tup = { a, b, c };
-
-                XElementon.Instance.Patient.Add(tup);
-
+                XElementon.Instance.Patient.Add(TupleList());
                 UpdateData();
             }
         }
@@ -122,27 +124,19 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             Nullable<bool> result = window.ShowDialog();
             if(result == true)
             {
-                NewPatient = viewModel.Patient;
-
-                //TODO - Pingot - tak żeby w modyfikacjach nie było nie-zmian "Stary - Pingot, Nowy - Pingot"
-                //DataToBind[SelectedItemIndex] = NewPatient; old implementation
-                Tuple<string, string> a = new Tuple<string, string>("imie", (string)NewPatient.Element("imie"));
-                Tuple<string, string> b = new Tuple<string, string>("nazwisko", (string)NewPatient.Element("nazwisko"));
-                Tuple<string, string> c = new Tuple<string, string>("pesel", (string)NewPatient.Element("pesel"));
-                Tuple<string, string>[] tup = { a, b, c };
-
-                XElementon.Instance.Patient.Change((int)SelectedItem.Element("idp"),tup);
-                UpdateData();
-
+                if(viewModel.Patient != NewPatient)
+                {
+                    NewPatient = viewModel.Patient;
+                    XElementon.Instance.Patient.Change((int)SelectedItem.Element("idp"), TupleList());
+                    UpdateData();
+                }
             }
-            //only downloading Data to do wait for implement
         }
 
         private void Delete()
         {
             if(MessageBox.Show("Czy chcesz wykasować Pacjenta : "+SelectedItem.Element("imie").Value +" "+SelectedItem.Element("nazwisko").Value,"Potwierdzenie",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                //SelectedItem <- data to delete
                 XElementon.Instance.Patient.Delete((int)SelectedItem.Element("idp"));
                 UpdateData();
             }

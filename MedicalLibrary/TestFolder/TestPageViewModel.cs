@@ -26,6 +26,7 @@ namespace MedicalLibrary.TestFolder
             UpdateData();
             WhatStorehouse = new RelayCommand(pars => What());
             FixStorehouse = new RelayCommand(pars => Fix());
+            LoadedCommand = new RelayCommand(pars => Loaded());
         }
 
         private void UpdateData()
@@ -97,6 +98,7 @@ namespace MedicalLibrary.TestFolder
 
         public ICommand WhatStorehouse { get; set; }
         public ICommand FixStorehouse { get; set; }
+        public ICommand LoadedCommand { get; set; }
 
         private void What()
         {
@@ -109,5 +111,11 @@ namespace MedicalLibrary.TestFolder
             XElementon.Instance.Patient.FixStorehouseEnvelope((int)SelectedItem.Element("idp"));
             UpdateData();
         }
+
+        private void Loaded()
+        {
+            UpdateData();
+        }
+
     }
 }
