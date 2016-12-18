@@ -19,6 +19,16 @@ namespace MedicaLibrary.Model
             return spvisit;
         }
 
+        //Wyświetl wizyty podanych pacjentów o podanym idp:
+        public IEnumerable<XElement> WithIDP(int idp)
+        {
+            var spvisit = from qpatients in database.Elements("patient")
+                          from qvisits in qpatients.Elements("visit")
+                          where (int)qpatients.Element("idp") == idp
+                          select qvisits;
+            return spvisit;
+        }
+
         //Wyświetl wizytę o podanym idv:
         public IEnumerable<XElement> WithIDV(int idv)
         {
