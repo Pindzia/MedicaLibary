@@ -428,9 +428,6 @@ namespace MedicaLibrary.Model
         }
 
 
-
-
-
         public void SendModification() //idm? z góry na dół?
         {
             var modification = database.Element("meta").Element("modifications").Elements("modification").First();
