@@ -17,6 +17,7 @@
     <Page.Resources>
         <cnv:OperationConverter x:Key="Operation"/>
         <cnv:NodeConverter x:Key="Node"/>
+        <cnv:ElementsConverter x:Key="Elements"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -53,10 +54,38 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <GroupBox Header="Stare Dane" Grid.Column="0" Margin="0,0,5,0">
-                <ListBox DataContext ="{Binding SelectedItem.Descendants[olddata]}" ItemsSource="{Binding}"></ListBox>
+                <ListBox ItemsSource="{Binding SelectedItem.Elements[newdata] ,Converter={StaticResource Elements}}" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"   />
+                                    <ColumnDefinition Width="*"   />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{Binding Name.LocalName}" />
+                                <TextBlock Grid.Column="1" Text="{Binding Value  }" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </GroupBox>
             <GroupBox Header="Nowe Dane" Grid.Column="1" Margin="5,0,0,0">
-                <ListBox DataContext ="{Binding SelectedItem.Descendants[newdata]}" ItemsSource="{Binding}" ></ListBox>
+                <ListBox ItemsSource="{Binding SelectedItem.Elements[newdata] ,Converter=}" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"   />
+                                    <ColumnDefinition Width="*"   />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{Binding Name.LocalName}" />
+                                <TextBlock Grid.Column="1" Text="{Binding Value  }" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </GroupBox>
 
         </Grid>

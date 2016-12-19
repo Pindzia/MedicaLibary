@@ -99,6 +99,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\ElementsConverter.cs" />
     <Compile Include="Converters\NameConverter.cs" />
     <Compile Include="Converters\NodeConverter.cs" />
     <Compile Include="Converters\OperationConverter.cs" />
