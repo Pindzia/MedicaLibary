@@ -1,4 +1,5 @@
-﻿using MedicalLibrary.View.Windows;
+﻿using MedicaLibrary.Model;
+using MedicalLibrary.View.Windows;
 using MedicalLibrary.ViewModel.PagesViewModel;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         public AddEditPatientViewModel()
         {
             SavePatient = new RelayCommand(pars=>Save((AddEditPatientWindow)pars));
+            //ListMagazines = XElementon.Instance.Storehouse.Storehouses().Elements("name").First().Value.ToList();
         }
 
         public AddEditPatientViewModel(XElement EditPatient)
@@ -26,6 +28,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             LastName = EditPatient.Element("nazwisko").Value;
             FirstName = EditPatient.Element("imie").Value;
             Pesel = EditPatient.Element("pesel").Value;
+            
         }
 
         public ICommand SavePatient { get; set; }
@@ -82,6 +85,34 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 _Patient = value;
                 OnPropertyChanged("Patient");
+            }
+        }
+
+        private List<string> _ListMagazines = new List<string>();
+        public List<string> ListMagazines
+        {
+            get
+            {
+                return _ListMagazines;
+            }
+            set
+            {
+                _ListMagazines = value;
+                OnPropertyChanged("ListMagazines");
+            }
+        }
+
+        private string _Envelope = null;
+        public string Envelope
+        {
+            get
+            {
+                return _Envelope;
+            }
+            set
+            {
+                _Envelope = value;
+                OnPropertyChanged("Envelope");
             }
         }
 
