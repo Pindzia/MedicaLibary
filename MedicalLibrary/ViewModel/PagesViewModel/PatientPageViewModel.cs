@@ -112,7 +112,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             if (result == true)
             {
                 NewPatient = viewModel.Patient;
-                XElementon.Instance.Patient.Add(TupleList());
+                XElementon.Instance.Patient.Add(TupleList(),true,(string)NewPatient.Element("storehouse"));
                 UpdateData();
             }
         }

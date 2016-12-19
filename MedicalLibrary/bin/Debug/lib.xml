@@ -29,9 +29,7 @@
         <name>id wieksze od 10</name>
         <autonumeration>
           <max_envelope>1</max_envelope>
-          <holes>
-            <hole>50</hole>
-          </holes>
+          <holes></holes>
         </autonumeration>
         <size>500</size>
         <rule>
@@ -40,14 +38,13 @@
           <operation>greater</operation>
           <value>10</value>
         </rule>
-        <gaps />
         <priority>4</priority>
       </storehouse>
       <storehouse>
         <ids>2</ids>
         <name>ZbytKrotkiPesel</name>
         <autonumeration>
-          <max_envelope>1</max_envelope>
+          <max_envelope>2</max_envelope>
           <holes></holes>
         </autonumeration>
         <size>500</size>
@@ -69,9 +66,8 @@
         <ids>3</ids>
         <name>NazwiskoPingot</name>
         <autonumeration>
-          <max_envelope>1</max_envelope>
+          <max_envelope>10</max_envelope>
           <holes>
-            <hole>5</hole>
           </holes>
         </autonumeration>
         <size>500</size>
@@ -87,7 +83,7 @@
         <ids>4</ids>
         <name>W ciąży</name>
         <autonumeration>
-          <max_envelope>1</max_envelope>
+          <max_envelope>2</max_envelope>
           <holes></holes>
         </autonumeration>
         <size>500</size>
@@ -104,7 +100,7 @@
         <name>id równe 15</name>
         <autonumeration>
           <max_envelope>1</max_envelope>
-          <holes></holes>
+          <holes>3</holes>
         </autonumeration>
         <size>500</size>
         <rule>
@@ -267,7 +263,7 @@
     <nazwisko>Pingot</nazwisko>
     <pesel>123123123123</pesel>
     <storehouse>NazwiskoPingot</storehouse>
-    <envelope>8</envelope>
+    <envelope>10</envelope>
     <wzrost>150</wzrost>
     <ciąża>true</ciąża>
   </patient>

@@ -151,7 +151,7 @@ namespace MedicaLibrary.Model
         }
 
         //Zmiana pacjenta przy użyciu tupli
-        public void Change(int id, Tuple<string, string>[] modifications, bool log = true)
+        public void Change(int id, Tuple<string, string>[] modifications, bool log = true) //TODO - magazyn jako parametr? //TODO implementacja holes
         {
             XElementon.Instance.ChangeX("patient", id, modifications, log);
         }
