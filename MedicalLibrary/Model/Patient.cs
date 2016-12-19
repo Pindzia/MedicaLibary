@@ -67,7 +67,7 @@ namespace MedicaLibrary.Model
         }
 
         //Dodaj pacjenta
-        public void Add(Tuple<string, string>[] data, bool log = true, string magazyn = null) //TODO argumenty?
+        public void Add(Tuple<string, string>[] data, bool log = true, string magazyn = "") //TODO argumenty?
         {
             string imie = "", nazwisko = "", pesel = "";
             var customfields = XElementon.Instance.Field.Fields();

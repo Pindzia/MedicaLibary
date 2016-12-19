@@ -55,12 +55,6 @@
           <value>9999999999</value>
         </rule>
         <priority>5</priority>
-        <rule>
-          <idr>5</idr>
-          <attribute>pesel</attribute>
-          <operation>greater</operation>
-          <value>500</value>
-        </rule>
       </storehouse>
       <storehouse>
         <ids>3</ids>

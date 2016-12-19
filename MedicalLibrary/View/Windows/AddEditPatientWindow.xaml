@@ -30,27 +30,9 @@
             <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" >Nazwisko:</Label>
             <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" >Pesel:</Label>
 
-            <TextBox Grid.Column="1" Grid.Row="0" x:Name="Name" Width="125" Height="25" Text="{Binding FirstName}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger SourceName="Name" EventName="TextChanged">
-                        <i:InvokeCommandAction Command="{Binding CheckMagazine}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBox>
-            <TextBox Grid.Column="1" Grid.Row="1" Name="Nazwisko"  Width="125" Height="25" Text="{Binding LastName}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger SourceName="Name" EventName="TextChanged">
-                        <i:InvokeCommandAction Command="{Binding CheckMagazine}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBox>
-            <TextBox Grid.Column="1" Grid.Row="2" Name="Pesel"  Width="125" Height="25" Text="{Binding Pesel}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger SourceName="Name" EventName="TextChanged">
-                        <i:InvokeCommandAction Command="{Binding CheckMagazine}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="0" x:Name="Name" Width="125" Height="25" Text="{Binding FirstName}"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Name="Nazwisko"  Width="125" Height="25" Text="{Binding LastName}"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Name="Pesel"  Width="125" Height="25" Text="{Binding Pesel}"/>
 
         </Grid>
         <GroupBox Grid.Row="1">

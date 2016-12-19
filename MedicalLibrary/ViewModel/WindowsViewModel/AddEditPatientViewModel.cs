@@ -19,22 +19,20 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         public AddEditPatientViewModel()
         {
             ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
-            SavePatient = new RelayCommand(pars=>Save((AddEditPatientWindow)pars));
-            CheckMagazine = new RelayCommand(pars => Check());
+            SavePatient = new RelayCommand(pars => Save((AddEditPatientWindow)pars));
         }
 
         public AddEditPatientViewModel(XElement EditPatient)
         {
             ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
             SavePatient = new RelayCommand(pars => Save((AddEditPatientWindow)pars));
-            CheckMagazine = new RelayCommand(pars => Check());
             LastName = EditPatient.Element("nazwisko").Value;
             FirstName = EditPatient.Element("imie").Value;
             Pesel = EditPatient.Element("pesel").Value;
             IsEnabled = true;
             SelectedAttribute = EditPatient.Element("storehouse").Value;
             Envelope = EditPatient.Element("envelope").Value;
-            
+
         }
 
         public ICommand SavePatient { get; set; }
@@ -51,6 +49,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 _LastName = value;
                 OnPropertyChanged("LastName");
+                Check();
+
             }
         }
 
@@ -65,6 +65,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 _FirstName = value;
                 OnPropertyChanged("FirstName");
+                Check();
             }
         }
 
@@ -79,6 +80,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 _Pesel = value;
                 OnPropertyChanged("Pesel");
+                Check();
             }
         }
         private XElement _Patient = null;
@@ -119,7 +121,15 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _SelectedAttribute = value;
-                Envelope = XElementon.Instance.CheckingRules(new XElement("dupa"), false, SelectedAttribute)[1].Value;
+                if (SelectedAttribute != "")
+                {
+                    Envelope = XElementon.Instance.CheckingRules(new XElement("AnyElement"), false, SelectedAttribute)[1].Value;
+                }
+                else
+                {
+                    Envelope = "";
+                }
+
                 OnPropertyChanged("SelectedAttribute");
             }
         }
@@ -149,6 +159,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 _IsEnabled = value;
                 OnPropertyChanged("IsEnabled");
+                Check();
             }
         }
 
@@ -159,39 +170,48 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 if (LastName.Length >= 4)
                 {
-                    if (System.Text.RegularExpressions.Regex.IsMatch(Pesel,"\\d{11}"))
+                    if (SelectedAttribute != "")
                     {
-                        string Id;
-                        var imie = FirstName;
-                        var nazwisko = LastName;
-                        var pesel = Pesel;
-
-                        //Autonumeracja po id - olewamy 'dziury'
-                        var max = XElement.Load("lib.xml").Descendants("max_idp").First();
-                        Id = max.Value;
-                        max.Value = (Convert.ToInt16(Id) + 1).ToString();
-
-                        //Tworzymy element pacjent który później wszczepimy w nasz dokument
-                        Patient = new XElement(
-                            new XElement("patient",
-                            new XElement("idp", Id),
-                            new XElement("imie", imie),
-                            new XElement("nazwisko", nazwisko),
-                            new XElement("pesel", pesel)));
-
-                        if(SelectedAttribute != "")
+                        if (System.Text.RegularExpressions.Regex.IsMatch(Pesel, "\\d{11}"))
                         {
-                            Patient.Add(new XElement("storehouse", SelectedAttribute));
-                        }
+                            string Id;
+                            var imie = FirstName;
+                            var nazwisko = LastName;
+                            var pesel = Pesel;
 
-                        window.DialogResult = true;
-                        window.Close();
+                            //Autonumeracja po id - olewamy 'dziury'
+                            var max = XElement.Load("lib.xml").Descendants("max_idp").First();
+                            Id = max.Value;
+                            max.Value = (Convert.ToInt16(Id) + 1).ToString();
+
+                            //Tworzymy element pacjent który później wszczepimy w nasz dokument
+                            Patient = new XElement(
+                                new XElement("patient",
+                                new XElement("idp", Id),
+                                new XElement("imie", imie),
+                                new XElement("nazwisko", nazwisko),
+                                new XElement("pesel", pesel)));
+
+                            if (SelectedAttribute != "")
+                            {
+                                Patient.Add(new XElement("storehouse", SelectedAttribute));
+                            }
+
+                            window.DialogResult = true;
+                            window.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Pesel jest za krótki lub nie posiada liczb");
+                        }
                     }
+
                     else
                     {
-                        MessageBox.Show("Pesel jest za krótki lub nie posiada liczb");
+                        MessageBox.Show("Musisz wybrać jakiś magazyn");
                     }
-                }else
+                }
+                else
                 {
                     MessageBox.Show("Nazwisko jest za krótkie");
                 }
@@ -204,7 +224,30 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void Check()
         {
-            throw new NotImplementedException();
+
+            if (FirstName != "" && LastName != "" && Pesel != "")
+            {
+                if (!IsEnabled)
+                {
+                    //Autonumeracja po id - olewamy 'dziury'
+                    var max = XElementon.Instance.getDatabase().Descendants("max_idp").First();
+                    var idp = (string)max;
+
+                    //Tworzymy element pacjent który później wszczepimy w nasz dokument
+                    Patient = new XElement(
+                        new XElement("patient",
+                            new XElement("idp", idp),
+                            new XElement("imie", FirstName),
+                            new XElement("nazwisko", LastName),
+                            new XElement("pesel", Pesel)));
+
+                    SelectedAttribute = XElementon.Instance.CheckingRules(Patient, false)[0].Value;
+                }
+            }
+            else
+            {
+                SelectedAttribute = "";
+            }
         }
 
     }

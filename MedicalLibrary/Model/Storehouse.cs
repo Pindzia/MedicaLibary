@@ -130,6 +130,7 @@ namespace MedicaLibrary.Model
         public List<string> StorehouseNameList()
         {
             List<string> a = this.Storehouses().Select(el => (string)el.Element("name")).ToList();
+            a.Add("");
             return a;
         }
 

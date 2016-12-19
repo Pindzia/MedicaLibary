@@ -130,13 +130,13 @@ namespace MedicaLibrary.Model
         //XML
         //TODO: Sprawdzić .Element vs .Elements - kiedy działają
 
-        public XElement[] CheckingRules(XElement np, bool autonumeration = true, string storehouse = null)
+        public XElement[] CheckingRules(XElement np, bool autonumeration = true, string storehouse = "")
         {
             XElement warehouse = null;
             XElement envelope = null;
             XElement nowy_pacjent = np;
 
-            var sorted_storehouse_v0 = database.Elements("meta").Elements("storehouses").Elements("storehouse").Where(x => x.Elements("rule").Any()).OrderBy(x => x.Element("priority").Value); //fluent syntax
+            var sorted_storehouse_v0 = database.Elements("meta").Elements("storehouses").Elements("storehouse").Where(x => x.Elements("rule").Any()).OrderBy(x => (int)x.Element("priority")); //fluent syntax
             var sorted_storehouse = from qmeta in database.Elements("meta")
                                     from storehouses in database.Elements("storehouses")
                                     from qstorehouse in storehouses.Elements("storehouse")
@@ -147,7 +147,7 @@ namespace MedicaLibrary.Model
             XElement forwarehouse = null;
             foreach (var qstorehouse in sorted_storehouse_v0)
             {
-                if (storehouse == null)
+                if (storehouse == "")
                 {
                     bool fits = false;
 
@@ -197,7 +197,7 @@ namespace MedicaLibrary.Model
                                     fits = true;
                                 }
                             }
-                            if (fits == false)
+                            if (fits == true)
                                 break;
                         }
                     }
