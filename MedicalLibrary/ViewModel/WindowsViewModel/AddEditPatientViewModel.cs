@@ -30,6 +30,9 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             LastName = EditPatient.Element("nazwisko").Value;
             FirstName = EditPatient.Element("imie").Value;
             Pesel = EditPatient.Element("pesel").Value;
+            SelectedAttribute = EditPatient.Element("storehouse").Value;
+            Envelope = EditPatient.Element("envelope").Value;
+            
         }
 
         public ICommand SavePatient { get; set; }
@@ -100,6 +103,21 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 _ListMagazines = value;
                 OnPropertyChanged("ListMagazines");
+            }
+        }
+
+        private string _SelectedAttribute = "";
+        public string SelectedAttribute
+        {
+            get
+            {
+                return _SelectedAttribute;
+            }
+            set
+            {
+                _SelectedAttribute = value;
+                Envelope = XElementon.Instance.CheckingRules(new XElement("dupa"), true, SelectedAttribute)[1].Value;
+                OnPropertyChanged("SelectedAttribute");
             }
         }
 
