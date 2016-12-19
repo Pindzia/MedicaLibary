@@ -13,10 +13,16 @@ namespace MedicalLibrary.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((string)value == "patient")
-                return "Pacjenta";
+                return "Pacjenci";
             if ((string)value == "visit")
                 return "Wizyty";
-            return "Error Konwersji PV";
+            if ((string)value == "storehouse")
+                return "Magazyny";
+            if ((string)value == "rule")
+                return "Zasady";
+            if ((string)value == "customfields")
+                return "Własne Pola";
+            return "Error Konwersji PV - NodeConverter";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
