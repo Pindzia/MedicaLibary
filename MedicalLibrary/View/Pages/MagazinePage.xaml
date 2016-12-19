@@ -8,7 +8,6 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       Title="MagazinePage"
-      Style="{StaticResource HeaderPage}"
       >
     <Grid Height="Auto" Width="Auto">
         <Grid.RowDefinitions>
