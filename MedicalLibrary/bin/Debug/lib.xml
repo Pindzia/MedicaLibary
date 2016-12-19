@@ -67,8 +67,7 @@
         <name>NazwiskoPingot</name>
         <autonumeration>
           <max_envelope>10</max_envelope>
-          <holes>
-          </holes>
+          <holes></holes>
         </autonumeration>
         <size>500</size>
         <rule>

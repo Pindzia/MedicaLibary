@@ -20,12 +20,14 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
             SavePatient = new RelayCommand(pars=>Save((AddEditPatientWindow)pars));
+            CheckMagazine = new RelayCommand(pars => Check());
         }
 
         public AddEditPatientViewModel(XElement EditPatient)
         {
             ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
             SavePatient = new RelayCommand(pars => Save((AddEditPatientWindow)pars));
+            CheckMagazine = new RelayCommand(pars => Check());
             LastName = EditPatient.Element("nazwisko").Value;
             FirstName = EditPatient.Element("imie").Value;
             Pesel = EditPatient.Element("pesel").Value;
@@ -36,6 +38,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         }
 
         public ICommand SavePatient { get; set; }
+        public ICommand CheckMagazine { get; set; }
 
         private string _LastName = "";
         public string LastName
@@ -198,5 +201,11 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 MessageBox.Show("Imię jest za krótkie");
             }
         }
+
+        private void Check()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
