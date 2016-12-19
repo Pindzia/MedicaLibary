@@ -116,6 +116,14 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             VisitList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Visit.WithIDP((int)SelectedItem.Element("idp")));
         }
 
+        private Tuple<string, string>[] TupleList()
+        {
+            Tuple<string, string> a = new Tuple<string, string>("visit_addition_date", (string)NewVisit.Element("visit_addition_date"));
+            Tuple<string, string> b = new Tuple<string, string>("comment", (string)NewVisit.Element("comment"));
+            Tuple<string, string>[] tup = { a, b };
+            return tup;
+        }
+
         private void Add()
         {
             AddEditVisitViewModel viewModel = new AddEditVisitViewModel();
@@ -123,8 +131,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             Nullable<bool> result = window.ShowDialog();
             if (result == true)
             {
-                //NewVisit = viewModel.Patient; zobaczyc jak parsować
-
+                NewVisit = viewModel.Visit; //zobaczyc jak parsować
+                XElementon.Instance.Visit.Add((int)SelectedItem.Element("idp"),TupleList());
                 UpdateVisits();
             }
         }
@@ -138,12 +146,12 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 Nullable<bool> result = window.ShowDialog();
                 if (result == true)
                 {
-                   /* if (NewVisit != viewModel.)
+                    if (viewModel.Visit != NewVisit)
                     {
-                        //refactor Data in viemodel (jak zapisac i przeparsowac wizytę oknie wizyty i here)
-                        UpdateVisits();
-                    }*/
-
+                        NewVisit = viewModel.Visit;
+                        XElementon.Instance.Visit.Change((int)SelectedItem.Element("idp"), TupleList());
+                        UpdateData();
+                    }
                 }
             }
             else
