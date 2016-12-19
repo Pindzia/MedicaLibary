@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicalLibrary.ViewModel.PagesViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,17 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MedicalLibrary.TestFolder
+namespace MedicalLibrary.View.Pages
 {
     /// <summary>
     /// Interaction logic for TestPage.xaml
     /// </summary>
-    public partial class TestPage : Page
+    public partial class WrongStorehousePage : Page
     {
-        public TestPage()
+        public WrongStorehousePage()
         {
             InitializeComponent();
-            this.DataContext = new TestPageViewModel();
+            this.DataContext = new WrongStorehousPageViewModel();
 
         }
     }

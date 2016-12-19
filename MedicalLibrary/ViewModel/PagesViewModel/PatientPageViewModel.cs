@@ -119,26 +119,40 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void Edit()
         {
-            AddEditPatientViewModel viewModel = new AddEditPatientViewModel(SelectedItem);
-            AddEditPatientWindow window = new AddEditPatientWindow(ref viewModel);
-            Nullable<bool> result = window.ShowDialog();
-            if(result == true)
+            if(SelectedItem != null)
             {
-                if(viewModel.Patient != NewPatient)
+                AddEditPatientViewModel viewModel = new AddEditPatientViewModel(SelectedItem);
+                AddEditPatientWindow window = new AddEditPatientWindow(ref viewModel);
+                Nullable<bool> result = window.ShowDialog();
+                if (result == true)
                 {
-                    NewPatient = viewModel.Patient;
-                    XElementon.Instance.Patient.Change((int)SelectedItem.Element("idp"), TupleList());
-                    UpdateData();
+                    if (viewModel.Patient != NewPatient)
+                    {
+                        NewPatient = viewModel.Patient;
+                        XElementon.Instance.Patient.Change((int)SelectedItem.Element("idp"), TupleList());
+                        UpdateData();
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Wybierz Pacjenta by edytować");
             }
         }
 
         private void Delete()
         {
-            if(MessageBox.Show("Czy chcesz wykasować Pacjenta : "+SelectedItem.Element("imie").Value +" "+SelectedItem.Element("nazwisko").Value,"Potwierdzenie",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (SelectedItem != null)
             {
-                XElementon.Instance.Patient.Delete((int)SelectedItem.Element("idp"));
-                UpdateData();
+                if (MessageBox.Show("Czy chcesz wykasować Pacjenta : " + SelectedItem.Element("imie").Value + " " + SelectedItem.Element("nazwisko").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    XElementon.Instance.Patient.Delete((int)SelectedItem.Element("idp"));
+                    UpdateData();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Wybierz Pacjenta by usunąć");
             }
         }
     }

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FirstFloor.ModernUI.Windows.Controls;
 using MedicaLibrary.Model;
+using FirstFloor.ModernUI.Presentation;
 
 namespace MedicalLibrary
 {
@@ -27,6 +28,33 @@ namespace MedicalLibrary
             InitializeComponent();
             XElementon.Instance.Load();
             ContentSource = MenuLinkGroups.First().Links.First().Source;
+            linkWrong = WrongPatient;
+            linkMod = Modifications;
+            linkRest = RestAPI;
+            GlobalUpdate();
+        }
+        public static Link linkWrong;
+        public static Link linkMod;
+        public static Link linkRest;
+
+        public static void GlobalUpdate()
+        {
+            ChangeWrong();
+            ChangeMod();
+            ChangeRest();
+        }
+
+        private static void ChangeWrong()
+        {
+            linkWrong.DisplayName = "Źle Umieszczeni Pacjenci: " + XElementon.Instance.Patient.InWrongStorehouse().Count().ToString();
+        }
+        private static void ChangeMod()
+        {
+            linkMod.DisplayName = "Ilość Modyfikacji: " + XElementon.Instance.Modification.Modifications().Count().ToString();
+        }
+        private static void ChangeRest()
+        {
+            linkRest.DisplayName = "Połaczenie z Bazą: " + "Nie";
         }
     }
 }

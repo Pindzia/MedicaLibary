@@ -15,13 +15,13 @@ using System.Windows.Data;//Ivalueconverter
 using System.Windows.Input;
 using System.Xml.Linq;
 
-namespace MedicalLibrary.TestFolder
+namespace MedicalLibrary.ViewModel.PagesViewModel
 {
-    class TestPageViewModel: BaseViewModel
+    public class WrongStorehousPageViewModel: BaseViewModel
     {
 
 
-        public TestPageViewModel()
+        public WrongStorehousPageViewModel()
         {
             UpdateData();
             WhatStorehouse = new RelayCommand(pars => What());
@@ -92,6 +92,7 @@ namespace MedicalLibrary.TestFolder
             set
             {
                 _NumOfWrong = value;
+                string change = value.ToString();
                 OnPropertyChanged("NumOfWrong");
             }
         }

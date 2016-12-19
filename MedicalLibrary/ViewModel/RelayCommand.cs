@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicaLibrary.Model;
+using System;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -45,6 +46,7 @@ namespace MedicalLibrary.ViewModel
         public void Execute(object parameter)
         {
             _execute(parameter);
+            MainWindow.GlobalUpdate();
         }
 
         #endregion // ICommand Members
