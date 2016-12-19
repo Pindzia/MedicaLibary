@@ -56,31 +56,34 @@
                         <RowDefinition Height="3*"/>
                         <RowDefinition Height="7*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Orientation="Vertical" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <StackPanel.Resources>
-                            <Style TargetType="{x:Type DockPanel}">
-                                <Setter Property="Margin" Value="0,10,0,10"/>
-                            </Style>
-                        </StackPanel.Resources>
-                        <DockPanel>
-                            <Label Content ="Nazwa Magazynu :" HorizontalAlignment="Left"/>
-                            <TextBlock Text="{Binding MagazineName}" HorizontalAlignment="Right"/>
-                        </DockPanel>
-                        <DockPanel>
-                            <Label Content ="ID Magazynu :" HorizontalAlignment="Left"/>
-                            <TextBlock Text="{Binding MagazineId}" HorizontalAlignment="Right"/>
-                        </DockPanel>
-                        <DockPanel>
-                            <Label Content ="Ilość Pacjentów :" HorizontalAlignment="Left"/>
-                            <TextBlock Text="{Binding MagazineCount}" HorizontalAlignment="Right"/>
-                        </DockPanel>
-                        <DockPanel>
-                            <Label Content ="Priorytet :" HorizontalAlignment="Left"/>
-                            <TextBlock Text="{Binding MagazinePriority}" HorizontalAlignment="Right"/>
-                        </DockPanel>
-                    </StackPanel>
-                    <DockPanel Grid.Row="1" Width="Auto" Height="Auto" >
-                        <Label Content="Lista Pacjentów Danego Magazynu:" FontSize="14" DockPanel.Dock="Top" FontWeight="Bold"/>
+                    <DockPanel Grid.Row="0">
+                        <Label Content="Dane Wybranego Magazynu" FontSize="14" FontWeight="Bold" Margin="70,0,0,0" DockPanel.Dock="Top"/>
+                        <StackPanel  Orientation="Vertical" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type DockPanel}">
+                                    <Setter Property="Margin" Value="0,10,0,10"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <DockPanel>
+                                <Label Content ="Nazwa Magazynu :" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding MagazineName}" HorizontalAlignment="Right"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Label Content ="ID Magazynu :" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding MagazineId}" HorizontalAlignment="Right"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Label Content ="Ilość Pacjentów :" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding MagazineCount}" HorizontalAlignment="Right"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Label Content ="Priorytet :" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding MagazinePriority}" HorizontalAlignment="Right"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1">
+                        <Label Content="Lista Pacjentów Danego Magazynu:" FontSize="14" DockPanel.Dock="Top" FontWeight="Bold" Margin="70,0,0,0"/>
                         <DataGrid DataContext="{Binding PatientsOfMagazine}" 
                                           Grid.Row="1"
                                           ItemsSource="{Binding}"  
@@ -88,10 +91,11 @@
                                           SelectionMode="Single"
                                           AutoGenerateColumns="False"
                                           ColumnWidth="*"
-                                          Width="650"
+                                          Width="620"
                                           Height="300"
                                           RowHeaderWidth="1"
                                           VerticalContentAlignment="Center"
+                                          Margin="50,10,50,0"
                                           HorizontalContentAlignment="Center" 
                                           BorderBrush="AliceBlue" 
                                           BorderThickness="2">
