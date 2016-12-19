@@ -124,9 +124,13 @@ namespace MedicaLibrary.Model
             {
                 attributelist.Add((string)field.Element("fieldname"));
             }
-
-
             return attributelist;
+        }
+
+        public List<string> StorehouseNameList()
+        {
+            List<string> a = this.Storehouses().Select(el => (string)el.Element("name")).ToList();
+            return a;
         }
 
         public List<string> Operations(string attribute)
