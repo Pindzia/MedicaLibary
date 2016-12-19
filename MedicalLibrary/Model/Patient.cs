@@ -67,7 +67,7 @@ namespace MedicaLibrary.Model
         }
 
         //Dodaj pacjenta
-        public void Add(Tuple<string, string>[] data, bool log = true) //TODO argumenty?
+        public void Add(Tuple<string, string>[] data, bool log = true, string magazyn = null) //TODO argumenty?
         {
             string imie = "", nazwisko = "", pesel = "";
             var customfields = XElementon.Instance.Field.Fields();
@@ -119,7 +119,7 @@ namespace MedicaLibrary.Model
             }
 
             //Fragment sprawdzający rule na potrzeby określenia storehouse 
-            XElement[] warenvelope = XElementon.Instance.CheckingRules(nowy_pacjent);
+            XElement[] warenvelope = XElementon.Instance.CheckingRules(nowy_pacjent, log, magazyn);
 
             //TODO - domyślny magazyn, rozpoznawanie error:error
 

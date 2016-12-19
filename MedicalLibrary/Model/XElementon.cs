@@ -130,7 +130,7 @@ namespace MedicaLibrary.Model
         //XML
         //TODO: Sprawdzić .Element vs .Elements - kiedy działają
 
-        public XElement[] CheckingRules(XElement np, bool autonumeration = true)
+        public XElement[] CheckingRules(XElement np, bool autonumeration = true, string storehouse = null)
         {
             XElement warehouse = null;
             XElement envelope = null;
@@ -147,61 +147,68 @@ namespace MedicaLibrary.Model
             XElement forwarehouse = null;
             foreach (var qstorehouse in sorted_storehouse_v0)
             {
-                bool fits = false;
-
-                foreach (var qrule in qstorehouse.Elements("rule"))
+                if (storehouse == null)
                 {
-                    fits = false;
+                    bool fits = false;
 
-                    if ((string)qrule.Element("attribute") == "lastvisit" && nowy_pacjent.Elements("visit").Any()) //Check does it work
+                    foreach (var qrule in qstorehouse.Elements("rule"))
                     {
-                        if ((string)qrule.Element("operation") == "greater")
+                        fits = false;
+
+                        if ((string)qrule.Element("attribute") == "lastvisit" && nowy_pacjent.Elements("visit").Any()) //Check does it work
                         {
-                            //nowy_pacjent.Element(qrule.Element("attribute").Value).Value //używamy (string)x a nie x.Value od dziś!
-                            var a = nowy_pacjent.Elements("visit").Max(x => x.Element("visit_addition_date"));
-                            var b = (string)a.Element("visit_addition_date");
-
-
-                            var datetime = Convert.ToDateTime(Convert.ToInt64(b));
-                            if ((DateTime.Now - datetime).TotalDays > Convert.ToInt64(qrule.Element("value")))
+                            if ((string)qrule.Element("operation") == "greater")
                             {
-                                fits = true;
+                                //nowy_pacjent.Element(qrule.Element("attribute").Value).Value //używamy (string)x a nie x.Value od dziś!
+                                var a = nowy_pacjent.Elements("visit").Max(x => x.Element("visit_addition_date"));
+                                var b = (string)a.Element("visit_addition_date");
+
+
+                                var datetime = Convert.ToDateTime(Convert.ToInt64(b));
+                                if ((DateTime.Now - datetime).TotalDays > Convert.ToInt64(qrule.Element("value")))
+                                {
+                                    fits = true;
+                                }
                             }
+                        }
+
+
+
+                        if (nowy_pacjent.Elements((string)qrule.Element("attribute")).Any())
+                        {
+                            if ((string)qrule.Element("operation") == "greater")
+                            {
+                                if (Convert.ToInt64((string)nowy_pacjent.Element((string)qrule.Element("attribute"))) > Convert.ToInt64((string)qrule.Element("value"))) //TODO - krzaczy się gdy lewa strona nie istnieje!
+                                {
+                                    fits = true;
+                                }
+                            }
+                            else if ((string)qrule.Element("operation") == "lesser")
+                            {
+                                if (Convert.ToInt64((string)nowy_pacjent.Element((string)qrule.Element("attribute"))) < Convert.ToInt64((string)qrule.Element("value")))
+                                {
+                                    fits = true;
+                                }
+                            }
+                            else if ((string)qrule.Element("operation") == "equal")
+                            {
+                                if ((string)nowy_pacjent.Element((string)qrule.Element("attribute")) == (string)qrule.Element("value"))
+                                {
+                                    fits = true;
+                                }
+                            }
+                            if (fits == false)
+                                break;
                         }
                     }
-
-
-
-                    if (nowy_pacjent.Elements((string)qrule.Element("attribute")).Any())
-                    {
-                        if ((string)qrule.Element("operation") == "greater")
-                        {
-                            if (Convert.ToInt64((string)nowy_pacjent.Element((string)qrule.Element("attribute"))) > Convert.ToInt64((string)qrule.Element("value"))) //TODO - krzaczy się gdy lewa strona nie istnieje!
-                            {
-                                fits = true;
-                            }
-                        }
-                        else if ((string)qrule.Element("operation") == "lesser")
-                        {
-                            if (Convert.ToInt64((string)nowy_pacjent.Element((string)qrule.Element("attribute"))) < Convert.ToInt64((string)qrule.Element("value")))
-                            {
-                                fits = true;
-                            }
-                        }
-                        else if ((string)qrule.Element("operation") == "equal")
-                        {
-                            if ((string)nowy_pacjent.Element((string)qrule.Element("attribute")) == (string)qrule.Element("value"))
-                            {
-                                fits = true;
-                            }
-                        }
-                        if (fits == false)
-                            break;
-                    }
+                    if (fits == true)
+                        forwarehouse = qstorehouse.Element("name");
+                } else
+                {
+                    forwarehouse = new XElement(storehouse);
                 }
-                if (fits == true)
-                    forwarehouse = qstorehouse.Element("name");
-
+                
+                
                 //Fragment przypisujący odpowiedni envelope na podstawie określonego storehouse
                 if (envelope == null && forwarehouse != null)
                 {
