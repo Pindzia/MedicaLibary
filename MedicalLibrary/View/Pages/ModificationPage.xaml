@@ -53,10 +53,10 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <GroupBox Header="Stare Dane" Grid.Column="0" Margin="0,0,5,0">
-                <ListBox DataContext ="{Binding SelectedItem.Elements[olddata].Element[]}" ItemsSource="{Binding}"></ListBox>
+                <ListBox DataContext ="{Binding SelectedItem.Descendants[olddata]}" ItemsSource="{Binding}"></ListBox>
             </GroupBox>
             <GroupBox Header="Nowe Dane" Grid.Column="1" Margin="5,0,0,0">
-                <ListBox DataContext ="{Binding SelectedItem.Elements[newdata].Element[]}" ItemsSource="{Binding}" ></ListBox>
+                <ListBox DataContext ="{Binding SelectedItem.Descendants[newdata]}" ItemsSource="{Binding}" ></ListBox>
             </GroupBox>
 
         </Grid>
