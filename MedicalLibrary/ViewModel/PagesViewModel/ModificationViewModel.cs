@@ -34,6 +34,21 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
+        private XElement _SelectedItem = null;
+        public XElement SelectedItem
+        {
+            get
+            {
+                return _SelectedItem;
+            }
+
+            set
+            {
+                _SelectedItem = value;
+                OnPropertyChanged("SelectedItem");
+            }
+        }
+
         public ICommand LoadedCommand { get; set; }
 
         private void Loaded()
