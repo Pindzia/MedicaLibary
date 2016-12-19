@@ -203,9 +203,9 @@ namespace MedicaLibrary.Model
                     }
                     if (fits == true)
                         forwarehouse = qstorehouse.Element("name");
-                } else
+                } else if (storehouse == (string)qstorehouse.Element("name"))
                 {
-                    forwarehouse = new XElement(storehouse);
+                    forwarehouse = qstorehouse.Element("name");
                 }
                 
                 
@@ -223,7 +223,8 @@ namespace MedicaLibrary.Model
                     else
                     {
                         var temp = (string)envelope;
-                        envelope.Remove();
+                        if (autonumeration)
+                            envelope.Remove();
                         envelope = new XElement(XElement.Parse("<envelope>" + temp + "</envelope>")); //kopia a nie wskaźnik, whatever żeby envelope wciąż było XElement i dało się wykonać XElement.value
                     }
                     warehouse = new XElement(XElement.Parse("<storehouse>" + (string)forwarehouse + "</storehouse>"));

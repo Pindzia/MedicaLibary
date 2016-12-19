@@ -116,7 +116,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _SelectedAttribute = value;
-                Envelope = XElementon.Instance.CheckingRules(new XElement("dupa"), true, SelectedAttribute)[1].Value;
+                Envelope = XElementon.Instance.CheckingRules(new XElement("dupa"), false, SelectedAttribute)[1].Value;
                 OnPropertyChanged("SelectedAttribute");
             }
         }
@@ -175,6 +175,12 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                             new XElement("imie", imie),
                             new XElement("nazwisko", nazwisko),
                             new XElement("pesel", pesel)));
+
+                        if(SelectedAttribute != "")
+                        {
+                            Patient.Add(new XElement("storehouse", SelectedAttribute));
+                        }
+
                         window.DialogResult = true;
                         window.Close();
                     }
