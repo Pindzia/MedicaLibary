@@ -10,6 +10,7 @@ using MedicaLibrary.Model;
 using System.Windows;
 using System.Collections.ObjectModel;
 using MedicalLibrary.View.Windows;
+using MedicalLibrary.ViewModel.WindowsViewModel;
 
 namespace MedicalLibrary.ViewModel.PagesViewModel
 {
@@ -85,6 +86,21 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
+        private XElement _NewVisit = null;
+        public XElement NewVisit
+        {
+            get
+            {
+                return _NewVisit;
+            }
+
+            set
+            {
+                _NewVisit = value;
+                OnPropertyChanged("NewVisit");
+            }
+        }
+
         public ICommand AddVisit { get; set; }
         public ICommand EditVisit { get; set; }
         public ICommand DeleteVisit { get; set; }
@@ -102,18 +118,54 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void Add()
         {
-            AddEditVistitWindow window = new AddEditVistitWindow();
-            window.Show();
+            AddEditVisitViewModel viewModel = new AddEditVisitViewModel();
+            AddEditVistitWindow window = new AddEditVistitWindow(ref viewModel);
+            Nullable<bool> result = window.ShowDialog();
+            if (result == true)
+            {
+                //NewVisit = viewModel.Patient; zobaczyc jak parsować
+
+                UpdateVisits();
+            }
         }
 
         private void Edit()
         {
-            throw new NotImplementedException();
+            if(SelectedVisit != null)
+            {
+                AddEditVisitViewModel viewModel = new AddEditVisitViewModel(SelectedVisit);
+                AddEditVistitWindow window = new AddEditVistitWindow(ref viewModel);
+                Nullable<bool> result = window.ShowDialog();
+                if (result == true)
+                {
+                   /* if (NewVisit != viewModel.)
+                    {
+                        //refactor Data in viemodel (jak zapisac i przeparsowac wizytę oknie wizyty i here)
+                        UpdateVisits();
+                    }*/
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Wybierz Wizytę by edytować");
+            }
         }
 
         private void Delete()
         {
-            throw new NotImplementedException();
+            if (SelectedVisit != null)
+            {
+                if (MessageBox.Show("Czy chcesz wykasować daną Wizytę : " + SelectedVisit.Element("visit_addition_date").Value + " " + SelectedVisit.Element("comment").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    XElementon.Instance.Visit.Delete((int)SelectedVisit.Element("idv"));
+                    UpdateData();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Wybierz Wizytę by usunąć");
+            }
         }
 
     }

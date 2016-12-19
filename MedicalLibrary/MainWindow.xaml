@@ -20,12 +20,12 @@
                 <mui:LinkGroup.Links>
                     <mui:Link DisplayName="Lista Pacjentów" Source="View\Pages\PatientPage.xaml" />
                     <mui:Link DisplayName="Pozycje w Magazynach" Source="View\Pages\WrongStorhousePage.xaml"/>
+                    <mui:Link DisplayName="Wizyty" Source="View\Pages\VisitPage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
-            <mui:LinkGroup DisplayName="Kalendarz i Wizyty">
+            <mui:LinkGroup DisplayName="Modyfikacje">
                 <mui:LinkGroup.Links>
-                    <mui:Link DisplayName="Wizyty" Source="View\Pages\VisitPage.xaml"/>
-                    <mui:Link DisplayName="Kalendarz" Source="View\Pages\CalendarPage.xaml"/>
+                    <mui:Link Source="View\Pages\ModificationPage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Magazyn">
