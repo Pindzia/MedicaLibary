@@ -18,17 +18,18 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         public AddEditPatientViewModel()
         {
+            ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
             SavePatient = new RelayCommand(pars=>Save((AddEditPatientWindow)pars));
-            //ListMagazines = XElementon.Instance.Storehouse.Storehouses().Elements("name").First().Value.ToList();
+            
         }
 
         public AddEditPatientViewModel(XElement EditPatient)
         {
+            ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
             SavePatient = new RelayCommand(pars => Save((AddEditPatientWindow)pars));
             LastName = EditPatient.Element("nazwisko").Value;
             FirstName = EditPatient.Element("imie").Value;
             Pesel = EditPatient.Element("pesel").Value;
-            
         }
 
         public ICommand SavePatient { get; set; }
