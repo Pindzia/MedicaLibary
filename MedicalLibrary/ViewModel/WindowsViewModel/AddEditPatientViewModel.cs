@@ -20,7 +20,6 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
             SavePatient = new RelayCommand(pars=>Save((AddEditPatientWindow)pars));
-            
         }
 
         public AddEditPatientViewModel(XElement EditPatient)
@@ -30,6 +29,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             LastName = EditPatient.Element("nazwisko").Value;
             FirstName = EditPatient.Element("imie").Value;
             Pesel = EditPatient.Element("pesel").Value;
+            IsEnabled = true;
             SelectedAttribute = EditPatient.Element("storehouse").Value;
             Envelope = EditPatient.Element("envelope").Value;
             
@@ -132,6 +132,20 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 _Envelope = value;
                 OnPropertyChanged("Envelope");
+            }
+        }
+
+        private bool _IsEnabled = false;
+        public bool IsEnabled
+        {
+            get
+            {
+                return _IsEnabled;
+            }
+            set
+            {
+                _IsEnabled = value;
+                OnPropertyChanged("IsEnabled");
             }
         }
 

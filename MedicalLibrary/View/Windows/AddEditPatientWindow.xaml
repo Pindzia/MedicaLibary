@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         x:Name="WindowToClose"
-        Title="AddEditPatientWindow" Height="275" Width="350" WindowStartupLocation="CenterScreen">
+        Title="AddEditPatientWindow" Height="275" Width="360" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
@@ -18,8 +19,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3.5*"/>
@@ -28,21 +28,37 @@
             <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" >Imię:</Label>
             <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" >Nazwisko:</Label>
             <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" >Pesel:</Label>
-            <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" >Magazyn:</Label>
-            <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" >Koperta:</Label>
 
             <TextBox Grid.Column="1" Grid.Row="0" Name="Imię"   Width="125" Height="25" Text="{Binding FirstName}"/>
             <TextBox Grid.Column="1" Grid.Row="1" Name="Nazwisko"  Width="125" Height="25" Text="{Binding LastName}"/>
             <TextBox Grid.Column="1" Grid.Row="2" Name="Pesel"  Width="125" Height="25" Text="{Binding Pesel}"/>
-            <ComboBox Grid.Column="1" Grid.Row="3" Name="Magazine" Width="125" Height="25"  HorizontalAlignment="Center" VerticalAlignment="Center" 
+
+        </Grid>
+        <GroupBox Grid.Row="1">
+            <GroupBox.Header>
+                <CheckBox Content="Niestandardowy Magazyn" IsChecked="{Binding IsEnabled}"/>
+            </GroupBox.Header>
+            <Grid  IsEnabled="{Binding IsEnabled}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3.5*"/>
+                    <ColumnDefinition Width="6.5*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" >Magazyn:</Label>
+                <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" >Koperta:</Label>
+
+                <ComboBox Grid.Column="1" Grid.Row="0" Name="Magazine" Width="125" Height="25"  HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Top" 
                               DataContext="{Binding ListMagazines}"
                               ItemsSource="{Binding}" 
                               SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedAttribute}">
-            </ComboBox>
-            <TextBlock Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Envelope}"/>
-
-
-        </Grid>
-        <mui:ModernButton Grid.Row="1" Width="120" Height="25" Command="{Binding SavePatient}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</mui:ModernButton>
+                </ComboBox>
+                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Envelope}"/>
+            </Grid>
+        </GroupBox>
+        <mui:ModernButton Grid.Row="2" Width="120" Height="25" Command="{Binding SavePatient}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</mui:ModernButton>
     </Grid>
 </Window>
