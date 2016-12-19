@@ -100,6 +100,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\NameConverter.cs" />
+    <Compile Include="Converters\NodeConverter.cs" />
+    <Compile Include="Converters\OperationConverter.cs" />
     <Compile Include="Model\Modification.cs" />
     <Compile Include="Model\ObserverCollectionConverter.cs" />
     <Compile Include="Model\Field.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Model\Visit.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\XElementon.cs" />
+    <Compile Include="ViewModel\PagesViewModel\ModificationViewModel.cs" />
     <Compile Include="View\Pages\ModificationPage.xaml.cs">
       <DependentUpon>ModificationPage.xaml</DependentUpon>
     </Compile>

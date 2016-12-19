@@ -4,11 +4,48 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
+      xmlns:cnv ="clr-namespace:MedicalLibrary.Converters"
+      xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ModificationPage">
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceName="Page" EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Page.Resources>
+        <cnv:OperationConverter x:Key="Operation"/>
+        <cnv:NodeConverter x:Key="Node"/>
+    </Page.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4.5*"/>
+            <RowDefinition Height="4.5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <GroupBox>
+            <DataGrid DataContext="{Binding ModificationList}"  
+                          ItemsSource="{Binding}" 
+                          SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" 
+                          IsReadOnly="True" 
+                          SelectionMode="Single"
+                          ColumnWidth="*"
+                          AutoGenerateColumns="False"
+                          RowHeaderWidth="1"
+                          VerticalContentAlignment="Center"
+                          HorizontalContentAlignment="Center" 
+                          Margin="50,10,50,0"
+                          BorderBrush="AliceBlue" 
+                          BorderThickness="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Element[idm].Value}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Operacja" Binding="{Binding Path=Element[operation].Value, Converter={StaticResource Operation}}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tabela" Binding="{Binding Path=Element[node_type].Value, Converter={StaticResource Node}}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Id Operowane" Binding="{Binding Path=Element[id].Value}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
         
     </Grid>
 </Page>
