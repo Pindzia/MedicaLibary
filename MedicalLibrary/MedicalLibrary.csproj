@@ -103,6 +103,7 @@
     <Compile Include="Converters\NameConverter.cs" />
     <Compile Include="Converters\NodeConverter.cs" />
     <Compile Include="Converters\OperationConverter.cs" />
+    <Compile Include="Converters\XElementNodeNameConverter.cs" />
     <Compile Include="Model\Modification.cs" />
     <Compile Include="Model\ObserverCollectionConverter.cs" />
     <Compile Include="Model\Field.cs" />
