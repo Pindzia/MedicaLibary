@@ -4,10 +4,19 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalLibrary"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-      Title="PatientPage" Name="UI">
+      x:Name="Page"
+      Title="PatientPage">
 
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceName="Page" EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <Grid>
         <Grid>
             <Grid.RowDefinitions>

@@ -23,6 +23,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             AddVisit = new RelayCommand(pars => Add());
             EditVisit = new RelayCommand(pars => Edit());
             DeleteVisit = new RelayCommand(pars => Delete());
+            LoadedCommand = new RelayCommand(pars => Load());
         }
 
         private ObservableCollection<XElement> _PatientList = new ObservableCollection<XElement>();
@@ -104,6 +105,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         public ICommand AddVisit { get; set; }
         public ICommand EditVisit { get; set; }
         public ICommand DeleteVisit { get; set; }
+        public ICommand LoadedCommand { get; set; }
 
         private void UpdateData()
         {
@@ -174,6 +176,11 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             {
                 MessageBox.Show("Wybierz Wizytę by usunąć");
             }
+        }
+
+        private void Load()
+        {
+            UpdateData();
         }
 
     }

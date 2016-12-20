@@ -22,6 +22,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             EditMagazine = new RelayCommand(pars => Edit());
             DeleteMagazine = new RelayCommand(pars => Delete());
             PushButton = new RelayCommand(pars =>Push());
+            LoadedCommand = new RelayCommand(pars =>Load());
             UpdateData();
             
         }
@@ -204,6 +205,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         public ICommand EditMagazine { get; set; }
         public ICommand DeleteMagazine { get; set; }
         public ICommand PushButton { get; set; }
+        public ICommand LoadedCommand { get; set; }
 
         private void UpdateData()
         {
@@ -296,6 +298,11 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         private void Push()
         {
             //
+        }
+
+        private void Load()
+        {
+            UpdateData();
         }
     }
 }

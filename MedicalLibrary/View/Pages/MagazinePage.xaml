@@ -6,9 +6,16 @@
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      x:Name="Page"
       mc:Ignorable="d" 
       Title="MagazinePage"
       >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceName="Page" EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Height="Auto" Width="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>

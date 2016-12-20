@@ -166,13 +166,13 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         private void Save(AddEditPatientWindow window)
         {
 
-            if (FirstName.Length >= 4)
+            if (FirstName.Length >= 1)
             {
-                if (LastName.Length >= 4)
+                if (LastName.Length >= 1)
                 {
                     if (SelectedAttribute != "")
                     {
-                        if (System.Text.RegularExpressions.Regex.IsMatch(Pesel, "\\d{11}"))
+                        if (System.Text.RegularExpressions.Regex.IsMatch(Pesel, "^\\d{11}$"))
                         {
                             string Id;
                             var imie = FirstName;

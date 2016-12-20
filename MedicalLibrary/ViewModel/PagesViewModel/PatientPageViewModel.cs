@@ -21,6 +21,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             AddPatient = new RelayCommand(pars => Add());
             EditPatient = new RelayCommand(pars => Edit());
             DeletePatient = new RelayCommand(pars => Delete());
+            LoadedCommand = new RelayCommand(pars => Load());
             UpdateData();
             
         }
@@ -94,6 +95,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         public ICommand AddPatient { get; set; }
         public ICommand EditPatient { get; set; }
         public ICommand DeletePatient { get; set; }
+        public ICommand LoadedCommand { get; set; }
 
         private Tuple<string, string>[] TupleList ()
         {
@@ -154,6 +156,11 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 MessageBox.Show("Wybierz Pacjenta by usunąć");
             }
+        }
+
+        private void Load()
+        {
+            UpdateData();
         }
     }
 }
