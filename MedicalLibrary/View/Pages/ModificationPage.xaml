@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
       xmlns:cnv ="clr-namespace:MedicalLibrary.Converters"
       xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:mui ="http://firstfloorsoftware.com/ModernUI"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ModificationPage">
@@ -56,6 +57,11 @@
             </Grid.ColumnDefinitions>
             <GroupBox Header="Stare Dane" Grid.Column="0" Margin="0,0,5,0">
                 <ListBox ItemsSource="{Binding SelectedItem.Element[olddata] ,Converter={StaticResource Elements}}" >
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Focusable" Value="False"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -65,30 +71,34 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" Text="{Binding Name.LocalName, Converter={StaticResource NodeName}}" />
-                                <TextBlock Grid.Column="1" Text="{Binding Value  }"  Margin="2,0,0,0"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Value  }"  Margin="5,0,0,0"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </GroupBox>
             <GroupBox Header="Nowe Dane" Grid.Column="1" Margin="5,0,0,0">
-                <ListBox ItemsSource="{Binding SelectedItem.Element[newdata] ,Converter={StaticResource Elements}}" >
+                <ListBox ItemsSource="{Binding SelectedItem.Element[newdata] ,Converter={StaticResource Elements}}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Focusable" Value="False"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"   />
-                                    <ColumnDefinition Width="*"   />
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-
                                 <TextBlock Grid.Column="0" Text="{Binding Name.LocalName, Converter={StaticResource NodeName}}" />
-                                <TextBlock Grid.Column="1" Text="{Binding Value  }"  Margin="2,0,0,0"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Value}"  Margin="5,0,0,0"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </GroupBox>
-
         </Grid>
+        <mui:ModernButton Grid.Row ="2"  Command="{Binding RevertModification}" Height="25" Width="120">Odwróć Operacje</mui:ModernButton>
     </Grid>
 </Page>
