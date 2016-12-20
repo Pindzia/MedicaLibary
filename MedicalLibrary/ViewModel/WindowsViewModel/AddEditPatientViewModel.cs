@@ -26,6 +26,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
             SavePatient = new RelayCommand(pars => Save((AddEditPatientWindow)pars));
+
+            IDP = EditPatient.Element("idp").Value;
             LastName = EditPatient.Element("nazwisko").Value;
             FirstName = EditPatient.Element("imie").Value;
             Pesel = EditPatient.Element("pesel").Value;
@@ -37,6 +39,21 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         public ICommand SavePatient { get; set; }
         public ICommand CheckMagazine { get; set; }
+
+        private string _IDP = "";
+        public string IDP
+        {
+            get
+            {
+                return _IDP;
+            }
+            set
+            {
+                _IDP = value;
+                Check();
+
+            }
+        }
 
         private string _LastName = "";
         public string LastName
@@ -230,13 +247,16 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 if (!IsEnabled)
                 {
                     //Autonumeracja po id - olewamy 'dziury'
-                    var max = XElementon.Instance.getDatabase().Descendants("max_idp").First();
-                    var idp = (string)max;
+                    if (IDP == "")
+                    {
+                        var max = XElementon.Instance.getDatabase().Descendants("max_idp").First();
+                        var IDP = (string)max;
+                    }
 
                     //Tworzymy element pacjent który później wszczepimy w nasz dokument
                     Patient = new XElement(
                         new XElement("patient",
-                            new XElement("idp", idp),
+                            new XElement("idp", IDP),
                             new XElement("imie", FirstName),
                             new XElement("nazwisko", LastName),
                             new XElement("pesel", Pesel)));
