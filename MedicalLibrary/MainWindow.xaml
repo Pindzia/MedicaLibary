@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:MedicalLibrary"
         xmlns:custom="clr-namespace:MedicalLibrary"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="Medical Library" MinHeight="768" MinWidth="1024" WindowStartupLocation="CenterScreen">
     <mui:ModernWindow.TitleLinks>
-        <mui:Link x:Name="WrongPatient" DisplayName="Źle Umieszczeni Pacjenci:"/>
-        <mui:Link x:Name="Modifications" DisplayName="Ilość Modyfikacji:"/>
+        <mui:Link x:Name="WrongPatient" DisplayName="Źle Umieszczeni Pacjenci:" Source="View/Pages/WrongStorhousePage.xaml"/>
+        <mui:Link x:Name="Modifications" DisplayName="Ilość Modyfikacji:" Source="View/Pages/ModificationPage.xaml"/>
         <mui:Link x:Name="RestAPI" DisplayName="Połaczenie z Bazą:"/>
     </mui:ModernWindow.TitleLinks>
     
