@@ -241,22 +241,23 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void Check()
         {
+            string Id = IDP; ;
 
             if (FirstName != "" && LastName != "" && Pesel != "")
             {
                 if (!IsEnabled)
                 {
                     //Autonumeracja po id - olewamy 'dziury'
-                    if (IDP == "")
+                    if (Id == "" || Id == null)
                     {
                         var max = XElementon.Instance.getDatabase().Descendants("max_idp").First();
-                        var IDP = (string)max;
+                        Id = (string)max;
                     }
 
                     //Tworzymy element pacjent który później wszczepimy w nasz dokument
                     Patient = new XElement(
                         new XElement("patient",
-                            new XElement("idp", IDP),
+                            new XElement("idp", Id),
                             new XElement("imie", FirstName),
                             new XElement("nazwisko", LastName),
                             new XElement("pesel", Pesel)));
