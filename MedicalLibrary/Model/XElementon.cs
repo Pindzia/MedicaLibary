@@ -18,7 +18,7 @@ namespace MedicaLibrary.Model
         public Patient Patient
         {
             get { return _Patient; }
-            set {_Patient = value; }
+            set { _Patient = value; }
         }
 
         private Visit _Visit;
@@ -59,8 +59,8 @@ namespace MedicaLibrary.Model
 
         public void Load()
         {
-                LoadRaw();
-                Save();
+            LoadRaw();
+            Save();
             Patient = new Patient();
             Visit = new Visit();
             Storehouse = new Storehouse();
@@ -113,7 +113,7 @@ namespace MedicaLibrary.Model
         {
             get
             {
-                if (instance==null)
+                if (instance == null)
                 {
                     instance = new XElementon();
                 }
@@ -203,12 +203,13 @@ namespace MedicaLibrary.Model
                     }
                     if (fits == true)
                         forwarehouse = qstorehouse.Element("name");
-                } else if (storehouse == (string)qstorehouse.Element("name"))
+                }
+                else if (storehouse == (string)qstorehouse.Element("name"))
                 {
                     forwarehouse = qstorehouse.Element("name");
                 }
-                
-                
+
+
                 //Fragment przypisujący odpowiedni envelope na podstawie określonego storehouse
                 if (envelope == null && forwarehouse != null)
                 {
@@ -217,8 +218,8 @@ namespace MedicaLibrary.Model
                     {
                         var maxe = qstorehouse.Descendants("max_envelope").First(); //TODO: gdzie istnieje max? zmienić nazwę naszego maxe.
                         envelope = new XElement(XElement.Parse("<envelope>" + (string)maxe + "</envelope>")); //kopia a nie wskaźnik
-                        if(autonumeration)
-                        maxe.Value = (Convert.ToInt32(maxe.Value) + 1).ToString(); //Zwiększamy element max o 1!
+                        if (autonumeration)
+                            maxe.Value = (Convert.ToInt32(maxe.Value) + 1).ToString(); //Zwiększamy element max o 1!
                     }
                     else
                     {
@@ -454,6 +455,23 @@ namespace MedicaLibrary.Model
 
         }
 
+        public void FillDatabase()
+        {
+            Random RNG = new Random();
+            var listaimion = new List<string> { "Jakub", "Julia", "Kacper", "Maja", "Szymon", "Zuzanna", "Mateusz", "Wiktoria", "Filip", "Oliwia", "Michał", "Amelia", "Bartosz", "Natalia", "Wiktor", "Aleksandra", "Piotr", "Lena", "Dawid", "Nikola", "Adam", "Zofia", "Maciej", "Martyna", "Jan", "Weronika", "Igor", "Anna", "Mikołaj", "Emilia", "Patryk", "Magdalena", "Paweł", "Hanna", "Dominik", "Karolina", "Oskar", "Gabriela", "Antoni", "Alicja" };
+            var listanazwisk = new List<string> { "Nowak", "Kowalski", "Wiśniewski", "Dąbrowski", "Lewandowski", "Wójcik", "Kamiński", "Kowalczyk", "Zieliński", "Szymański", "Woźniak", "Kozłowski", "Jankowski", "Wojciechowski", "Kwiatkowski", "Kaczmarek", "Mazur", "Krawczyk", "Piotrowski", "Grabowski", "Nowakowski", "Pawłowski", "Michalski", "Nowicki", "Adamczyk", "Dudek", "Zając", "Wieczorek", "Jabłoński", "Król", "Majewski", "Olszewski", "Jaworski", "Wróbel", "Malinowski", "Pawlak", "Witkowski", "Walczak", "Stępień", "Górski", "Rutkowski", "Michalak", "Sikora", "Ostrowski", "Baran", "Duda", "Szewczyk", "Tomaszewski", "Pietrzak", "Marciniak", "Wróblewski", "Zalewski", "Jakubowski", "Jasiński", "Zawadzki", "Sadowski", "Bąk", "Chmielewski", "Włodarczyk", "Borkowski", "Czarnecki", "Sawicki", "Sokołowski", "Urbański", "Kubiak", "Maciejewski", "Szczepański", "Kucharski", "Wilk", "Kalinowski", "Lis" };
+            var startingpesel = 12345678901;
 
+            for (int i = 0; i < 50; i++)
+            {
+                Tuple<string, string> a = new Tuple<string,string> ("imie", listaimion[RNG.Next(listaimion.Count)]);
+                Tuple<string, string> b = new Tuple<string, string>("nazwisko", listaimion[RNG.Next(listaimion.Count)]);
+                Tuple<string, string> c = new Tuple<string, string>("pesel", startingpesel.ToString());
+                startingpesel =+ 10;
+                Tuple<string, string>[] randomguy = { a, b, c };
+
+                XElementon.instance.Patient.Add(randomguy);
+            }
+        }
     }
 }
