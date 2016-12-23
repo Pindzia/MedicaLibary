@@ -67,7 +67,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 _LastName = value;
                 OnPropertyChanged("LastName");
                 Check();
-
+                VerifyName("LastName");
             }
         }
 
@@ -83,6 +83,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 _FirstName = value;
                 OnPropertyChanged("FirstName");
                 Check();
+                VerifyName("FirstName");
             }
         }
 
@@ -98,6 +99,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 _Pesel = value;
                 OnPropertyChanged("Pesel");
                 Check();
+                VerifyName("Pesel");
             }
         }
         private XElement _Patient = null;
@@ -183,13 +185,13 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         private void Save(AddEditPatientWindow window)
         {
 
-            if (FirstName.Length >= 1)
+            if (NameFlag)
             {
-                if (LastName.Length >= 1)
+                if (LastFlag)
                 {
                     if (SelectedAttribute != "")
                     {
-                        if (System.Text.RegularExpressions.Regex.IsMatch(Pesel, "^\\d{11}$"))
+                        if (PesFlag)
                         {
                             string Id;
                             var imie = FirstName;
@@ -271,5 +273,67 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
+        private bool _NameFlag = false;
+        public bool NameFlag
+        {
+            get
+            {
+                return _NameFlag;
+            }
+            set
+            {
+                _NameFlag = value;
+                OnPropertyChanged("NameFlag");
+            }
+        }
+        private bool _LastFlag = false;
+        public bool LastFlag
+        {
+            get
+            {
+                return _LastFlag;
+            }
+            set
+            {
+                _LastFlag = value;
+                OnPropertyChanged("LastFlag");
+            }
+        }
+        private bool _PesFlag = false;
+        public bool PesFlag
+        {
+            get
+            {
+                return _PesFlag;
+            }
+            set
+            {
+                _PesFlag = value;
+                OnPropertyChanged("PesFlag");
+            }
+
+        }
+
+
+        private void VerifyName(string propName)
+        {
+
+            switch(propName)
+            {
+                case "FirstName":
+                    NameFlag = (FirstName.Length >= 1) ? true : false;
+                    break;
+                case "LastName":
+                    LastFlag = (LastName.Length >= 1) ? true : false;
+                    break;
+                case "Pesel":
+                    PesFlag = (System.Text.RegularExpressions.Regex.IsMatch(Pesel, "^\\d{11}$")) ? true : false;
+                    break;
+                default:
+                    break;
+
+            }
+
+        }
     }
 }
