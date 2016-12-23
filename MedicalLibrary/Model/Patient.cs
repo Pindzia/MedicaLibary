@@ -213,7 +213,6 @@ namespace MedicaLibrary.Model
             return patientattributes;
         }
 
-
         private static int CalculateControlSum(string input, int[] weights, int offset = 0)
         {
             int controlSum = 0;
@@ -224,29 +223,26 @@ namespace MedicaLibrary.Model
             return controlSum;
         }
 
-        public static int CheckSum(string input)
+        public static int CheckSum(string PESEL)
         {
             int[] weights = { 1, 3, 7, 9, 1, 3, 7, 9, 1, 3 };
-            int lastDigit = 11;
+            int controlNum = 11;
             long parsed;
-            if (long.TryParse(input, out parsed))
-            {
-                if (input.Length != 11)
+            if(long.TryParse(PESEL,out parsed)){
+                var controlSum = CalculateControlSum(PESEL, weights);
+                 controlNum = controlSum % 10;
+                controlNum = 10 - controlNum;
+                if (controlNum == 10)
                 {
-                    int controlSum = CalculateControlSum(input, weights);
-                    int controlNum = controlSum % 10;
-                    controlNum = 10 - controlNum;
-                    if (controlNum == 10)
-                    {
-                        controlNum = 0;
-                    }
-                    lastDigit = int.Parse(input[input.Length - 1].ToString());
-                } else
-                {
-                    return 12;
+                    controlNum = 0;
                 }
+
             }
-            return lastDigit;
+            if(PESEL.Length > 11)
+            {
+                return PESEL.Length;
+            }
+            return controlNum;
         }
     }
 }
