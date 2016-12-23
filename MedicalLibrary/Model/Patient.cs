@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace MedicaLibrary.Model
@@ -64,6 +65,17 @@ namespace MedicaLibrary.Model
             //var d = a.Concat(b.Select(x => x[0])).Concat(b.Select(x => x[1]));
 
             return wrwarehouse;
+        }
+
+        //Wyświetl wszystkich pacjentów którzy są w niepoprawnym magazynie
+        public IEnumerable<XElement> Filtered(string attribute, string value)
+        {
+
+            var filtered = XElementon.Instance.Patient.Patients();
+
+            filtered = filtered.Where(x => Regex.IsMatch((string)x.Element(attribute), value));
+
+            return filtered;
         }
 
         //Dodaj pacjenta
@@ -180,6 +192,25 @@ namespace MedicaLibrary.Model
         public void Delete(int id, bool log = true)
         {
             XElementon.Instance.DeleteX("patient", id, log);
+        }
+
+
+        public List<string> PatientAttributeList()
+        {
+            List<string> patientattributes = new List<string>();
+            patientattributes.Add("idp");
+            patientattributes.Add("imie");
+            patientattributes.Add("nazwisko");
+            patientattributes.Add("pesel");
+            patientattributes.Add("storehouse");
+            patientattributes.Add("envelope");
+
+            foreach (var field in XElementon.Instance.Field.Fields())
+            {
+                patientattributes.Add((string)field.Element("fieldname"));
+            }
+
+            return patientattributes;
         }
     }
 }

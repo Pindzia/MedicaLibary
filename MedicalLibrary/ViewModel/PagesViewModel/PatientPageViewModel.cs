@@ -22,7 +22,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             EditPatient = new RelayCommand(pars => Edit());
             DeletePatient = new RelayCommand(pars => Delete());
             LoadedCommand = new RelayCommand(pars => Load());
-            //QueryOptionList = to fill
+            var QueryOptionList = XElementon.Instance.Patient.PatientAttributeList();
             UpdateData();
             
         }
