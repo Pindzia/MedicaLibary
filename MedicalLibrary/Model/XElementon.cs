@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using System.Xml;
 using System.Security.Cryptography;
 using System.IO;
+using MedicalLibrary.Model;
 
 namespace MedicaLibrary.Model
 {
@@ -61,12 +62,7 @@ namespace MedicaLibrary.Model
         {
             LoadRaw();
             Save();
-            Patient = new Patient();
-            Visit = new Visit();
-            Storehouse = new Storehouse();
-            Rule = new Rule();
-            Field = new Field();
-            Modification = new Modification();
+            InitializeComponents();
         }
 
         public void LoadRaw()
@@ -106,6 +102,23 @@ namespace MedicaLibrary.Model
         public XElement getDatabase()
         {
             return database;
+        }
+
+        public void setDatabase(XElement lib)
+        {
+            database = lib;
+            InitializeComponents();
+
+        }
+
+        private void InitializeComponents()
+        {
+            Patient = new Patient();
+            Visit = new Visit();
+            Storehouse = new Storehouse();
+            Rule = new Rule();
+            Field = new Field();
+            Modification = new Modification();
         }
 
 
@@ -467,7 +480,7 @@ namespace MedicaLibrary.Model
                 Tuple<string, string> a = new Tuple<string,string> ("imie", listaimion[RNG.Next(listaimion.Count)]);
                 Tuple<string, string> b = new Tuple<string, string>("nazwisko", listaimion[RNG.Next(listaimion.Count)]);
                 Tuple<string, string> c = new Tuple<string, string>("pesel", startingpesel.ToString());
-                startingpesel =+ 10;
+                startingpesel = startingpesel+ 11;
                 Tuple<string, string>[] randomguy = { a, b, c };
 
                 XElementon.instance.Patient.Add(randomguy);

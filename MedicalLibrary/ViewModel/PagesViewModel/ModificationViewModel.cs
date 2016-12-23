@@ -69,7 +69,11 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             if(SelectedItem != null)
             {
                 XElementon.Instance.Modification.RevertX((int)SelectedItem.Element("idm"));
-                System.Windows.MessageBox.Show("Wycofano Operacje");
+                if (true) //TODO if checkbox jest zaznaczony
+                {
+                    System.Windows.MessageBox.Show("Wycofano Operacje");
+                }
+                
                 UpdateData();
             }
             else

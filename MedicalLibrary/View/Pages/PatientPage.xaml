@@ -44,7 +44,7 @@
                 </StackPanel>
             </Grid>
             <StackPanel Margin="20,10,20,10" Grid.Row="1">
-                <DataGrid DataContext="{Binding DataToBind}"  
+                <DataGrid DataContext="{Binding DataToBind}" Height="480"  
                           ItemsSource="{Binding}" 
                           SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" 
                           IsReadOnly="True" 

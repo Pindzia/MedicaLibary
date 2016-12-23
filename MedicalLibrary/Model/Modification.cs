@@ -154,6 +154,11 @@ namespace MedicaLibrary.Model
             revert.Remove();
         }
 
+        public void Clean()
+        {
+            database.Elements("meta").Elements("modifications").Elements("modification").Remove();
+        }
+
     }
 
 }
