@@ -39,7 +39,7 @@
                     <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"
                               DataContext="{Binding QueryOptionList}" 
                               ItemsSource="{Binding}" 
-                              SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedQuery}">
+                              SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedQuery}">
                     </ComboBox>
                 </StackPanel>
             </Grid>

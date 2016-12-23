@@ -100,7 +100,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _FindQuery = value;
-                if (SelectedQuery != null) { Search(); }
+                if (SelectedQuery != "" && SelectedQuery != null) { Search(); }
                 OnPropertyChanged("FindQuery");
             }
         }
