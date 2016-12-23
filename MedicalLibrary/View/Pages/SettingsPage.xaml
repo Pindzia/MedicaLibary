@@ -1,0 +1,20 @@
+﻿<Page x:Class="MedicalLibrary.View.Pages.SettingsPage"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
+      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="SettingsPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <CheckBox Content="Potwierdzaj Reverty" IsChecked="{Binding RevertConfirmation}" HorizontalAlignment="Center"/>
+        <Button Grid.Row="1" Content="Dodaj 50 pacjentów" Command="{Binding AddToDatabase}" Width="150" Height="25"/>
+    </Grid>
+</Page>

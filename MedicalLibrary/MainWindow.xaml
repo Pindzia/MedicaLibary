@@ -36,7 +36,7 @@
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Ustawienia">
                 <mui:LinkGroup.Links>
-                    <mui:Link Source="View\Pages\PatientPage.xaml"/>
+                    <mui:Link DisplayName="Ustawienia" Source="View\Pages\SettingsPage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
         </mui:LinkGroupCollection>

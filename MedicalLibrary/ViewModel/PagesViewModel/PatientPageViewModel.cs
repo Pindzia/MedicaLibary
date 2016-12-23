@@ -22,11 +22,11 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             EditPatient = new RelayCommand(pars => Edit());
             DeletePatient = new RelayCommand(pars => Delete());
             LoadedCommand = new RelayCommand(pars => Load());
+            ClearSearch = new RelayCommand(pars => Clear());
             QueryOptionList = XElementon.Instance.Patient.PatientAttributeList();
             UpdateData();
             
         }
-
 
         private ObservableCollection<XElement> _PatientList = new ObservableCollection<XElement>();
         public ObservableCollection<XElement> PatientList
@@ -168,6 +168,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         public ICommand EditPatient { get; set; }
         public ICommand DeletePatient { get; set; }
         public ICommand LoadedCommand { get; set; }
+        public ICommand ClearSearch { get; set; }
 
         private Tuple<string, string>[] TupleList ()
         {
@@ -239,6 +240,12 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             if (SelectedQuery != "")
                 DeployData(ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Filtered(SelectedQuery, FindQuery)));
+        }
+
+        private void Clear()
+        {
+            FindQuery = "";
+            SelectedQuery = null;
         }
 
     }
