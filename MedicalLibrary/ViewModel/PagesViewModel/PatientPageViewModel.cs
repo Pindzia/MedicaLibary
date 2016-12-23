@@ -22,7 +22,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             EditPatient = new RelayCommand(pars => Edit());
             DeletePatient = new RelayCommand(pars => Delete());
             LoadedCommand = new RelayCommand(pars => Load());
-            var QueryOptionList = XElementon.Instance.Patient.PatientAttributeList();
+            QueryOptionList = XElementon.Instance.Patient.PatientAttributeList();
             UpdateData();
             
         }
@@ -237,7 +237,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void Search()
         {
-            throw new NotImplementedException();
+            if (SelectedQuery != "")
+                DeployData(ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Filtered(SelectedQuery, FindQuery)));
         }
 
     }
