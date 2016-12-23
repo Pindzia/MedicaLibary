@@ -22,6 +22,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             EditPatient = new RelayCommand(pars => Edit());
             DeletePatient = new RelayCommand(pars => Delete());
             LoadedCommand = new RelayCommand(pars => Load());
+            //QueryOptionList = to fill
             UpdateData();
             
         }
@@ -130,6 +131,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _SelectedQuery = value;
+                if (FindQuery != "" && FindQuery != null) { Search(); }
                 OnPropertyChanged("SelectedQuery");
             }
         }
