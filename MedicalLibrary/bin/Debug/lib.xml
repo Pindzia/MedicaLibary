@@ -160,7 +160,7 @@
     <idp>1</idp>
     <imie>Janin</imie>
     <nazwisko>Kowalski</nazwisko>
-    <pesel>48042817</pesel>
+    <pesel>48042817271</pesel>
     <storehouse>W ciąży</storehouse>
     <envelope>1</envelope>
     <wzrost>500</wzrost>
@@ -228,7 +228,7 @@
     <idp>6</idp>
     <imie>Jan</imie>
     <nazwisko>Krótki</nazwisko>
-    <pesel>720824127452</pesel>
+    <pesel>72082412742</pesel>
     <storehouse>id wieksze od 10</storehouse>
     <envelope>5</envelope>
   </patient>
@@ -260,7 +260,7 @@
     <idp>11</idp>
     <imie>debug_imie</imie>
     <nazwisko>debug_nazwisko</nazwisko>
-    <pesel>123456789</pesel>
+    <pesel>1034567841</pesel>
     <storehouse>ZbytKrotkiPesel</storehouse>
     <envelope>1</envelope>
     <wzrost>500</wzrost>
