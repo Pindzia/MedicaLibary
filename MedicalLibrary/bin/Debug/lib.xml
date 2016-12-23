@@ -258,8 +258,8 @@
   </patient>
   <patient>
     <idp>11</idp>
-    <imie>debug_imie</imie>
-    <nazwisko>debug_nazwisko</nazwisko>
+    <imie>Andrzej</imie>
+    <nazwisko>Dudek</nazwisko>
     <pesel>1034567841</pesel>
     <storehouse>ZbytKrotkiPesel</storehouse>
     <envelope>1</envelope>
