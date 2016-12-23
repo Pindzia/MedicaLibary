@@ -241,7 +241,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void Check()
         {
-            string Id = IDP; ;
+            string Id = IDP;
 
             if (FirstName != "" && LastName != "" && Pesel != "")
             {
