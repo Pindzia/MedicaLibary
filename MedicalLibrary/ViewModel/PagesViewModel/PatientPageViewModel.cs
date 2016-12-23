@@ -25,6 +25,23 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             UpdateData();
             
         }
+
+
+        private ObservableCollection<XElement> _PatientList = new ObservableCollection<XElement>();
+        public ObservableCollection<XElement> PatientList
+        {
+            get
+            {
+                return _PatientList;
+            }
+
+            set
+            {
+                _PatientList = value;
+                OnPropertyChanged("_PatientList");
+            }
+        }
+
         private ObservableCollection<XElement> _DataToBind = new ObservableCollection<XElement>();
         public ObservableCollection<XElement> DataToBind
         {
@@ -71,6 +88,52 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
+        private string _FindQuery = "";
+        public string FindQuery
+        {
+            get
+            {
+                return _FindQuery;
+            }
+
+            set
+            {
+                _FindQuery = value;
+                if (SelectedQuery != null) { Search(); }
+                OnPropertyChanged("FindQuery");
+            }
+        }
+
+        private List<string> _QueryOptionList = new List<string>();
+        public List<string> QueryOptionList
+        {
+            get
+            {
+                return _QueryOptionList;
+            }
+
+            set
+            {
+                _QueryOptionList = value;
+                OnPropertyChanged("QueryOptionList");
+            }
+        }
+
+        private string _SelectedQuery = "";
+        public string SelectedQuery
+        {
+            get
+            {
+                return _SelectedQuery;
+            }
+
+            set
+            {
+                _SelectedQuery = value;
+                OnPropertyChanged("SelectedQuery");
+            }
+        }
+
         private XElement _NewPatient = null;
         public XElement NewPatient
         {
@@ -86,10 +149,17 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
-
         private void UpdateData()
         {
-            DataToBind = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Patients());
+            PatientList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Patients());
+            DeployData(PatientList);
+
+        }
+
+
+        private void DeployData( ObservableCollection<XElement> ListToShow)
+        {
+            DataToBind = ListToShow;
         }
 
         public ICommand AddPatient { get; set; }
@@ -162,5 +232,11 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             UpdateData();
         }
+
+        private void Search()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
