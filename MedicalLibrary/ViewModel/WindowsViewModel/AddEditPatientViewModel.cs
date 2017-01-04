@@ -1,5 +1,7 @@
 ﻿using MedicaLibrary.Model;
+using MedicalLibrary.View.CustomControls;
 using MedicalLibrary.View.Windows;
+using MedicalLibrary.ViewModel.CustomControlsViewModel;
 using MedicalLibrary.ViewModel.PagesViewModel;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace MedicalLibrary.ViewModel.WindowsViewModel
@@ -20,6 +24,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
             SavePatient = new RelayCommand(pars => Save((AddEditPatientWindow)pars));
+            DeployFields();
         }
 
         public AddEditPatientViewModel(XElement EditPatient)
@@ -68,6 +73,20 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 OnPropertyChanged("LastName");
                 Check();
                 VerifyName("LastName");
+            }
+        }
+
+        private List<UserControl> _ListCustomField = new List<UserControl>();
+        public List<UserControl> ListCustomField
+        {
+            get
+            {
+                return _ListCustomField;
+            }
+            set
+            {
+                _ListCustomField = value;
+                OnPropertyChanged("ListCustomField");
             }
         }
 
@@ -335,5 +354,27 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
 
         }
+
+        private void DeployFields()
+        {
+            IEnumerable<XElement> fields = XElementon.Instance.Field.Fields();
+            foreach(var field in fields)
+            {
+                switch(field.Element("fieldtype").Value)
+                {
+                    case "bool":
+                        CheckControl checkControl = new CheckControl(new CheckControlViewModel(field.Element("fieldname").Value, XmlConvert.ToBoolean(field.Element("fielddefault").Value)));
+                        ListCustomField.Add(checkControl);
+                        break;
+
+                    case "int":
+                        TextControl textControl = new TextControl(new TextControlViewModel(field.Element("fieldname").Value, field.Element("fielddefault").Value));
+                        ListCustomField.Add(textControl);
+                        break;
+                        
+                }
+            }
+        }
+
     }
 }

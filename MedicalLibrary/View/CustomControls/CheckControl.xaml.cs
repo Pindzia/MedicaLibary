@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicalLibrary.ViewModel.CustomControlsViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,11 @@ namespace MedicalLibrary.View.CustomControls
         public CheckControl()
         {
             InitializeComponent();
+        }
+
+        public CheckControl(CheckControlViewModel viewModel):this()
+        {
+            DataContext = viewModel;
         }
     }
 }

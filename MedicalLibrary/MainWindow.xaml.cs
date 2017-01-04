@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using FirstFloor.ModernUI.Windows.Controls;
 using MedicaLibrary.Model;
 using FirstFloor.ModernUI.Presentation;
+using MedicalLibrary.testFolder;
 
 namespace MedicalLibrary
 {

@@ -8,9 +8,10 @@
         mc:Ignorable="d"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         x:Name="WindowToClose"
-        Title="AddEditPatientWindow" Height="275" Width="360" WindowStartupLocation="CenterScreen">
+        Title="AddEditPatientWindow" Height="450" Width="360" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition Height="45"/>
@@ -106,6 +107,18 @@
                 <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Envelope}"/>
             </Grid>
         </GroupBox>
-        <mui:ModernButton Grid.Row="2" Width="120" Height="25" Command="{Binding SavePatient}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</mui:ModernButton>
+        <GroupBox Header="Niestandardowe Pola" Grid.Row="2">
+            <ScrollViewer>
+                <ListBox DataContext="{Binding ListCustomField}" ItemsSource="{Binding}">
+                    <ListBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+                    </ListBox.Resources>
+                </ListBox>
+            </ScrollViewer>
+        </GroupBox>
+        <mui:ModernButton Grid.Row="3" Width="120" Height="25" Command="{Binding SavePatient}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</mui:ModernButton>
     </Grid>
 </Window>
