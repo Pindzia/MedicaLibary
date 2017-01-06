@@ -168,6 +168,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             Tuple<string, string> b = new Tuple<string, string>("nazwisko", (string)NewPatient.Element("nazwisko"));
             Tuple<string, string> c = new Tuple<string, string>("pesel", (string)NewPatient.Element("pesel"));
             Tuple<string, string>[] tup = { a, b, c };
+            //edition tuplelist for customfields TODOS
             return tup;
         }
 

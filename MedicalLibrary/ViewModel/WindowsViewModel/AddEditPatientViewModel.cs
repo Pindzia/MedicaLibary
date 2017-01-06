@@ -24,7 +24,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
             SavePatient = new RelayCommand(pars => Save((AddEditPatientWindow)pars));
-            DeployFields();
+            DeployFields(null);
         }
 
         public AddEditPatientViewModel(XElement EditPatient)
@@ -39,7 +39,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             IsEnabled = true;
             SelectedAttribute = EditPatient.Element("storehouse").Value;
             Envelope = EditPatient.Element("envelope").Value;
-
+            DeployFields(EditPatient);
         }
 
         public ICommand SavePatient { get; set; }
@@ -260,7 +260,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
-        private void Check()
+        private void Check()//rozszerz o listę customów nadpisywanie Patienta pomyślec czy to dobrze bangla TODOS
         {
             string Id = IDP;
 
@@ -355,24 +355,44 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         }
 
-        private void DeployFields()
+        private void DeployFields(XElement customPatient)
         {
+
             IEnumerable<XElement> fields = XElementon.Instance.Field.Fields();
             foreach(var field in fields)
             {
-                switch(field.Element("fieldtype").Value)
+                string fieldName = field.Element("fieldname").Value;
+                if (customPatient != null)
                 {
-                    case "bool":
-                        CheckControl checkControl = new CheckControl(new CheckControlViewModel(field.Element("fieldname").Value, XmlConvert.ToBoolean(field.Element("fielddefault").Value)));
-                        ListCustomField.Add(checkControl);
-                        break;
-
-                    case "int":
-                        TextControl textControl = new TextControl(new TextControlViewModel(field.Element("fieldname").Value, field.Element("fielddefault").Value));
-                        ListCustomField.Add(textControl);
-                        break;
-                        
+                    XElement customField = customPatient.Element(fieldName);
+                    if (customField!= null)
+                    DefineField(field, customField.Value);
                 }
+                else
+                {
+                    DefineField(field);
+                }
+            }
+        }
+
+        private void DefineField(XElement field , string fieldValue = "")
+        {
+            string fieldName = field.Element("fieldname").Value;
+            if(fieldValue == "")
+            {
+                fieldValue = field.Element("fielddefault").Value;
+            }
+            switch (field.Element("fieldtype").Value)
+            {
+                case "bool":
+                    CheckControl checkControl = new CheckControl(new CheckControlViewModel(fieldName, XmlConvert.ToBoolean(fieldValue)));
+                    ListCustomField.Add(checkControl);
+                    break;
+
+                case "int":
+                    TextControl textControl = new TextControl(new TextControlViewModel(fieldName, fieldValue));
+                    ListCustomField.Add(textControl);
+                    break;
             }
         }
 
