@@ -201,6 +201,34 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
+
+        private XElement CreatePatient()
+        {
+            string Id;
+            var imie = FirstName;
+            var nazwisko = LastName;
+            var pesel = Pesel;
+
+            //Autonumeracja po id - olewamy 'dziury'
+            var max = XElement.Load("lib.xml").Descendants("max_idp").First();
+            Id = max.Value;
+            max.Value = (Convert.ToInt16(Id) + 1).ToString();
+
+            //Tworzymy element pacjent który później wszczepimy w nasz dokument
+            var pacjent = new XElement(
+                new XElement("patient",
+                new XElement("idp", Id),
+                new XElement("imie", imie),
+                new XElement("nazwisko", nazwisko),
+                new XElement("pesel", pesel)));
+
+            //TODO
+            //foreach (kontrolka)
+            pacjent.Add(new XElement("kontrolka-nazwa", "kontrolka-wartosc"));
+
+            return pacjent;
+        }
+
         private void Save(AddEditPatientWindow window)
         {
 
@@ -212,23 +240,11 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                     {
                         if (PesFlag)
                         {
-                            string Id;
-                            var imie = FirstName;
-                            var nazwisko = LastName;
-                            var pesel = Pesel;
 
-                            //Autonumeracja po id - olewamy 'dziury'
-                            var max = XElement.Load("lib.xml").Descendants("max_idp").First();
-                            Id = max.Value;
-                            max.Value = (Convert.ToInt16(Id) + 1).ToString();
 
-                            //Tworzymy element pacjent który później wszczepimy w nasz dokument
-                            Patient = new XElement(
-                                new XElement("patient",
-                                new XElement("idp", Id),
-                                new XElement("imie", imie),
-                                new XElement("nazwisko", nazwisko),
-                                new XElement("pesel", pesel)));
+
+                            Patient = CreatePatient();
+
 
                             if (SelectedAttribute != "")
                             {
@@ -268,20 +284,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 if (!IsEnabled)
                 {
-                    //Autonumeracja po id - olewamy 'dziury'
-                    if (Id == "" || Id == null)
-                    {
-                        var max = XElementon.Instance.getDatabase().Descendants("max_idp").First();
-                        Id = (string)max;
-                    }
 
-                    //Tworzymy element pacjent który później wszczepimy w nasz dokument
-                    Patient = new XElement(
-                        new XElement("patient",
-                            new XElement("idp", Id),
-                            new XElement("imie", FirstName),
-                            new XElement("nazwisko", LastName),
-                            new XElement("pesel", Pesel)));
+                    Patient = CreatePatient();
 
                     SelectedAttribute = XElementon.Instance.CheckingRules(Patient, false)[0].Value;
                 }

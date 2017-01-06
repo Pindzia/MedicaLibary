@@ -164,11 +164,25 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private Tuple<string, string>[] TupleList ()
         {
+            var list = new List<Tuple<string, string>>();
             Tuple<string, string> a = new Tuple<string, string>("imie", (string)NewPatient.Element("imie"));
             Tuple<string, string> b = new Tuple<string, string>("nazwisko", (string)NewPatient.Element("nazwisko"));
             Tuple<string, string> c = new Tuple<string, string>("pesel", (string)NewPatient.Element("pesel"));
-            Tuple<string, string>[] tup = { a, b, c };
-            //edition tuplelist for customfields TODOS
+            list.Add(a);
+            list.Add(b);
+            list.Add(c);
+
+            var Fields = XElementon.Instance.Field.Fields();
+            foreach (var element in NewPatient.Elements())
+            {
+                foreach (var field in Fields)
+                if(element.Name.LocalName == (string)field.Element("fieldname"))
+                {
+                        list.Add(new Tuple<string, string>((string)element.Name.LocalName, (string)element));
+                }
+            }
+
+            Tuple<string, string>[] tup = list.ToArray();
             return tup;
         }
 
