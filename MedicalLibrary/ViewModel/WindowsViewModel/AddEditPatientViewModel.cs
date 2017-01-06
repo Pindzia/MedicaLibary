@@ -224,7 +224,24 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
             //TODO
             //foreach (kontrolka)
-            pacjent.Add(new XElement("kontrolka-nazwa", "kontrolka-wartosc"));
+            foreach(var control in ListCustomField)
+            {
+                IEnumerable<XElement> fields = XElementon.Instance.Field.Fields();
+                switch (control.DataContext.GetType().Name)
+                {
+                    case "CheckControlViewModel":
+                        CheckControlViewModel checkModel = (CheckControlViewModel)control.DataContext;
+                        pacjent.Add(new XElement(checkModel.FieldName, checkModel.CheckValue));
+                        break;
+                    case "TextControlViewModel":
+                        TextControlViewModel textModel = (TextControlViewModel)control.DataContext;
+                        pacjent.Add(new XElement(textModel.FieldName, textModel.TextValue));
+                        break;
+                }
+                    
+
+            }
+            
 
             return pacjent;
         }
