@@ -73,7 +73,8 @@ namespace MedicaLibrary.Model
 
             var filtered = XElementon.Instance.Patient.Patients();
 
-            filtered = filtered.Where(x => Regex.IsMatch((string)x.Element(attribute), value));
+            //TODO - fallback value 
+            filtered = filtered.Where(x => (x.Element(attribute) != null)? Regex.IsMatch((string)x.Element(attribute), value) : false);
 
             return filtered;
         }

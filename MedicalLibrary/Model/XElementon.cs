@@ -478,7 +478,7 @@ namespace MedicaLibrary.Model
             for (int i = 0; i < 50; i++)
             {
                 Tuple<string, string> a = new Tuple<string,string> ("imie", listaimion[RNG.Next(listaimion.Count)]);
-                Tuple<string, string> b = new Tuple<string, string>("nazwisko", listaimion[RNG.Next(listaimion.Count)]);
+                Tuple<string, string> b = new Tuple<string, string>("nazwisko", listanazwisk[RNG.Next(listaimion.Count)]);
                 Tuple<string, string> c = new Tuple<string, string>("pesel", startingpesel.ToString());
                 startingpesel = startingpesel+ 11;
                 Tuple<string, string>[] randomguy = { a, b, c };
