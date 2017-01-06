@@ -49,7 +49,14 @@
                           SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" 
                           IsReadOnly="True" 
                           SelectionMode="Single"
-                          AutoGenerateColumns="False">
+                          AutoGenerateColumns="False"
+                          x:Name="MyGrid">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger SourceName="MyGrid" EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.LoadedCustomFields}" CommandParameter="{Binding ElementName=MyGrid}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Path=Element[idp].Value}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"></DataGridTextColumn>

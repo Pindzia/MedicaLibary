@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Windows;
 using MedicalLibrary.ViewModel.PagesViewModel;
 using MedicaLibrary.Model;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace MedicalLibrary.ViewModel.WindowsViewModel
 {
@@ -22,6 +24,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             EditPatient = new RelayCommand(pars => Edit());
             DeletePatient = new RelayCommand(pars => Delete());
             LoadedCommand = new RelayCommand(pars => Load());
+            LoadedCustomFields = new RelayCommand(pars => LoadCustomFields((DataGrid)pars));
             ClearSearch = new RelayCommand(pars => Clear());
             QueryOptionList = XElementon.Instance.Patient.PatientAttributeList();
             UpdateData();
@@ -151,23 +154,12 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
-        private void UpdateData()
-        {
-            PatientList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Patients());
-            DeployData(PatientList);
-
-        }
-
-
-        private void DeployData( ObservableCollection<XElement> ListToShow)
-        {
-            DataToBind = ListToShow;
-        }
 
         public ICommand AddPatient { get; set; }
         public ICommand EditPatient { get; set; }
         public ICommand DeletePatient { get; set; }
         public ICommand LoadedCommand { get; set; }
+        public ICommand LoadedCustomFields { get; set; }
         public ICommand ClearSearch { get; set; }
 
         private Tuple<string, string>[] TupleList ()
@@ -177,6 +169,17 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             Tuple<string, string> c = new Tuple<string, string>("pesel", (string)NewPatient.Element("pesel"));
             Tuple<string, string>[] tup = { a, b, c };
             return tup;
+        }
+
+        private void UpdateData()
+        {
+            PatientList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Patients());
+            DeployData(PatientList);
+        }
+
+        private void DeployData(ObservableCollection<XElement> ListToShow)
+        {
+            DataToBind = ListToShow;
         }
 
         private void Add()
@@ -246,6 +249,21 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             FindQuery = "";
             SelectedQuery = null;
+        }
+
+        private void LoadCustomFields(DataGrid grid)
+        {
+            IEnumerable<XElement> fields = XElementon.Instance.Field.Fields();
+            foreach(XElement field in fields)
+            {
+                DataGridTextColumn fieldColumn = new DataGridTextColumn();
+                fieldColumn.Header = field.Element("fieldname").Value;
+                var binding = new Binding();
+                binding.Path = new PropertyPath("Element.[" + field.Element("fieldname").Value + "].Value");
+                binding.FallbackValue = field.Element("fielddefault").Value;
+                fieldColumn.Binding = binding;
+                grid.Columns.Add(fieldColumn);
+            }
         }
 
     }
