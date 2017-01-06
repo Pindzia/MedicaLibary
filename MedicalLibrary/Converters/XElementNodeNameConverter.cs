@@ -62,7 +62,7 @@ namespace MedicalLibrary.Converters
                 return "Typ Pola:";
             if ((string)value == "fielddefault")
                 return "Wartość Domyślna:";
-            return "non-implemented-XElementNodeNameConverter:";
+            return value +":";
 
         }
 
