@@ -151,7 +151,7 @@
           <operation>greater</operation>
           <value>0</value>
         </rule>
-        <priority>7</priority>
+        <priority>5000</priority>
       </storehouse>
     </storehouses>
     <customfields>

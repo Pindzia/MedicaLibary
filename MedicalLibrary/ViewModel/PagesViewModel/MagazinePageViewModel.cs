@@ -344,15 +344,16 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         private void ChangeOrderUp()
         {
             ListMagazine.Move(SelectedButtonIndex, SelectedButtonIndex - 1);
-            ShowMagazineDetails(ListMagazine.ElementAt(SelectedButtonIndex - 1).Element("ids").Value);
             XElementon.Instance.Storehouse.MovePrioUp(SelectedButton);
+            ShowMagazineDetails(ListMagazine.ElementAt(SelectedButtonIndex - 1).Element("ids").Value);
+            
         }
 
         private void ChangeOrderDown()
         {
             ListMagazine.Move(SelectedButtonIndex, SelectedButtonIndex + 1);
-            ShowMagazineDetails(ListMagazine.ElementAt(SelectedButtonIndex + 1).Element("ids").Value);
             XElementon.Instance.Storehouse.MovePrioDown(SelectedButton);
+            ShowMagazineDetails(ListMagazine.ElementAt(SelectedButtonIndex + 1).Element("ids").Value);
         }
 
     }

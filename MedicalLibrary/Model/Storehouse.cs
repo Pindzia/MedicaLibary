@@ -10,12 +10,13 @@ namespace MedicaLibrary.Model
 
         XElement database = XElementon.Instance.getDatabase();
 
-        //Wyświetl wszystkie magazyny
+        //Wyświetl wszystkie magazyny, posortowane rosnąco po priority
         public IEnumerable<XElement> Storehouses()
         {
             var storehouse = from qmeta in database.Elements("meta") //optymalizacja?
                              from qstorehouses in qmeta.Elements("storehouses") //zmieniamy z bezpośrednio storehouse do storehouse -> storehouses
                              from qstorehouse in qstorehouses.Elements("storehouse")
+                             orderby (int)qstorehouse.Element("priority")
                              select qstorehouse;
             return storehouse;
         }

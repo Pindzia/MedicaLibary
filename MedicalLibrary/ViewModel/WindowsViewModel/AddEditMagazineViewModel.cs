@@ -189,7 +189,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                             new XElement("storehouse",
                             new XElement("name", MagazineName),
                             new XElement("size", MagazineSize),
-                            new XElement("priority", -1))); //nocolision! napisać to smart!
+                            new XElement("priority", XElementon.Instance.Storehouse.Storehouses().Count()))); //TODO nocolision! napisać to smart!
                         window.DialogResult = true;
                         window.Close();
                     }
