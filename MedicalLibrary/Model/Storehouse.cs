@@ -169,6 +169,45 @@ namespace MedicaLibrary.Model
             return operationlist;
         }
 
+
+        public void MovePrioDown(XElement magazyn)
+        {
+            var id = (int)magazyn.Element("ids");
+            var prio1 = (int)magazyn.Element("priority");
+
+            var down = new Tuple<string, string>("priority", (prio1+1).ToString());
+
+
+            var a = this.Storehouses().Where(x => (string)x.Element("priority") == (prio1+1).ToString()).First();
+            var up = new Tuple<string, string>("priority", (prio1).ToString());
+
+            var modifications = new Tuple<string, string>[] {down};
+            XElementon.Instance.ChangeX("storehouse", id, modifications);
+
+            modifications = new Tuple<string, string>[] {up};
+            XElementon.Instance.ChangeX("storehouse", (int)a.Element("ids"), modifications);
+        }
+
+        public void MovePrioUp(XElement magazyn)
+        {
+            var id = (int)magazyn.Element("ids");
+            var prio1 = (int)magazyn.Element("priority");
+
+            var down = new Tuple<string, string>("priority", (prio1 - 1).ToString());
+
+
+            var a = this.Storehouses().Where(x => (string)x.Element("priority") == (prio1 - 1).ToString()).First();
+            var up = new Tuple<string, string>("priority", (prio1).ToString());
+
+            var modifications = new Tuple<string, string>[] { down };
+            XElementon.Instance.ChangeX("storehouse", id, modifications);
+
+            modifications = new Tuple<string, string>[] { up };
+            XElementon.Instance.ChangeX("storehouse", (int)a.Element("ids"), modifications);
+        }
+
+
+
     }
 
 }
