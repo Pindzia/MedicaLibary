@@ -376,7 +376,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void DeployFields(XElement customPatient)
         {
-
+            //TODO - tylko raz - coby nie mieć milijonów ciąża i wzrost
             IEnumerable<XElement> fields = XElementon.Instance.Field.Fields();
             foreach(var field in fields)
             {

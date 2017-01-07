@@ -109,6 +109,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void Fix()
         {
+            //Nullref gdy nie jest zaznaczony
+            //domyślnie zaznacz pierwszego z góry
             XElementon.Instance.Patient.FixStorehouseEnvelope((int)SelectedItem.Element("idp"));
             UpdateData();
         }

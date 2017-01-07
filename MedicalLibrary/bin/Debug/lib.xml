@@ -14,10 +14,12 @@
         <node_type>patient</node_type>
         <id>5</id>
         <olddata>
-          <nazwisko>Pingotek</nazwisko>
+          <imie>Rafał</imie>
+          <nazwisko>Pingot</nazwisko>
         </olddata>
         <newdata>
-          <nazwisko>Pingot</nazwisko>
+          <imie>Rafalala</imie>
+          <nazwisko>Pingotówna</nazwisko>
         </newdata>
       </modification>
     </modifications>
@@ -26,8 +28,10 @@
         <ids>1</ids>
         <name>id wieksze od 10</name>
         <autonumeration>
-          <max_envelope>8</max_envelope>
-          <holes></holes>
+          <max_envelope>1</max_envelope>
+          <holes>
+            <hole>50</hole>
+          </holes>
         </autonumeration>
         <size>500</size>
         <rule>
@@ -36,13 +40,14 @@
           <operation>greater</operation>
           <value>10</value>
         </rule>
-        <priority>4</priority>
+        <gaps />
+        <priority>5</priority>
       </storehouse>
       <storehouse>
         <ids>2</ids>
         <name>ZbytKrotkiPesel</name>
         <autonumeration>
-          <max_envelope>2</max_envelope>
+          <max_envelope>1</max_envelope>
           <holes></holes>
         </autonumeration>
         <size>500</size>
@@ -52,14 +57,22 @@
           <operation>lesser</operation>
           <value>9999999999</value>
         </rule>
-        <priority>5</priority>
+        <priority>6</priority>
+        <rule>
+          <idr>5</idr>
+          <attribute>pesel</attribute>
+          <operation>greater</operation>
+          <value>500</value>
+        </rule>
       </storehouse>
       <storehouse>
         <ids>3</ids>
         <name>NazwiskoPingot</name>
         <autonumeration>
-          <max_envelope>2</max_envelope>
-          <holes></holes>
+          <max_envelope>1</max_envelope>
+          <holes>
+            <hole>5</hole>
+          </holes>
         </autonumeration>
         <size>500</size>
         <rule>
@@ -68,13 +81,13 @@
           <operation>equal</operation>
           <value>Pingot</value>
         </rule>
-        <priority>3</priority>
+        <priority>4</priority>
       </storehouse>
       <storehouse>
         <ids>4</ids>
         <name>W ciąży</name>
         <autonumeration>
-          <max_envelope>2</max_envelope>
+          <max_envelope>1</max_envelope>
           <holes></holes>
         </autonumeration>
         <size>500</size>
@@ -84,11 +97,11 @@
           <operation>equal</operation>
           <value>true</value>
         </rule>
-        <priority>2</priority>
+        <priority>3</priority>
       </storehouse>
       <storehouse>
         <ids>5</ids>
-        <name>id równe 7</name>
+        <name>id równe 15</name>
         <autonumeration>
           <max_envelope>1</max_envelope>
           <holes></holes>
@@ -98,9 +111,9 @@
           <idr>6</idr>
           <attribute>idp</attribute>
           <operation>equal</operation>
-          <value>7</value>
+          <value>15</value>
         </rule>
-        <priority>1</priority>
+        <priority>2</priority>
       </storehouse>
       <storehouse>
         <ids>6</ids>
@@ -122,7 +135,7 @@
           <operation>greater</operation>
           <value>250</value>
         </rule>
-        <priority>0</priority>
+        <priority>1</priority>
       </storehouse>
       <storehouse>
         <ids>7</ids>
@@ -138,7 +151,7 @@
           <operation>greater</operation>
           <value>0</value>
         </rule>
-        <priority>100</priority>
+        <priority>7</priority>
       </storehouse>
     </storehouses>
     <customfields>
@@ -160,7 +173,7 @@
     <idp>1</idp>
     <imie>Janin</imie>
     <nazwisko>Kowalski</nazwisko>
-    <pesel>48042817271</pesel>
+    <pesel>48042817</pesel>
     <storehouse>W ciąży</storehouse>
     <envelope>1</envelope>
     <wzrost>500</wzrost>
@@ -186,7 +199,7 @@
     <imie>Marek</imie>
     <nazwisko>Nowak</nazwisko>
     <pesel>24110901684</pesel>
-    <storehouse>id wieksze od 10</storehouse>
+    <storehouse>NazwiskoPingot</storehouse>
     <envelope>1</envelope>
   </patient>
   <patient>
@@ -194,7 +207,7 @@
     <imie>Anna</imie>
     <nazwisko>Beksa</nazwisko>
     <pesel>61031313642</pesel>
-    <storehouse>id wieksze od 10</storehouse>
+    <storehouse>NazwiskoPingot</storehouse>
     <envelope>2</envelope>
     <visit>
       <idv>3</idv>
@@ -207,13 +220,13 @@
     <imie>Marcin</imie>
     <nazwisko>Długi</nazwisko>
     <pesel>41042610758</pesel>
-    <storehouse>id wieksze od 10</storehouse>
+    <storehouse>NazwiskoPingot</storehouse>
     <envelope>3</envelope>
   </patient>
   <patient>
     <idp>5</idp>
     <imie>Rafalala</imie>
-    <nazwisko>Pingot</nazwisko>
+    <nazwisko>Pingotówna</nazwisko>
     <pesel>19092506369</pesel>
     <storehouse>NazwiskoPingot</storehouse>
     <envelope>4</envelope>
@@ -228,8 +241,8 @@
     <idp>6</idp>
     <imie>Jan</imie>
     <nazwisko>Krótki</nazwisko>
-    <pesel>72082412742</pesel>
-    <storehouse>id wieksze od 10</storehouse>
+    <pesel>720824127452</pesel>
+    <storehouse>NazwiskoPingot</storehouse>
     <envelope>5</envelope>
   </patient>
   <patient>
@@ -237,7 +250,7 @@
     <imie>Anna</imie>
     <nazwisko>Nowak</nazwisko>
     <pesel>56112018901</pesel>
-    <storehouse>id wieksze od 10</storehouse>
+    <storehouse>NazwiskoPingot</storehouse>
     <envelope>6</envelope>
   </patient>
   <patient>
@@ -245,7 +258,7 @@
     <imie>Joanna</imie>
     <nazwisko>Mann</nazwisko>
     <pesel>69102112921</pesel>
-    <storehouse>id wieksze od 10</storehouse>
+    <storehouse>NazwiskoPingot</storehouse>
     <envelope>7</envelope>
   </patient>
   <patient>
@@ -253,14 +266,16 @@
     <imie>Ktoś</imie>
     <nazwisko>Pingot</nazwisko>
     <pesel>123123123123</pesel>
-    <storehouse>id wieksze od 10</storehouse>
-    <envelope>10</envelope>
+    <storehouse>NazwiskoPingot</storehouse>
+    <envelope>8</envelope>
+    <wzrost>150</wzrost>
+    <ciąża>true</ciąża>
   </patient>
   <patient>
     <idp>11</idp>
-    <imie>Andrzej</imie>
-    <nazwisko>Dudek</nazwisko>
-    <pesel>1034567841</pesel>
+    <imie>debug_imie</imie>
+    <nazwisko>debug_nazwisko</nazwisko>
+    <pesel>123456789</pesel>
     <storehouse>ZbytKrotkiPesel</storehouse>
     <envelope>1</envelope>
     <wzrost>500</wzrost>
