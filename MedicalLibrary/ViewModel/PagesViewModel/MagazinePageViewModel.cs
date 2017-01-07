@@ -23,8 +23,9 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             DeleteMagazine = new RelayCommand(pars => Delete());
             PushButton = new RelayCommand(pars =>Push());
             LoadedCommand = new RelayCommand(pars =>Load());
+            OrderUp = new RelayCommand(pars => ChangeOrderUp());
+            OrderDown = new RelayCommand(pars => ChangeOrderDown());
             UpdateData();
-            
         }
 
         private ObservableCollection<XElement> _ListMagazine = new ObservableCollection<XElement>();
@@ -37,22 +38,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             set
             {
                 _ListMagazine = value;
-                ColMaxIndex = _ListMagazine.Count;
                 OnPropertyChanged("ListMagazine");
-            }
-        }
-
-        private int _ColMaxIndex = 0;
-        public int ColMaxIndex
-        {
-            get
-            {
-                return _ColMaxIndex;
-            }
-            set
-            {
-                _ColMaxIndex = value;
-                OnPropertyChanged("ColMaxIndex");
             }
         }
 
@@ -83,6 +69,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             set
             {
                 _SelectedButtonIndex = value;
+                CanOrderUpOrDown();
                 OnPropertyChanged("SelectedButtonIndex");
             }
         }
@@ -98,6 +85,34 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             {
                 _PatientsOfMagazine = value;
                 OnPropertyChanged("PatientsOfMagazine");
+            }
+        }
+
+        private bool _ChangeUp = false;
+        public bool ChangeUp
+        {
+            get
+            {
+                return _ChangeUp;
+            }
+            set
+            {
+                _ChangeUp = value;
+                OnPropertyChanged("ChangeUp");
+            }
+        }
+
+        private bool _ChangeDown = false;
+        public bool ChangeDown
+        {
+            get
+            {
+                return _ChangeDown;
+            }
+            set
+            {
+                _ChangeDown = value;
+                OnPropertyChanged("ChangeDown");
             }
         }
 
@@ -204,6 +219,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         public ICommand AddMagazine { get; set; }
         public ICommand EditMagazine { get; set; }
         public ICommand DeleteMagazine { get; set; }
+        public ICommand OrderUp { get; set; }
+        public ICommand OrderDown { get; set; }
         public ICommand PushButton { get; set; }
         public ICommand LoadedCommand { get; set; }
 
@@ -217,7 +234,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             int index;
             int.TryParse(storehouseId, out index);
-            SelectedButton = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Storehouse.WithIDS(index)).FirstOrDefault();
+            SelectedButton = XElementon.Instance.Storehouse.WithIDS(index).FirstOrDefault();
             MagazineName = SelectedButton.Element("name").Value;
             PatientsOfMagazine = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.WithStorehouseName(MagazineName));
             MagazineId = SelectedButton.Element("ids").Value;
@@ -304,5 +321,39 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             UpdateData();
         }
+
+        private void CanOrderUpOrDown()
+        {
+            ChangeUp = true;
+            ChangeDown = true;
+            if(ListMagazine.Count < 2)
+            {
+                ChangeUp = false;
+                ChangeDown = false;
+            }
+            if(SelectedButtonIndex == 0)
+            {
+                ChangeUp = false;
+            }
+            if(SelectedButtonIndex == ListMagazine.Count -1)
+            {
+                ChangeDown = false;
+            }
+        }
+
+        private void ChangeOrderUp()
+        {
+            ListMagazine.Move(SelectedButtonIndex, SelectedButtonIndex - 1);
+            ShowMagazineDetails(ListMagazine.ElementAt(SelectedButtonIndex - 1).Element("ids").Value);
+            //Change SelectedButton Prio!!
+        }
+
+        private void ChangeOrderDown()
+        {
+            ListMagazine.Move(SelectedButtonIndex, SelectedButtonIndex + 1);
+            ShowMagazineDetails(ListMagazine.ElementAt(SelectedButtonIndex + 1).Element("ids").Value);      
+            //Change SelectedButton Prio!!      
+        }
+
     }
 }
