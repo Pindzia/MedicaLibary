@@ -17,7 +17,7 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
         public CheckControlViewModel(string name, bool value)
         {
             FieldName = name;
-            CheckValue = value;
+            FieldValue = value;
         }
 
 
@@ -35,17 +35,17 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
             }
         }
 
-        private bool _CheckValue = false;
-        public bool CheckValue
+        private bool _FieldValue = false;
+        public bool FieldValue
         {
             get
             {
-                return _CheckValue;
+                return _FieldValue;
             }
             set
             {
-                _CheckValue = value;
-                OnPropertyChanged("CheckValue");
+                _FieldValue = value;
+                OnPropertyChanged("FieldValue");
             }
         }
     }

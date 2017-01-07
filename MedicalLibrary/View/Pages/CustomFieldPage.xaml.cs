@@ -1,5 +1,4 @@
-﻿using MedicalLibrary.ViewModel.PagesViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,19 +16,13 @@ using System.Windows.Shapes;
 namespace MedicalLibrary.View.Pages
 {
     /// <summary>
-    /// Interaction logic for MagazinePage.xaml
+    /// Interaction logic for CustomFieldPage.xaml
     /// </summary>
-    public partial class MagazinePage : Page
+    public partial class CustomFieldPage : Page
     {
-        public MagazinePage()
+        public CustomFieldPage()
         {
             InitializeComponent();
-            DataContext = new MagazinePageViewModel();
-        }
-
-        private void List_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            e.Handled = true;
         }
     }
 }

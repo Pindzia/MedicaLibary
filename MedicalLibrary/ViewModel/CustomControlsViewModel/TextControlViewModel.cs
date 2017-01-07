@@ -17,7 +17,7 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
         public TextControlViewModel(string fieldName, string textValue)
         {
             FieldName = fieldName;
-            TextValue = textValue;
+            FieldValue = textValue;
         }
 
         private string _FieldName = "";
@@ -34,17 +34,17 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
             }
         }
 
-        private string _TextValue = "";
-        public string TextValue
+        private string _FieldValue = "";
+        public string FieldValue
         {
             get
             {
-                return _TextValue;
+                return _FieldValue;
             }
             set
             {
-                _TextValue = value;
-                OnPropertyChanged("TextValue");
+                _FieldValue = value;
+                OnPropertyChanged("FieldValue");
             }
         }
     }

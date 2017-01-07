@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       x:Name="Page"
       mc:Ignorable="d" 
       Title="MagazinePage"
@@ -28,34 +29,43 @@
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
             <GroupBox Grid.Column="0" Header="Lista Magazynów">
-                <ListBox x:Name="List" 
-                         ItemsSource="{Binding ListMagazine}" 
-                         VerticalAlignment="Top" 
-                         HorizontalAlignment="Left" 
-                         Width="233"
-                         Height="560"
-                         Grid.Column="0"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <ListBox x:Name="List" 
+                         ItemsSource="{Binding ListMagazine}"  
+                         PreviewMouseRightButtonDown="List_PreviewMouseRightButtonDown"
                          Margin="0,20,10,0">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Content="{Binding Path=Element[name].Value}" 
-                                        Command="{Binding Path=DataContext.ShowMagazine , ElementName=List}" 
-                                        CommandParameter="{Binding Path=Element[ids].Value}"
-                                        BorderBrush="White" 
-                                        Width="230" 
-                                        Height="35"
-                                        x:Name="Button">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Click" SourceName="Button">
-                                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}},Path=DataContext.PushButton}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Button>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding Path=Element[name].Value}" 
+                                                    Command="{Binding Path=DataContext.ShowMagazine , ElementName=List}" 
+                                                    CommandParameter="{Binding Path=Element[ids].Value}"
+                                                    BorderBrush="White" 
+                                                    x:Name="Button">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click" SourceName="Button">
+                                                <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}},Path=DataContext.PushButton}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <Button Command="{Binding OrderUp}" Content="{iconPacks:PackIconFontAwesome AngleDoubleUp}"/>
+                        <Button Command="{Binding OrderDown}" Content="{iconPacks:PackIconFontAwesome AngleDoubleDown}"/>
+                    </StackPanel>
+                </Grid>
             </GroupBox>
             <GroupBox Grid.Column="2" Header="Dane Magazynu" Margin="10,0,10,0">
                 <Grid  Margin="20,0,0,0" Height="Auto" Width="Auto">

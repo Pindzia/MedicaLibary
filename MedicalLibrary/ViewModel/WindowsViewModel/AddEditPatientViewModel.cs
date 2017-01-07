@@ -231,15 +231,13 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 {
                     case "CheckControlViewModel":
                         CheckControlViewModel checkModel = (CheckControlViewModel)control.DataContext;
-                        pacjent.Add(new XElement(checkModel.FieldName, checkModel.CheckValue));
+                        pacjent.Add(new XElement(checkModel.FieldName, checkModel.FieldValue));
                         break;
                     case "TextControlViewModel":
                         TextControlViewModel textModel = (TextControlViewModel)control.DataContext;
-                        pacjent.Add(new XElement(textModel.FieldName, textModel.TextValue));
+                        pacjent.Add(new XElement(textModel.FieldName, textModel.FieldValue));
                         break;
                 }
-                    
-
             }
             
 
