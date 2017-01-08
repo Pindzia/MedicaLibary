@@ -489,7 +489,7 @@ namespace MedicaLibrary.Model
 
             var listakomentarzy = new List<string> { "pytlakowski", "merkantylny", "słowianoznawczy", "taiwański", "karpi", "przedzlotowy", "saudyjskoarabski", "chlorooctowy", "burgrabski", "drobnorozpryskowy", "mgnieniowy", "niedosiężny", "truskolaski", "dioptryczny", "przewspaniały", "dziewięciostopniowy", "podażowy", "semazjologiczny", "podpróchniały", "adeński", "gwiazdorski", "aprowincjonalny", "bożeniny", "dźwiękoszczelny", "ujemny", "moręgowaty", "różnowierczy", "pokrowcowy", "salomonowy", "kamiński" };
 
-            var listanazwfield = new List<string> { "waga", "BMI", "długość_nosa", "kształt uszu", "kolor oczu", "kolor skóry", "kształt nosa", "długość paznokci", "długość palców", "IQ", "ilość palców", "wada wymowy", "kształt kręgosłupa", "wada wzroku" };
+            var listanazwfield = new List<string> {"waga",  "BMI",  "długość_nosa",  "kształt_uszu",  "kolor_oczu",  "kolor_skóry",  "kształt_nosa",  "długość_paznokci",  "długość_palców",  "IQ",  "ilość_palców",  "wada_wymowy",  "kształt_kręgosłupa",  "wada_wzroku"};
             //Pacjenci
             for (int i = 0; i < 50; i++)
             {
