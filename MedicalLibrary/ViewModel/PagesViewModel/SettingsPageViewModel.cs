@@ -13,8 +13,10 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
     {
         public SettingsPageViewModel()
         {
-            AddToDatabase = new RelayCommand(pars => Add());
+            AddSomeToDatabase = new RelayCommand(pars => AddSome());
+            AddALotToDatabase = new RelayCommand(pars => AddALot());
             CleanModifications = new RelayCommand(pars => Clean());
+            PushModifications = new RelayCommand(pars => Push());
             PullDatabase = new RelayCommand(pars => Pull());
         }
 
@@ -33,11 +35,18 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
-        public ICommand AddToDatabase { get; set; }
+        public ICommand AddSomeToDatabase { get; set; }
+        public ICommand AddALotToDatabase { get; set; }
         public ICommand CleanModifications { get; set; }
+        public ICommand PushModifications { get; set; }
         public ICommand PullDatabase { get; set; }
 
-        private void Add()
+        private void AddSome()
+        {
+            XElementon.Instance.FillDatabase();//TODO
+        }
+
+        private void AddALot()
         {
             XElementon.Instance.FillDatabase();
         }
@@ -45,6 +54,11 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         private void Clean()
         {
             XElementon.Instance.Modification.Clean();
+        }
+
+        private void Push()
+        {
+            XElementon.Instance.Modification.Clean();//TODO
         }
 
         private async void Pull()

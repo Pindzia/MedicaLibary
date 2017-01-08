@@ -482,10 +482,15 @@ namespace MedicaLibrary.Model
         public void FillDatabase()
         {
             Random RNG = new Random();
+            
             var listaimion = new List<string> { "Jakub", "Julia", "Kacper", "Maja", "Szymon", "Zuzanna", "Mateusz", "Wiktoria", "Filip", "Oliwia", "Michał", "Amelia", "Bartosz", "Natalia", "Wiktor", "Aleksandra", "Piotr", "Lena", "Dawid", "Nikola", "Adam", "Zofia", "Maciej", "Martyna", "Jan", "Weronika", "Igor", "Anna", "Mikołaj", "Emilia", "Patryk", "Magdalena", "Paweł", "Hanna", "Dominik", "Karolina", "Oskar", "Gabriela", "Antoni", "Alicja" };
             var listanazwisk = new List<string> { "Nowak", "Kowalski", "Wiśniewski", "Dąbrowski", "Lewandowski", "Wójcik", "Kamiński", "Kowalczyk", "Zieliński", "Szymański", "Woźniak", "Kozłowski", "Jankowski", "Wojciechowski", "Kwiatkowski", "Kaczmarek", "Mazur", "Krawczyk", "Piotrowski", "Grabowski", "Nowakowski", "Pawłowski", "Michalski", "Nowicki", "Adamczyk", "Dudek", "Zając", "Wieczorek", "Jabłoński", "Król", "Majewski", "Olszewski", "Jaworski", "Wróbel", "Malinowski", "Pawlak", "Witkowski", "Walczak", "Stępień", "Górski", "Rutkowski", "Michalak", "Sikora", "Ostrowski", "Baran", "Duda", "Szewczyk", "Tomaszewski", "Pietrzak", "Marciniak", "Wróblewski", "Zalewski", "Jakubowski", "Jasiński", "Zawadzki", "Sadowski", "Bąk", "Chmielewski", "Włodarczyk", "Borkowski", "Czarnecki", "Sawicki", "Sokołowski", "Urbański", "Kubiak", "Maciejewski", "Szczepański", "Kucharski", "Wilk", "Kalinowski", "Lis" };
             var startingpesel = 12345678901;
 
+            var listakomentarzy = new List<string> { "pytlakowski", "merkantylny", "słowianoznawczy", "taiwański", "karpi", "przedzlotowy", "saudyjskoarabski", "chlorooctowy", "burgrabski", "drobnorozpryskowy", "mgnieniowy", "niedosiężny", "truskolaski", "dioptryczny", "przewspaniały", "dziewięciostopniowy", "podażowy", "semazjologiczny", "podpróchniały", "adeński", "gwiazdorski", "aprowincjonalny", "bożeniny", "dźwiękoszczelny", "ujemny", "moręgowaty", "różnowierczy", "pokrowcowy", "salomonowy", "kamiński" };
+
+            var listanazwfield = new List<string> { "waga", "BMI", "długość_nosa", "kształt uszu", "kolor oczu", "kolor skóry", "kształt nosa", "długość paznokci", "długość palców", "IQ", "ilość palców", "wada wymowy", "kształt kręgosłupa", "wada wzroku" };
+            //Pacjenci
             for (int i = 0; i < 50; i++)
             {
                 Tuple<string, string> a = new Tuple<string,string> ("imie", listaimion[RNG.Next(listaimion.Count)]);
@@ -495,6 +500,38 @@ namespace MedicaLibrary.Model
                 Tuple<string, string>[] randomguy = { a, b, c };
 
                 XElementon.instance.Patient.Add(randomguy);
+            }
+
+            //Wizyty
+            for (int i = 0; i < 30; i++)
+            {
+                var listapacjentow = this.Patient.Patients().ToList();
+                var losowypacjent = listapacjentow[RNG.Next(listapacjentow.Count)].Element("idp");
+
+                var now = DateTime.Now;
+                var randomtime = RNG.Next(1, 87600);
+                randomtime = -randomtime;
+                var randomdate = now.AddHours(randomtime).ToString();
+
+
+                Tuple<string, string> a = new Tuple<string, string>("visit_addition_date", randomdate);
+                Tuple<string, string> b = new Tuple<string, string>("comment", listakomentarzy[RNG.Next(listakomentarzy.Count)]);
+
+                Tuple<string, string>[] randomvisit = { a, b };
+                XElementon.instance.Visit.Add((int)losowypacjent, randomvisit);
+            }
+
+            //Customfields
+
+            for (int i = 0; i<= 8; i++)
+            {
+                Tuple<string, string> a = new Tuple<string, string>("fieldname", listanazwfield[RNG.Next(listanazwfield.Count)]);
+                Tuple<string, string> b = new Tuple<string, string>("fieldtype", "string");
+                Tuple<string, string> c = new Tuple<string, string>("fielddefault", "domyślny");
+
+                Tuple<string, string>[] randomvisit = { a, b, c};
+
+                XElementon.Instance.Field.Add(randomvisit);
             }
         }
     }

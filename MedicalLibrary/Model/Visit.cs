@@ -45,15 +45,20 @@ namespace MedicaLibrary.Model
 
             //Szczytywanie danych z źródła
             string comment = "";
+            string time = "";
             foreach (var dat in data)
             {
                 if (dat.Item1 == "comment")
                     comment = dat.Item2;
+                if (dat.Item1 == "visit_addition_date")
+                    time = dat.Item2;
             }
 
-
-            string time = DateTime.Now.ToString();
-
+            if(time == "")
+            {
+                time = DateTime.Now.ToString();
+            }
+            
             //Autonumeracja ID
             var max_idv = database.Descendants("max_idv").First();
             var idv = max_idv.Value;
