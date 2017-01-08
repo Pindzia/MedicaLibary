@@ -187,7 +187,7 @@ namespace MedicaLibrary.Model
 
 
 
-                        if (nowy_pacjent.Elements((string)qrule.Element("attribute")).Any())
+                        if (nowy_pacjent.Elements((string)qrule.Element("attribute")).Any() && (string)nowy_pacjent.Elements((string)qrule.Element("attribute")).First() != "")
                         {
                             if ((string)qrule.Element("operation") == "greater")
                             {
