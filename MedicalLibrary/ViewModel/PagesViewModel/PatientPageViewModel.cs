@@ -219,7 +219,9 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 Nullable<bool> result = window.ShowDialog();
                 if (result == true)
                 {
+                    var compare = new XElement(SelectedItem);
                     compare.Element("envelope").Remove();
+                    if (viewModel.Patient.ToString() != compare.ToString()) //SelectedItem ma w sobie envelope a Patient nie
                     {
                         NewPatient = viewModel.Patient;
                         XElementon.Instance.Patient.Change((int)SelectedItem.Element("idp"), TupleList());
