@@ -16,6 +16,7 @@ namespace MedicaLibrary.Model
             var modification = from qmeta in database.Elements("meta")
                                from qmodifications in qmeta.Elements("modifications")
                                from qmodification in qmodifications.Elements("modification")
+                               where qmodification.Element("olddata").Element("priority") == null //TODO Edycje priorytetów 'edycjami widmo'?
                                select qmodification;
             return modification;
         }

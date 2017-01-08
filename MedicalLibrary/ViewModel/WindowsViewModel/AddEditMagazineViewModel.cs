@@ -29,7 +29,22 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             SelectedOperation = ParsedMagazine.Element("rule").Element("operation").Value;
             VarOfRule = ParsedMagazine.Element("rule").Element("value").Value;
             MagazineSize = ParsedMagazine.Element("size").Value;
+            OldPriority = ParsedMagazine.Element("priority").Value;
             SaveMagazine = new RelayCommand(pars => Save((AddEditMagazineWindow)pars));
+        }
+
+        private string _OldPriority = "";
+        public string OldPriority
+        {
+            get
+            {
+                return _OldPriority;
+            }
+            set
+            {
+                _OldPriority = value;
+                OnPropertyChanged("OldPriority");
+            }
         }
 
         private string _MagazineName = "";
@@ -189,7 +204,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                             new XElement("storehouse",
                             new XElement("name", MagazineName),
                             new XElement("size", MagazineSize),
-                            new XElement("priority", XElementon.Instance.Storehouse.Storehouses().Count()))); //TODO nocolision! napisać to smart!
+                            new XElement("priority", (OldPriority=="") ? XElementon.Instance.Storehouse.Storehouses().Count() : Convert.ToInt32(OldPriority) ))); //TODO nocolision! napisać to smart!
                         window.DialogResult = true;
                         window.Close();
                     }

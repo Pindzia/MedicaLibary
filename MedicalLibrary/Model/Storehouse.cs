@@ -110,7 +110,18 @@ namespace MedicaLibrary.Model
         //Zmiana pacjenta przy użyciu tupli
         public void Delete(int id, bool log = true)
         {
-            XElementon.Instance.DeleteX("storehouse", id, log);
+
+            var storehouse_to_delete = this.WithIDS(id).First();
+            var storehouses_with_worse_prio = this.Storehouses().Where((x => (int)x.Element("priority") > (int)storehouse_to_delete.Element("priority")));
+            foreach (var storehouse in storehouses_with_worse_prio)
+            {
+                var up = new Tuple<string, string>("priority", (Convert.ToInt32(storehouse.Element("priority").Value)-1).ToString());
+
+                var modifications = new Tuple<string, string>[] { up };
+                XElementon.Instance.ChangeX("storehouse", (int)storehouse.Element("ids"), modifications);
+            }
+
+                XElementon.Instance.DeleteX("storehouse", id, log);
         }
 
 
@@ -174,13 +185,13 @@ namespace MedicaLibrary.Model
         public void MovePrioDown(XElement magazyn)
         {
             var id = (int)magazyn.Element("ids");
-            var prio1 = (int)magazyn.Element("priority");
+            var priority = (int)magazyn.Element("priority");
 
-            var down = new Tuple<string, string>("priority", (prio1+1).ToString());
+            var down = new Tuple<string, string>("priority", (priority+1).ToString());
 
-
-            var a = this.Storehouses().Where(x => (string)x.Element("priority") == (prio1+1).ToString()).First();
-            var up = new Tuple<string, string>("priority", (prio1).ToString());
+            
+            var a = this.Storehouses().Where(x => (int)x.Element("priority") > priority).First();
+            var up = new Tuple<string, string>("priority", (priority).ToString());
 
             var modifications = new Tuple<string, string>[] {down};
             XElementon.Instance.ChangeX("storehouse", id, modifications);
@@ -192,13 +203,13 @@ namespace MedicaLibrary.Model
         public void MovePrioUp(XElement magazyn)
         {
             var id = (int)magazyn.Element("ids");
-            var prio1 = (int)magazyn.Element("priority");
+            var priority = (int)magazyn.Element("priority");
 
-            var down = new Tuple<string, string>("priority", (prio1 - 1).ToString());
+            var down = new Tuple<string, string>("priority", (priority - 1).ToString());
 
 
-            var a = this.Storehouses().Where(x => (string)x.Element("priority") == (prio1 - 1).ToString()).First();
-            var up = new Tuple<string, string>("priority", (prio1).ToString());
+            var a = this.Storehouses().Where(x => (int)x.Element("priority") < priority).Last();
+            var up = new Tuple<string, string>("priority", (priority).ToString());
 
             var modifications = new Tuple<string, string>[] { down };
             XElementon.Instance.ChangeX("storehouse", id, modifications);
