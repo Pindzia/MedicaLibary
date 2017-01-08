@@ -526,8 +526,8 @@ namespace MedicaLibrary.Model
             for (int i = 0; i<= 8; i++)
             {
                 Tuple<string, string> a = new Tuple<string, string>("fieldname", listanazwfield[RNG.Next(listanazwfield.Count)]);
-                Tuple<string, string> b = new Tuple<string, string>("fieldtype", "string");
-                Tuple<string, string> c = new Tuple<string, string>("fielddefault", "domyślny");
+                Tuple<string, string> b = new Tuple<string, string>("fieldtype", "int");
+                Tuple<string, string> c = new Tuple<string, string>("fielddefault", "8");
 
                 Tuple<string, string>[] randomvisit = { a, b, c};
 
