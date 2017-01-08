@@ -204,15 +204,18 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private XElement CreatePatient()
         {
-            string Id;
+            string Id = IDP;
             var imie = FirstName;
             var nazwisko = LastName;
             var pesel = Pesel;
 
             //Autonumeracja po id - olewamy 'dziury'
-            var max = XElement.Load("lib.xml").Descendants("max_idp").First();
-            Id = max.Value;
-            max.Value = (Convert.ToInt16(Id) + 1).ToString();
+            if (Id == "")
+            {
+                var max = XElement.Load("lib.xml").Descendants("max_idp").First();
+                Id = max.Value;
+                max.Value = (Convert.ToInt16(Id) + 1).ToString();
+            }
 
             //Tworzymy element pacjent który później wszczepimy w nasz dokument
             var pacjent = new XElement(
@@ -224,7 +227,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
             //TODO
             //foreach (kontrolka)
-            foreach(var control in ListCustomField)
+            foreach (var control in ListCustomField)
             {
                 IEnumerable<XElement> fields = XElementon.Instance.Field.Fields();
                 switch (control.DataContext.GetType().Name)
@@ -239,7 +242,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                         break;
                 }
             }
-            
+
 
             return pacjent;
         }

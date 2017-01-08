@@ -180,17 +180,17 @@
     <ciąża>true</ciąża>
     <visit>
       <idv>1</idv>
-      <visit_addition_date>2016-05-31 01:25:46</visit_addition_date>
+      <visit_addition_date>2016-05-31T01:25:46</visit_addition_date>
       <comment>abc</comment>
     </visit>
     <visit>
       <idv>2</idv>
-      <visit_addition_date>2016-06-06 07:15:02</visit_addition_date>
+      <visit_addition_date>2016-06-06T07:15:02</visit_addition_date>
       <comment>asdf</comment>
     </visit>
     <visit>
       <idv>4</idv>
-      <visit_addition_date>2016-11-29 12:58:23</visit_addition_date>
+      <visit_addition_date>2016-11-29T12:58:23</visit_addition_date>
       <comment>debug_comment</comment>
     </visit>
   </patient>
@@ -211,7 +211,7 @@
     <envelope>2</envelope>
     <visit>
       <idv>3</idv>
-      <visit_addition_date>2016-06-14 08:51:12</visit_addition_date>
+      <visit_addition_date>2016-06-14T08:51:12</visit_addition_date>
       <comment>test idv</comment>
     </visit>
   </patient>
@@ -233,7 +233,7 @@
     <wzrost>150</wzrost>
     <visit>
       <idv>5</idv>
-      <visit_addition_date>2016-11-29 12:58:23</visit_addition_date>
+      <visit_addition_date>2016-11-29T12:58:23</visit_addition_date>
       <comment>debug_comment</comment>
     </visit>
   </patient>

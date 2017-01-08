@@ -219,7 +219,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 Nullable<bool> result = window.ShowDialog();
                 if (result == true)
                 {
-                    if (viewModel.Patient != NewPatient)
+                    compare.Element("envelope").Remove();
                     {
                         NewPatient = viewModel.Patient;
                         XElementon.Instance.Patient.Change((int)SelectedItem.Element("idp"), TupleList());
