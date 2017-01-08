@@ -9,7 +9,7 @@
     <Grid Height="25" Width="300">
         <DockPanel Width="300">
             <TextBlock Text="{Binding FieldName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding TextValue}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="125"/>
+            <TextBox Text="{Binding FieldValue}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="125"/>
         </DockPanel>
     </Grid>
 </UserControl>

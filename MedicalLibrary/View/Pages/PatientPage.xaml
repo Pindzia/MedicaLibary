@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalLibrary"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       x:Name="Page"
@@ -28,6 +29,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
                     <Label Content="Wyszukaj Pacjenta:" Margin="0,0,10,0"/>
@@ -42,6 +44,10 @@
                               SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedQuery}">
                     </ComboBox>
                 </StackPanel>
+                <Button Grid.Column ="2" Command="{Binding ClearSearch}" HorizontalContentAlignment="Stretch">
+                    <iconPacks:PackIconMaterial Kind="Close" HorizontalAlignment="Center"></iconPacks:PackIconMaterial>
+                </Button>
+
             </Grid>
             <StackPanel Margin="20,10,20,10" Grid.Row="1">
                 <DataGrid DataContext="{Binding DataToBind}" Height="480"  
