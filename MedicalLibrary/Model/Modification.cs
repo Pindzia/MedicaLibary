@@ -162,7 +162,21 @@ namespace MedicaLibrary.Model
 
         public XElement MergeModifications(XElement modification)
         {
-            //Merge Edits
+
+            //Merge Edits to Additions
+
+            var Additions = this.Modifications().Where(x => (string)x.Element("operation") == "A"
+                                                    && (string)x.Element("node_type") == (string)modification.Element("node_type")
+                                                    && (string)x.Element("id") == (string)modification.Element("id"));
+            if (Additions.Any())
+            {
+                var union = new XElement(modification.Elements("newdata").Union(Additions.First().Elements("olddata")).First());
+                Additions.First().Element("newdata").Remove();
+                Additions.First().Add(union);
+                return null;
+            }
+
+            //Merge Edits to other Edits
             var Duplicates = this.Modifications().Where(x => (string)x.Element("operation") == "E" 
                                                         && (string)x.Element("node_type") == (string)modification.Element("node_type") 
                                                         && (string)x.Element("id") == (string)modification.Element("id"));
@@ -182,6 +196,34 @@ namespace MedicaLibrary.Model
 
                 DuplicateList.RemoveAt(0);
                 Duplicates.First().Remove();
+            }
+            return modification;
+        }
+
+        public XElement ClearModificationsAfterDelete(XElement modification)
+        {
+            var obsolete = this.Modifications().Where(x => (string)x.Element("operation") == "A"
+                                       && (string)x.Element("node_type") == (string)modification.Element("node_type") 
+                                       && (string)x.Element("id") == (string)modification.Element("id"));
+
+            var obsolete2 = this.Modifications().Where(x => (string)x.Element("operation") == "E"
+                           && (string)x.Element("node_type") == (string)modification.Element("node_type")
+                           && (string)x.Element("id") == (string)modification.Element("id"));
+
+
+            if (obsolete2.Any())
+            {
+                modification.Element("olddata").Remove();
+                modification.Add(obsolete2.First().Element("olddata"));
+                obsolete2.Remove();
+
+                //modification.Element("olddata") = new XElement(obsolete2.First().Element("olddata"));
+            }
+
+            if (obsolete.Any())
+            {
+                obsolete.Remove();
+                return null;
             }
 
             return modification;

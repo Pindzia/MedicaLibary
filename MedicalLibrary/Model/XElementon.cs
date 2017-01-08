@@ -356,7 +356,10 @@ namespace MedicaLibrary.Model
                 mdpamodification.Add(newdata);
 
                 mdpamodification = XElementon.Instance.Modification.MergeModifications(mdpamodification);
-                database.Descendants("modifications").First().Add(mdpamodification);
+                //if(mdpamodification != null) //Potrzebne?
+                //{
+                    database.Descendants("modifications").First().Add(mdpamodification);
+                //}
             }
         }
 
@@ -439,8 +442,15 @@ namespace MedicaLibrary.Model
                 mdpamodification.Add(olddata);
                 mdpamodification.Add(new XElement("newdata"));
 
-                database.Descendants("modifications").First().Add(mdpamodification);
+
+                mdpamodification = XElementon.Instance.Modification.ClearModificationsAfterDelete(mdpamodification);
+
+                //if(mdpamodification != null) //Potrzebne?
+                //{
+                    database.Descendants("modifications").First().Add(mdpamodification);
+                //}
             }
+            
             modify.Remove();
         }
 
