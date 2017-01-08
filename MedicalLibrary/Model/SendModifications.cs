@@ -27,8 +27,8 @@ namespace MedicalLibrary.Model
                 {
                     id_obiekt = 0,
                     id_wersji = ver,
-                    obiekt = (string)modyfikacja.Element("nodetype"),
-                    operaca = (string)modyfikacja.Element("operacja")
+                    obiekt = (string)modyfikacja.Element("node_type"),
+                    operaca = (string)modyfikacja.Element("operation")
                 };
 
                 uri = "/modyfikacja/" + idLekarz.ToString() + "/nowa";
@@ -77,6 +77,8 @@ namespace MedicalLibrary.Model
                         stara_wartosc = (string)modyfikacja.Element("olddata").Elements().ElementAt(i),
                         nowa_wartosc = (string)modyfikacja.Element("newdata").Elements().ElementAt(i)
                     };
+                    uri = "/danemodyfikacji/" + idLekarz.ToString() + "/nowy";
+                    await PushREST.UniversalPost(daneMod, uri);
                 }
             }
 
