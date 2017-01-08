@@ -304,11 +304,24 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void Delete()
         {
-            if (MessageBox.Show("Czy chcesz wykasować Magazyn : " + SelectedButton.Element("name").Value , "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if(SelectedButton != null )
             {
-                //SelectedButton <- data to delete
-                XElementon.Instance.Storehouse.Delete((int)SelectedButton.Element("ids"));
-                UpdateData();
+                if (SelectedButton.Element("name").Value != "DomyslnyMagazyn")
+                {
+                    if (MessageBox.Show("Czy chcesz wykasować Magazyn : " + SelectedButton.Element("name").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        XElementon.Instance.Storehouse.Delete((int)SelectedButton.Element("ids"));
+                        UpdateData();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nie można usunąć Domyślnego Magazynu");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nie wybrałeś magazynu");
             }
         }
 
@@ -326,7 +339,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             ChangeUp = true;
             ChangeDown = true;
-            if(ListMagazine.Count < 2)
+            if(ListMagazine.Count < 2 || SelectedButtonIndex ==  ListMagazine.Count -1)
             {
                 ChangeUp = false;
                 ChangeDown = false;
@@ -335,7 +348,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             {
                 ChangeUp = false;
             }
-            if(SelectedButtonIndex == ListMagazine.Count -1)
+            if(SelectedButtonIndex == ListMagazine.Count -2)
             {
                 ChangeDown = false;
             }
@@ -346,7 +359,6 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             ListMagazine.Move(SelectedButtonIndex, SelectedButtonIndex - 1);
             XElementon.Instance.Storehouse.MovePrioUp(SelectedButton);
             ShowMagazineDetails(ListMagazine.ElementAt(SelectedButtonIndex - 1).Element("ids").Value);
-            
         }
 
         private void ChangeOrderDown()

@@ -53,11 +53,22 @@
                             </ListBox.ItemContainerStyle>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Button Content="{Binding Path=Element[name].Value}" 
-                                                    Command="{Binding Path=DataContext.ShowMagazine , ElementName=List}" 
+                                    <Button Command="{Binding Path=DataContext.ShowMagazine , ElementName=List}" 
                                                     CommandParameter="{Binding Path=Element[ids].Value}"
-                                                    BorderBrush="White" 
-                                                    x:Name="Button">
+                                            HorizontalContentAlignment="Stretch"
+                                                    BorderBrush="White">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="8*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Grid.IsSharedSizeScope="True">
+                                                <TextBlock  Text="{Binding Path=Element[priority].Value}" />
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="1" Grid.IsSharedSizeScope="True">
+                                                <TextBlock Grid.Column="1" Text="{Binding Path=Element[name].Value}" />
+                                            </StackPanel>
+                                        </Grid>
                                     </Button>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
