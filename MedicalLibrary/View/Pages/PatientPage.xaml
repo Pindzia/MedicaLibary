@@ -11,6 +11,21 @@
       x:Name="Page"
       Title="PatientPage">
 
+    <Page.Resources>
+        <Style x:Key="StretchedButtonContent" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Viewbox Stretch="Fill">
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                        </Viewbox>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <i:Interaction.Triggers>
         <i:EventTrigger SourceName="Page" EventName="Loaded">
@@ -43,36 +58,37 @@
                               ItemsSource="{Binding}" 
                               SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedQuery}">
                     </ComboBox>
-                </StackPanel>
-                <Button Grid.Column ="2" Command="{Binding ClearSearch}" HorizontalContentAlignment="Stretch">
-                    <iconPacks:PackIconMaterial Kind="Close" HorizontalAlignment="Center"></iconPacks:PackIconMaterial>
+                </StackPanel >
+                <Button HorizontalAlignment="Left" Grid.Column ="2" Command="{Binding ClearSearch}" Width="24" Height="24" Style="{StaticResource StretchedButtonContent}">
+                    <Grid>
+                        <iconPacks:PackIconMaterial Kind="Close" Height="24" Width="24"></iconPacks:PackIconMaterial>
+                    </Grid>
                 </Button>
-
             </Grid>
-            <StackPanel Margin="20,10,20,10" Grid.Row="1">
-                <DataGrid DataContext="{Binding DataToBind}" Height="480"  
+            <StackPanel Margin="20,10,20,10" Grid.Row="1" Grid.IsSharedSizeScope="True" Orientation="Vertical">
+                <ScrollViewer>
+                    <DataGrid DataContext="{Binding DataToBind}" Height="480"  
                           ItemsSource="{Binding}" 
                           SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" 
                           IsReadOnly="True" 
                           SelectionMode="Single"
                           AutoGenerateColumns="False"
                           x:Name="MyGrid">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger SourceName="MyGrid" EventName="Loaded">
-                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.LoadedCustomFields}" CommandParameter="{Binding ElementName=MyGrid}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Path=Element[idp].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <Label Content="{Binding SelectedItem.Element[idp].Value}"/>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger SourceName="MyGrid" EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.LoadedCustomFields}" CommandParameter="{Binding ElementName=MyGrid}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Path=Element[idp].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="2">
                 <StackPanel.Resources>
