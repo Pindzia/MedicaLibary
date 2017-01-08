@@ -57,6 +57,13 @@ namespace MedicaLibrary.Model
             set { _Modification = value; }
         }
 
+        private SendModifications _SendModifications;
+        public SendModifications SendModifications
+        {
+            get { return _SendModifications; }
+            set { _SendModifications = value; }
+        }
+
 
         public void Load()
         {
@@ -119,6 +126,7 @@ namespace MedicaLibrary.Model
             Rule = new Rule();
             Field = new Field();
             Modification = new Modification();
+            SendModifications = new SendModifications();
         }
 
 

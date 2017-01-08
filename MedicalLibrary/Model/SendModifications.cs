@@ -4,7 +4,7 @@ using MedicalLibary.DTO;
 
 namespace MedicalLibrary.Model
 {
-    class SendModifications
+    public class SendModifications
     {
         public async void SendAll(int idLekarz)
         {
@@ -20,15 +20,15 @@ namespace MedicalLibrary.Model
             int ver = lista.Max(e => e.id);
 
             // foreach modyfikacje :v
-            while (true)
+            foreach (var modyfikacja in MedicaLibrary.Model.XElementon.Instance.Modification.Modifications())
             {
                 // uzupełnij prawe strony swoimi
                 ModyfikacjaToSend mod = new ModyfikacjaToSend()
                 {
                     id_obiekt = 0,
                     id_wersji = ver,
-                    obiekt = "node_type",
-                    operaca = "operacja"
+                    obiekt = (string)modyfikacja.Element("nodetype"),
+                    operaca = (string)modyfikacja.Element("operacja")
                 };
 
                 uri = "/modyfikacja/" + idLekarz.ToString() + "/nowa";
@@ -37,19 +37,50 @@ namespace MedicalLibrary.Model
                 List<ModyfikacjaNowaDTO> modList = await PushREST.ModyfikacjeWszystkieGet(idLekarz);
                 int modId = modList.Max(e => e.id);
 
-                // foreach nowe/stare dane
-                while (true)
+
+                bool oldbigger;
+
+                var a = modyfikacja.Elements("olddata").Count();
+                var b = modyfikacja.Elements("newdata").Count();
+                int x;
+                if(a > b)
                 {
+                    x = a;
+                    oldbigger = true;
+                } else
+                {
+                    x = b;
+                    oldbigger = false;
+                }
+
+
+                    // foreach nowe/stare dane
+                    for (int i = 0; i <= x; i++)
+                {
+
+                    string nazwa;
+
+                    if (oldbigger)
+                    {
+                        nazwa = (string)modyfikacja.Element("olddata").Elements().ElementAt(i).Name.ToString();
+                    }
+                    else
+                    {
+                        nazwa = (string)modyfikacja.Element("newdata").Elements().ElementAt(i).Name.ToString();
+                    }
+
+
                     DaneModyfikacjiSendDTO daneMod = new DaneModyfikacjiSendDTO()
                     {
                         id_modyfikacja = modId,
-                        nazwa_danej = "nazwa w twojej bazie?",
-                        nowa_wartosc = "nowa",
-                        stara_wartosc = "stara"
+                        nazwa_danej = nazwa,
+                        stara_wartosc = (string)modyfikacja.Element("olddata").Elements().ElementAt(i),
+                        nowa_wartosc = (string)modyfikacja.Element("newdata").Elements().ElementAt(i)
                     };
                 }
-
             }
+
+            MedicaLibrary.Model.XElementon.Instance.Modification.Clean();
         }
     }
 }

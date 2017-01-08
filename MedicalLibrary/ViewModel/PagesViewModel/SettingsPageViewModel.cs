@@ -58,7 +58,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void Push()
         {
-            XElementon.Instance.Modification.Clean();//TODO
+            XElementon.Instance.SendModifications.SendAll(1); //TODO ID-lekarz
         }
 
         private async void Pull()
