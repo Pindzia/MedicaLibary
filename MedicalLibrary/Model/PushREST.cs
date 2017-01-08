@@ -26,8 +26,7 @@ namespace MedicalLibrary.Model
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
-        // używając dodać await przed wywołaniem
+        
         public static async Task UniversalPost(ObjectNewDTOs obj, string uri)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(uri, obj);
@@ -60,10 +59,38 @@ namespace MedicalLibrary.Model
             return lista;
         }
 
+        public static async Task<List<DaneModyfikacjiNoweDTO>> DaneModyfikacjiWszystkieGET(int lid)
+        {
+            List<DaneModyfikacjiNoweDTO> lista = null;
+            string uri = "/danemodyfikacji/lista/" + lid.ToString();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var list2 = await response.Content.ReadAsStringAsync();
+                ReplaceThisStuff(list2);
+                lista = JsonConvert.DeserializeObject<List<DaneModyfikacjiNoweDTO>>(list2);
+            }
+            return lista;
+        }
+
         public static async Task<List<MagazynNowyDTO>> MagazynGET(int lid, int id)
         {
             List<MagazynNowyDTO> lista = null;
             string uri = "/magazyn/" + lid.ToString() + "/" + id.ToString();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var list2 = await response.Content.ReadAsStringAsync();
+                ReplaceThisStuff(list2);
+                lista = JsonConvert.DeserializeObject<List<MagazynNowyDTO>>(list2);
+            }
+            return lista;
+        }
+
+        public static async Task<List<MagazynNowyDTO>> MagazynWszystkieGET(int lid)
+        {
+            List<MagazynNowyDTO> lista = null;
+            string uri = "/magazyn/lista/" + lid.ToString();
             HttpResponseMessage response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -88,10 +115,38 @@ namespace MedicalLibrary.Model
             return lista;
         }
 
+        public static async Task<List<ModyfikacjaNowaDTO>> ModyfikacjeWszystkieGet(int lid)
+        {
+            List<ModyfikacjaNowaDTO> lista = null;
+            string uri = "/modyfikacja/lista/" + lid.ToString();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var list2 = await response.Content.ReadAsStringAsync();
+                ReplaceThisStuff(list2);
+                lista = JsonConvert.DeserializeObject<List<ModyfikacjaNowaDTO>>(list2);
+            }
+            return lista;
+        }
+
         public static async Task<List<PacjentNowyDTO>> PacjentGET(int lid, int id)
         {
             List<PacjentNowyDTO> lista = null;
             string uri = "/pacjent/" + lid.ToString() + "/" + id.ToString();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var list2 = await response.Content.ReadAsStringAsync();
+                ReplaceThisStuff(list2);
+                lista = JsonConvert.DeserializeObject<List<PacjentNowyDTO>>(list2);
+            }
+            return lista;
+        }
+
+        public static async Task<List<PacjentNowyDTO>> PacjentWszyscyGET(int lid)
+        {
+            List<PacjentNowyDTO> lista = null;
+            string uri = "/pacjent/lista/" + lid.ToString();
             HttpResponseMessage response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -116,6 +171,20 @@ namespace MedicalLibrary.Model
             return lista;
         }
 
+        public static async Task<List<ParametrNowyDTO>> ParametrWszystkieGET(int lid)
+        {
+            List<ParametrNowyDTO> lista = null;
+            string uri = "/parametr/lista/" + lid.ToString();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var list2 = await response.Content.ReadAsStringAsync();
+                ReplaceThisStuff(list2);
+                lista = JsonConvert.DeserializeObject<List<ParametrNowyDTO>>(list2);
+            }
+            return lista;
+        }
+
         public static async Task<List<Przypisanie_ParametruNowyDTO>> PrzypisanieParametruGET(int lid, int id)
         {
             List<Przypisanie_ParametruNowyDTO> lista = null;
@@ -129,11 +198,25 @@ namespace MedicalLibrary.Model
             }
             return lista;
         }
-        // Niepotrzebne ale jakoś z rozpędu się zrobiło :v
-        public static async Task<List<WersjaNowaDTO>> WersjaGET(int lid, int id)
+
+        public static async Task<List<Przypisanie_ParametruNowyDTO>> PrzypisanieParametruWszystkieGET(int lid)
+        {
+            List<Przypisanie_ParametruNowyDTO> lista = null;
+            string uri = "/przypisanie/lista/" + lid.ToString();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var list2 = await response.Content.ReadAsStringAsync();
+                ReplaceThisStuff(list2);
+                lista = JsonConvert.DeserializeObject<List<Przypisanie_ParametruNowyDTO>>(list2);
+            }
+            return lista;
+        }
+
+        public static async Task<List<WersjaNowaDTO>> WersjaGET(int lid)
         {
             List<WersjaNowaDTO> lista = null;
-            string uri = "/wersja/lista/" + lid.ToString();// + "/" + id.ToString();
+            string uri = "/wersja/lista/" + lid.ToString();
             HttpResponseMessage response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -158,10 +241,38 @@ namespace MedicalLibrary.Model
             return lista;
         }
 
+        public static async Task<List<WizytaNowaDTO>> WizytaWszystkieGET(int lid)
+        {
+            List<WizytaNowaDTO> lista = null;
+            string uri = "/wizyta/lista/" + lid.ToString();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var list2 = await response.Content.ReadAsStringAsync();
+                ReplaceThisStuff(list2);
+                lista = JsonConvert.DeserializeObject<List<WizytaNowaDTO>>(list2);
+            }
+            return lista;
+        }
+
         public static async Task<List<ZasadaNowaDTO>> ZasadaGET(int lid, int id)
         {
             List<ZasadaNowaDTO> lista = null;
             string uri = "/zasada/lista/" + lid.ToString() + "/" + id.ToString();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var list2 = await response.Content.ReadAsStringAsync();
+                ReplaceThisStuff(list2);
+                lista = JsonConvert.DeserializeObject<List<ZasadaNowaDTO>>(list2);
+            }
+            return lista;
+        }
+
+        public static async Task<List<ZasadaNowaDTO>> ZasadaWszystkieGET(int lid)
+        {
+            List<ZasadaNowaDTO> lista = null;
+            string uri = "/zasada/lista/" + lid.ToString();
             HttpResponseMessage response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
@@ -459,6 +570,5 @@ namespace MedicalLibrary.Model
             };
             UniversalPut(objToSend, uri);
         }
-
     }
 }

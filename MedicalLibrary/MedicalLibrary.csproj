@@ -138,6 +138,7 @@
     <Compile Include="Model\Field.cs" />
     <Compile Include="Model\PushREST.cs" />
     <Compile Include="Model\Rule.cs" />
+    <Compile Include="Model\SendModifications.cs" />
     <Compile Include="Model\Storehouse.cs" />
     <Compile Include="Model\Visit.cs" />
     <Compile Include="Model\Patient.cs" />
