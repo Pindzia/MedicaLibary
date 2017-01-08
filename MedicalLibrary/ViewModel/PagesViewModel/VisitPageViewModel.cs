@@ -151,7 +151,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                     if (viewModel.Visit != NewVisit)
                     {
                         NewVisit = viewModel.Visit;
-                        XElementon.Instance.Visit.Change((int)SelectedItem.Element("idp"), TupleList());
+                        XElementon.Instance.Visit.Change((int)SelectedVisit.Element("idv"), TupleList());
                         UpdateData();
                     }
                 }

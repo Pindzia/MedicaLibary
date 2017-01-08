@@ -221,7 +221,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 {
                     var compare = new XElement(SelectedItem);
                     compare.Element("envelope").Remove();
-                    if (viewModel.Patient.ToString() != compare.ToString()) //SelectedItem ma w sobie envelope a Patient nie
+                    if (viewModel.Patient.ToString() != compare.ToString()) //SelectedItem ma w sobie envelope a Patient nie //TODO czy to w ogóle potrzebne? Czy pozwolić na to i cancele?
                     {
                         NewPatient = viewModel.Patient;
                         XElementon.Instance.Patient.Change((int)SelectedItem.Element("idp"), TupleList());

@@ -20,6 +20,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         public AddEditVisitViewModel(XElement visit)
         {
+            Visit = visit; //Tworzymy wcześniej XElementa a'la SelectedItem w AddEditPatientViewModel?
             FullDate = DateTime.Parse(visit.Element("visit_addition_date").Value);
             Comment = visit.Element("comment").Value;
             SaveVisit = new RelayCommand(pars => Save((AddEditVistitWindow)pars));
@@ -74,9 +75,24 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 if (Comment.Length >= 1)
                 {
+
+                    string Id = ""; //TODO - zmiana na zapis obiektowy a';a AddEditPatientViewMode z ichnijszym IDP?
+
+                    //Autonumeracja po id - olewamy 'dziury'
+                    if (Visit == null)
+                    {
+                        var max = XElement.Load("lib.xml").Descendants("max_idp").First();
+                        Id = max.Value;
+                        max.Value = (Convert.ToInt16(Id) + 1).ToString();
+                    } else
+                    {
+                        Id = (string)Visit.Element("idv");
+                    }
+
                     // data do wizyty do przypisania ew. zmienna do wytworzenia
                     Visit = new XElement(
                          new XElement("visit",
+                         new XElement("idv", Id),
                          new XElement("visit_addition_date", FullDate),
                          new XElement("comment", Comment)));
 
