@@ -9,29 +9,46 @@
       Title="CustomFieldPage">
 
     <Grid>
-        <ListBox>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding FieldName}" Grid.Column="0"/>
-                        <TextBlock Text="{Binding FieldType}" Grid.Column="1"/>
-                        <TextBlock Text="{Binding FieldValue}" Grid.Column="2"/>
-                        <StackPanel Grid.Column="3">
-                            <CheckBox Content="Miejsce w kolejce"/>
-                            <StackPanel>
-                                <Button Command="{Binding OrderUp}"/>
-                                <Button Command="{Binding OrderDown}"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Grid.Column="0" Header="Lista Niestandardowych Pól">
+                <DataGrid
+                    DataContext="{Binding ListOfCustomFields}"
+                    ItemsSource="{Binding}"
+                    SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor ,AncestorType={x:Type Page}} , Path=DataContext.SelectedField}"
+                    AutoGenerateColumns="False"
+                    ColumnWidth="*">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nazwa Pola" Binding="{Binding Path=Element[fieldname].Value}" />
+                        <DataGridTextColumn Header="Typ pola" Binding="{Binding Path=Element[fieldtype].Value}" />
+                        <DataGridTextColumn Header="Wartość Domyślna" Binding="{Binding Path=Element[fielddefault].Value}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+
+            <GroupBox Grid.Column="1" Header="Podgląd">
+                <ListBox DataContext="{Binding ItemPreview}"
+                         ItemsSource="{Binding}">
+                    
+                </ListBox>
+            </GroupBox>
+        </Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="25,10,25,10"/>
+                </Style>
+            </StackPanel.Resources>
+            <Button Command="{Binding AddField}" Height="25" Width="120">Dodaj Pacjenta</Button>
+            <Button Command="{Binding EditField}" Height="25" Width="120">Edytuj Pacjenta</Button>
+            <Button Command="{Binding DeleteField}" Height="25" Width="120">Usuń Pacjenta</Button>
+        </StackPanel>
     </Grid>
 </Page>

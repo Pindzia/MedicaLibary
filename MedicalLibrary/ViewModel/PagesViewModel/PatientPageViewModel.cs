@@ -42,7 +42,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _PatientList = value;
-                OnPropertyChanged("_PatientList");
+                OnPropertyChanged("PatientList");
             }
         }
 

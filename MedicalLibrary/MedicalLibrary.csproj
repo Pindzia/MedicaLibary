@@ -126,6 +126,7 @@
     </Compile>
     <Compile Include="ViewModel\CustomControlsViewModel\CheckControlViewModel.cs" />
     <Compile Include="ViewModel\CustomControlsViewModel\TextControlViewModel.cs" />
+    <Compile Include="ViewModel\PagesViewModel\CustomFieldPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\ModificationViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\SettingsPageViewModel.cs" />
     <Compile Include="View\CustomControls\CheckControl.xaml.cs">
