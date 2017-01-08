@@ -16,6 +16,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         public AddEditVisitViewModel()
         {
             SaveVisit = new RelayCommand(pars => Save((AddEditVistitWindow)pars));
+            CancelVisit = new RelayCommand(pars => Cancel((AddEditVistitWindow)pars));
         }
 
         public AddEditVisitViewModel(XElement visit)
@@ -24,6 +25,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             FullDate = DateTime.Parse(visit.Element("visit_addition_date").Value);
             Comment = visit.Element("comment").Value;
             SaveVisit = new RelayCommand(pars => Save((AddEditVistitWindow)pars));
+            CancelVisit = new RelayCommand(pars => Cancel((AddEditVistitWindow)pars));
         }
 
         private DateTime _FullDate = DateTime.Now;
@@ -68,6 +70,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         }
 
         public ICommand SaveVisit { get; set; }
+        public ICommand CancelVisit { get; set; }
 
         private void Save(AddEditVistitWindow window)
         {
@@ -108,6 +111,12 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 MessageBox.Show("Data jest pusta");
             }
+        }
+
+        private void Cancel(AddEditVistitWindow window)
+        {
+            window.DialogResult = false;
+            window.Close();
         }
 
 

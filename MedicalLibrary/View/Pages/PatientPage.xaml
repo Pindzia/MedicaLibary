@@ -25,6 +25,13 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+            <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+        </Style>
     </Page.Resources>
 
     <i:Interaction.Triggers>
@@ -73,6 +80,7 @@
                           IsReadOnly="True" 
                           SelectionMode="Single"
                           AutoGenerateColumns="False"
+                          RowHeaderWidth="1"
                           x:Name="MyGrid">
                         <i:Interaction.Triggers>
                             <i:EventTrigger SourceName="MyGrid" EventName="Loaded">

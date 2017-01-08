@@ -70,6 +70,9 @@
             <TextBox Grid.Column="1" Grid.Row="4" Name="Pesel"  Width="125" Height="25" Text="{Binding MagazineSize}" HorizontalAlignment="Left" Margin="38,0,0,0">
             </TextBox>
         </Grid>
-        <mui:ModernButton Grid.Row="1" Width="120" Height="25" Command="{Binding SaveMagazine}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</mui:ModernButton>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <mui:ModernButton  Width="120" Height="25" Command="{Binding SaveMagazine}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</mui:ModernButton>
+            <mui:ModernButton Width="120" Height="25" Command="{Binding CancelMagazine}" CommandParameter="{Binding ElementName=WindowToClose}">Anuluj</mui:ModernButton>
+        </StackPanel>
     </Grid>
 </Window>

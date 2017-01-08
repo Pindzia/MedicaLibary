@@ -19,7 +19,9 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             ListAttributes = XElementon.Instance.Storehouse.Attributes();
             SelectedAttribute = ListAttributes.FirstOrDefault();
             SaveMagazine = new RelayCommand(pars => Save((AddEditMagazineWindow)pars));
+            CancelMagazine = new RelayCommand(pars => Cancel((AddEditMagazineWindow)pars));
         }
+
 
         public AddEditMagazineViewModel(XElement ParsedMagazine)
         {
@@ -31,6 +33,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             MagazineSize = ParsedMagazine.Element("size").Value;
             OldPriority = ParsedMagazine.Element("priority").Value;
             SaveMagazine = new RelayCommand(pars => Save((AddEditMagazineWindow)pars));
+            CancelMagazine = new RelayCommand(pars => Cancel((AddEditMagazineWindow)pars));
         }
 
         private string _OldPriority = "";
@@ -178,6 +181,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
 
         public ICommand SaveMagazine { get; set; }
+        public ICommand CancelMagazine { get; set; }
 
         private void Save(AddEditMagazineWindow window)
         {
@@ -222,6 +226,12 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 MessageBox.Show("Nazwa jest za krótka");
             }
+        }
+
+        private void Cancel(AddEditMagazineWindow window)
+        {
+            window.DialogResult = false;
+            window.Close();
         }
     }
 }

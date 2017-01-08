@@ -24,6 +24,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
             SavePatient = new RelayCommand(pars => Save((AddEditPatientWindow)pars));
+            CancelPatient = new RelayCommand(pars => Cancel((AddEditPatientWindow)pars));
             DeployFields(null);
         }
 
@@ -31,6 +32,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             ListMagazines = XElementon.Instance.Storehouse.StorehouseNameList();
             SavePatient = new RelayCommand(pars => Save((AddEditPatientWindow)pars));
+            CancelPatient = new RelayCommand(pars => Cancel((AddEditPatientWindow)pars));
 
             IDP = EditPatient.Element("idp").Value;
             LastName = EditPatient.Element("nazwisko").Value;
@@ -43,6 +45,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         }
 
         public ICommand SavePatient { get; set; }
+        public ICommand CancelPatient { get; set; }
         public ICommand CheckMagazine { get; set; }
 
         private string _IDP = "";
@@ -419,5 +422,10 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
+        private void Cancel(AddEditPatientWindow window)
+        {
+            window.DialogResult = false;
+            window.Close();
+        }
     }
 }
