@@ -152,6 +152,8 @@ namespace MedicaLibrary.Model
                     new XElement("olddata"),
                     new XElement("newdata", nowy_pacjent.Elements())
                     );
+
+                pamodification = XElementon.Instance.Modification.MergeModifications(pamodification); //TODO - check
                 database.Descendants("modifications").First().Add(pamodification);
             }
             

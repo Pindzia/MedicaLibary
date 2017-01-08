@@ -355,6 +355,7 @@ namespace MedicaLibrary.Model
                 mdpamodification.Add(olddata);
                 mdpamodification.Add(newdata);
 
+                mdpamodification = XElementon.Instance.Modification.MergeModifications(mdpamodification);
                 database.Descendants("modifications").First().Add(mdpamodification);
             }
         }

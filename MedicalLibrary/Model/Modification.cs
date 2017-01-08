@@ -160,6 +160,33 @@ namespace MedicaLibrary.Model
             database.Elements("meta").Elements("modifications").Elements("modification").Remove();
         }
 
+        public XElement MergeModifications(XElement modification)
+        {
+            //Merge Edits
+            var Duplicates = this.Modifications().Where(x => (string)x.Element("operation") == "E" 
+                                                        && (string)x.Element("node_type") == (string)modification.Element("node_type") 
+                                                        && (string)x.Element("id") == (string)modification.Element("id"));
+            Duplicates.Reverse();
+
+            var DuplicateList = Duplicates.ToList();
+            while (DuplicateList.Any())
+            {                           // Duplicates.Elements().Union(modification.Elements())
+                var unionold = new List<XElement>(Duplicates.Elements("olddata").ToList());
+                var unionnew = new List<XElement>(modification.Elements("newdata").Union(Duplicates.Elements("newdata")).ToList());
+
+                modification.Element("olddata").Remove();
+                modification.Element("newdata").Remove();
+
+                modification.Add(unionold);
+                modification.Add(unionnew);
+
+                DuplicateList.RemoveAt(0);
+                Duplicates.First().Remove();
+            }
+
+            return modification;
+        }
+
     }
 
 }
