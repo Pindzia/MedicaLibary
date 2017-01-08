@@ -154,6 +154,20 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
+        private int _ColumnAdded = 0;
+        public int ColumnAdded
+        {
+            get
+            {
+                return _ColumnAdded;
+            }
+
+            set
+            {
+                _ColumnAdded = value;
+                OnPropertyChanged("ColumnAdded");
+            }
+        }
 
         public ICommand AddPatient { get; set; }
         public ICommand EditPatient { get; set; }
@@ -270,6 +284,15 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void LoadCustomFields(DataGrid grid)
         {
+            if (ColumnAdded > 0)
+            {
+                int loop = ColumnAdded;
+                for(int i=0;i<loop;i++)
+                {
+                    grid.Columns.RemoveAt((grid.Columns.Count) - 1);
+                    ColumnAdded -= 1;
+                }
+            }
             IEnumerable<XElement> fields = XElementon.Instance.Field.Fields();
             foreach(XElement field in fields)
             {
@@ -280,6 +303,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 binding.FallbackValue = field.Element("fielddefault").Value;
                 fieldColumn.Binding = binding;
                 grid.Columns.Add(fieldColumn);
+                ColumnAdded += 1;
             }
         }
 
