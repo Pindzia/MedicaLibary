@@ -151,6 +151,7 @@
     <Compile Include="ViewModel\PagesViewModel\CustomFieldPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\ModificationViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\WindowsViewModel\AddEditCustomFieldViewModel.cs" />
     <Compile Include="View\CustomControls\CheckControl.xaml.cs">
       <DependentUpon>CheckControl.xaml</DependentUpon>
     </Compile>
@@ -184,6 +185,9 @@
     </Compile>
     <Compile Include="View\Pages\VisitPage.xaml.cs">
       <DependentUpon>VisitPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\AddEditCustomFieldWindow.xaml.cs">
+      <DependentUpon>AddEditCustomFieldWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\AddEditMagazineWindow.xaml.cs">
       <DependentUpon>AddEditMagazineWindow.xaml</DependentUpon>
@@ -255,6 +259,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Pages\VisitPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\AddEditCustomFieldWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,13 +1,17 @@
 ﻿using MedicaLibrary.Model;
 using MedicalLibrary.View.CustomControls;
+using MedicalLibrary.View.Windows;
 using MedicalLibrary.ViewModel.CustomControlsViewModel;
+using MedicalLibrary.ViewModel.WindowsViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -17,8 +21,11 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
     {
         public CustomFieldPageViewModel()
         {
-            ListOfCustomFields = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Field.Fields());
-            DeployFields();
+            LoadedCommand = new RelayCommand(pars =>Load());
+            AddField = new RelayCommand(pars => Add());
+            EditField = new RelayCommand(pars => Edit());
+            DeleteField = new RelayCommand(pars => Delete());
+            UpdateData();
         }
 
         private ObservableCollection<XElement> _ListOfCustomFields = new ObservableCollection<XElement>();
@@ -50,8 +57,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
-        private List<UserControl> _ItemPreview = new List<UserControl>();
-        public List<UserControl> ItemPreview
+        private ObservableCollection<UserControl> _ItemPreview = new ObservableCollection<UserControl>();
+        public ObservableCollection<UserControl> ItemPreview
         {
             get
             {
@@ -65,8 +72,85 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
+        private XElement _NewField = null;
+        public XElement NewField
+        {
+            get
+            {
+                return _NewField;
+            }
+
+            set
+            {
+                _NewField = value;
+                OnPropertyChanged("NewField");
+            }
+        }
+        public ICommand LoadedCommand { get; set; }
+        public ICommand AddField { get; set; }
+        public ICommand EditField { get; set; }
+        public ICommand DeleteField { get; set; }
+
+        private void Load()
+        {
+            UpdateData();
+        }
+
+        private void UpdateData()
+        {
+            ListOfCustomFields = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Field.Fields());
+            DeployFields();
+        }
+
+        private void Add()
+        {
+            AddEditCustomFieldViewModel viewModel = new AddEditCustomFieldViewModel();
+            AddEditCustomFieldWindow window = new AddEditCustomFieldWindow(ref viewModel);
+            Nullable<bool> result = window.ShowDialog();
+            if (result == true)
+            {
+
+            }
+        }
+
+        private void Edit()
+        {
+            if (SelectedField != null)
+            {
+                AddEditCustomFieldViewModel viewModel = new AddEditCustomFieldViewModel(SelectedField);
+                AddEditCustomFieldWindow window = new AddEditCustomFieldWindow(ref viewModel);
+                Nullable<bool> result = window.ShowDialog();
+                if (result == true)
+                {
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Wybierz Pole by edytować");
+            }
+        }
+
+        private void Delete()
+        {
+            if (SelectedField != null)
+            {
+               /* if (MessageBox.Show("Czy chcesz wykasować Pacjenta : " + SelectedField.Element("imie").Value + " " + SelectedField.Element("nazwisko").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    XElementon.Instance.Patient.Delete((int)SelectedField.Element("idp"));
+                    UpdateData();
+                }*/
+            }
+            else
+            {
+                MessageBox.Show("Wybierz Pole by usunąć");
+            }
+        }
+
+
         private void DeployFields()
         {
+            ItemPreview.Clear();
             foreach(XElement field in ListOfCustomFields)
             {
                 string fieldName = field.Element("fieldname").Value;

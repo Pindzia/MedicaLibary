@@ -3,10 +3,18 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
+      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="CustomFieldPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceName="Page" EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -46,9 +54,9 @@
                     <Setter Property="Margin" Value="25,10,25,10"/>
                 </Style>
             </StackPanel.Resources>
-            <Button Command="{Binding AddField}" Height="25" Width="120">Dodaj Pacjenta</Button>
-            <Button Command="{Binding EditField}" Height="25" Width="120">Edytuj Pacjenta</Button>
-            <Button Command="{Binding DeleteField}" Height="25" Width="120">Usuń Pacjenta</Button>
+            <mui:ModernButton Command="{Binding AddField}" Height="25" Width="120">Dodaj Niestandardowe Pole</mui:ModernButton>
+            <mui:ModernButton Command="{Binding EditField}" Height="25" Width="120">Edytuj Niestandardowe Pola</mui:ModernButton>
+            <mui:ModernButton Command="{Binding DeleteField}" Height="25" Width="120">Usuń Niestandardowe Pola</mui:ModernButton>
         </StackPanel>
     </Grid>
 </Page>
