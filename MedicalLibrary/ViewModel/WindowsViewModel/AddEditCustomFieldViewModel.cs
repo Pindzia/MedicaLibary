@@ -1,4 +1,5 @@
-﻿using MedicalLibrary.View.Windows;
+﻿using MedicaLibrary.Model;
+using MedicalLibrary.View.Windows;
 using MedicalLibrary.ViewModel.PagesViewModel;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace MedicalLibrary.ViewModel.WindowsViewModel
@@ -22,6 +24,19 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         public AddEditCustomFieldViewModel(XElement EditCustomField)
         {
+            SaveField = new RelayCommand(pars => Save((AddEditCustomFieldWindow)pars));
+            CancelField = new RelayCommand(pars => Cancel((AddEditCustomFieldWindow)pars));
+            CustomField = EditCustomField;
+            FieldName = CustomField.Element("fieldname").Value;
+            SelectedType = CustomField.Element("fieldtype").Value;
+            if(SelectedType == "int")
+            {
+                TextDefault = CustomField.Element("fielddefault").Value;
+            }
+            else
+            {
+                CheckDefault = XmlConvert.ToBoolean(CustomField.Element("fielddefault").Value);
+            }
 
         }
 
@@ -143,7 +158,46 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void Save(AddEditCustomFieldWindow window)
         {
+            if(CustomField != null)
+            {
+                Tuple<string, string> a = new Tuple<string, string>("fieldname", FieldName);
+                Tuple<string, string> b = new Tuple<string, string>("fieldtype", SelectedType);
+                Tuple<string, string> c;
+                if (SelectedType == "int")
+                {
+                    c = new Tuple<string, string>("fielddefault", TextDefault);
+                }
+                else
+                {
+                    c = new Tuple<string, string>("fielddefault", XmlConvert.ToString(CheckDefault));
+                }
 
+                Tuple<string, string>[] randomvisit = { a, b, c };
+
+                XElementon.Instance.Field.Change((int)CustomField.Element("idf"),randomvisit);
+                window.DialogResult = true;
+                window.Close();
+            }
+            else
+            {
+                Tuple<string, string> a = new Tuple<string, string>("fieldname", FieldName);
+                Tuple<string, string> b = new Tuple<string, string>("fieldtype", SelectedType);
+                Tuple<string, string> c;
+                if (SelectedType == "int")
+                {
+                    c = new Tuple<string, string>("fielddefault", TextDefault);
+                }
+                else
+                {
+                    c = new Tuple<string, string>("fielddefault", XmlConvert.ToString(CheckDefault));
+                }
+
+                Tuple<string, string>[] randomvisit = { a, b, c };
+
+                XElementon.Instance.Field.Add(randomvisit);
+                window.DialogResult = true;
+                window.Close();
+            }
         }
 
         private void Cancel(AddEditCustomFieldWindow window)

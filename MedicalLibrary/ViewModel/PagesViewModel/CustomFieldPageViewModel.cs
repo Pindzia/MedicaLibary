@@ -109,7 +109,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             Nullable<bool> result = window.ShowDialog();
             if (result == true)
             {
-
+                UpdateData();
             }
         }
 
@@ -122,7 +122,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 Nullable<bool> result = window.ShowDialog();
                 if (result == true)
                 {
-
+                    UpdateData();
                 }
             }
             else
@@ -135,11 +135,11 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             if (SelectedField != null)
             {
-               /* if (MessageBox.Show("Czy chcesz wykasować Pacjenta : " + SelectedField.Element("imie").Value + " " + SelectedField.Element("nazwisko").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Czy chcesz wykasować Pole : " + SelectedField.Element("fieldname").Value , "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    XElementon.Instance.Patient.Delete((int)SelectedField.Element("idp"));
+                    XElementon.Instance.Field.Delete((int)SelectedField.Element("idf"));
                     UpdateData();
-                }*/
+                }
             }
             else
             {
