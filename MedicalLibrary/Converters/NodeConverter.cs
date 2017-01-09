@@ -20,7 +20,7 @@ namespace MedicalLibrary.Converters
                 return "Magazyny";
             if ((string)value == "rule")
                 return "Zasady";
-            if ((string)value == "customfield")
+            if ((string)value == "field")
                 return "Własne Pola";
             return "Error Konwersji PV - NodeConverter";
         }
