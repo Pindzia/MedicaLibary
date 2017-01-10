@@ -95,6 +95,8 @@ namespace MedicaLibrary.Model
             XElementon.Instance.ChangeX("rule", id, modifications, log);
         }
 
+        //TODO - Delete()?
+
 
     }
 

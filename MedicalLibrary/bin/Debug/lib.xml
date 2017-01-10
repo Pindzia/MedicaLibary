@@ -1,32 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <lib>
   <meta>
-    <max_idp>12</max_idp>
-    <max_idv>6</max_idv>
-    <max_ids>8</max_ids>
-    <max_idr>10</max_idr>
-    <max_idf>3</max_idf>
+    <max_idp>2</max_idp>
+    <max_idv>2</max_idv>
+    <max_ids>2</max_ids>
+    <max_idr>2</max_idr>
+    <max_idf>2</max_idf>
     <max_idm>2</max_idm>
     <modifications>
       <modification>
         <idm>2</idm>
         <operation>E</operation>
         <node_type>patient</node_type>
-        <id>5</id>
+        <id>1</id>
         <olddata>
-          <imie>Rafał</imie>
-          <nazwisko>Pingot</nazwisko>
+          <imie>Jan</imie>
+          <wzrost>187</wzrost>
         </olddata>
         <newdata>
-          <imie>Rafalala</imie>
-          <nazwisko>Pingotówna</nazwisko>
+          <imie>Janin</imie>
+          <wzrost>192</wzrost>
         </newdata>
       </modification>
     </modifications>
     <storehouses>
       <storehouse>
         <ids>1</ids>
-        <name>id wieksze od 10</name>
+        <name>Wysocy</name>
         <autonumeration>
           <max_envelope>1</max_envelope>
           <holes>
@@ -36,109 +36,15 @@
         <size>500</size>
         <rule>
           <idr>1</idr>
-          <attribute>idp</attribute>
+          <attribute>wzrost</attribute>
           <operation>greater</operation>
-          <value>10</value>
+          <value>190</value>
         </rule>
         <gaps />
         <priority>5</priority>
       </storehouse>
       <storehouse>
-        <ids>2</ids>
-        <name>ZbytKrotkiPesel</name>
-        <autonumeration>
-          <max_envelope>1</max_envelope>
-          <holes></holes>
-        </autonumeration>
-        <size>500</size>
-        <rule>
-          <idr>2</idr>
-          <attribute>pesel</attribute>
-          <operation>lesser</operation>
-          <value>9999999999</value>
-        </rule>
-        <priority>6</priority>
-        <rule>
-          <idr>5</idr>
-          <attribute>pesel</attribute>
-          <operation>greater</operation>
-          <value>500</value>
-        </rule>
-      </storehouse>
-      <storehouse>
-        <ids>3</ids>
-        <name>NazwiskoPingot</name>
-        <autonumeration>
-          <max_envelope>1</max_envelope>
-          <holes>
-            <hole>5</hole>
-          </holes>
-        </autonumeration>
-        <size>500</size>
-        <rule>
-          <idr>3</idr>
-          <attribute>nazwisko</attribute>
-          <operation>equal</operation>
-          <value>Pingot</value>
-        </rule>
-        <priority>4</priority>
-      </storehouse>
-      <storehouse>
-        <ids>4</ids>
-        <name>W ciąży</name>
-        <autonumeration>
-          <max_envelope>1</max_envelope>
-          <holes></holes>
-        </autonumeration>
-        <size>500</size>
-        <rule>
-          <idr>4</idr>
-          <attribute>ciąża</attribute>
-          <operation>equal</operation>
-          <value>true</value>
-        </rule>
-        <priority>3</priority>
-      </storehouse>
-      <storehouse>
-        <ids>5</ids>
-        <name>id równe 15</name>
-        <autonumeration>
-          <max_envelope>1</max_envelope>
-          <holes></holes>
-        </autonumeration>
-        <size>500</size>
-        <rule>
-          <idr>6</idr>
-          <attribute>idp</attribute>
-          <operation>equal</operation>
-          <value>15</value>
-        </rule>
-        <priority>2</priority>
-      </storehouse>
-      <storehouse>
-        <ids>6</ids>
-        <name>Wysoki i w ciąży</name>
-        <autonumeration>
-          <max_envelope>1</max_envelope>
-          <holes></holes>
-        </autonumeration>
-        <size>500</size>
-        <rule>
-          <idr>7</idr>
-          <attribute>ciąża</attribute>
-          <operation>equal</operation>
-          <value>true</value>
-        </rule>
-        <rule>
-          <idr>8</idr>
-          <attribute>wzrost</attribute>
-          <operation>greater</operation>
-          <value>250</value>
-        </rule>
-        <priority>1</priority>
-      </storehouse>
-      <storehouse>
-        <ids>7</ids>
+        <ids>0</ids>
         <name>DomyslnyMagazyn</name>
         <autonumeration>
           <max_envelope>1</max_envelope>
@@ -146,7 +52,7 @@
         </autonumeration>
         <size>5000</size>
         <rule>
-          <idr>9</idr>
+          <idr>0</idr>
           <attribute>idp</attribute>
           <operation>greater</operation>
           <value>0</value>
@@ -161,12 +67,6 @@
         <fieldtype>int</fieldtype>
         <fielddefault>100</fielddefault>
       </customfield>
-      <customfield>
-        <idf>2</idf>
-        <fieldname>ciąża</fieldname>
-        <fieldtype>bool</fieldtype>
-        <fielddefault>false</fielddefault>
-      </customfield>
     </customfields>
   </meta>
   <patient>
@@ -174,110 +74,13 @@
     <imie>Janin</imie>
     <nazwisko>Kowalski</nazwisko>
     <pesel>48042817</pesel>
-    <storehouse>W ciąży</storehouse>
+    <storehouse>Wysocy</storehouse>
     <envelope>1</envelope>
-    <wzrost>500</wzrost>
-    <ciąża>true</ciąża>
+    <wzrost>192</wzrost>
     <visit>
       <idv>1</idv>
       <visit_addition_date>2016-05-31T01:25:46</visit_addition_date>
       <comment>abc</comment>
     </visit>
-    <visit>
-      <idv>2</idv>
-      <visit_addition_date>2016-06-06T07:15:02</visit_addition_date>
-      <comment>asdf</comment>
-    </visit>
-    <visit>
-      <idv>4</idv>
-      <visit_addition_date>2016-11-29T12:58:23</visit_addition_date>
-      <comment>debug_comment</comment>
-    </visit>
-  </patient>
-  <patient>
-    <idp>2</idp>
-    <imie>Marek</imie>
-    <nazwisko>Nowak</nazwisko>
-    <pesel>24110901684</pesel>
-    <storehouse>NazwiskoPingot</storehouse>
-    <envelope>1</envelope>
-  </patient>
-  <patient>
-    <idp>3</idp>
-    <imie>Anna</imie>
-    <nazwisko>Beksa</nazwisko>
-    <pesel>61031313642</pesel>
-    <storehouse>NazwiskoPingot</storehouse>
-    <envelope>2</envelope>
-    <visit>
-      <idv>3</idv>
-      <visit_addition_date>2016-06-14T08:51:12</visit_addition_date>
-      <comment>test idv</comment>
-    </visit>
-  </patient>
-  <patient>
-    <idp>4</idp>
-    <imie>Marcin</imie>
-    <nazwisko>Długi</nazwisko>
-    <pesel>41042610758</pesel>
-    <storehouse>NazwiskoPingot</storehouse>
-    <envelope>3</envelope>
-  </patient>
-  <patient>
-    <idp>5</idp>
-    <imie>Rafalala</imie>
-    <nazwisko>Pingotówna</nazwisko>
-    <pesel>19092506369</pesel>
-    <storehouse>NazwiskoPingot</storehouse>
-    <envelope>4</envelope>
-    <wzrost>150</wzrost>
-    <visit>
-      <idv>5</idv>
-      <visit_addition_date>2016-11-29T12:58:23</visit_addition_date>
-      <comment>debug_comment</comment>
-    </visit>
-  </patient>
-  <patient>
-    <idp>6</idp>
-    <imie>Jan</imie>
-    <nazwisko>Krótki</nazwisko>
-    <pesel>720824127452</pesel>
-    <storehouse>NazwiskoPingot</storehouse>
-    <envelope>5</envelope>
-  </patient>
-  <patient>
-    <idp>7</idp>
-    <imie>Anna</imie>
-    <nazwisko>Nowak</nazwisko>
-    <pesel>56112018901</pesel>
-    <storehouse>NazwiskoPingot</storehouse>
-    <envelope>6</envelope>
-  </patient>
-  <patient>
-    <idp>9</idp>
-    <imie>Joanna</imie>
-    <nazwisko>Mann</nazwisko>
-    <pesel>69102112921</pesel>
-    <storehouse>NazwiskoPingot</storehouse>
-    <envelope>7</envelope>
-  </patient>
-  <patient>
-    <idp>10</idp>
-    <imie>Ktoś</imie>
-    <nazwisko>Pingot</nazwisko>
-    <pesel>123123123123</pesel>
-    <storehouse>NazwiskoPingot</storehouse>
-    <envelope>8</envelope>
-    <wzrost>150</wzrost>
-    <ciąża>true</ciąża>
-  </patient>
-  <patient>
-    <idp>11</idp>
-    <imie>debug_imie</imie>
-    <nazwisko>debug_nazwisko</nazwisko>
-    <pesel>123456789</pesel>
-    <storehouse>ZbytKrotkiPesel</storehouse>
-    <envelope>1</envelope>
-    <wzrost>500</wzrost>
   </patient>
 </lib>
