@@ -59,7 +59,7 @@ namespace MedicalLibrary.Model
                 }
 
 
-                var typdanych = (string)modyfikacja.Element("nodetype");
+                var typdanych = (string)modyfikacja.Element("node_type");
 
                 // foreach nowe/stare dane
                 for (int i = 0; i <= x; i++)
@@ -98,7 +98,7 @@ namespace MedicalLibrary.Model
             {
                 var pacjent = new PacjentToSendDTO();
                 var przypisanie = new Przypisanie_ParametruToSendDTO();
-                foreach (var zmiana in modyfikacja.Elements("newdata"))
+                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
                 {
                     if (zmiana.Element("active") != null) //NotImplemented
                     {
@@ -129,7 +129,7 @@ namespace MedicalLibrary.Model
                     }
                 }
                 //push
-                foreach (var zmiana in modyfikacja.Elements("newdata"))
+                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
                 {
                     var LUL = XElementon.Instance.Field.Fields().Elements("fieldname").Select(x => (string)x).ToList();
                     if (!(LUL.Contains((string)zmiana.Name.LocalName)))
@@ -145,17 +145,17 @@ namespace MedicalLibrary.Model
             else if (typdanych == "visit")
             {
                 var wizyta = new WizytaToSendDTO();
-                foreach (var zmiana in modyfikacja.Elements("newdata"))
+                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
                 {
-                    if (zmiana.Name == "visit_addition_date")
+                    if (zmiana.Name.LocalName == "visit_addition_date")
                     {
-                        wizyta.data_wizyty = Convert.ToDateTime((string)zmiana); //pewno się wykrzaczy bo wizyta nie będzie datetime :v
+                        wizyta.data_wizyty = (Convert.ToDateTime((string)zmiana)); //???
                     }
-                    if (zmiana.Name == "idv")
+                    if (zmiana.Name.LocalName == "idv")
                     {
                         wizyta.id_pacjent = Convert.ToInt32((string)zmiana); //bo modyfikacja od wizyty zawiera .Element("idp")
                     }
-                    if (zmiana.Name == "comment")
+                    if (zmiana.Name.LocalName == "comment")
                     {
                         wizyta.komentarz = (string)zmiana;
                     }
@@ -170,7 +170,7 @@ namespace MedicalLibrary.Model
             else if (typdanych == "storehouse")
             {
                 var magazyn = new MagazynToSendDTO();
-                foreach (var zmiana in modyfikacja.Elements("newdata"))
+                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
                 {
                     if (zmiana.Name == "size")
                     {
@@ -193,7 +193,7 @@ namespace MedicalLibrary.Model
             else if (typdanych == "rule")
             {
                 var zasada = new ZasadaToSendDTO();
-                foreach (var zmiana in modyfikacja.Elements("newdata"))
+                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
                 {
                     if (zmiana.Name == "fieldname")
                     {
@@ -223,7 +223,7 @@ namespace MedicalLibrary.Model
             else if (typdanych == "field")
             {
                 var parametr = new ParametrToSendDTO();
-                foreach (var zmiana in modyfikacja.Elements("newdata"))
+                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
                 {
                     if (zmiana.Name == "fieldname")
                     {
