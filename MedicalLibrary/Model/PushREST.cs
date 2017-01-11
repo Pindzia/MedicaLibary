@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Windows.Annotations.Storage;
 using Newtonsoft.Json;
 using MedicalLibary.DTO;
 
@@ -569,6 +570,62 @@ namespace MedicalLibrary.Model
                 wartosc_porownania = obj.wartosc_porownania
             };
             UniversalPut(objToSend, uri);
+        }
+
+        private static async Task UniversalDelete(string uri)
+        {
+            HttpResponseMessage respo = await client.DeleteAsync(uri);
+            respo.EnsureSuccessStatusCode();
+        }
+
+        public static async Task DaneModyfikacjiDelete(int lid, int id)
+        {
+            UniversalDelete("/danemodyfikacji/usun/" + lid.ToString() + "/" + id.ToString());
+        }
+
+        public static async Task LekarzDelete(int lid)
+        {
+            UniversalDelete("/lekarz/usun/" + lid.ToString());
+        }
+
+        public static async Task MagazynDelete(int lid, int id)
+        {
+            UniversalDelete("/magazyn/usun/" + lid.ToString() + "/" + id.ToString());
+        }
+
+        public static async Task ModyfikacjaDelete(int lid, int id)
+        {
+            UniversalDelete("/modyfikacja/usun/"+lid.ToString() + "/" + id.ToString());
+        }
+
+        public static async Task PacjentDelete(int lid, int id)
+        {
+            UniversalDelete("/pacjent/usun/" + lid.ToString() + "/" + id.ToString());
+        }
+
+        public static async Task ParametrDelete(int lid, int id)
+        {
+            UniversalDelete("/parametr/usun/" + lid.ToString() + "/" + id.ToString());
+        }
+
+        public static async Task PrzypisanieParametruDelete(int lid, int id)
+        {
+            UniversalDelete("/przypisanie/usun/" + lid.ToString() + "/" + id.ToString());
+        }
+        //no chyba niepotrzebne :d
+        public static async Task WersjaDelete(int lid, int id)
+        {
+            UniversalDelete("/wersja/usun/" + lid.ToString() + "/" + id.ToString());
+        }
+
+        public static async Task WizytaDelete(int lid, int id)
+        {
+            UniversalDelete("/wizyta/usun/" + lid.ToString() + "/" + id.ToString());
+        }
+
+        public static async Task ZasadaDelete(int lid, int id)
+        {
+            UniversalDelete("/zasada/usun/" + lid.ToString() + "/" + id.ToString());
         }
     }
 }
