@@ -30,7 +30,7 @@
         <autonumeration>
           <max_envelope>1</max_envelope>
           <holes>
-            <hole>50</hole>
+            <hole>1</hole>
           </holes>
         </autonumeration>
         <size>500</size>
@@ -47,7 +47,7 @@
         <ids>0</ids>
         <name>DomyslnyMagazyn</name>
         <autonumeration>
-          <max_envelope>1</max_envelope>
+          <max_envelope>0</max_envelope>
           <holes></holes>
         </autonumeration>
         <size>5000</size>
@@ -73,7 +73,7 @@
     <idp>1</idp>
     <imie>Janin</imie>
     <nazwisko>Kowalski</nazwisko>
-    <pesel>48042817</pesel>
+    <pesel>48042817312</pesel>
     <storehouse>Wysocy</storehouse>
     <envelope>1</envelope>
     <wzrost>192</wzrost>
