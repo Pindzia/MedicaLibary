@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
+      xmlns:custom="clr-namespace:OutlookCalendar.Controls;assembly=OutlookCalendar"
       xml:lang="pl-PL"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
@@ -19,10 +20,9 @@
                 <ColumnDefinition Width="7.5*"/>
                 <ColumnDefinition Width="2.5*"/>
             </Grid.ColumnDefinitions>
-            <Viewbox>
-                <Calendar Grid.Column="0" >
-                </Calendar>
-            </Viewbox>
+            <custom:Calendar x:Name="cal" Appointments="{Binding}" CurrentDate="{Binding UpdateSourceTrigger=PropertyChanged}">
+                
+            </custom:Calendar>
         </Grid>
     </Grid>
 </Page>

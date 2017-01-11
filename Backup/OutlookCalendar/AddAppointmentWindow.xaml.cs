@@ -1,9 +1,7 @@
-﻿using OutlookCalendar.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,21 +9,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OutlookCalendar.Model;
 
-namespace MedicalLibrary.View.Pages
+namespace OutlookCalendar
 {
     /// <summary>
-    /// Interaction logic for CalendarPage.xaml
+    /// Interaction logic for AddAppointmentWindow.xaml
     /// </summary>
-    public partial class CalendarPage : Page
+    public partial class AddAppointmentWindow : Window
     {
-        public CalendarPage()
+        public AddAppointmentWindow()
         {
             InitializeComponent();
-            DataContext = new Appointments();
-            cal.CurrentDate = DateTime.Now;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

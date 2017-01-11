@@ -325,6 +325,12 @@
   <ItemGroup>
     <Resource Include="Images\notok.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OutlookCalendar\OutlookCalendar.csproj">
+      <Project>{b6185ed0-45ea-4684-9726-490b85ef478a}</Project>
+      <Name>OutlookCalendar</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
