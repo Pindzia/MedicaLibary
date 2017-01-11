@@ -12,6 +12,7 @@ using MedicalLibrary.ViewModel.PagesViewModel;
 using MedicaLibrary.Model;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Threading.Tasks;
 
 namespace MedicalLibrary.ViewModel.WindowsViewModel
 {
@@ -27,8 +28,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             LoadedCustomFields = new RelayCommand(pars => LoadCustomFields((DataGrid)pars));
             ClearSearch = new RelayCommand(pars => Clear());
             QueryOptionList = XElementon.Instance.Patient.PatientAttributeList();
-            UpdateData();
-            
+
         }
 
         private ObservableCollection<XElement> _PatientList = new ObservableCollection<XElement>();
@@ -134,7 +134,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _SelectedQuery = value;
-                if (FindQuery != "" && FindQuery != null) { Search(); }
+                if (FindQuery != null && FindQuery != "") { SearchAsync(); }
                 OnPropertyChanged("SelectedQuery");
             }
         }
@@ -200,6 +200,11 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             return tup;
         }
 
+        private async void UpdateDataAsync()
+        {
+            System.Threading.Tasks.Task.Run(() => UpdateData());
+        }
+
         private void UpdateData()
         {
             PatientList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Patients());
@@ -220,7 +225,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 NewPatient = viewModel.Patient;
                 XElementon.Instance.Patient.Add(TupleList(),true,(string)NewPatient.Element("storehouse"));
-                UpdateData();
+                UpdateDataAsync();
             }
         }
 
@@ -239,7 +244,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                     {
                         NewPatient = viewModel.Patient;
                         XElementon.Instance.Patient.Change((int)SelectedItem.Element("idp"), TupleList());
-                        UpdateData();
+                        UpdateDataAsync();
                     }
                 }
             }
@@ -256,7 +261,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 if (MessageBox.Show("Czy chcesz wykasować Pacjenta : " + SelectedItem.Element("imie").Value + " " + SelectedItem.Element("nazwisko").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     XElementon.Instance.Patient.Delete((int)SelectedItem.Element("idp"));
-                    UpdateData();
+                    UpdateDataAsync();
                 }
             }
             else
@@ -267,7 +272,12 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void Load()
         {
-            UpdateData();
+            UpdateDataAsync();
+        }
+
+        private async void SearchAsync()
+        {
+            await System.Threading.Tasks.Task.Run(() => Search());
         }
 
         private void Search()

@@ -148,6 +148,7 @@
     </Compile>
     <Compile Include="ViewModel\CustomControlsViewModel\CheckControlViewModel.cs" />
     <Compile Include="ViewModel\CustomControlsViewModel\TextControlViewModel.cs" />
+    <Compile Include="ViewModel\PagesViewModel\CalendarPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\CustomFieldPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\ModificationViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\SettingsPageViewModel.cs" />
@@ -330,6 +331,12 @@
       <Project>{b6185ed0-45ea-4684-9726-490b85ef478a}</Project>
       <Name>OutlookCalendar</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Next.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

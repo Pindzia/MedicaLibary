@@ -1,4 +1,5 @@
-﻿using OutlookCalendar.Model;
+﻿using MedicalLibrary.ViewModel.PagesViewModel;
+using OutlookCalendar.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,24 @@ namespace MedicalLibrary.View.Pages
     /// </summary>
     public partial class CalendarPage : Page
     {
+        private CalendarPageViewModel viewModel= new CalendarPageViewModel();
+
         public CalendarPage()
         {
+
             InitializeComponent();
-            DataContext = new Appointments();
+            DataContext = viewModel;
+            
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
             cal.CurrentDate = DateTime.Now;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.MyTime = viewModel.MyTime.AddDays(1);
         }
     }
 }
