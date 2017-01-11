@@ -134,7 +134,7 @@ namespace MedicaLibrary.Model
             
             foreach (var field in XElementon.Instance.Field.Fields())
             {
-                attributelist.Add((string)field.Element("fieldname"));
+                attributelist.Add((string)field.Element("fieldname")); //Todo - rozpoznywanie typów?
             }
             return attributelist;
         }

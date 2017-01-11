@@ -16,7 +16,8 @@ namespace MedicaLibrary.Model
             var modification = from qmeta in database.Elements("meta")
                                from qmodifications in qmeta.Elements("modifications")
                                from qmodification in qmodifications.Elements("modification")
-                               where qmodification.Element("olddata").Element("priority") == null //TODO Edycje priorytetów 'edycjami widmo'?
+                               where qmodification.Elements("olddata").Any()
+                               where !qmodification.Elements("priority").Any() //TODO Edycje priorytetów 'edycjami widmo'?
                                select qmodification;
             return modification;
         }
@@ -184,15 +185,47 @@ namespace MedicaLibrary.Model
 
             var DuplicateList = Duplicates.ToList();
             while (DuplicateList.Any())
-            {                           // Duplicates.Elements().Union(modification.Elements())
-                var unionold = new List<XElement>(Duplicates.Elements("olddata").ToList());
-                var unionnew = new List<XElement>(modification.Elements("newdata").Union(Duplicates.Elements("newdata")).ToList());
+            {
+                var Duplicate = DuplicateList.First();
+                var unionold = new List<XElement>(Duplicate.Elements("olddata").Elements().Concat(modification.Elements("olddata").Elements()).GroupBy(x => x.Name).Select(g => g.First())).ToList();
+                var unionnew = new List<XElement>(modification.Elements("newdata").Elements().Concat(Duplicate.Elements("newdata").Elements()).GroupBy(x => x.Name).Select(g => g.First())).ToList();
 
+
+                //SortBy using join na podstawie kolejności z PatientAttributeList
+                var orderedold = from i in XElementon.Instance.Patient.PatientAttributeList()
+                                 join o in unionold
+                                 on i equals o.Name
+                                 select o;
+
+                var oderednew = from i in XElementon.Instance.Patient.PatientAttributeList()
+                                join o in unionnew
+                                on i equals o.Name
+                                select o;
+
+
+                //Wyszukujemy i doklejamy zgubione pola istniejące w modyfikacji ale nie istniejące w PatientAttributeList
+                var unlistedold = from el in unionold
+                           let i = XElementon.Instance.Patient.PatientAttributeList()
+                           where !i.Contains(el.Name.LocalName)
+                           select el;
+
+                var unlistednew = from el in unionnew
+                            let i = XElementon.Instance.Patient.PatientAttributeList()
+                            where !i.Contains(el.Name.LocalName)
+                            select el;
+
+                unionold = orderedold.ToList();
+                unionnew = oderednew.ToList();
+
+                unionold = unionold.Concat(unlistedold).ToList();
+                unionnew = unionnew.Concat(unlistednew).ToList();
+
+                //Odklejamy starą parę olddata i newdata, przyklejamy nową parę
                 modification.Element("olddata").Remove();
                 modification.Element("newdata").Remove();
 
-                modification.Add(unionold);
-                modification.Add(unionnew);
+                modification.Add(new XElement("olddata",unionold));
+                modification.Add(new XElement("newdata",unionnew));
 
                 DuplicateList.RemoveAt(0);
                 Duplicates.First().Remove();
@@ -210,14 +243,11 @@ namespace MedicaLibrary.Model
                            && (string)x.Element("node_type") == (string)modification.Element("node_type")
                            && (string)x.Element("id") == (string)modification.Element("id"));
 
-
             if (obsolete2.Any())
             {
                 modification.Element("olddata").Remove();
                 modification.Add(obsolete2.First().Element("olddata"));
                 obsolete2.Remove();
-
-                //modification.Element("olddata") = new XElement(obsolete2.First().Element("olddata"));
             }
 
             if (obsolete.Any())

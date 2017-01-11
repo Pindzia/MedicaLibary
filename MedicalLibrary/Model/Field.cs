@@ -73,7 +73,7 @@ namespace MedicaLibrary.Model
                 XElement famodification = new XElement("modification",
                     new XElement("idm", XElementon.Instance.AutonumerateModifications()),
                     new XElement("operation", "A"),
-                    new XElement("node_type", "customfield"),
+                    new XElement("node_type", "field"),
                     new XElement("id", idf),
                     new XElement("olddata"),
                     new XElement("newdata", nowe_pole.Elements())
