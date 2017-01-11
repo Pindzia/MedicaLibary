@@ -39,6 +39,16 @@ namespace MedicalLibrary.Model
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        public static void SetClient()
+        {
+            if (client.BaseAddress != new Uri("http://medicalibaryrest.azurewebsites.net"))
+            {
+                client.BaseAddress = new Uri("http://medicalibaryrest.azurewebsites.net");
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+        }
+
         public async Task FillAllLists(int lid)
         {
             prevDaneModyfikacji = await DaneModyfikacjiWszystkieGET(lid);

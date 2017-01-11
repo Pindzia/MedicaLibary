@@ -11,7 +11,8 @@ namespace MedicalLibrary.Model
     {
         public async void SendAll(int idLekarz)
         {
-            PushREST sender = new PushREST();
+            //PushREST sender = new PushREST();
+            PushREST.SetClient();
 
             // Nowa wersja
             WersjToSendDTO obj = new WersjToSendDTO();
