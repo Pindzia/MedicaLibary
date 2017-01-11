@@ -547,7 +547,7 @@ namespace MedicalLibrary.Model
 
             string uri = "/wizyta/zmiana/" + lid.ToString() + "/" + obj.id.ToString();
 
-            WizytaToSend objToSend = new WizytaToSend()
+            WizytaToSendDTO objToSend = new WizytaToSendDTO()
             {
                 data_wizyty = obj.data_wizyty,
                 id_pacjent = obj.id_pacjent,
