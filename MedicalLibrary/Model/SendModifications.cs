@@ -128,7 +128,7 @@ namespace MedicalLibrary.Model
                         pacjent.numer_koperty = Convert.ToInt32((string)zmiana);
                     }
                 }
-                //push
+                
                 foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
                 {
                     var LUL = XElementon.Instance.Field.Fields().Elements("fieldname").Select(x => (string)x).ToList();
@@ -139,7 +139,11 @@ namespace MedicalLibrary.Model
                         przypisanie.wartosc = (string)zmiana;
                     }
                 }
-                //push
+                string uri = "/pacjent/" + idLekarz.ToString() + "/nowy";
+                await PushREST.UniversalPost(pacjent, uri);
+
+                uri = "/przypisanie/" + idLekarz.ToString() + "/nowy";
+                await PushREST.UniversalPost(przypisanie, uri);
             }
 
             else if (typdanych == "visit")
@@ -149,7 +153,7 @@ namespace MedicalLibrary.Model
                 {
                     if (zmiana.Name.LocalName == "visit_addition_date")
                     {
-                        wizyta.data_wizyty = (Convert.ToDateTime((string)zmiana)); //???
+                        wizyta.data_wizyty = (Convert.ToDateTime((string)zmiana));
                     }
                     if (zmiana.Name.LocalName == "idp")
                     {
@@ -185,7 +189,8 @@ namespace MedicalLibrary.Model
                         magazyn.priorytet = Convert.ToInt32((string)zmiana);
                     }
                 }
-                //push
+                string uri = "/magazyn/" + idLekarz.ToString() + "/nowy";
+                await PushREST.UniversalPost(magazyn, uri);
 
             }
 
@@ -216,7 +221,8 @@ namespace MedicalLibrary.Model
                         zasada.wartosc_porownania = (string)zmiana;
                     }
                 }
-                //push
+                string uri = "/zasada/" + idLekarz.ToString() + "/nowy";
+                await PushREST.UniversalPost(zasada, uri);
             }
 
 
@@ -238,7 +244,8 @@ namespace MedicalLibrary.Model
                         parametr.wartosc_domyslna = (string)zmiana;
                     }
                 }
-                //push
+                string uri = "/parametr/" + idLekarz.ToString() + "/nowy";
+                await PushREST.UniversalPost(parametr, uri);
             }
         }
     }
