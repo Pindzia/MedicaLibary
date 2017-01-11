@@ -149,7 +149,6 @@ namespace MedicaLibrary.Model
 
 
         //XML
-        //TODO: Sprawdzić .Element vs .Elements - kiedy działają
 
         public XElement[] CheckingRules(XElement np, bool autonumeration = true, string storehouse = "")
         {
@@ -199,7 +198,7 @@ namespace MedicaLibrary.Model
                         {
                             if ((string)qrule.Element("operation") == "greater")
                             {
-                                if (Convert.ToInt64((string)nowy_pacjent.Element((string)qrule.Element("attribute"))) > Convert.ToInt64((string)qrule.Element("value"))) //TODO - krzaczy się gdy lewa strona nie istnieje!
+                                if (Convert.ToInt64((string)nowy_pacjent.Element((string)qrule.Element("attribute"))) > Convert.ToInt64((string)qrule.Element("value")))
                                 {
                                     fits = true;
                                 }
@@ -264,7 +263,7 @@ namespace MedicaLibrary.Model
             error[1] = new XElement(XElement.Parse("<envelope>" + "error:envelopenotfound" + "</envelope>"));
 
             return error;
-        } //TODO - protected //TODO NIE ZAWSZE AUTONUMERUJ
+        } //TODO - protected
 
         public string AutonumerateModifications()
         {

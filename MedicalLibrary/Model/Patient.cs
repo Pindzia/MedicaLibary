@@ -13,7 +13,7 @@ namespace MedicaLibrary.Model
 
         //Wyświetl wszystkich pacjentów:
         public IEnumerable<XElement> Patients()
-        { //TODO - zwróć patienty bez wizyt (zawsze zwracaj elementy bez dzieciów?); //todo tak żeby autogenerate banglal
+        {
             var patients = database.Elements("patient");
             return patients;
         }
@@ -73,7 +73,7 @@ namespace MedicaLibrary.Model
 
             var filtered = XElementon.Instance.Patient.Patients();
 
-            //TODO - fallback value 
+            //TODO - fallback value? multifiltry?
             filtered = filtered.Where(x => (x.Element(attribute) != null)? Regex.IsMatch((string)x.Element(attribute), value) : false);
 
             return filtered;
@@ -134,8 +134,6 @@ namespace MedicaLibrary.Model
             //Fragment sprawdzający rule na potrzeby określenia storehouse 
             XElement[] warenvelope = XElementon.Instance.CheckingRules(nowy_pacjent, log, magazyn);
 
-            //TODO - domyślny magazyn, rozpoznawanie error:error
-
             //Dodajemy otrzymany węzeł warehouse
             nowy_pacjent.Add(warenvelope[0]);
             //Dodajemy otrzymany węzeł envelope
@@ -153,20 +151,16 @@ namespace MedicaLibrary.Model
                     new XElement("newdata", nowy_pacjent.Elements())
                     );
 
-                pamodification = XElementon.Instance.Modification.MergeModifications(pamodification); //TODO - check
+                pamodification = XElementon.Instance.Modification.MergeModifications(pamodification);
                 database.Descendants("modifications").First().Add(pamodification);
             }
             
-
-
-
-
             database.Add(nowy_pacjent); //- samo doddawanie, nie dodaje do Operations() coby przy odpalaniu tego dla debuga nie mieszać w bazie danych
             return;
         }
 
         //Zmiana pacjenta przy użyciu tupli
-        public void Change(int id, Tuple<string, string>[] modifications, bool log = true) //TODO - magazyn jako parametr? //TODO implementacja holes
+        public void Change(int id, Tuple<string, string>[] modifications, bool log = true)
         {
             XElementon.Instance.ChangeX("patient", id, modifications, log);
         }

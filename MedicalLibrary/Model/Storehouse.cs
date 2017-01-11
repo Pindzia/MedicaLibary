@@ -69,8 +69,6 @@ namespace MedicaLibrary.Model
             var ids = (string)max_ids;
             max_ids.Value = (Convert.ToInt16((string)max_ids) + 1).ToString();
 
-            //TODO: Fragment kodu zapewniający brak kolizji na priority?
-
             //Tworzymy element storehouse który później wszczepimy w nasz dokument 
             XElement nowy_magazyn = new XElement(
                 new XElement("storehouse",
