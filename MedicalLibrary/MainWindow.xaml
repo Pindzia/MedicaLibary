@@ -24,6 +24,11 @@
                     <mui:Link DisplayName="Wizyty" Source="View\Pages\VisitPage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
+            <mui:LinkGroup DisplayName="Wizyty">
+                <mui:LinkGroup.Links>
+                    <mui:Link Source="View\Pages\CalendarPage.xaml"/>
+                </mui:LinkGroup.Links>
+            </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Modyfikacje">
                 <mui:LinkGroup.Links>
                     <mui:Link Source="View\Pages\ModificationPage.xaml"/>
@@ -32,11 +37,6 @@
             <mui:LinkGroup DisplayName="Magazyn">
                 <mui:LinkGroup.Links>
                     <mui:Link DisplayName="Lista Magazynów" Source="View\Pages\MagazinePage.xaml"/>
-                </mui:LinkGroup.Links>
-            </mui:LinkGroup>
-            <mui:LinkGroup DisplayName="Wizyty">
-                <mui:LinkGroup.Links>
-                    <mui:Link Source="View\Pages\CalendarPage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Niestandardowe Pola">

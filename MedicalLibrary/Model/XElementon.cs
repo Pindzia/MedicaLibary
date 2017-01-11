@@ -149,7 +149,6 @@ namespace MedicaLibrary.Model
 
 
         //XML
-        //TODO: Sprawdzić .Element vs .Elements - kiedy działają
 
         public XElement[] CheckingRules(XElement np, bool autonumeration = true, string storehouse = "")
         {
@@ -199,7 +198,7 @@ namespace MedicaLibrary.Model
                         {
                             if ((string)qrule.Element("operation") == "greater")
                             {
-                                if (Convert.ToInt64((string)nowy_pacjent.Element((string)qrule.Element("attribute"))) > Convert.ToInt64((string)qrule.Element("value"))) //TODO - krzaczy się gdy lewa strona nie istnieje!
+                                if (Convert.ToInt64((string)nowy_pacjent.Element((string)qrule.Element("attribute"))) > Convert.ToInt64((string)qrule.Element("value")))
                                 {
                                     fits = true;
                                 }
@@ -264,7 +263,7 @@ namespace MedicaLibrary.Model
             error[1] = new XElement(XElement.Parse("<envelope>" + "error:envelopenotfound" + "</envelope>"));
 
             return error;
-        } //TODO - protected //TODO NIE ZAWSZE AUTONUMERUJ
+        } //TODO - protected
 
         public string AutonumerateModifications()
         {
@@ -531,15 +530,18 @@ namespace MedicaLibrary.Model
 
             //Customfields
 
-            for (int i = 0; i<= 8; i++)
+            if (XElementon.Instance.Field.Fields().Count() <= 8 && true)
             {
-                Tuple<string, string> a = new Tuple<string, string>("fieldname", listanazwfield[RNG.Next(listanazwfield.Count)]);
-                Tuple<string, string> b = new Tuple<string, string>("fieldtype", "int");
-                Tuple<string, string> c = new Tuple<string, string>("fielddefault", "8");
+                for (int i = 0; i <= 8; i++)
+                {
+                    Tuple<string, string> a = new Tuple<string, string>("fieldname", listanazwfield[RNG.Next(listanazwfield.Count)]);
+                    Tuple<string, string> b = new Tuple<string, string>("fieldtype", "int");
+                    Tuple<string, string> c = new Tuple<string, string>("fielddefault", "8");
 
-                Tuple<string, string>[] randomvisit = { a, b, c};
+                    Tuple<string, string>[] randomvisit = { a, b, c };
 
-                XElementon.Instance.Field.Add(randomvisit);
+                    XElementon.Instance.Field.Add(randomvisit);
+                }
             }
         }
     }

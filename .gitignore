@@ -6,3 +6,6 @@ MedicalLibrary/obj/*
 MedicalLibrary/obj/Debug/MedicalLibrary_MarkupCompile.lref
 .vs/MedicalLibrary/v14/.suo
 *.suo
+.suo
+.cache
+OutlookCalendar/obj/Debug/OutlookCalendar_MarkupCompile.i.lref

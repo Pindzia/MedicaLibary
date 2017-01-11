@@ -33,6 +33,7 @@ namespace MedicalLibrary.Model
             {
                 var asd = await result.Content.ReadAsStringAsync();
                 asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " i:nil=\"true\" ","");
                 Patients = XElement.Parse(asd);
 
                 Console.WriteLine(Patients);
@@ -48,6 +49,7 @@ namespace MedicalLibrary.Model
             {
                 var asd = await result.Content.ReadAsStringAsync();
                 asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " i:nil=\"true\" ", "");
                 Visits = XElement.Parse(asd);
 
                 //Console.WriteLine(asd);
@@ -64,6 +66,7 @@ namespace MedicalLibrary.Model
             {
                 var asd = await result.Content.ReadAsStringAsync();
                 asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " i:nil=\"true\" ", "");
                 Storehouses = XElement.Parse(asd);
 
                 //Console.WriteLine(asd);
@@ -80,6 +83,7 @@ namespace MedicalLibrary.Model
             {
                 var asd = await result.Content.ReadAsStringAsync();
                 asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " i:nil=\"true\" ", "");
                 Rules = XElement.Parse(asd);
 
                 //    Console.WriteLine(asd);
@@ -96,6 +100,7 @@ namespace MedicalLibrary.Model
             {
                 var asd = await result.Content.ReadAsStringAsync();
                 asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " i:nil=\"true\" ", "");
                 ParamList = XElement.Parse(asd);
 
                 //    Console.WriteLine(asd);
@@ -112,6 +117,7 @@ namespace MedicalLibrary.Model
             {
                 var asd = await result.Content.ReadAsStringAsync();
                 asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " i:nil=\"true\" ", "");
                 ParamBind = XElement.Parse(asd);
 
                 //         Console.WriteLine(asd);
@@ -149,16 +155,22 @@ namespace MedicalLibrary.Model
             var rootlist = root.ToList();
             foreach (var visit in IEVisits)
             {
-                var id_pacjent = (int)visit.Element("id_pacjent");
-                var visita = new XElement("visit",
-                    new XElement("idv", (string)visit.Element("id")),
-                    new XElement("visit_addition_date", (string)visit.Element("data_wizyty")),
-                    new XElement("comment", (string)visit.Element("komentarz"))
-                    );
 
-                var a = rootlist.Where(x => (int)x.Element("idp") == id_pacjent);
 
-                a.First().Add(visita);
+                if(visit.Element("id_pacjent").Value != "")
+                {
+                    var debug = visit.Element("id_pacjent");
+                    var id_pacjent = (int)visit.Element("id_pacjent");
+                    var visita = new XElement("visit",
+                        new XElement("idv", (string)visit.Element("id") ?? "ERROR"),
+                        new XElement("visit_addition_date", (string)visit.Element("data_wizyty") ?? ""),
+                        new XElement("comment", (string)visit.Element("komentarz") ?? "")
+                        );
+
+                    var a = rootlist.Where(x => ((int)x.Element("idp") == id_pacjent));
+
+                    a.First().Add(visita);
+                }
             }
 
 
@@ -184,8 +196,8 @@ namespace MedicalLibrary.Model
                 equals
                     (int)l.Element("id")
                 select new XElement("parameter",
-                    new XElement((string)l.Element("nazwa"), (string)b.Element("wartosc")),
-                    new XElement("patient", (string)b.Element("id_pacjent")));
+                    new XElement((string)l.Element("nazwa"), (string)b.Element("wartosc") ?? "DB2"),
+                    new XElement("patient", (string)b.Element("id_pacjent") ?? "DB3"));
 
 
 

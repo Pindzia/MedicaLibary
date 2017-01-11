@@ -16,7 +16,7 @@ namespace MedicalLibary.DTO
         public string komentarz { get; set; }
     }
 
-    public class WizytaToSend : ObjectNewDTOs
+    public class WizytaToSendDTO : ObjectNewDTOs
     {
         public int? id_pacjent { get; set; }
 
