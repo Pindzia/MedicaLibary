@@ -166,16 +166,26 @@ namespace MedicaLibrary.Model
         }
 
         //Do jakiego magazynu i jakiej koperty X'a?
-        public Tuple<string, string> WhatStorehouseEnvelope(int id, bool autonumeration = false )
+        public Tuple<string, string> WhatStorehouseEnvelope(int id, bool autonumeration = false)
         {
-            var a = XElementon.Instance.CheckingRules(XElementon.Instance.Patient.WithIDP(id).First(), autonumeration); //todo - bezpieczeństwo?
-            return new Tuple<string, string>((string)a[0], (string)a[1]);
+            bool debug = false;
+            if (!debug)
+            {
+                var a = XElementon.Instance.CheckingRules(XElementon.Instance.Patient.WithIDP(id).First(), autonumeration); //todo - bezpieczeństwo?
+                return new Tuple<string, string>((string)a[0], (string)a[1]);
+            }
+            else
+            {
+                return new Tuple<string, string>("DomyslnyMagazyn", "1");
+            }
+
+
         }
 
         //Wstawiłem X'a do poprawnegomagazynu!
         public void FixStorehouseEnvelope(int id)
         {
-
+            
             var a = XElementon.Instance.Patient.WhatStorehouseEnvelope(id, true);
             Tuple<string, string> ZmianaMagazynu = new Tuple<string, string>("storehouse", a.Item1);
             Tuple<string, string> ZmianaEnvelope = new Tuple<string, string>("envelope", a.Item2);
