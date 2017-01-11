@@ -21,11 +21,36 @@ namespace MedicalLibrary.Model
     {
         private static HttpClient client = new HttpClient();
 
+        private List<DaneModyfikacjiNoweDTO> prevDaneModyfikacji;
+        //private List<LekarzNowyDTO> prevLekarze;
+        private List<MagazynNowyDTO> prevMagazyny;
+        private List<ModyfikacjaNowaDTO> prevModyfikacje;
+        private List<PacjentNowyDTO> prevPacjenci;
+        private List<ParametrNowyDTO> prevParametry;
+        private List<Przypisanie_ParametruNowyDTO> prevPrzypisania;
+        private List<WersjaNowaDTO> prevWersje;
+        private List<WizytaNowaDTO> prevWizyty;
+        private List<ZasadaNowaDTO> prevZasady;
+
         public PushREST()
         {
             client.BaseAddress = new Uri("http://medicalibaryrest.azurewebsites.net");
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        public async Task FillAllLists(int lid)
+        {
+            prevDaneModyfikacji = await DaneModyfikacjiWszystkieGET(lid);
+            //prevLekarze = await Lekarze;
+            prevMagazyny = await MagazynWszystkieGET(lid);
+            prevModyfikacje = await ModyfikacjeWszystkieGet(lid);
+            prevPacjenci = await PacjentWszyscyGET(lid);
+            prevParametry = await ParametrWszystkieGET(lid);
+            prevPrzypisania = await PrzypisanieParametruWszystkieGET(lid);
+            prevWersje = await WersjaGET(lid);
+            prevWizyty = await WizytaWszystkieGET(lid);
+            prevZasady = await ZasadaWszystkieGET(lid);
         }
         
         public static async Task UniversalPost(ObjectNewDTOs obj, string uri)
