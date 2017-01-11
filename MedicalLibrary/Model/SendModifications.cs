@@ -92,7 +92,7 @@ namespace MedicalLibrary.Model
             MedicaLibrary.Model.XElementon.Instance.Modification.Clean();
         }
 
-        private void Send(XElement modyfikacja, string typdanych, int idLekarz)
+        private async void Send(XElement modyfikacja, string typdanych, int idLekarz)
         {
             if (typdanych == "patient")
             {
@@ -161,8 +161,8 @@ namespace MedicalLibrary.Model
                     }
                 }
 
-                uri = "/danemodyfikacji/" + idLekarz.ToString() + "/nowy";
-                await PushREST.UniversalPost(daneMod, uri);
+                string uri = "/wizyta/" + idLekarz.ToString() + "/nowa";
+                await PushREST.UniversalPost(wizyta, uri);
             }
 
 
