@@ -151,7 +151,7 @@ namespace MedicalLibrary.Model
                     {
                         wizyta.data_wizyty = (Convert.ToDateTime((string)zmiana)); //???
                     }
-                    if (zmiana.Name.LocalName == "idv")
+                    if (zmiana.Name.LocalName == "idp")
                     {
                         wizyta.id_pacjent = Convert.ToInt32((string)zmiana); //bo modyfikacja od wizyty zawiera .Element("idp")
                     }
