@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace MedicalLibrary.ViewModel.PagesViewModel
 {
-    public class WrongStorehousPageViewModel: BaseViewModel
+    public class WrongStorehousPageViewModel : BaseViewModel
     {
 
 
@@ -103,18 +103,26 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void What()
         {
-            Tuple <string,string>Answer = XElementon.Instance.Patient.WhatStorehouseEnvelope((int)SelectedItem.Element("idp"));
-            MessageBox.Show("Powinno sie przenieś wybranego pacjenta do magazynu o nazwie: \n"+ Answer.Item1 +"\nw kopercie o numerze: "+Answer.Item2);
+            if (SelectedItem != null)
+            {
+              Tuple<string, string> Answer = XElementon.Instance.Patient.WhatStorehouseEnvelope((int)SelectedItem.Element("idp"));
+              MessageBox.Show("Powinno sie przenieś wybranego pacjenta do magazynu o nazwie: \n" + Answer.Item1 + "\nw kopercie o numerze: " + Answer.Item2);
+            }
+            else
+            {
+                MessageBox.Show("Wybierz Pacjenta by dowiedzieć się do jakiego magazynu należy");
+            }
         }
 
         private void Fix()
         {
-            //Nullref gdy nie jest zaznaczony
-            //domyślnie zaznacz pierwszego z góry
             if (SelectedItem != null)
             {
-                XElementon.Instance.Patient.FixStorehouseEnvelope((int)SelectedItem.Element("idp"));
-                UpdateData();
+              XElementon.Instance.Patient.FixStorehouseEnvelope((int)SelectedItem.Element("idp"));
+              UpdateData();
+            }            else
+            {
+                MessageBox.Show("Wybierz Pacjenta by naprawić jego Magazyn i Kopertę");
             }
         }
 

@@ -367,8 +367,7 @@ namespace MedicaLibrary.Model
                 }
             }
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
-            if (log)
-            {
+
                 XElement mdpamodification = new XElement("modification");
                 mdpamodification.Add(new XElement("idm", AutonumerateModifications()));
                 mdpamodification.Add(new XElement("operation", "E"));
@@ -400,12 +399,12 @@ namespace MedicaLibrary.Model
                 mdpamodification.Add(olddata);
                 mdpamodification.Add(newdata);
 
-                mdpamodification = XElementon.Instance.Modification.MergeModifications(mdpamodification);
-                //if(mdpamodification != null) //Potrzebne?
-                //{
-                    database.Descendants("modifications").First().Add(mdpamodification);
-                //}
+            if (log)
+            {
+                database.Descendants("modifications").First().Add(mdpamodification);
             }
+
+            mdpamodification = XElementon.Instance.Modification.MergeModifications(mdpamodification);
         }
 
         //Usuń-cokolwiek
@@ -460,8 +459,6 @@ namespace MedicaLibrary.Model
             }
 
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
-            if (log)
-            {
                 XElement mdpamodification = new XElement("modification");
                 mdpamodification.Add(new XElement("idm", AutonumerateModifications()));
                 mdpamodification.Add(new XElement("operation", "D"));
@@ -490,10 +487,9 @@ namespace MedicaLibrary.Model
 
                 mdpamodification = XElementon.Instance.Modification.ClearModificationsAfterDelete(mdpamodification);
 
-                //if(mdpamodification != null) //Potrzebne?
-                //{
-                    database.Descendants("modifications").First().Add(mdpamodification);
-                //}
+            if (log)
+            {
+                database.Descendants("modifications").First().Add(mdpamodification);
             }
             
             modify.Remove();

@@ -76,7 +76,7 @@ namespace MedicaLibrary.Model
 
         public void RevertX(int idm) //reverty nigdy nie logują (reverty to de-logowanie)
         {
-            var revert = this.WithIDM(idm).FirstOrDefault();
+            var revert = XElementon.Instance.Modification.WithIDM(idm).FirstOrDefault();
             XElement reverted = null;
 
             if (revert == null)
@@ -153,7 +153,8 @@ namespace MedicaLibrary.Model
                 XElementon.Instance.DeleteX(nodetype, Convert.ToInt16(revert.Element("id").Value), false);
             }
 
-            revert.Remove();
+            XElementon.Instance.Modification.WithIDM((int)revert.Element("idm")).Remove();
+            //revert.Remove();
         }
 
         public void Clean()
@@ -242,6 +243,31 @@ namespace MedicaLibrary.Model
             var obsolete2 = this.Modifications().Where(x => (string)x.Element("operation") == "E"
                            && (string)x.Element("node_type") == (string)modification.Element("node_type")
                            && (string)x.Element("id") == (string)modification.Element("id"));
+
+            if (true)
+            {
+                var obsolete3 = this.Modifications().Where(x => (string)x.Element("operation") == "A" 
+                                           || (string)x.Element("operation") == "E"
+                                           && (string)modification.Element("node_type") == "patient"
+                                           && (string)x.Element("node_type") == "visit"
+                                           && (string)x.Element("id") == (string)modification.Element("id"));
+
+                var obsolete4 = this.Modifications().Where(x => (string)x.Element("operation") == "A"
+                               || (string)x.Element("operation") == "E"
+                               && (string)modification.Element("node_type") == "storehouse"
+                               && (string)x.Element("node_type") == "rule"
+                               && (string)x.Element("id") == (string)modification.Element("id"));
+
+                if (obsolete4.Any())
+                {
+                    obsolete4.Remove();
+                }
+
+                if (obsolete3.Any())
+                {
+                    obsolete3.Remove();
+                }
+            }
 
             if (obsolete2.Any())
             {
