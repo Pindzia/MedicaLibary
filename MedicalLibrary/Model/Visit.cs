@@ -104,5 +104,19 @@ namespace MedicaLibrary.Model
         {
             XElementon.Instance.DeleteX("visit", id, log);
         }
+
+        //Zwraca wszystkie daty używane przez nasze wizyty
+        public List<DateTime> UniqueDates()
+        {
+            var stringdates = XElementon.Instance.Visit.Visits().Elements("visit_addition_date").ToList();
+            var datedates = new List<DateTime>();
+
+            foreach (string s in stringdates)
+                datedates.Add(Convert.ToDateTime(s));
+
+            var uniquedates = datedates.GroupBy(x => x.Date).Select(y => y.First()).ToList();
+
+            return uniquedates;
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void AddSome()
         {
-            XElementon.Instance.FillDatabase();//TODO
+            XElementon.Instance.Visit.UniqueDates();
         }
 
         private void AddALot()
