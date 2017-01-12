@@ -3,6 +3,7 @@ using System.Linq;
 using MedicalLibary.DTO;
 using System.Xml.Linq;
 using System;
+using System.Data;
 using MedicaLibrary.Model;
 
 namespace MedicalLibrary.Model
@@ -426,151 +427,74 @@ namespace MedicalLibrary.Model
         {
             if (typdanych == "patient") //Pacjenci
             {
-                var pacjent = new PacjentToSendDTO();
-                var przypisanie = new Przypisanie_ParametruToSendDTO();
-                var listaprzypisan = new List<Przypisanie_ParametruToSendDTO>();
-                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
+                var idp = (int)modyfikacja.Element("id");
+
+                //przypisania pacjenta do usuniecia
+                List<Przypisanie_ParametruNowyDTO> list = new List<Przypisanie_ParametruNowyDTO>();
+                list = await PushREST.PrzypisanieParametruWszystkieGET(idLekarz);
+                var list2 = list.Where(e=>e.id_pacjent == idp).Select(e => e.id);
+                foreach (var a in list2)
                 {
-                    if (zmiana.Element("active") != null) //NotImplemented
-                    {
-                        //pacjent.aktywny = Convert.ToBoolean((string)zmiana.Element("active"));
-                    }
-                    else if (zmiana.Name == "storehouse")
-                    {
-                        var a = (string)XElementon.Instance.Storehouse.WithName((string)zmiana).First().Element("ids");
-                        pacjent.id_magazyn = Convert.ToInt32(a);
-                    }
-                    else if (zmiana.Element("active") != null) //NotImplemented
-                    {
-                        //pacjent.ilosc_dodatkowych_parametrow = null;
-                    }
-                    else if (zmiana.Name == "imie")
-                    {
-                        pacjent.imie = (string)zmiana;
-                    }
-                    else if (zmiana.Name == "nazwisko")
-                    {
-                        pacjent.nazwisko = (string)zmiana;
-                    }
-                    else if (zmiana.Name == "envelope")
-                    {
-                        pacjent.numer_koperty = Convert.ToInt32((string)zmiana);
-                    }
-                    else if (zmiana.Name == "pesel")
-                    {
-                        pacjent.pesel = ((string)zmiana);
-                    }
-                    else if (zmiana.Name != "idp")
-                    {
-                        przypisanie.id_pacjent = (int)modyfikacja.Element("newdata").Element("idp"); //Todo WutFace
-                        przypisanie.id_parametr = (int)XElementon.Instance.Field.Fields().Where(x => (string)x.Element("fieldname") == zmiana.Name).First().Element("idf"); //Todo WutFace
-                        przypisanie.wartosc = (string)zmiana;
-                        listaprzypisan.Add(przypisanie);
-                    }
+                    await PushREST.PrzypisanieParametruDelete(idLekarz, a);
                 }
-
-                string uri = "/pacjent/" + idLekarz.ToString() + "/nowy";
-                await PushREST.UniversalPost(pacjent, uri);
-
-                while (listaprzypisan.Any())
+                list2 = null;
+                List<WizytaNowaDTO> wizyty = new List<WizytaNowaDTO>();
+                wizyty = await PushREST.WizytaWszystkieGET(idLekarz);
+                list2 = wizyty.Where(e => e.id_pacjent == idp).Select(e => e.id);
+                foreach (var a in list2)
                 {
-                    uri = "/przypisanie/" + idLekarz.ToString() + "/nowy";
-                    await PushREST.UniversalPost(listaprzypisan[0], uri);
-                    listaprzypisan.RemoveAt(0);
+                    await PushREST.WizytaDelete(idLekarz, a);
                 }
-
-
+                await PushREST.PacjentDelete(idLekarz, idp);
             }
 
             else if (typdanych == "visit") //Wizyty
             {
-                var wizyta = new WizytaToSendDTO();
-                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
-                {
-                    if (zmiana.Name.LocalName == "visit_addition_date")
-                    {
-                        wizyta.data_wizyty = (Convert.ToDateTime((string)zmiana));
-                    }
-                    if (zmiana.Name.LocalName == "idp")
-                    {
-                        wizyta.id_pacjent = Convert.ToInt32((string)zmiana); //bo modyfikacja od wizyty zawiera .Element("idp")
-                    }
-                    if (zmiana.Name.LocalName == "comment")
-                    {
-                        wizyta.komentarz = (string)zmiana;
-                    }
-                }
-
-                string uri = "/wizyta/" + idLekarz.ToString() + "/nowa";
-                await PushREST.UniversalPost(wizyta, uri);
+                var idp = (int) modyfikacja.Element("id");
+                await PushREST.WizytaDelete(idLekarz, idp);
             }
             else if (typdanych == "storehouse") //Magazyny
             {
-                var magazyn = new MagazynToSendDTO();
-                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
+                var idp = (int) modyfikacja.Element("id");
+                //zasady
+                List<ZasadaNowaDTO> list = new List<ZasadaNowaDTO>();
+                list = await PushREST.ZasadaWszystkieGET(idLekarz);
+                var list2 = list.Where(e => e.id_magazynu == idp).Select(e => e.id);
+                foreach (var a in list2)
                 {
-                    if (zmiana.Name == "size")
+                    await PushREST.ZasadaDelete(idLekarz, a);
+                }
+                //pacjenci
+                List<PacjentNowyDTO> pacjenci = new List<PacjentNowyDTO>();
+                pacjenci = await PushREST.PacjentWszyscyGET(idLekarz);
+                foreach (var a in pacjenci)
+                {
+                    if (a.id_magazyn == idp)
                     {
-                        magazyn.max_rozmiar = Convert.ToInt32((string)zmiana);
-                    }
-                    if (zmiana.Name == "name")
-                    {
-                        magazyn.nazwa = (string)zmiana;
-                    }
-                    if (zmiana.Name == "priority")
-                    {
-                        magazyn.priorytet = Convert.ToInt32((string)zmiana);
+                        a.id_magazyn = 1;
+                        await PushREST.PacjentPut(a, idLekarz);
                     }
                 }
-                string uri = "/magazyn/" + idLekarz.ToString() + "/nowy";
-                await PushREST.UniversalPost(magazyn, uri);
+                await PushREST.MagazynDelete(idLekarz, idp);
             }
             else if (typdanych == "rule") //Zasady
             {
-                var zasada = new ZasadaToSendDTO();
-                zasada.id_magazynu = Convert.ToInt32((string)modyfikacja.Element("ids")); //Wololocode
-                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
-                {
-                    if (zmiana.Name == "attribute")
-                    {
-                        zasada.nazwa_atrybutu = (string)zmiana;
-                    }
-                    if (zmiana.Name == "operation")
-                    {
-                        zasada.operacja_porownania = (string)zmiana;
-                    }
-                    if (zmiana.Name == "NotImplemented") //NotImplemented
-                    {
-                        //parametr.spelnialnosc_operacji = (string)zmiana; 
-                    }
-                    if (zmiana.Name == "value")
-                    {
-                        zasada.wartosc_porownania = (string)zmiana;
-                    }
-                }
-                string uri = "/zasada/" + idLekarz.ToString() + "/nowy";
-                await PushREST.UniversalPost(zasada, uri);
+                var idp = (int) modyfikacja.Element("id");
+                await PushREST.ZasadaDelete(idLekarz, idp);
             }
             else if (typdanych == "field") //Pola
             {
-                var parametr = new ParametrToSendDTO();
-                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
+                var idp = (int) modyfikacja.Element("id");
+                // usuwanie przypisan tego czegos
+                List<Przypisanie_ParametruNowyDTO> list = new List<Przypisanie_ParametruNowyDTO>();
+                list = await PushREST.PrzypisanieParametruWszystkieGET(idLekarz);
+                var list2 = list.Where(e => e.id_parametr == idp).Select(e => e.id);
+                foreach (var a in list2)
                 {
-                    if (zmiana.Name == "fieldname")
-                    {
-                        parametr.nazwa = (string)zmiana;
-                    }
-                    if (zmiana.Name == "fieldtype")
-                    {
-                        parametr.typ = (string)zmiana;
-                    }
-                    if (zmiana.Name == "fielddefault")
-                    {
-                        parametr.wartosc_domyslna = (string)zmiana;
-                    }
+                    await PushREST.PrzypisanieParametruDelete(idLekarz, a);
                 }
-                string uri = "/parametr/" + idLekarz.ToString() + "/nowy";
-                await PushREST.UniversalPost(parametr, uri);
+
+                await PushREST.ParametrDelete(idLekarz, idp);
             }
         }
     }
