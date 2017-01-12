@@ -71,18 +71,22 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void Clean()
         {
-            XElementon.Instance.Modification.Clean();
+            //XElementon.Instance.Modification.Clean();
         }
 
         private void Push()
         {
+            System.Windows.MessageBox.Show("Wysyłanie modyfikacji na serwer w toku...");
             XElementon.Instance.SendModifications.SendAll(1); //TODO ID-lekarz
+            System.Windows.MessageBox.Show("Modyfikacje wysłane!");
         }
 
         private async void Pull()
         {
+            System.Windows.MessageBox.Show("Pobieranie danch w toku...");
             var x = await PullREST.Pull();
             XElementon.Instance.setDatabase(x);
+            System.Windows.MessageBox.Show("Dane pobrane!");
         }
     }
 }

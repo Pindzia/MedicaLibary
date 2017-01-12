@@ -528,6 +528,12 @@ namespace MedicaLibrary.Model
             var listanazwisk = new List<string> { "Nowak", "Kowalski", "Wiśniewski", "Dąbrowski", "Lewandowski", "Wójcik", "Kamiński", "Kowalczyk", "Zieliński", "Szymański", "Woźniak", "Kozłowski", "Jankowski", "Wojciechowski", "Kwiatkowski", "Kaczmarek", "Mazur", "Krawczyk", "Piotrowski", "Grabowski", "Nowakowski", "Pawłowski", "Michalski", "Nowicki", "Adamczyk", "Dudek", "Zając", "Wieczorek", "Jabłoński", "Król", "Majewski", "Olszewski", "Jaworski", "Wróbel", "Malinowski", "Pawlak", "Witkowski", "Walczak", "Stępień", "Górski", "Rutkowski", "Michalak", "Sikora", "Ostrowski", "Baran", "Duda", "Szewczyk", "Tomaszewski", "Pietrzak", "Marciniak", "Wróblewski", "Zalewski", "Jakubowski", "Jasiński", "Zawadzki", "Sadowski", "Bąk", "Chmielewski", "Włodarczyk", "Borkowski", "Czarnecki", "Sawicki", "Sokołowski", "Urbański", "Kubiak", "Maciejewski", "Szczepański", "Kucharski", "Wilk", "Kalinowski", "Lis" };
             var startingpesel = 12345678901;
 
+            if (XElementon.Instance.Patient.Patients().Any())
+            {
+                startingpesel = (long)XElementon.Instance.Patient.Patients().Max(x => (long)x.Element("pesel")) + 11;
+            }
+            
+
             var listakomentarzy = new List<string> { "pytlakowski", "merkantylny", "słowianoznawczy", "taiwański", "karpi", "przedzlotowy", "saudyjskoarabski", "chlorooctowy", "burgrabski", "drobnorozpryskowy", "mgnieniowy", "niedosiężny", "truskolaski", "dioptryczny", "przewspaniały", "dziewięciostopniowy", "podażowy", "semazjologiczny", "podpróchniały", "adeński", "gwiazdorski", "aprowincjonalny", "bożeniny", "dźwiękoszczelny", "ujemny", "moręgowaty", "różnowierczy", "pokrowcowy", "salomonowy", "kamiński" };
 
             var listanazwfield = new List<string> {"waga",  "BMI",  "długość_nosa",  "kształt_uszu",  "kolor_oczu",  "kolor_skóry",  "kształt_nosa",  "długość_paznokci",  "długość_palców",  "IQ",  "ilość_palców",  "wada_wymowy",  "kształt_kręgosłupa",  "wada_wzroku"};
@@ -537,7 +543,7 @@ namespace MedicaLibrary.Model
                 Tuple<string, string> a = new Tuple<string,string> ("imie", listaimion[RNG.Next(listaimion.Count)]);
                 Tuple<string, string> b = new Tuple<string, string>("nazwisko", listanazwisk[RNG.Next(listaimion.Count)]);
                 Tuple<string, string> c = new Tuple<string, string>("pesel", startingpesel.ToString());
-                startingpesel = startingpesel+ 11;
+                startingpesel = startingpesel + 11;
                 Tuple<string, string>[] randomguy = { a, b, c };
 
                 XElementon.instance.Patient.Add(randomguy);
