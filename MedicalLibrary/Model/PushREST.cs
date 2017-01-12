@@ -549,6 +549,13 @@ namespace MedicalLibrary.Model
             UniversalPut(objToSend, uri);
         }
 
+        public static async Task<int> PrzypisanieID(Przypisanie_ParametruToSendDTO obj, int lid)
+        {
+            List<Przypisanie_ParametruNowyDTO> prev = await PrzypisanieParametruWszystkieGET(lid);
+            var ten = prev.Where(e => e.id_pacjent == obj.id_pacjent && e.id_parametr == obj.id_parametr).First();
+            return ten.id;
+        } 
+
         public static async Task LekarzPUT(LekarzDTO obj)
         {
             List<LekarzDTO> prev = null;

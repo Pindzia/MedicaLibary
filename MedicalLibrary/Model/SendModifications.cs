@@ -101,7 +101,7 @@ namespace MedicalLibrary.Model
             if (typdanych == "patient") //Pacjenci
             {
                 var pacjent = new PacjentToSendDTO();
-                var przypisanie = new Przypisanie_ParametruToSendDTO();
+                
                 var listaprzypisan = new List<Przypisanie_ParametruToSendDTO>();
                 foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
                 {
@@ -136,6 +136,7 @@ namespace MedicalLibrary.Model
                     }
                     else if (zmiana.Name != "idp")
                     {
+                        var przypisanie = new Przypisanie_ParametruToSendDTO();
                         przypisanie.id_pacjent = (int)modyfikacja.Element("newdata").Element("idp"); //Todo WutFace
                         przypisanie.id_parametr = (int)XElementon.Instance.Field.Fields().Where(x => (string)x.Element("fieldname") == zmiana.Name).First().Element("idf"); //Todo WutFace
                         przypisanie.wartosc = (string)zmiana;
@@ -253,8 +254,8 @@ namespace MedicalLibrary.Model
             if (typdanych == "patient") //Pacjenci
             {
                 var pacjent = new PacjentNowyDTO();
-                var przypisanie = new Przypisanie_ParametruNowyDTO();
                 var listaprzypisan = new List<Przypisanie_ParametruNowyDTO>();
+                var listaprzypisan2 = new List<Przypisanie_ParametruToSendDTO>();
                 foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
                 {
                     if (zmiana.Element("active") != null) //NotImplemented
@@ -288,24 +289,45 @@ namespace MedicalLibrary.Model
                     }
                     else if (zmiana.Name != "idp")
                     {
-                        przypisanie.id_pacjent = (int)modyfikacja.Element("newdata").Element("idp");  // nullException
-                        przypisanie.id_parametr = (int)XElementon.Instance.Field.Fields().Where(x => (string)x.Element("fieldname") == zmiana.Name).First().Element("idf");
+                        var przypisanie = new Przypisanie_ParametruNowyDTO();
+                        przypisanie.id_pacjent = (int)modyfikacja.Element("id");
+                        przypisanie.id_parametr = (int)XElementon.Instance.Field.Fields().Where(x => (string)x.Element("fieldname") == zmiana.Name).First().Element("idf"); // dafuq error?
                         przypisanie.wartosc = (string)zmiana;
+                        try
+                        {
+                            var temp = new Przypisanie_ParametruToSendDTO();
+                            temp.id_pacjent = przypisanie.id_pacjent;
+                            temp.id_parametr = przypisanie.id_parametr;
+                            temp.wartosc = null;
+                            przypisanie.id = await PushREST.PrzypisanieID(temp, idLekarz);
+                            listaprzypisan.Add(przypisanie);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            var przypisanie2 = new Przypisanie_ParametruToSendDTO();
+                            przypisanie2.id_pacjent = przypisanie.id_pacjent;
+                            przypisanie2.id_parametr = przypisanie.id_parametr;
+                            przypisanie2.wartosc = przypisanie.wartosc;
+                            listaprzypisan2.Add(przypisanie2);
+                        }
                         //listaprzypisan.Add(przypisanie);
                     }
                 }
                 pacjent.id = (int)modyfikacja.Element("id");
                 await PushREST.PacjentPut(pacjent, idLekarz);
-                /*
+                
                 while (listaprzypisan.Any())
                 {
-                    //string uri = "/przypisanie/" + idLekarz.ToString() + "/nowy";
-                    //await PushREST.UniversalPost(listaprzypisan[0], uri);
-                    //listaprzypisan[0].id = ???;
-                    //await PushREST.PrzypisanieParametruPut(listaprzypisan[0],uri)
+                    await PushREST.PrzypisanieParametruPut(listaprzypisan[0], idLekarz);
                     listaprzypisan.RemoveAt(0);
                 }
-                */
+                while (listaprzypisan2.Any())
+                {
+                    string uri = "/przypisanie/" + idLekarz.ToString() + "/nowy";
+                    await PushREST.UniversalPost(listaprzypisan2[0], uri);
+                    listaprzypisan2.RemoveAt(0);
+                }
+                
 
             }
 
