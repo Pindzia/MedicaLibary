@@ -403,8 +403,8 @@ namespace MedicaLibrary.Model
             {
                 database.Descendants("modifications").First().Add(mdpamodification);
             }
-
-            mdpamodification = XElementon.Instance.Modification.MergeModifications(mdpamodification);
+            //TODO - odkomentować? Test 'zbytgłodnośći'
+            //mdpamodification = XElementon.Instance.Modification.MergeModifications(mdpamodification);
         }
 
         //Usuń-cokolwiek
