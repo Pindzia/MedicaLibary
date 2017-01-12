@@ -554,6 +554,10 @@ namespace MedicalLibrary.Model
             {
                 obj.komentarz = prevObj.komentarz;
             }
+            if (obj.koniec_wizyty == null)
+            {
+                obj.koniec_wizyty = prevObj.koniec_wizyty;
+            }
 
             string uri = "/wizyta/zmiana/" + lid.ToString() + "/" + obj.id.ToString();
 
