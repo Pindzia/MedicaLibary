@@ -6,7 +6,7 @@ namespace MedicalLibary.DTO
     {
         //public int? id_lekarz { get; set; }
         public int id { get; set; }
-        [StringLength(1)]
+        [StringLength(16)]
         public string typ { get; set; }
 
         [StringLength(50)]
@@ -18,7 +18,7 @@ namespace MedicalLibary.DTO
 
     public class ParametrToSendDTO : ObjectNewDTOs
     {
-        [StringLength(1)]
+        [StringLength(16)]
         public string typ { get; set; }
 
         [StringLength(50)]

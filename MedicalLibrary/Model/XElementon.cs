@@ -536,7 +536,7 @@ namespace MedicaLibrary.Model
 
             var listanazwfield = new List<string> {"waga",  "BMI",  "długość_nosa",  "kształt_uszu",  "kolor_oczu",  "kolor_skóry",  "kształt_nosa",  "długość_paznokci",  "długość_palców",  "IQ",  "ilość_palców",  "wada_wymowy",  "kształt_kręgosłupa",  "wada_wzroku"};
             //Pacjenci
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 5; i++) //50
             {
                 Tuple<string, string> a = new Tuple<string,string> ("imie", listaimion[RNG.Next(listaimion.Count)]);
                 Tuple<string, string> b = new Tuple<string, string>("nazwisko", listanazwisk[RNG.Next(listaimion.Count)]);
@@ -548,7 +548,7 @@ namespace MedicaLibrary.Model
             }
 
             //Wizyty
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 3; i++) //30
             {
                 var listapacjentow = this.Patient.Patients().ToList();
                 var losowypacjent = listapacjentow[RNG.Next(listapacjentow.Count)].Element("idp");
@@ -570,7 +570,7 @@ namespace MedicaLibrary.Model
 
             if (XElementon.Instance.Field.Fields().Count() <= 8 && true)
             {
-                for (int i = 0; i <= 8; i++)
+                for (int i = 0; i <= 2; i++) //8
                 {
                     Tuple<string, string> a = new Tuple<string, string>("fieldname", listanazwfield[i]);
                     Tuple<string, string> b = new Tuple<string, string>("fieldtype", "int");

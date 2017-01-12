@@ -45,8 +45,8 @@ namespace MedicalLibrary.Model
 
                 bool oldbigger;
 
-                var a = modyfikacja.Elements("olddata").Count();
-                var b = modyfikacja.Elements("newdata").Count();
+                var a = modyfikacja.Elements("olddata").Elements().Count();
+                var b = modyfikacja.Elements("newdata").Elements().Count();
                 int x;
                 if (a > b)
                 {
@@ -62,8 +62,11 @@ namespace MedicalLibrary.Model
 
                 var typdanych = (string)modyfikacja.Element("node_type");
 
-                // foreach nowe/stare dane
-                for (int i = 0; i <= x; i++)
+                //Wszystko poza modyfiakcjami
+                Send(modyfikacja, typdanych, idLekarz);
+
+                //Wszystkie Modyfikacje
+                for (int i = 0; i < x; i++)
                 {
                     string nazwa;
                     if (oldbigger)
@@ -73,6 +76,11 @@ namespace MedicalLibrary.Model
                     else
                     {
                         nazwa = (string)modyfikacja.Element("newdata").Elements().ElementAt(i).Name.ToString();
+                    }
+
+                    if ((string)modyfikacja.Element("newdata") == "pesel")
+                    {
+
                     }
 
 
@@ -86,8 +94,6 @@ namespace MedicalLibrary.Model
                     uri = "/danemodyfikacji/" + idLekarz.ToString() + "/nowy";
                     await PushREST.UniversalPost(daneMod, uri);
                 }
-
-                Send(modyfikacja, typdanych, idLekarz);
             }
 
             MedicaLibrary.Model.XElementon.Instance.Modification.Clean();
@@ -99,52 +105,65 @@ namespace MedicalLibrary.Model
             {
                 var pacjent = new PacjentToSendDTO();
                 var przypisanie = new Przypisanie_ParametruToSendDTO();
+                var listaprzypisan = new List<Przypisanie_ParametruToSendDTO>();
                 foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
                 {
                     if (zmiana.Element("active") != null) //NotImplemented
                     {
                         //pacjent.aktywny = Convert.ToBoolean((string)zmiana.Element("active"));
                     }
-                    if (zmiana.Name == "storehouse")
+                    else if (zmiana.Name == "storehouse")
                     {
-                        var a = XElementon.Instance.Patient.WithStorehouseName((string)zmiana).First();
-                        var b = (string)a.Element("idm");
-                        pacjent.id_magazyn = Convert.ToInt32(b);
+                        var a = (string)XElementon.Instance.Storehouse.WithName((string)zmiana).First().Element("ids");
+                        pacjent.id_magazyn = Convert.ToInt32(a);
                     }
-                    if (zmiana.Element("active") != null) //NotImplemented
+                    else if (zmiana.Element("active") != null) //NotImplemented
                     {
                         //pacjent.ilosc_dodatkowych_parametrow = null;
                     }
 
-                    if (zmiana.Name == "imie")
+                    else if (zmiana.Name == "imie")
                     {
                         pacjent.imie = (string)zmiana;
                     }
-                    if (zmiana.Name == "nazwisko")
+                    else if (zmiana.Name == "nazwisko")
                     {
                         pacjent.nazwisko = (string)zmiana;
                     }
-                    if (zmiana.Name == "envelope")
+                    else if (zmiana.Name == "envelope")
                     {
                         pacjent.numer_koperty = Convert.ToInt32((string)zmiana);
                     }
-                }
-                
-                foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
-                {
-                    var LUL = XElementon.Instance.Field.Fields().Elements("fieldname").Select(x => (string)x).ToList();
-                    if (!(LUL.Contains((string)zmiana.Name.LocalName)))
+                    else if (zmiana.Name == "pesel")
                     {
-                        przypisanie.id_pacjent = 1410; //Todo WutFace
-                        przypisanie.id_parametr = 1410; //Todo WutFace
+                        
+                        
+                        pacjent.pesel = null;
+                        pacjent.pesel = "12345678903";
+                        pacjent.pesel = ((string)zmiana);
+                    }
+                    else if (zmiana.Name != "idp")
+                    {
+                        przypisanie.id_pacjent = 1; //Todo WutFace
+                        przypisanie.id_parametr = 1; //Todo WutFace
                         przypisanie.wartosc = (string)zmiana;
+                        listaprzypisan.Add(przypisanie);
                     }
                 }
+                
+
+
                 string uri = "/pacjent/" + idLekarz.ToString() + "/nowy";
                 await PushREST.UniversalPost(pacjent, uri);
 
-                uri = "/przypisanie/" + idLekarz.ToString() + "/nowy";
-                await PushREST.UniversalPost(przypisanie, uri);
+                while (listaprzypisan.Any())
+                {
+                    uri = "/przypisanie/" + idLekarz.ToString() + "/nowy";
+                    await PushREST.UniversalPost(listaprzypisan[0], uri);
+                    listaprzypisan.RemoveAt(0);
+                }
+
+
             }
 
             else if (typdanych == "visit")

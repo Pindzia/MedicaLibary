@@ -33,7 +33,7 @@ namespace MedicalLibrary.Model
             {
                 var asd = await result.Content.ReadAsStringAsync();
                 asd = Regex.Replace(asd, " xmlns[^> ]*", "");
-                asd = Regex.Replace(asd, " i:nil=\"true\" ","");
+                asd = Regex.Replace(asd, " i:nil=\"true\" ", "");
                 Patients = XElement.Parse(asd);
 
                 Console.WriteLine(Patients);
@@ -157,7 +157,7 @@ namespace MedicalLibrary.Model
             {
 
 
-                if(visit.Element("id_pacjent").Value != "")
+                if (visit.Element("id_pacjent").Value != "")
                 {
                     var debug = visit.Element("id_pacjent");
                     var id_pacjent = (int)visit.Element("id_pacjent");
@@ -284,11 +284,16 @@ namespace MedicalLibrary.Model
                     int it = 1;
                     for (int iterator = 1; iterator <= maxid && it <= maxid; iterator++)
                     {
-                        if ((string)storehousepatients.ElementAt(it).Element("storehouse") == (string)storehouse.Element("name")
-                            && (int)storehousepatients.ElementAt(it).Element("envelope") == iterator)
+                        if ((string)storehousepatients.ElementAt(it - 1).Element("storehouse") == (string)storehouse.Element("name")
+                            && (int)storehousepatients.ElementAt(it - 1).Element("envelope") == iterator)
+                        {
                             it++;
+                        }
                         else
+                        {
                             storehouse.Element("autonumeration").Element("holes").Add(new XElement("hole", iterator));
+                        }
+
                     }
                 }
             }
