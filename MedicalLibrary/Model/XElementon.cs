@@ -553,10 +553,11 @@ namespace MedicaLibrary.Model
                 var listapacjentow = this.Patient.Patients().ToList();
                 var losowypacjent = listapacjentow[RNG.Next(listapacjentow.Count)].Element("idp");
 
-                var now = DateTime.Now;
+                DateTimeOffset now = DateTimeOffset.Now;
                 var randomtime = RNG.Next(1, 87600);
                 randomtime = -randomtime;
-                var randomdate = now.AddHours(randomtime).ToString();
+                now = now.AddHours(randomtime);
+                var randomdate = now.ToString();
 
 
                 Tuple<string, string> a = new Tuple<string, string>("visit_addition_date", randomdate);

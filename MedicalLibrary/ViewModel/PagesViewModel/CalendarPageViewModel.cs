@@ -92,7 +92,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             {
                 Appointment appoint = new Appointment();
                 XElement startTime = visit.Element("visit_addition_date");
-                appoint.Subject = "Wizyta"+ visit.Element("comment").Value;
+                appoint.Subject = "Wizyta Pacjenta " + visit.Parent.Element("imie").Value + " " + visit.Parent.Element("nazwisko").Value + " " + visit.Parent.Element("pesel").Value;
                 appoint.StartTime = (DateTime)startTime;
                 appoint.EndTime = appoint.StartTime.AddMinutes(16);
                 collection.Add(appoint);
