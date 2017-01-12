@@ -172,7 +172,8 @@ namespace MedicaLibrary.Model
                                                     && (string)x.Element("id") == (string)modification.Element("id"));
             if (Additions.Any())
             {
-                var union = new XElement(modification.Elements("newdata").Union(Additions.First().Elements("olddata")).First());
+                var a = (modification.Elements("newdata").Elements().Union(Additions.First().Elements("newdata").Elements())).GroupBy(x => x.Name).Select(x => x.First());
+                var union = new XElement("newdata", a);
                 Additions.First().Element("newdata").Remove();
                 Additions.First().Add(union);
                 return null;

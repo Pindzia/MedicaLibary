@@ -399,12 +399,12 @@ namespace MedicaLibrary.Model
                 mdpamodification.Add(olddata);
                 mdpamodification.Add(newdata);
 
+            mdpamodification = XElementon.Instance.Modification.MergeModifications(mdpamodification);
+
             if (log)
             {
                 database.Descendants("modifications").First().Add(mdpamodification);
             }
-            //TODO - odkomentować? Test 'zbytgłodnośći'
-            //mdpamodification = XElementon.Instance.Modification.MergeModifications(mdpamodification);
         }
 
         //Usuń-cokolwiek
