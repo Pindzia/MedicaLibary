@@ -115,7 +115,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void UpdateVisits()
         {
-            VisitList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Visit.WithIDP((int)SelectedItem.Element("idp")));
+            if(SelectedItem != null)
+                VisitList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Visit.WithIDP((int)SelectedItem.Element("idp")));
         }
 
         private Tuple<string, string>[] TupleList()

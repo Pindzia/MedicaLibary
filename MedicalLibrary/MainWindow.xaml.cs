@@ -27,7 +27,8 @@ namespace MedicalLibrary
         public MainWindow()
         {
             InitializeComponent();
-            XElementon.Instance.Load();
+            XElementon.Instance.LoadRaw();
+            //XElementon.Instance.LoadEncrypted();
             ContentSource = MenuLinkGroups.First().Links.First().Source;
             linkWrong = WrongPatient;
             linkMod = Modifications;

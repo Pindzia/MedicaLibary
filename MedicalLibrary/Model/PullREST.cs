@@ -32,7 +32,7 @@ namespace MedicalLibrary.Model
             if (result.IsSuccessStatusCode)
             {
                 var asd = await result.Content.ReadAsStringAsync();
-                asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " xmlns[^> ]*", "");
                 asd = Regex.Replace(asd, " i:nil=\"true\" ","");
                 Patients = XElement.Parse(asd);
 
@@ -48,7 +48,7 @@ namespace MedicalLibrary.Model
             if (result.IsSuccessStatusCode)
             {
                 var asd = await result.Content.ReadAsStringAsync();
-                asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " xmlns[^> ]*", "");
                 asd = Regex.Replace(asd, " i:nil=\"true\" ", "");
                 Visits = XElement.Parse(asd);
 
@@ -65,7 +65,7 @@ namespace MedicalLibrary.Model
             if (result.IsSuccessStatusCode)
             {
                 var asd = await result.Content.ReadAsStringAsync();
-                asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " xmlns[^> ]*", "");
                 asd = Regex.Replace(asd, " i:nil=\"true\" ", "");
                 Storehouses = XElement.Parse(asd);
 
@@ -82,7 +82,7 @@ namespace MedicalLibrary.Model
             if (result.IsSuccessStatusCode)
             {
                 var asd = await result.Content.ReadAsStringAsync();
-                asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " xmlns[^> ]*", "");
                 asd = Regex.Replace(asd, " i:nil=\"true\" ", "");
                 Rules = XElement.Parse(asd);
 
@@ -99,7 +99,7 @@ namespace MedicalLibrary.Model
             if (result.IsSuccessStatusCode)
             {
                 var asd = await result.Content.ReadAsStringAsync();
-                asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " xmlns[^> ]*", "");
                 asd = Regex.Replace(asd, " i:nil=\"true\" ", "");
                 ParamList = XElement.Parse(asd);
 
@@ -116,7 +116,7 @@ namespace MedicalLibrary.Model
             if (result.IsSuccessStatusCode)
             {
                 var asd = await result.Content.ReadAsStringAsync();
-                asd = Regex.Replace(asd, " xmlns[^>]*>", ">");
+                asd = Regex.Replace(asd, " xmlns[^> ]*", "");
                 asd = Regex.Replace(asd, " i:nil=\"true\" ", "");
                 ParamBind = XElement.Parse(asd);
 
@@ -153,7 +153,7 @@ namespace MedicalLibrary.Model
 
 
             var rootlist = root.ToList();
-            foreach (var visit in IEVisits)
+            foreach (var visit in IEVisits ?? Enumerable.Empty<XElement>())
             {
 
 
@@ -202,7 +202,7 @@ namespace MedicalLibrary.Model
 
 
             //Wklejenie foreach customfield (wygenerowana lista) do naszego XML (where IDP = id_pacjent)
-            foreach (var parameter in parameters)
+            foreach (var parameter in parameters ?? Enumerable.Empty<XElement>())
             {
                 var id_pacjent = (int)rootlist.Where(x => (int)x.Elements("idp").First() == (int)parameter.Element("patient")).First().Element("idp");
 
@@ -233,7 +233,7 @@ namespace MedicalLibrary.Model
             var storehouselist = IEStorehouses;
             List<XElement> renamedstorehouse = new List<XElement>();
 
-            foreach (var storehouse in storehouselist)
+            foreach (var storehouse in storehouselist ?? Enumerable.Empty<XElement>())
             {
 
                 var storehousea = new XElement("storehouse",
@@ -246,7 +246,7 @@ namespace MedicalLibrary.Model
 
             }
 
-            foreach (var rule in IERules)
+            foreach (var rule in IERules ?? Enumerable.Empty<XElement>())
             {
                 var rulea = new XElement("rule",
                     new XElement("idr", (string)rule.Element("id")),
@@ -261,7 +261,7 @@ namespace MedicalLibrary.Model
 
 
             //Węzeł autonumerations do magazynu
-            foreach (var storehouse in renamedstorehouse)
+            foreach (var storehouse in renamedstorehouse ?? Enumerable.Empty<XElement>())
             {
                 var storehousepatients =
                 from patient in rootlist
@@ -318,12 +318,33 @@ namespace MedicalLibrary.Model
             //        max_idf
             //        max_idm = 1 bo jak pobierasz to bez idm
 
-            var max_idp = rootlist.Max(x => (int?)x.Element("idp") ?? 0);
-            var max_idv = rootlist.Max(x => x.Element("visit") != null ? (int)x.Element("visit").Element("idv") : 0);
-            var max_ids = renamedstorehouse.Max(x => (int?)x.Element("ids") ?? 0);
-            var max_idr = renamedstorehouse.Max(x => x.Element("rule") != null ? (int)x.Element("rule").Element("idr") : 0);
-            var max_idf = renamedcustomfields.Max(x => (int?)x.Element("idf") ?? 0); //customfields
+            var max_idp = 0;
+            var max_idv = 0;
+            var max_ids = 0;
+            var max_idr = 0;
+            var max_idf = 0;
             var max_idm = 0;
+
+            if (rootlist.Elements("idp").Any())
+            {
+                max_idp = rootlist.Max(x => (int?)x.Element("idp") ?? 0);
+            }
+            if (rootlist.Elements("visit").Any())
+            {
+                max_idv = rootlist.Max(x => x.Element("visit") != null ? (int)x.Element("visit").Element("idv") : 0);
+            }
+            if (renamedstorehouse.Elements("ids").Any())
+            {
+                max_ids = renamedstorehouse.Max(x => (int?)x.Element("ids") ?? 0);
+            }
+            if (renamedstorehouse.Elements("rule").Any())
+            {
+                max_idr = renamedstorehouse.Max(x => x.Element("rule") != null ? (int)x.Element("rule").Element("idr") : 0);
+            }
+            if (renamedcustomfields.Elements("idf").Any())
+            {
+                max_idf = renamedcustomfields.Max(x => (int?)x.Element("idf") ?? 0); //customfields
+            }
 
             lib.Elements("meta").First().AddFirst(new XElement("max_idp", max_idp + 1));
             lib.Elements("meta").First().AddFirst(new XElement("max_idv", max_idv + 1));

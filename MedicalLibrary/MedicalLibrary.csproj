@@ -132,6 +132,7 @@
     <Compile Include="DTO\WersjaNowaDTO.cs" />
     <Compile Include="DTO\WizytaNowaDTO.cs" />
     <Compile Include="DTO\ZasadaNowaDTO.cs" />
+    <Compile Include="Model\CryptoClass.cs" />
     <Compile Include="Model\PullREST.cs" />
     <Compile Include="Model\Modification.cs" />
     <Compile Include="Model\ObserverCollectionConverter.cs" />

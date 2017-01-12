@@ -41,9 +41,27 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         public ICommand PushModifications { get; set; }
         public ICommand PullDatabase { get; set; }
 
+
+
+        bool toggle = true;
         private void AddSome()
         {
-            XElementon.Instance.Visit.UniqueDates();
+
+            //var x = XElementon.Instance.Visit.UniqueDates();
+            //return;
+            if (toggle)
+            {
+                XElementon.Instance.SetKey("test567890123456");
+                XElementon.Instance.SaveEncrypted();
+                toggle = false;
+            }
+            else
+            {
+                XElementon.Instance.SetKey("test567890123456");
+                XElementon.Instance.LoadEncrypted();
+                toggle = true;
+            }
+
         }
 
         private void AddALot()

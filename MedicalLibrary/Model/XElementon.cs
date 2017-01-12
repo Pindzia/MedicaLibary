@@ -65,11 +65,32 @@ namespace MedicaLibrary.Model
         }
 
 
-        public void Load()
+
+        public void LoadEncrypted()
         {
-            LoadRaw();
-            Save();
+
+            CryptoClass crypt = CryptoClass.Instance;
+            if (File.Exists("encrypted.xml"))
+            {
+                setDatabase(crypt.Decrypt(LoadEncrypted(crypt)));
+            }
+            else
+            {
+                LoadRaw();
+            }   
             InitializeComponents();
+        }
+
+        private byte[] LoadEncrypted(CryptoClass cryptor)
+        {
+            FileStream file = new FileStream("encrypted.xml", FileMode.Open, FileAccess.Read);
+            int length = (int)file.Length;
+
+            byte[] buffer = new byte[length];
+            file.Read(buffer, 0, length);
+            file.Close();
+
+            return buffer;
         }
 
         public void LoadRaw()
@@ -86,12 +107,28 @@ namespace MedicaLibrary.Model
             test = test + Encoding.UTF8.GetString(buffer);
 
             setDatabase(buffer);
+            InitializeComponents();
         }
 
         public void Save()
         {
             database.Save(Environment.CurrentDirectory + "\\lib.xml");
-            //this.changeRaw();
+        }
+
+        public void SaveEncrypted()
+        {
+            CryptoClass crypt = CryptoClass.Instance;
+            var cipher = crypt.Encrypt(this.getDatabase().ToString());
+
+            FileStream writeStream = new FileStream("encrypted.xml", FileMode.Create);
+            writeStream.Write(cipher, 0, cipher.Length);
+            writeStream.Close();
+        }
+
+        public void SetKey(string key)
+        {
+            CryptoClass crypt = CryptoClass.Instance;
+            crypt.set_KeyIV(key);
         }
 
         public void setDatabase(byte[] xml)
@@ -117,6 +154,7 @@ namespace MedicaLibrary.Model
             InitializeComponents();
 
         }
+
 
         private void InitializeComponents()
         {
@@ -490,7 +528,7 @@ namespace MedicaLibrary.Model
         {
             Random RNG = new Random();
             
-            var listaimion = new List<string> { "Jakub", "Julia", "Kacper", "Maja", "Szymon", "Zuzanna", "Mateusz", "Wiktoria", "Filip", "Oliwia", "Michał", "Amelia", "Bartosz", "Natalia", "Wiktor", "Aleksandra", "Piotr", "Lena", "Dawid", "Nikola", "Adam", "Zofia", "Maciej", "Martyna", "Jan", "Weronika", "Igor", "Anna", "Mikołaj", "Emilia", "Patryk", "Magdalena", "Paweł", "Hanna", "Dominik", "Karolina", "Oskar", "Gabriela", "Antoni", "Alicja" };
+            var listaimion = new List<string> { "Jakub", "Julia", "Kacper", "Maja", "Szymon", "Zuzanna", "Mateusz", "Wiktoria", "Filip", "Oliwia", "Michał", "Bartosz", "Natalia", "Wiktor", "Aleksandra", "Piotr", "Dawid", "Adam", "Zofia", "Maciej", "Martyna", "Jan", "Weronika", "Anna", "Mikołaj", "Emilia", "Patryk", "Magdalena", "Paweł"};
             var listanazwisk = new List<string> { "Nowak", "Kowalski", "Wiśniewski", "Dąbrowski", "Lewandowski", "Wójcik", "Kamiński", "Kowalczyk", "Zieliński", "Szymański", "Woźniak", "Kozłowski", "Jankowski", "Wojciechowski", "Kwiatkowski", "Kaczmarek", "Mazur", "Krawczyk", "Piotrowski", "Grabowski", "Nowakowski", "Pawłowski", "Michalski", "Nowicki", "Adamczyk", "Dudek", "Zając", "Wieczorek", "Jabłoński", "Król", "Majewski", "Olszewski", "Jaworski", "Wróbel", "Malinowski", "Pawlak", "Witkowski", "Walczak", "Stępień", "Górski", "Rutkowski", "Michalak", "Sikora", "Ostrowski", "Baran", "Duda", "Szewczyk", "Tomaszewski", "Pietrzak", "Marciniak", "Wróblewski", "Zalewski", "Jakubowski", "Jasiński", "Zawadzki", "Sadowski", "Bąk", "Chmielewski", "Włodarczyk", "Borkowski", "Czarnecki", "Sawicki", "Sokołowski", "Urbański", "Kubiak", "Maciejewski", "Szczepański", "Kucharski", "Wilk", "Kalinowski", "Lis" };
             var startingpesel = 12345678901;
 
@@ -534,7 +572,7 @@ namespace MedicaLibrary.Model
             {
                 for (int i = 0; i <= 8; i++)
                 {
-                    Tuple<string, string> a = new Tuple<string, string>("fieldname", listanazwfield[RNG.Next(listanazwfield.Count)]);
+                    Tuple<string, string> a = new Tuple<string, string>("fieldname", listanazwfield[i]);
                     Tuple<string, string> b = new Tuple<string, string>("fieldtype", "int");
                     Tuple<string, string> c = new Tuple<string, string>("fielddefault", "8");
 

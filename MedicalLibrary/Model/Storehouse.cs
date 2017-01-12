@@ -110,7 +110,7 @@ namespace MedicaLibrary.Model
         {
 
             var storehouse_to_delete = this.WithIDS(id).First();
-            var storehouses_with_worse_prio = this.Storehouses().Where((x => (int)x.Element("priority") > (int)storehouse_to_delete.Element("priority")));
+            var storehouses_with_worse_prio = this.Storehouses().Where((x => (int)x.Element("priority") > (int)storehouse_to_delete.Element("priority") && (int)x.Element("priority") < 5000));
             foreach (var storehouse in storehouses_with_worse_prio)
             {
                 var up = new Tuple<string, string>("priority", (Convert.ToInt32(storehouse.Element("priority").Value)-1).ToString());
