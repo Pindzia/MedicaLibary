@@ -144,8 +144,8 @@ namespace MedicalLibrary.Model
                     }
                     else if (zmiana.Name != "idp")
                     {
-                        przypisanie.id_pacjent = 1; //Todo WutFace
-                        przypisanie.id_parametr = 1; //Todo WutFace
+                        przypisanie.id_pacjent = (int)modyfikacja.Element("newdata").Element("idp"); //Todo WutFace
+                        przypisanie.id_parametr = (int)XElementon.Instance.Field.Fields().Where(x => (string)x.Element("fieldname") == zmiana.Name).First().Element("idf"); //Todo WutFace
                         przypisanie.wartosc = (string)zmiana;
                         listaprzypisan.Add(przypisanie);
                     }
