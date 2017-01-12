@@ -102,6 +102,53 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
+        private string _FindQuery = "";
+        public string FindQuery
+        {
+            get
+            {
+                return _FindQuery;
+            }
+
+            set
+            {
+                _FindQuery = value;
+                if (SelectedQuery != "" && SelectedQuery != null) { Search(); }
+                OnPropertyChanged("FindQuery");
+            }
+        }
+
+        private List<string> _QueryOptionList = new List<string>() { "imie" ,"nazwisko","pesel" };
+        public List<string> QueryOptionList
+        {
+            get
+            {
+                return _QueryOptionList;
+            }
+
+            set
+            {
+                _QueryOptionList = value;
+                OnPropertyChanged("QueryOptionList");
+            }
+        }
+
+        private string _SelectedQuery = "";
+        public string SelectedQuery
+        {
+            get
+            {
+                return _SelectedQuery;
+            }
+
+            set
+            {
+                _SelectedQuery = value;
+                if (FindQuery != null && FindQuery != "") { SearchAsync(); }
+                OnPropertyChanged("SelectedQuery");
+            }
+        }
+
         public ICommand AddVisit { get; set; }
         public ICommand EditVisit { get; set; }
         public ICommand DeleteVisit { get; set; }
@@ -111,6 +158,10 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             PatientList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Patients());
             SelectedItem = PatientList.FirstOrDefault();
+        }
+        private void UpdateData(ObservableCollection<XElement> data)
+        {
+            PatientList = data;
         }
 
         private void UpdateVisits()
@@ -182,6 +233,17 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         private void Load()
         {
             UpdateData();
+        }
+
+        private async void SearchAsync()
+        {
+            System.Threading.Tasks.Task.Run(() => Search());
+        }
+
+        private void Search()
+        {
+            if (SelectedQuery != "")
+                UpdateData(ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Filtered(SelectedQuery, FindQuery)));
         }
 
     }
