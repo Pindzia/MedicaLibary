@@ -1,6 +1,7 @@
 ﻿using OutlookCalendar.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,20 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             {
                 _MyTime = value;
                 OnPropertyChanged(nameof(MyTime)); // zapamiętać !!
+            }
+        }
+
+        private ObservableCollection<DateTime> _HighlightedDates = new ObservableCollection<DateTime>();
+        public ObservableCollection<DateTime> HighlightedDates
+        {
+            get
+            {
+                return _HighlightedDates;
+            }
+            set
+            {
+                _HighlightedDates = value;
+                OnPropertyChanged(nameof(HighlightedDates)); // zapamiętać !!
             }
         }
 

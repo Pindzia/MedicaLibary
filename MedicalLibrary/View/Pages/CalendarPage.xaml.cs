@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -22,24 +23,36 @@ namespace MedicalLibrary.View.Pages
     /// </summary>
     public partial class CalendarPage : Page
     {
-        private CalendarPageViewModel viewModel= new CalendarPageViewModel();
+        private CalendarPageViewModel viewModel = new CalendarPageViewModel();
 
         public CalendarPage()
         {
-
             InitializeComponent();
             DataContext = viewModel;
-            
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void calendarButton_Loaded(object sender, EventArgs e)
         {
-            cal.CurrentDate = DateTime.Now;
+            CalendarDayButton button = (CalendarDayButton)sender;
+            DateTime date = (DateTime)button.DataContext;
+            HighlightDay(button, date);
+            button.DataContextChanged += new DependencyPropertyChangedEventHandler(calendarButton_DataContextChanged);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void HighlightDay(CalendarDayButton button, DateTime date)
         {
-            viewModel.MyTime = viewModel.MyTime.AddDays(1);
+            if (viewModel.HighlightedDates.Contains(date))
+                button.Background = Brushes.LightBlue;
+            else
+                button.Background = Brushes.White;
         }
+
+        private void calendarButton_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            CalendarDayButton button = (CalendarDayButton)sender;
+            DateTime date = (DateTime)button.DataContext;
+            HighlightDay(button, date);
+        }
+
     }
 }
