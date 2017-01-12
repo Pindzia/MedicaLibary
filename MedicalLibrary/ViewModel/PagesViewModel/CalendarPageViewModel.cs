@@ -1,4 +1,5 @@
-﻿using OutlookCalendar.Model;
+﻿using MedicaLibrary.Model;
+using OutlookCalendar.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +11,14 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 {
     public class CalendarPageViewModel: BaseViewModel
     {
+        public CalendarPageViewModel()
+        {
+            HighlightedDates = PrepareDate();
+
+            //dopisać updatery
+        }
+
+
         private Appointments _Collection = new Appointments();
         public Appointments Collection
         {
@@ -50,6 +59,17 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 _HighlightedDates = value;
                 OnPropertyChanged(nameof(HighlightedDates)); // zapamiętać !!
             }
+        }
+
+        private ObservableCollection<DateTime> PrepareDate()
+        {
+            ObservableCollection<DateTime> dates = new ObservableCollection<DateTime>();
+            foreach(DateTime date in XElementon.Instance.Visit.UniqueDates())
+            {
+                DateTime newDate = new DateTime(date.Year, date.Month, date.Day);
+                dates.Add(newDate);
+            }
+            return dates;
         }
 
     }

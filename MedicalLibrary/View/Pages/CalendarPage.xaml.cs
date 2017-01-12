@@ -41,10 +41,18 @@ namespace MedicalLibrary.View.Pages
 
         private void HighlightDay(CalendarDayButton button, DateTime date)
         {
-            if (viewModel.HighlightedDates.Contains(date))
+            if(viewModel.MyTime == date)
+            {
                 button.Background = Brushes.LightBlue;
+            }
             else
-                button.Background = Brushes.White;
+            {
+                if (viewModel.HighlightedDates.Contains(date))
+                    button.Background = Brushes.LightBlue;
+                else
+                    button.Background = Brushes.White;
+            }
+            
         }
 
         private void calendarButton_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
