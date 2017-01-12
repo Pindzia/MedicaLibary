@@ -12,8 +12,8 @@ namespace MedicalLibrary.Model
 {
     /*
      *  Użycie:
-     *  PushREST sender = new PushREST();       inicjalizacja danych klienta
-     *  PushREST.metoda();                      wykonanie (async!)
+     *  SetClient();                            !
+     *  await PushREST.metoda();                wykonanie (async!)
      *  
      *  PushREST.metoda().Wait();               czeka na wykonanie do końca
      */
@@ -105,6 +105,20 @@ namespace MedicalLibrary.Model
                 var list2 = await response.Content.ReadAsStringAsync();
                 ReplaceThisStuff(list2);
                 lista = JsonConvert.DeserializeObject<List<DaneModyfikacjiNoweDTO>>(list2);
+            }
+            return lista;
+        }
+
+        public static async Task<List<LekarzDTO>> LekarzeGET()
+        {
+            List<LekarzDTO> lista = null;
+            string uri = "/lekarz/lista";
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                var list2 = await response.Content.ReadAsStringAsync();
+                ReplaceThisStuff(list2);
+                lista = JsonConvert.DeserializeObject<List<LekarzDTO>>(list2);
             }
             return lista;
         }
@@ -535,6 +549,24 @@ namespace MedicalLibrary.Model
             UniversalPut(objToSend, uri);
         }
 
+        public static async Task LekarzPUT(LekarzDTO obj)
+        {
+            List<LekarzDTO> prev = null;
+            LekarzDTO prevObj = new LekarzDTO();
+            prev = await LekarzeGET();
+            prevObj = prev.Where(e => e.Id == obj.Id).First();
+            if (obj.Nazwa == null)
+            {
+                obj.Nazwa = prevObj.Nazwa;
+            }
+            if (obj.Haslo == null)
+            {
+                obj.Haslo = prevObj.Haslo;
+            }
+            string uri = "/lekarz/zmien/" + obj.Id.ToString();
+            UniversalPut(obj, uri);
+        }
+
         public static async Task WizytaPut(WizytaNowaDTO obj, int lid)
         {
             List<WizytaNowaDTO> prev = null;
@@ -621,7 +653,7 @@ namespace MedicalLibrary.Model
         {
             UniversalDelete("/danemodyfikacji/usun/" + lid.ToString() + "/" + id.ToString());
         }
-
+        // lid bo tylko siebie może usunąć :v
         public static async Task LekarzDelete(int lid)
         {
             UniversalDelete("/lekarz/usun/" + lid.ToString());
