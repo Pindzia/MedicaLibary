@@ -47,7 +47,7 @@ namespace MedicalLibrary.Converters
             if ((string)value == "idr")
                 return "Id:";
             if ((string)value == "attribute")
-                return "atrybut:";
+                return "Atrybut:";
             if ((string)value == "operation")
                 return "Operacja:";
             if ((string)value == "value")

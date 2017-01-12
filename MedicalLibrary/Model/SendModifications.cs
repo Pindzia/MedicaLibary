@@ -218,12 +218,10 @@ namespace MedicalLibrary.Model
             else if (typdanych == "rule")
             {
                 var zasada = new ZasadaToSendDTO();
+                zasada.id_magazynu = Convert.ToInt32((string)modyfikacja.Element("ids")); //Wololocode
                 foreach (var zmiana in modyfikacja.Elements("newdata").Elements())
                 {
-                    if (zmiana.Name == "fieldname")
-                    {
-                        zasada.id_magazynu = Convert.ToInt32((string)modyfikacja.Parent.Element("idm")); //Wololocode
-                    }
+                    
                     if (zmiana.Name == "attribute")
                     {
                         zasada.nazwa_atrybutu = (string)zmiana;
