@@ -277,7 +277,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private async void SearchAsync()
         {
-            await System.Threading.Tasks.Task.Run(() => Search());
+            System.Threading.Tasks.Task.Run(() => Search());
         }
 
         private void Search()

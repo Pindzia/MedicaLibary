@@ -32,7 +32,7 @@
             <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" >Pesel:</Label>
 
             <TextBox Grid.Column="1" Grid.Row="0"  Width="125" Height="25" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
-            <Image Grid.Column="1" Grid.Row="0" Margin="5,2,5,2"  HorizontalAlignment="Right" Height="25" Width="25" >
+            <Image Grid.Column="1" Grid.Row="0" Margin="5,2,5,2"  HorizontalAlignment="Right" Height="25" Width="25">
                 <Image.Style>
                     <Style TargetType="{x:Type Image}">
                         <Style.Triggers>
@@ -45,6 +45,23 @@
                         </Style.Triggers>
                     </Style>
                 </Image.Style>
+                <Image.ToolTip>
+                    <ToolTip >
+                        <ToolTip.Style>
+                            <Style TargetType="{x:Type ToolTip}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding NameFlag}" Value="true">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding NameFlag}" Value="false">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Setter Property="Content" Value="Wpisz poprawne dane"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToolTip.Style>
+                    </ToolTip>
+                </Image.ToolTip>
             </Image>
 
             <TextBox Grid.Column="1" Grid.Row="1"  Width="125" Height="25" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
@@ -61,6 +78,23 @@
                         </Style.Triggers>
                     </Style>
                 </Image.Style>
+                <Image.ToolTip>
+                    <ToolTip >
+                        <ToolTip.Style>
+                            <Style TargetType="{x:Type ToolTip}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding LastFlag}" Value="true">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding LastFlag}" Value="false">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Setter Property="Content" Value="Wpisz poprawne dane"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToolTip.Style>
+                    </ToolTip>
+                </Image.ToolTip>
             </Image>
 
             <TextBox Grid.Column="1" Grid.Row="2"  Width="125" Height="25" Text="{Binding Pesel, UpdateSourceTrigger=PropertyChanged}"/>
@@ -77,6 +111,23 @@
                         </Style.Triggers>
                     </Style>
                 </Image.Style>
+                <Image.ToolTip>
+                    <ToolTip >
+                        <ToolTip.Style>
+                            <Style TargetType="{x:Type ToolTip}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PesFlag}" Value="true">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding PesFlag}" Value="false">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Setter Property="Content" Value="Wpisz poprawne dane"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToolTip.Style>
+                    </ToolTip>
+                </Image.ToolTip>
             </Image>
 
 
@@ -109,7 +160,19 @@
         </GroupBox>
         <GroupBox Header="Niestandardowe Pola" Grid.Row="2">
             <ScrollViewer>
-                <ListBox DataContext="{Binding ListCustomField}" ItemsSource="{Binding}">
+                <ListBox DataContext="{Binding ListCustomField}" ItemsSource="{Binding}" MouseRightButtonDown="ListBox_MouseRightButtonDown">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />

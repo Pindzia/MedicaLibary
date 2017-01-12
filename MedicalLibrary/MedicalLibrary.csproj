@@ -166,6 +166,9 @@
     <Compile Include="View\Pages\ModificationPage.xaml.cs">
       <DependentUpon>ModificationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Pages\RulePage.xaml.cs">
+      <DependentUpon>RulePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -229,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Pages\ModificationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\RulePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

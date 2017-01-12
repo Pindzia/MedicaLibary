@@ -13,5 +13,10 @@ namespace MedicalLibrary.View.Windows
             InitializeComponent();
             DataContext = ViewModel;
         }
+
+        private void ListBox_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }
