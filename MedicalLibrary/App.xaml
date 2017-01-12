@@ -18,7 +18,7 @@
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml"/>
                 <!-- My Dictionaries -->
-                <ResourceDictionary Source="Themes/Header.xaml"/>
+                <ResourceDictionary Source="/Themes/Header.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

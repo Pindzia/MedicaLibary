@@ -41,7 +41,8 @@ namespace MedicalLibrary.View.Pages
 
         private void HighlightDay(CalendarDayButton button, DateTime date)
         {
-            if(viewModel.MyTime == date)
+            var compare = new DateTime(viewModel.MyTime.Year, viewModel.MyTime.Month, viewModel.MyTime.Day);
+            if(compare == date)
             {
                 button.Background = Brushes.LightBlue;
             }

@@ -9,7 +9,13 @@
       xml:lang="pl-PL"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="CalendarPage">
+      Title="CalendarPage"
+      x:Name="Page">
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceName="Page" EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>

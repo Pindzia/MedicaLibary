@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace MedicalLibrary.ViewModel.PagesViewModel
 {
@@ -13,11 +15,19 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
     {
         public CalendarPageViewModel()
         {
-            HighlightedDates = PrepareDate();
-
-            //dopisać updatery
+            LoadedCommand = new RelayCommand(pars => Load());
         }
 
+        private void Load()
+        {
+            UpdateData();
+        }
+
+        private void UpdateData()
+        {
+            HighlightedDates = PrepareHighlight();
+            Collection = PrepareAppointments();
+        }
 
         private Appointments _Collection = new Appointments();
         public Appointments Collection
@@ -61,7 +71,9 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
-        private ObservableCollection<DateTime> PrepareDate()
+        public ICommand LoadedCommand { get; set; }
+
+        private ObservableCollection<DateTime> PrepareHighlight()
         {
             ObservableCollection<DateTime> dates = new ObservableCollection<DateTime>();
             foreach(DateTime date in XElementon.Instance.Visit.UniqueDates())
@@ -70,6 +82,21 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 dates.Add(newDate);
             }
             return dates;
+        }
+
+        private Appointments PrepareAppointments()
+        {
+            Appointments collection = new Appointments();
+            Appointment appoint = new Appointment();
+            foreach(XElement visit in XElementon.Instance.Visit.Visits())
+            {
+                XElement startTime = visit.Element("visit_addition_date");
+                appoint.Subject = "Wizyta"+ visit.Element("comment").Value;
+                appoint.StartTime = (DateTime)startTime;
+                appoint.EndTime = appoint.StartTime.AddMinutes(16);
+                collection.Add(appoint);
+            }
+            return collection;
         }
 
     }

@@ -16,11 +16,11 @@
                             <TextBlock Text="Dodaj wizyte" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#A39DD8" />
                         </Border>
                     </Border>
-                    <ControlTemplate.Triggers>
+                    <!--<ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Opacity" Value="1" TargetName="hover" />
                         </Trigger>
-                    </ControlTemplate.Triggers>
+                    </ControlTemplate.Triggers>-->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
