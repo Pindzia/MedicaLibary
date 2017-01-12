@@ -123,7 +123,6 @@
     <Compile Include="Converters\XElementNodeNameConverter.cs" />
     <Compile Include="DTO\DaneModyfikacjiNoweDTO.cs" />
     <Compile Include="DTO\LekarzDTO.cs" />
-    <Compile Include="DTO\LekarzNowyDTO.cs" />
     <Compile Include="DTO\MagazynNowyDTO.cs" />
     <Compile Include="DTO\ModyfikacjaNowaDTO.cs" />
     <Compile Include="DTO\ObjectNewDTOs.cs" />
