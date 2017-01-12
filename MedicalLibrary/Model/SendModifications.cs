@@ -224,19 +224,19 @@ namespace MedicalLibrary.Model
                     {
                         zasada.id_magazynu = Convert.ToInt32((string)modyfikacja.Parent.Element("idm")); //Wololocode
                     }
-                    if (zmiana.Name == "fieldtype")
+                    if (zmiana.Name == "attribute")
                     {
                         zasada.nazwa_atrybutu = (string)zmiana;
                     }
-                    if (zmiana.Name == "attribute")
+                    if (zmiana.Name == "operation")
                     {
                         zasada.operacja_porownania = (string)zmiana;
                     }
-                    if (zmiana.Name == "operation") //NotImplemented
+                    if (zmiana.Name == "NotImplemented") //NotImplemented
                     {
                         //parametr.spelnialnosc_operacji = (string)zmiana; 
                     }
-                    if (zmiana.Name == "attribute")
+                    if (zmiana.Name == "value")
                     {
                         zasada.wartosc_porownania = (string)zmiana;
                     }

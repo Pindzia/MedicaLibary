@@ -56,7 +56,7 @@ namespace MedicaLibrary.Model
 
             if(time == "")
             {
-                time = DateTime.Now.ToString();
+                time = DateTimeOffset.Now.ToString();
             }
             
             //Autonumeracja ID

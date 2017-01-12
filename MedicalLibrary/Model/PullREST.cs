@@ -308,7 +308,7 @@ namespace MedicalLibrary.Model
             //CUSTOMFIELDS
             var renamedcustomfields =
             from l in IEParamList
-            select new XElement("patient",
+            select new XElement("customfield",
                 new XElement("idf", (string)l.Element("id")),
                 new XElement("fieldname", (string)l.Element("nazwa")),
                 new XElement("fieldtype", (string)l.Element("typ")),

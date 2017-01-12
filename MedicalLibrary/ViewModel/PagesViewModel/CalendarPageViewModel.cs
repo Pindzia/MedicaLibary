@@ -87,9 +87,10 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         private Appointments PrepareAppointments()
         {
             Appointments collection = new Appointments();
-            Appointment appoint = new Appointment();
+            
             foreach(XElement visit in XElementon.Instance.Visit.Visits())
             {
+                Appointment appoint = new Appointment();
                 XElement startTime = visit.Element("visit_addition_date");
                 appoint.Subject = "Wizyta"+ visit.Element("comment").Value;
                 appoint.StartTime = (DateTime)startTime;

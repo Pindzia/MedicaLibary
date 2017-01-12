@@ -15,11 +15,9 @@
         <id>1</id>
         <olddata>
           <imie>Jan</imie>
-          <wzrost>187</wzrost>
         </olddata>
         <newdata>
           <imie>Janin</imie>
-          <wzrost>192</wzrost>
         </newdata>
       </modification>
     </modifications>
@@ -44,7 +42,7 @@
         <priority>5</priority>
       </storehouse>
       <storehouse>
-        <ids>0</ids>
+        <ids>5000</ids>
         <name>DomyslnyMagazyn</name>
         <autonumeration>
           <max_envelope>0</max_envelope>
