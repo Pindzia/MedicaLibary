@@ -27,7 +27,6 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             LoadedCommand = new RelayCommand(pars => Load());
             LoadedCustomFields = new RelayCommand(pars => LoadCustomFields((DataGrid)pars));
             ClearSearch = new RelayCommand(pars => Clear());
-            QueryOptionList = XElementon.Instance.Patient.PatientAttributeList();
 
         }
 
@@ -168,6 +167,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 OnPropertyChanged("ColumnAdded");
             }
         }
+        private List<string> options = new List<string>() { "pesel", "storehouse", "envelope", "imie", "nazwisko", "idp" };
 
         public ICommand AddPatient { get; set; }
         public ICommand EditPatient { get; set; }
@@ -208,6 +208,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         private void UpdateData()
         {
             PatientList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Patients());
+            QueryOptionList = XElementon.Instance.Patient.PatientAttributeList();
             DeployData(PatientList);
         }
 
@@ -288,8 +289,11 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void Clear()
         {
+            var saveSelected = SelectedQuery;
             FindQuery = "";
             SelectedQuery = null;
+            if (!options.Contains(saveSelected))
+                UpdateDataAsync();
         }
 
         private void LoadCustomFields(DataGrid grid)

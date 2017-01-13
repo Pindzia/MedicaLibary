@@ -148,6 +148,7 @@
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\CustomControlsViewModel\CheckControlViewModel.cs" />
+    <Compile Include="ViewModel\CustomControlsViewModel\NumberControlViewModel.cs" />
     <Compile Include="ViewModel\CustomControlsViewModel\TextControlViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\CalendarPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\CustomFieldPageViewModel.cs" />
@@ -156,6 +157,9 @@
     <Compile Include="ViewModel\WindowsViewModel\AddEditCustomFieldViewModel.cs" />
     <Compile Include="View\CustomControls\CheckControl.xaml.cs">
       <DependentUpon>CheckControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomControls\NumberControl.xaml.cs">
+      <DependentUpon>NumberControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CustomControls\TextControl.xaml.cs">
       <DependentUpon>TextControl.xaml</DependentUpon>
@@ -220,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CustomControls\CheckControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CustomControls\NumberControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

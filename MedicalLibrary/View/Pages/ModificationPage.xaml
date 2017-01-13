@@ -16,7 +16,15 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Page.Resources>
-        <cnv:OperationConverter x:Key="Operation"/>
+        <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+            </Style>
+            <cnv:OperationConverter x:Key="Operation"/>
         <cnv:NodeConverter x:Key="Node"/>
         <cnv:ElementsConverter x:Key="Elements"/>
         <cnv:XElementNodeNameConverter x:Key="NodeName"/>

@@ -237,11 +237,19 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 {
                     case "CheckControlViewModel":
                         CheckControlViewModel checkModel = (CheckControlViewModel)control.DataContext;
-                        pacjent.Add(new XElement(checkModel.FieldName, checkModel.FieldValue));
+                        if(checkModel.IsChecked)
+                            pacjent.Add(new XElement(checkModel.FieldName, checkModel.FieldValue));
+
                         break;
                     case "TextControlViewModel":
                         TextControlViewModel textModel = (TextControlViewModel)control.DataContext;
-                        pacjent.Add(new XElement(textModel.FieldName, textModel.FieldValue));
+                        if(textModel.IsChecked)
+                            pacjent.Add(new XElement(textModel.FieldName, textModel.FieldValue));
+                        break;
+                    case "NumberControlViewModel":
+                        NumberControlViewModel numberModel = (NumberControlViewModel)control.DataContext;
+                        if(numberModel.IsChecked)
+                            pacjent.Add(new XElement(numberModel.FieldName, numberModel.FieldValue));
                         break;
                 }
             }
@@ -261,19 +269,24 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                     {
                         if (PesFlag)
                         {
-
-
-
-                            Patient = CreatePatient();
-
-
-                            if (SelectedAttribute != "")
+                            if(CheckCustom())
                             {
-                                Patient.Add(new XElement("storehouse", SelectedAttribute));
-                            }
+                                Patient = CreatePatient();
 
-                            window.DialogResult = true;
-                            window.Close();
+
+                                if (SelectedAttribute != "")
+                                {
+                                    Patient.Add(new XElement("storehouse", SelectedAttribute));
+                                }
+
+                                window.DialogResult = true;
+                                window.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Conajmniej jedno z niestandardowych pól jest źle uzupełnione");
+                            }
+                            
                         }
                         else
                         {
@@ -295,6 +308,35 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 MessageBox.Show("Imię jest za krótkie");
             }
+        }
+       
+
+        private bool CheckCustom()
+        {
+            bool IsGoodAll =true;
+            foreach (var control in ListCustomField)
+            {
+                switch (control.DataContext.GetType().Name)
+                {
+                    case "CheckControlViewModel":
+                        break;
+                    case "TextControlViewModel":
+                        TextControlViewModel textModel = (TextControlViewModel)control.DataContext;
+                        if (textModel.IsChecked)
+                            if (textModel.IsGood)
+                                IsGoodAll = false;
+                        break;
+                    case "NumberControlViewModel":
+                        NumberControlViewModel numberModel = (NumberControlViewModel)control.DataContext;
+                        if (numberModel.IsChecked)
+                            if (numberModel.IsGood)
+                                IsGoodAll = false;
+                        break;
+                }
+                if (!IsGoodAll)
+                    break;
+            }
+            return IsGoodAll;
         }
 
         private void Check()//rozszerz o listę customów nadpisywanie Patienta pomyślec czy to dobrze bangla TODOS
@@ -404,20 +446,27 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         private void DefineField(XElement field , string fieldValue = "")
         {
             string fieldName = field.Element("fieldname").Value;
+            bool IsChecked = true;
             if(fieldValue == "")
             {
                 fieldValue = field.Element("fielddefault").Value;
+                IsChecked = false;
             }
             switch (field.Element("fieldtype").Value)
             {
                 case "bool":
-                    CheckControl checkControl = new CheckControl(new CheckControlViewModel(fieldName, XmlConvert.ToBoolean(fieldValue)));
+                    CheckControl checkControl = new CheckControl(new CheckControlViewModel(fieldName, XmlConvert.ToBoolean(fieldValue),true,IsChecked));
                     ListCustomField.Add(checkControl);
                     break;
 
-                case "int":
-                    TextControl textControl = new TextControl(new TextControlViewModel(fieldName, fieldValue));
+                case "string":
+                    TextControl textControl = new TextControl(new TextControlViewModel(fieldName, fieldValue,true,IsChecked));
                     ListCustomField.Add(textControl);
+                    break;
+
+                case "int":
+                    NumberControl numberControl = new NumberControl(new NumberControlViewModel(fieldName, fieldValue, true, IsChecked));
+                    ListCustomField.Add(numberControl);
                     break;
             }
         }

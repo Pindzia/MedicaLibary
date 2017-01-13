@@ -158,12 +158,17 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 switch (field.Element("fieldtype").Value)
                 {
                     case "bool":
-                        CheckControl checkControl = new CheckControl(new CheckControlViewModel(fieldName, XmlConvert.ToBoolean(fieldValue)));
+                        CheckControl checkControl = new CheckControl(new CheckControlViewModel(fieldName, XmlConvert.ToBoolean(fieldValue), false));
                         ItemPreview.Add(checkControl);
                         break;
 
                     case "int":
-                        TextControl textControl = new TextControl(new TextControlViewModel(fieldName, fieldValue));
+                        NumberControl numberControl = new NumberControl(new NumberControlViewModel(fieldName, fieldValue,false));
+                        ItemPreview.Add(numberControl);
+                        break;
+
+                    case "string":
+                        TextControl textControl = new TextControl(new TextControlViewModel(fieldName, fieldValue, false));
                         ItemPreview.Add(textControl);
                         break;
                 }

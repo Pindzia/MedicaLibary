@@ -6,10 +6,22 @@
              xmlns:local="clr-namespace:MedicalLibrary.View.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="120">
-    <Grid Height="25" Width="300">
-        <DockPanel Width="300">
-            <TextBlock Text="{Binding FieldName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <CheckBox IsChecked="{Binding FieldValue}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        </DockPanel>
+
+
+    <Grid Height="50" HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox IsEnabled ="{Binding IsEnabled}" HorizontalContentAlignment="Stretch">
+            <GroupBox.Header>
+                <CheckBox IsChecked="{Binding IsChecked}" Content="Zapisz wartość"/>
+            </GroupBox.Header>
+            <Grid IsEnabled="{Binding IsChecked}">
+                <DockPanel HorizontalAlignment="Stretch">
+                    <TextBlock Text="{Binding FieldName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding FieldValue}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </DockPanel>
+            </Grid>
+        </GroupBox>
     </Grid>
 </UserControl>

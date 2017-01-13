@@ -10,11 +10,24 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="CustomFieldPage">
 
+
+    <Page.Resources>
+        <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceName="Page" EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
+    
 
     <Grid>
         <Grid.RowDefinitions>
@@ -44,7 +57,18 @@
             <GroupBox Grid.Column="1" Header="Podgląd">
                 <ListBox DataContext="{Binding ItemPreview}"
                          ItemsSource="{Binding}">
-                    
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                 </ListBox>
             </GroupBox>
         </Grid>

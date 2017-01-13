@@ -8,20 +8,21 @@ using System.Threading.Tasks;
 
 namespace MedicalLibrary.ViewModel.CustomControlsViewModel
 {
-    public class TextControlViewModel : BaseViewModel
+    public class NumberControlViewModel : BaseViewModel
     {
-        public TextControlViewModel()
+        public NumberControlViewModel()
         {
 
         }
 
-        public TextControlViewModel(string fieldName, string textValue, bool enabled, bool check = false)
+        public NumberControlViewModel(string name, string value, bool enabled, bool check = false)
         {
             IsEnabled = enabled;
             IsChecked = check;
-            FieldName = fieldName;
-            FieldValue = textValue;
+            FieldName = name;
+            FieldValue = value;
         }
+
 
         private string _FieldName = "";
         public string FieldName
@@ -37,7 +38,7 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
             }
         }
 
-        private string _FieldValue = "";
+        private string _FieldValue ="";
         public string FieldValue
         {
             get
@@ -47,7 +48,7 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
             set
             {
                 _FieldValue = value;
-                Regex regex = new Regex("[a-zA-Z0-9_]+");
+                Regex regex = new Regex("-?[0-9,]+");
                 IsGood = (!regex.IsMatch(FieldValue)) ? true : false;
                 OnPropertyChanged("FieldValue");
             }
@@ -94,5 +95,6 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
                 OnPropertyChanged("IsGood");
             }
         }
+
     }
 }

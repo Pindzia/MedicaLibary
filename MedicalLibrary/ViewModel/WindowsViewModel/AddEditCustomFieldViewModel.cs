@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -29,18 +30,22 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             CustomField = EditCustomField;
             FieldName = CustomField.Element("fieldname").Value;
             SelectedType = CustomField.Element("fieldtype").Value;
-            if(SelectedType == "int")
+            switch(SelectedType)
             {
-                TextDefault = CustomField.Element("fielddefault").Value;
-            }
-            else
-            {
-                CheckDefault = XmlConvert.ToBoolean(CustomField.Element("fielddefault").Value);
+                case "int":
+                    NumberDefault = CustomField.Element("fielddefault").Value;
+                    break;
+                case "bool":
+                    CheckDefault = XmlConvert.ToBoolean(CustomField.Element("fielddefault").Value);
+                    break;
+                case "string":
+                    TextDefault = CustomField.Element("fielddefault").Value;
+                    break;
             }
 
         }
 
-        private List<string> _ListTypes = new List<string>() {"bool","int"};
+        private List<string> _ListTypes = new List<string>() {"bool","int","string"};
         public List<string> ListTypes
         {
             get
@@ -107,7 +112,53 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _TextDefault = value;
+                Regex regex = new Regex("[a-zA-Z0-9_]+");
+                IsGoodText = (!regex.IsMatch(_TextDefault)) ? true : false;
                 OnPropertyChanged("TextDefault");
+            }
+        }
+
+        private string _NumberDefault = "";
+        public string NumberDefault
+        {
+            get
+            {
+                return _NumberDefault;
+            }
+            set
+            {
+                _NumberDefault = value;
+                Regex regex = new Regex("-?[0-9,]+");
+                IsGoodNum = (!regex.IsMatch(_NumberDefault)) ? true : false;
+                OnPropertyChanged("NumberDefault");
+            }
+        }
+
+        private bool _IsGoodNum = false;
+        public bool IsGoodNum
+        {
+            get
+            {
+                return _IsGoodNum;
+            }
+            set
+            {
+                _IsGoodNum = value;
+                OnPropertyChanged(nameof(IsGoodNum));
+            }
+        }
+
+        private bool _IsGoodText = false;
+        public bool IsGoodText
+        {
+            get
+            {
+                return _IsGoodText;
+            }
+            set
+            {
+                _IsGoodText = value;
+                OnPropertyChanged(nameof(IsGoodText));
             }
         }
 
@@ -139,6 +190,20 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
+        private Visibility _NumberVisibility = Visibility.Visible;
+        public Visibility NumberVisibility
+        {
+            get
+            {
+                return _NumberVisibility;
+            }
+            set
+            {
+                _NumberVisibility = value;
+                OnPropertyChanged("NumberVisibility");
+            }
+        }
+
         private XElement _CustomField = null;
         public XElement CustomField
         {
@@ -158,47 +223,81 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void Save(AddEditCustomFieldWindow window)
         {
-            if(CustomField != null)
+            Tuple<string, string> a = new Tuple<string, string>("fieldname", FieldName);
+            Tuple<string, string> b = new Tuple<string, string>("fieldtype", SelectedType);
+            Tuple<string, string> c =new Tuple<string, string>("","");
+
+            switch (SelectedType)
             {
-                Tuple<string, string> a = new Tuple<string, string>("fieldname", FieldName);
-                Tuple<string, string> b = new Tuple<string, string>("fieldtype", SelectedType);
-                Tuple<string, string> c;
-                if (SelectedType == "int")
-                {
-                    c = new Tuple<string, string>("fielddefault", TextDefault);
-                }
-                else
-                {
+                case "int":
+                    c = new Tuple<string, string>("fielddefault", NumberDefault);
+                    break;
+                case "bool":
                     c = new Tuple<string, string>("fielddefault", XmlConvert.ToString(CheckDefault));
+                    break;
+                case "string":
+                    c = new Tuple<string, string>("fielddefault", TextDefault);
+                    break;
+            }
+
+            Tuple<string, string>[] newField = { a, b, c };
+
+            if (CustomField !=null)
+            {
+                switch(SelectedType)
+                {
+                    case "int":
+                        if(!IsGoodNum)
+                        {
+                            XElementon.Instance.Field.Change((int)CustomField.Element("idf"), newField);
+                            window.DialogResult = true;
+                            window.Close();
+                        }
+                        break;
+                    case "bool":
+                        XElementon.Instance.Field.Change((int)CustomField.Element("idf"), newField);
+                        window.DialogResult = true;
+                        window.Close();
+                        break;
+                    case "string":
+                        if (!IsGoodText)
+                        {
+                            XElementon.Instance.Field.Change((int)CustomField.Element("idf"), newField);
+                            window.DialogResult = true;
+                            window.Close();
+                        }
+                        break;
                 }
-
-                Tuple<string, string>[] randomvisit = { a, b, c };
-
-                XElementon.Instance.Field.Change((int)CustomField.Element("idf"),randomvisit);
-                window.DialogResult = true;
-                window.Close();
             }
             else
             {
-                Tuple<string, string> a = new Tuple<string, string>("fieldname", FieldName);
-                Tuple<string, string> b = new Tuple<string, string>("fieldtype", SelectedType);
-                Tuple<string, string> c;
-                if (SelectedType == "int")
+                switch (SelectedType)
                 {
-                    c = new Tuple<string, string>("fielddefault", TextDefault);
+                    case "int":
+                        if (!IsGoodNum)
+                        {
+                            XElementon.Instance.Field.Add(newField);
+                            window.DialogResult = true;
+                            window.Close();
+                        }
+                        break;
+                    case "bool":
+                        XElementon.Instance.Field.Add(newField);
+                        window.DialogResult = true;
+                        window.Close();
+                        break;
+                    case "string":
+                        if (!IsGoodText)
+                        {
+                            XElementon.Instance.Field.Add(newField);
+                            window.DialogResult = true;
+                            window.Close();
+                        }
+                        break;
                 }
-                else
-                {
-                    c = new Tuple<string, string>("fielddefault", XmlConvert.ToString(CheckDefault));
-                }
-
-                Tuple<string, string>[] randomvisit = { a, b, c };
-
-                XElementon.Instance.Field.Add(randomvisit);
-                window.DialogResult = true;
-                window.Close();
             }
         }
+
 
         private void Cancel(AddEditCustomFieldWindow window)
         {
@@ -211,13 +310,25 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             switch(SelectedType)
             {
+
                 case "int":
+                    NumberVisibility = Visibility.Visible;
+                    CheckVisibility = Visibility.Hidden;
+                    TextVisibility = Visibility.Hidden;
+                    TextDefault = "";
+                    break;
+                case "string":
+                    NumberVisibility = Visibility.Hidden;
                     CheckVisibility = Visibility.Hidden;
                     TextVisibility = Visibility.Visible;
+                    NumberDefault = "";
                     break;
                 case "bool":
+                    NumberVisibility = Visibility.Hidden;
                     CheckVisibility = Visibility.Visible;
                     TextVisibility = Visibility.Hidden;
+                    NumberDefault = "";
+                    TextDefault = "";
                     break;
             }
         }
