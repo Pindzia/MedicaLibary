@@ -10,7 +10,7 @@ namespace MedicalLibrary.Model
 {
     public class SendModifications
     {
-        public async void SendAll(int idLekarz)
+        public async void SendAll(int idLekarz, string pass)
         {
             //PushREST sender = new PushREST();
             PushREST.SetClient();
@@ -18,10 +18,10 @@ namespace MedicalLibrary.Model
             // Nowa wersja
             WersjToSendDTO obj = new WersjToSendDTO();
             string uri = "/wersja/" + idLekarz.ToString() + "/nowa";
-            await PushREST.UniversalPost(obj, uri);
+            await PushREST.UniversalPost(obj, uri,idLekarz,pass);
 
             // Max id wersji = najnowasza wersja
-            List<WersjaNowaDTO> lista = await PushREST.WersjaGET(idLekarz);
+            List<WersjaNowaDTO> lista = await PushREST.WersjaGET(idLekarz,pass);
             int ver = lista.Max(e => e.id);
 
             // foreach modyfikacje :v
@@ -38,9 +38,9 @@ namespace MedicalLibrary.Model
                 };
 
                 uri = "/modyfikacja/" + idLekarz.ToString() + "/nowa";
-                await PushREST.UniversalPost(mod, uri);
+                await PushREST.UniversalPost(mod, uri, idLekarz, pass);
 
-                List<ModyfikacjaNowaDTO> modList = await PushREST.ModyfikacjeWszystkieGet(idLekarz);
+                List<ModyfikacjaNowaDTO> modList = await PushREST.ModyfikacjeWszystkieGet(idLekarz,pass);
                 int modId = modList.Max(e => e.id);
 
 
@@ -64,11 +64,11 @@ namespace MedicalLibrary.Model
 
                 //Wszystko poza modyfiakcjami
                 if (typoperacji == "A")
-                    SendA(modyfikacja, typdanych, idLekarz);
+                    SendA(modyfikacja, typdanych, idLekarz,pass);
                 if (typoperacji == "E")
-                    SendE(modyfikacja, typdanych, idLekarz);
+                    SendE(modyfikacja, typdanych, idLekarz,pass);
                 if (typoperacji == "D")
-                    SendD(modyfikacja, typdanych, idLekarz);
+                    SendD(modyfikacja, typdanych, idLekarz,pass);
 
                 //Wszystkie Modyfikacje
                 for (int i = 0; i < x; i++)
@@ -91,13 +91,13 @@ namespace MedicalLibrary.Model
                         nowa_wartosc = (string)modyfikacja.Element("newdata").Elements().ElementAtOrDefault(i)
                     };
                     uri = "/danemodyfikacji/" + idLekarz.ToString() + "/nowy";
-                    await PushREST.UniversalPost(daneMod, uri);
+                    await PushREST.UniversalPost(daneMod, uri, idLekarz, pass);
                 }
             }
             MedicaLibrary.Model.XElementon.Instance.Modification.Clean();
         }
 
-        private async void SendA(XElement modyfikacja, string typdanych, int idLekarz)
+        private async void SendA(XElement modyfikacja, string typdanych, int idLekarz, string pass)
         {
             if (typdanych == "patient") //Pacjenci
             {
@@ -146,12 +146,12 @@ namespace MedicalLibrary.Model
                 }
                 
                 string uri = "/pacjent/" + idLekarz.ToString() + "/nowy";
-                await PushREST.UniversalPost(pacjent, uri);
+                await PushREST.UniversalPost(pacjent, uri, idLekarz, pass);
 
                 while (listaprzypisan.Any())
                 {
                     uri = "/przypisanie/" + idLekarz.ToString() + "/nowy";
-                    await PushREST.UniversalPost(listaprzypisan[0], uri);
+                    await PushREST.UniversalPost(listaprzypisan[0], uri, idLekarz, pass);
                     listaprzypisan.RemoveAt(0);
                 }
 
@@ -178,7 +178,7 @@ namespace MedicalLibrary.Model
                 }
 
                 string uri = "/wizyta/" + idLekarz.ToString() + "/nowa";
-                await PushREST.UniversalPost(wizyta, uri);
+                await PushREST.UniversalPost(wizyta, uri, idLekarz, pass);
             }
             else if (typdanych == "storehouse") //Magazyny
             {
@@ -199,7 +199,7 @@ namespace MedicalLibrary.Model
                     }
                 }
                 string uri = "/magazyn/" + idLekarz.ToString() + "/nowy";
-                await PushREST.UniversalPost(magazyn, uri);
+                await PushREST.UniversalPost(magazyn, uri, idLekarz, pass);
             }
             else if (typdanych == "rule") //Zasady
             {
@@ -225,7 +225,7 @@ namespace MedicalLibrary.Model
                     }
                 }
                 string uri = "/zasada/" + idLekarz.ToString() + "/nowy";
-                await PushREST.UniversalPost(zasada, uri);
+                await PushREST.UniversalPost(zasada, uri, idLekarz, pass);
             }
             else if (typdanych == "field") //Pola
             {
@@ -246,11 +246,11 @@ namespace MedicalLibrary.Model
                     }
                 }
                 string uri = "/parametr/" + idLekarz.ToString() + "/nowy";
-                await PushREST.UniversalPost(parametr, uri);
+                await PushREST.UniversalPost(parametr, uri, idLekarz, pass);
             }
         }
 
-        private async void SendE(XElement modyfikacja, string typdanych, int idLekarz)
+        private async void SendE(XElement modyfikacja, string typdanych, int idLekarz, string pass)
         {
             if (typdanych == "patient") //Pacjenci
             {
@@ -300,7 +300,7 @@ namespace MedicalLibrary.Model
                             temp.id_pacjent = przypisanie.id_pacjent;
                             temp.id_parametr = przypisanie.id_parametr;
                             temp.wartosc = null;
-                            przypisanie.id = await PushREST.PrzypisanieID(temp, idLekarz);
+                            przypisanie.id = await PushREST.PrzypisanieID(temp, idLekarz,pass);
                             listaprzypisan.Add(przypisanie);
                         }
                         catch (InvalidOperationException)
@@ -315,17 +315,17 @@ namespace MedicalLibrary.Model
                     }
                 }
                 pacjent.id = (int)modyfikacja.Element("id");
-                await PushREST.PacjentPut(pacjent, idLekarz);
+                await PushREST.PacjentPut(pacjent, idLekarz,pass);
                 
                 while (listaprzypisan.Any())
                 {
-                    await PushREST.PrzypisanieParametruPut(listaprzypisan[0], idLekarz);
+                    await PushREST.PrzypisanieParametruPut(listaprzypisan[0], idLekarz,pass);
                     listaprzypisan.RemoveAt(0);
                 }
                 while (listaprzypisan2.Any())
                 {
                     string uri = "/przypisanie/" + idLekarz.ToString() + "/nowy";
-                    await PushREST.UniversalPost(listaprzypisan2[0], uri);
+                    await PushREST.UniversalPost(listaprzypisan2[0], uri, idLekarz, pass);
                     listaprzypisan2.RemoveAt(0);
                 }
                 
@@ -351,7 +351,7 @@ namespace MedicalLibrary.Model
                     }
                 }
                 wizyta.id = (int) modyfikacja.Element("id");
-                await PushREST.WizytaPut(wizyta, idLekarz);
+                await PushREST.WizytaPut(wizyta, idLekarz,pass);
             }
             else if (typdanych == "storehouse") //Magazyny
             {
@@ -372,7 +372,7 @@ namespace MedicalLibrary.Model
                     }
                 }
                 magazyn.id = (int)modyfikacja.Element("id");
-                await PushREST.MagazynPut(magazyn, idLekarz);
+                await PushREST.MagazynPut(magazyn, idLekarz,pass);
             }
             else if (typdanych == "rule") //Zasady
             {
@@ -398,7 +398,7 @@ namespace MedicalLibrary.Model
                     }
                 }
                 zasada.id = (int) modyfikacja.Element("id");
-                await PushREST.ZasadaPut(zasada, idLekarz);
+                await PushREST.ZasadaPut(zasada, idLekarz,pass);
             }
             else if (typdanych == "field") //Pola
             {
@@ -419,11 +419,11 @@ namespace MedicalLibrary.Model
                     }
                 }
                 parametr.id = (int) modyfikacja.Element("id");
-                await PushREST.ParametrPut(parametr, idLekarz);
+                await PushREST.ParametrPut(parametr, idLekarz,pass);
             }
         }
 
-        private async void SendD(XElement modyfikacja, string typdanych, int idLekarz)
+        private async void SendD(XElement modyfikacja, string typdanych, int idLekarz,string pass)
         {
             if (typdanych == "patient") //Pacjenci
             {
@@ -431,70 +431,70 @@ namespace MedicalLibrary.Model
 
                 //przypisania pacjenta do usuniecia
                 List<Przypisanie_ParametruNowyDTO> list = new List<Przypisanie_ParametruNowyDTO>();
-                list = await PushREST.PrzypisanieParametruWszystkieGET(idLekarz);
+                list = await PushREST.PrzypisanieParametruWszystkieGET(idLekarz,pass);
                 var list2 = list.Where(e=>e.id_pacjent == idp).Select(e => e.id);
                 foreach (var a in list2)
                 {
-                    await PushREST.PrzypisanieParametruDelete(idLekarz, a);
+                    await PushREST.PrzypisanieParametruDelete(idLekarz, a,pass);
                 }
                 list2 = null;
                 List<WizytaNowaDTO> wizyty = new List<WizytaNowaDTO>();
-                wizyty = await PushREST.WizytaWszystkieGET(idLekarz);
+                wizyty = await PushREST.WizytaWszystkieGET(idLekarz,pass);
                 list2 = wizyty.Where(e => e.id_pacjent == idp).Select(e => e.id);
                 foreach (var a in list2)
                 {
-                    await PushREST.WizytaDelete(idLekarz, a);
+                    await PushREST.WizytaDelete(idLekarz, a,pass);
                 }
-                await PushREST.PacjentDelete(idLekarz, idp);
+                await PushREST.PacjentDelete(idLekarz, idp,pass);
             }
 
             else if (typdanych == "visit") //Wizyty
             {
                 var idp = (int) modyfikacja.Element("id");
-                await PushREST.WizytaDelete(idLekarz, idp);
+                await PushREST.WizytaDelete(idLekarz, idp,pass);
             }
             else if (typdanych == "storehouse") //Magazyny
             {
                 var idp = (int) modyfikacja.Element("id");
                 //zasady
                 List<ZasadaNowaDTO> list = new List<ZasadaNowaDTO>();
-                list = await PushREST.ZasadaWszystkieGET(idLekarz);
+                list = await PushREST.ZasadaWszystkieGET(idLekarz,pass);
                 var list2 = list.Where(e => e.id_magazynu == idp).Select(e => e.id);
                 foreach (var a in list2)
                 {
-                    await PushREST.ZasadaDelete(idLekarz, a);
+                    await PushREST.ZasadaDelete(idLekarz, a,pass);
                 }
                 //pacjenci
                 List<PacjentNowyDTO> pacjenci = new List<PacjentNowyDTO>();
-                pacjenci = await PushREST.PacjentWszyscyGET(idLekarz);
+                pacjenci = await PushREST.PacjentWszyscyGET(idLekarz,pass);
                 foreach (var a in pacjenci)
                 {
                     if (a.id_magazyn == idp)
                     {
                         a.id_magazyn = 1;
-                        await PushREST.PacjentPut(a, idLekarz);
+                        await PushREST.PacjentPut(a, idLekarz,pass);
                     }
                 }
-                await PushREST.MagazynDelete(idLekarz, idp);
+                await PushREST.MagazynDelete(idLekarz, idp,pass);
             }
             else if (typdanych == "rule") //Zasady
             {
                 var idp = (int) modyfikacja.Element("id");
-                await PushREST.ZasadaDelete(idLekarz, idp);
+                await PushREST.ZasadaDelete(idLekarz, idp,pass);
             }
             else if (typdanych == "field") //Pola
             {
                 var idp = (int) modyfikacja.Element("id");
                 // usuwanie przypisan tego czegos
                 List<Przypisanie_ParametruNowyDTO> list = new List<Przypisanie_ParametruNowyDTO>();
-                list = await PushREST.PrzypisanieParametruWszystkieGET(idLekarz);
+                list = await PushREST.PrzypisanieParametruWszystkieGET(idLekarz,pass);
                 var list2 = list.Where(e => e.id_parametr == idp).Select(e => e.id);
                 foreach (var a in list2)
                 {
-                    await PushREST.PrzypisanieParametruDelete(idLekarz, a);
+                    await PushREST.PrzypisanieParametruDelete(idLekarz, a,pass);
                 }
 
-                await PushREST.ParametrDelete(idLekarz, idp);
+                await PushREST.ParametrDelete(idLekarz, idp,pass);
             }
         }
     }
