@@ -92,16 +92,23 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         private void Push()
         {
             System.Windows.MessageBox.Show("Wysyłanie modyfikacji na serwer w toku...");
-            XElementon.Instance.SendModifications.SendAll(1); //TODO ID-lekarz
-            System.Windows.MessageBox.Show("Modyfikacje wysłane!");
+            XElementon.Instance.SendModifications.SendAll(1, "string"); //TODO ID-lekarz TODO-pass
+            
         }
 
         private async void Pull()
         {
             System.Windows.MessageBox.Show("Pobieranie danch w toku...");
-            var x = await PullREST.Pull();
-            XElementon.Instance.setDatabase(x);
-            System.Windows.MessageBox.Show("Dane pobrane!");
+            var x = await PullREST.Pull(1, "string"); //TODO ID-lekarz TODO-pass;
+            if(x != null)
+            {
+                XElementon.Instance.setDatabase(x);
+                System.Windows.MessageBox.Show("Dane pobrane!");
+            } else
+            {
+                System.Windows.MessageBox.Show("Błędne hasło!");
+            }
+            
         }
     }
 }

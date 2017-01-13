@@ -14,11 +14,20 @@ namespace MedicalLibrary.Model
 {
     public class PullREST
     {
-        public static async Task<XElement> Pull()
+        public static async Task<XElement> Pull(int idLekarz, string pass) //TODO ID-lekarz TODO-pass)
         {
+            PushREST.SetClient();
+
+            if (await PushREST.LoggedIn(1, pass) == false) //fix
+            {
+                return null;
+            }
+
+
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://medicalibaryrest.azurewebsites.net");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+
 
             XElement Patients = null;
             XElement Visits = null;

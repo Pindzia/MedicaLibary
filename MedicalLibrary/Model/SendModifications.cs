@@ -15,10 +15,17 @@ namespace MedicalLibrary.Model
             //PushREST sender = new PushREST();
             PushREST.SetClient();
 
+            if (await PushREST.LoggedIn(1, pass) == false) //fix
+            {
+                System.Windows.MessageBox.Show("Błędne hasło!");
+                return;
+            }
+
             // Nowa wersja
             WersjToSendDTO obj = new WersjToSendDTO();
             string uri = "/wersja/" + idLekarz.ToString() + "/nowa";
             await PushREST.UniversalPost(obj, uri,idLekarz,pass);
+
 
             // Max id wersji = najnowasza wersja
             List<WersjaNowaDTO> lista = await PushREST.WersjaGET(idLekarz,pass);
@@ -95,6 +102,7 @@ namespace MedicalLibrary.Model
                 }
             }
             MedicaLibrary.Model.XElementon.Instance.Modification.Clean();
+            System.Windows.MessageBox.Show("Modyfikacje wysłane!");
         }
 
         private async void SendA(XElement modyfikacja, string typdanych, int idLekarz, string pass)

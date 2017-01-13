@@ -571,9 +571,9 @@ namespace MedicaLibrary.Model
 
             //Customfields
 
-            if (XElementon.Instance.Field.Fields().Count() <= 8 && true)
+            if (XElementon.Instance.Field.Fields().Count() <= 3 && true)
             {
-                for (int i = 0; i <= 2; i++) //8
+                for (int i = 0; i <= 3; i++) //8
                 {
                     Tuple<string, string> a = new Tuple<string, string>("fieldname", listanazwfield[i]);
                     Tuple<string, string> b = new Tuple<string, string>("fieldtype", "int");

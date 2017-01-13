@@ -18,6 +18,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <CheckBox Content="Potwierdzaj Reverty" IsChecked="{Binding RevertConfirmation}" HorizontalAlignment="Center"/>
         <Button Grid.Row="1" Content="Debug Method Caller" Command="{Binding AddSomeToDatabase}" Width="150" Height="25"/>
@@ -26,6 +27,6 @@
         <Button Grid.Row="4" Content="Dodaj Mass Data" Command="{Binding AddALotToDatabase}" Width="150" Height="25"/>
         <Button Grid.Row="5" Content="Wyczyść Modyfikacje" Command="{Binding CleanModifications}" Width="150" Height="25"/>
         <Button Grid.Row="6" Content="Wyślij Modyfikacje" Command="{Binding PushModifications}" Width="150" Height="25"/>
-        <Button Grid.Row="7" Content="Ściągnij Bazę Danych" Command="{Binding PullDatabase}" Width="150" Height="25"/>
+        <Button Grid.Row="8" Content="Ściągnij Bazę Danych" Command="{Binding PullDatabase}" Width="150" Height="25"/>
     </Grid>
 </Page>
