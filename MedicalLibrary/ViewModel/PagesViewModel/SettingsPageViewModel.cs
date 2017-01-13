@@ -14,6 +14,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         public SettingsPageViewModel()
         {
             AddSomeToDatabase = new RelayCommand(pars => AddSome());
+            SaveEncryptedDatabase = new RelayCommand(pars => SaveEncrypted());
+            LoadEncryptedDatabase = new RelayCommand(pars => LoadEncrypted());
             AddALotToDatabase = new RelayCommand(pars => AddALot());
             CleanModifications = new RelayCommand(pars => Clean());
             PushModifications = new RelayCommand(pars => Push());
@@ -36,6 +38,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         }
 
         public ICommand AddSomeToDatabase { get; set; }
+        public ICommand SaveEncryptedDatabase { get; set; }
+        public ICommand LoadEncryptedDatabase { get; set; }
         public ICommand AddALotToDatabase { get; set; }
         public ICommand CleanModifications { get; set; }
         public ICommand PushModifications { get; set; }
@@ -51,17 +55,28 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             //return;
             if (toggle)
             {
-                XElementon.Instance.SetKey("test567890123456");
+                
                 XElementon.Instance.SaveEncrypted();
                 toggle = false;
             }
             else
             {
-                XElementon.Instance.SetKey("test567890123456");
+                
                 XElementon.Instance.LoadEncrypted();
                 toggle = true;
             }
+        }
 
+        private void SaveEncrypted()
+        {
+            XElementon.Instance.SetKey("test567890123456");
+            XElementon.Instance.SaveEncrypted();
+        }
+
+        private void LoadEncrypted()
+        {
+            XElementon.Instance.SetKey("test567890123456");
+            XElementon.Instance.LoadEncrypted();
         }
 
         private void AddALot()
