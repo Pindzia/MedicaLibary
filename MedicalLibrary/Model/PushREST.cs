@@ -842,5 +842,16 @@ namespace MedicalLibrary.Model
 
             return idl;
         }
+
+        public static async Task<int> MaxWersja(int lid, string pass)
+        {
+            if (await LoggedIn(lid, pass))
+            {
+                var lista = await WersjaGET(lid, pass);
+                var max = lista.Max(e => e.id);
+                return max;
+            }
+            return 0;
+        }
     }
 }
