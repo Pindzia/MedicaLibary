@@ -165,9 +165,13 @@ namespace MedicaLibrary.Model
         public XElement MergeModifications(XElement modification)
         {
 
+            //return modification;
+
             //Merge Edits to Additions
 
-            var Additions = this.Modifications().Where(x => (string)x.Element("operation") == "A"
+            var Additions = this.Modifications().Where(x => (string)x.Element("idm") != (string)modification.Element("idm")
+                                                    && (string)x.Element("operation") == "A"
+                                                    && (string)modification.Element("operation") == "E"
                                                     && (string)x.Element("node_type") == (string)modification.Element("node_type")
                                                     && (string)x.Element("id") == (string)modification.Element("id"));
             if (Additions.Any())
@@ -180,7 +184,9 @@ namespace MedicaLibrary.Model
             }
 
             //Merge Edits to other Edits
-            var Duplicates = this.Modifications().Where(x => (string)x.Element("operation") == "E" 
+            var Duplicates = this.Modifications().Where(x => (string)x.Element("idm") != (string)modification.Element("idm")
+                                                        && (string)x.Element("operation") == "E"
+                                                        && (string)modification.Element("operation") == "E"
                                                         && (string)x.Element("node_type") == (string)modification.Element("node_type") 
                                                         && (string)x.Element("id") == (string)modification.Element("id"));
             Duplicates.Reverse();
@@ -237,24 +243,31 @@ namespace MedicaLibrary.Model
 
         public XElement ClearModificationsAfterDelete(XElement modification)
         {
-            var obsolete = this.Modifications().Where(x => (string)x.Element("operation") == "A"
+
+            //return modification;
+
+            var obsolete = this.Modifications().Where(x => (string)x.Element("idm") != (string)modification.Element("idm")
+                                        && (string)x.Element("operation") == "A"
                                        && (string)x.Element("node_type") == (string)modification.Element("node_type") 
                                        && (string)x.Element("id") == (string)modification.Element("id"));
 
-            var obsolete2 = this.Modifications().Where(x => (string)x.Element("operation") == "E"
+            var obsolete2 = this.Modifications().Where(x => (string)x.Element("idm") != (string)modification.Element("idm")
+                           && (string)x.Element("operation") == "E"
                            && (string)x.Element("node_type") == (string)modification.Element("node_type")
                            && (string)x.Element("id") == (string)modification.Element("id"));
 
             if (true)
             {
-                var obsolete3 = this.Modifications().Where(x => (string)x.Element("operation") == "A" 
-                                           || (string)x.Element("operation") == "E"
+                var obsolete3 = this.Modifications().Where(x => (string)x.Element("idm") != (string)modification.Element("idm")
+                                           && ((string)x.Element("operation") == "A" 
+                                           || (string)x.Element("operation") == "E")
                                            && (string)modification.Element("node_type") == "patient"
                                            && (string)x.Element("node_type") == "visit"
                                            && (string)x.Element("id") == (string)modification.Element("id"));
 
-                var obsolete4 = this.Modifications().Where(x => (string)x.Element("operation") == "A"
-                               || (string)x.Element("operation") == "E"
+                var obsolete4 = this.Modifications().Where(x => (string)x.Element("idm") != (string)modification.Element("idm") 
+                               && ((string)x.Element("operation") == "A"
+                               || (string)x.Element("operation") == "E")
                                && (string)modification.Element("node_type") == "storehouse"
                                && (string)x.Element("node_type") == "rule"
                                && (string)x.Element("id") == (string)modification.Element("id"));
@@ -270,16 +283,18 @@ namespace MedicaLibrary.Model
                 }
             }
 
-            if (obsolete2.Any())
+            while (obsolete2.Any())
             {
                 modification.Element("olddata").Remove();
                 modification.Add(obsolete2.First().Element("olddata"));
                 obsolete2.Remove();
             }
 
-            if (obsolete.Any())
+            var obsoletelist = obsolete.ToList();
+            while (obsoletelist.Any())
             {
-                obsolete.Remove();
+                XElementon.Instance.Modification.RevertX((int)obsoletelist[0].Element("idm"));
+                obsoletelist.RemoveAt(0);
                 return null;
             }
 

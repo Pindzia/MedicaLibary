@@ -86,6 +86,11 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void Clean()
         {
+            while (XElementon.Instance.Modification.Modifications().Any())
+            {
+                var a = XElementon.Instance.Modification.Modifications().First();
+                XElementon.Instance.Modification.RevertX((int)a.Element("idm"));
+            }
             //XElementon.Instance.Modification.Clean();
         }
 

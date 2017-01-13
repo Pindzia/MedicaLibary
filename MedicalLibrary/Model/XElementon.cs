@@ -484,15 +484,15 @@ namespace MedicaLibrary.Model
                 mdpamodification.Add(olddata);
                 mdpamodification.Add(new XElement("newdata"));
 
-
-                mdpamodification = XElementon.Instance.Modification.ClearModificationsAfterDelete(mdpamodification);
+            modify.Remove();
+            mdpamodification = XElementon.Instance.Modification.ClearModificationsAfterDelete(mdpamodification);
 
             if (log)
             {
                 database.Descendants("modifications").First().Add(mdpamodification);
             }
             
-            modify.Remove();
+            
         }
 
         //HAXY na potrzeby MagazinePageViewModel
