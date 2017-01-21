@@ -21,6 +21,18 @@ namespace MedicaLibrary.Model
             return rule;
         }
 
+        //Wyświetl zasadę o podanym ids
+        public IEnumerable<XElement> WithIDS(int ids)
+        {
+            var sprule = from qmeta in database.Elements("meta")
+                         from qstorehouses in qmeta.Elements("storehouses") //zmieniamy z bezpośrednio storehouse do storehouse -> storehouses
+                         from qstorehouse in qstorehouses.Elements("storehouse")
+                         from qrules in qstorehouse.Elements("rule")
+                         where (int)qstorehouse.Element("ids") == ids
+                         select qrules;
+            return sprule;
+        }
+
         //Wyświetl zasadę o podanym idr
         public IEnumerable<XElement> WithIDR(int idr)
         {
@@ -28,7 +40,7 @@ namespace MedicaLibrary.Model
                          from qstorehouses in qmeta.Elements("storehouses") //zmieniamy z bezpośrednio storehouse do storehouse -> storehouses
                          from qstorehouse in qstorehouses.Elements("storehouse")
                          from qrules in qstorehouse.Elements("rule")
-                         where (int)qstorehouse.Element("ids") == idr
+                         where (int)qrules.Element("idr") == idr
                          select qrules;
             return sprule;
         }
