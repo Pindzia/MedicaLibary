@@ -14,12 +14,13 @@ namespace MedicalLibrary.Model
 {
     public class PullREST
     {
-        public static async Task<XElement> Pull(int idLekarz, string pass) //TODO ID-lekarz TODO-pass)
+        public static async Task<XElement> PullAll(int idLekarz, string pass) //TODO ID-lekarz TODO-pass)
         {
             PushREST.SetClient();
 
-            if (await PushREST.LoggedIn(1, pass) == false) //fix
+            if (await PushREST.LoggedIn(idLekarz, pass) == false) //fix
             {
+                System.Windows.MessageBox.Show("Błędne hasło!");
                 return null;
             }
 

@@ -15,7 +15,7 @@ namespace MedicalLibrary.Model
             //PushREST sender = new PushREST();
             PushREST.SetClient();
 
-            if (await PushREST.LoggedIn(1, pass) == false) //fix
+            if (await PushREST.LoggedIn(idLekarz, pass) == false) //fix
             {
                 System.Windows.MessageBox.Show("Błędne hasło!");
                 return;

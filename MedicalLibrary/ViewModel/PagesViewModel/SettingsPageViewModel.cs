@@ -97,23 +97,68 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         private void Push()
         {
             System.Windows.MessageBox.Show("Wysyłanie modyfikacji na serwer w toku...");
+
             XElementon.Instance.SendModifications.SendAll(1, "string"); //TODO ID-lekarz TODO-pass
             
         }
 
+
+        private async void Login(string nazwaLekarza, string pass)
+        {
+            //haszowanie
+            pass = CryptoClass.Instance.GetStringSha256Hash(pass);
+            
+            int idLekarz;
+            if ((idLekarz = await PushREST.Login(nazwaLekarza, pass)) == 0)
+            {
+                System.Windows.MessageBox.Show("Błędne hasło!");
+                return;
+            } else
+            {
+                XElementon.Instance.idLekarz = idLekarz;
+                XElementon.Instance.Haslo = pass;
+            }
+        }
+
+        private async void Register(string nazwaLekarza, string pass)
+        {
+            //haszowanie
+            pass = CryptoClass.Instance.GetStringSha256Hash(pass);
+
+            int idLekarz;
+            if ((idLekarz = await PushREST.Rejestracja(nazwaLekarza, pass)) == 0) //Co zwraca rejestracja?
+            {
+                System.Windows.MessageBox.Show("Błędne hasło!");
+                return;
+            }
+            else
+            {
+                XElementon.Instance.idLekarz = idLekarz;
+                XElementon.Instance.Haslo = pass;
+            }
+        }
+
+        private async void Logout()
+        {
+            XElementon.Instance.idLekarz = 0;
+            XElementon.Instance.Haslo = "";
+            XElementon.Instance.getDatabase();
+            //Zmień zakładkę na pierwszą
+
+            List<string> a = await PushREST.LekarzNazwyGET();
+        }
+
+        //
+
         private async void Pull()
         {
             System.Windows.MessageBox.Show("Pobieranie danch w toku...");
-            var x = await PullREST.Pull(1, "string"); //TODO ID-lekarz TODO-pass;
+            var x = await PullREST.PullAll(1, "string"); //TODO ID-lekarz TODO-pass;
             if(x != null)
             {
                 XElementon.Instance.setDatabase(x);
                 System.Windows.MessageBox.Show("Dane pobrane!");
-            } else
-            {
-                System.Windows.MessageBox.Show("Błędne hasło!");
             }
-            
         }
     }
 }

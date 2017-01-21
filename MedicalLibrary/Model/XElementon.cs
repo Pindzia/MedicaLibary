@@ -64,6 +64,20 @@ namespace MedicaLibrary.Model
             set { _SendModifications = value; }
         }
 
+        private int _idLekarz = 0;
+        public int idLekarz
+        {
+            get { return _idLekarz; }
+            set { _idLekarz = value; }
+        }
+
+        private string _Haslo = "";
+        public string Haslo
+        {
+            get { return _Haslo; }
+            set { _Haslo = value; }
+        }
+
 
 
         public void LoadEncrypted()
@@ -585,5 +599,8 @@ namespace MedicaLibrary.Model
                 }
             }
         }
+
+
+
     }
 }
