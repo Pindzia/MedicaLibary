@@ -853,5 +853,16 @@ namespace MedicalLibrary.Model
             }
             return 0;
         }
+
+        public static async Task<List<string>> LekarzNazwyGET()
+        {
+            List<string> nazwy = null;
+            List<LekarzDTO> lista = await LekarzeGET();
+            foreach (var a in lista)
+            {
+                nazwy.Add(a.Nazwa);
+            }
+            return nazwy;
+        }
     }
 }
