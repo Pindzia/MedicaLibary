@@ -17,11 +17,11 @@
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
             <GroupBox Header="Lista Zasad" Grid.Column="0">
-                <ListBox>
+                <ListBox DataContext="{Binding RuleList}">
 
                 </ListBox>
             </GroupBox>
@@ -30,8 +30,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" />
-                <Button Grid.Row="1" />
+                <Button Grid.Row="0" Command="{Binding AddRuleToMagazine}" />
+                <Button Grid.Row="1" Command="{Binding DeleteRuleFromMagazine}"/>
             </Grid>
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
@@ -57,10 +57,27 @@
                     <Setter Property="Margin" Value="25,10,25,10"/>
                 </Style>
             </StackPanel.Resources>
-            <mui:ModernButton Command="{Binding AddPatient}" Height="25" Width="120">Dodaj Pacjenta</mui:ModernButton>
-            <mui:ModernButton Command="{Binding EditPatient}" Height="25" Width="120">Edytuj Pacjenta</mui:ModernButton>
-            <mui:ModernButton Command="{Binding DeletePatient}" Height="25" Width="120">Usuń Pacjenta</mui:ModernButton>
+            <mui:ModernButton Command="{Binding AddRule}" Height="25" Width="120">Dodaj Pacjenta</mui:ModernButton>
+            <mui:ModernButton Command="{Binding EditRule}" Height="25" Width="120">Edytuj Pacjenta</mui:ModernButton>
+            <mui:ModernButton Command="{Binding DeleteRule}" Height="25" Width="120">Usuń Pacjenta</mui:ModernButton>
         </StackPanel>
 
     </Grid>
 </Page>
+<!-- 
+    /*private type _Propname = something;
+         * public type Propname
+         * {
+         * get
+         * {
+         * return _Propname;
+         * }
+         * set
+         * {
+         * _Propname=value;
+         * OnPropertyChange(nameof(Propname));
+         * }
+         * }
+         */
+    
+    -->

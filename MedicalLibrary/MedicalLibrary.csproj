@@ -153,6 +153,7 @@
     <Compile Include="ViewModel\PagesViewModel\CalendarPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\CustomFieldPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\ModificationViewModel.cs" />
+    <Compile Include="ViewModel\PagesViewModel\RulePageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\SettingsPageViewModel.cs" />
     <Compile Include="ViewModel\WindowsViewModel\AddEditCustomFieldViewModel.cs" />
     <Compile Include="View\CustomControls\CheckControl.xaml.cs">

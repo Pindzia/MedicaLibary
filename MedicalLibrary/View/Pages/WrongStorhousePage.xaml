@@ -26,24 +26,27 @@
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <StackPanel Margin="20,10,20,10" Grid.Row="0">
-                <DataGrid DataContext="{Binding WrongPatients}"  
+            <StackPanel Margin="20,10,20,10" Grid.Row="0" Grid.IsSharedSizeScope="True">
+                <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <DataGrid DataContext="{Binding WrongPatients}"  
                           ItemsSource="{Binding}" 
                           SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" 
                           IsReadOnly="True" 
                           SelectionMode="Single"
                           AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Sugerowany Magazyn" Binding="{Binding Path=Element[SuggestedStorehouse].Value}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Sugerowana Koperta" Binding="{Binding Path=Element[SugestedEnvelope].Value}"></DataGridTextColumn>
-                    </DataGrid.Columns> 
-                </DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Sugerowany Magazyn" Binding="{Binding Path=Element[SuggestedStorehouse].Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Sugerowana Koperta" Binding="{Binding Path=Element[SugestedEnvelope].Value}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+                
                 <Label Content="{Binding SelectedItem.Element[idp].Value}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
