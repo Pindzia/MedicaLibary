@@ -202,7 +202,8 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
 
         private void Check()
         {
-            UsernameFlag = (ListUser.Contains(Username)) ? false : true;
+            Regex usernameRegex = new Regex("[a-zA-Z0-9_ ]{3,20}");
+            UsernameFlag = (ListUser.Contains(Username) || !usernameRegex.IsMatch(Username)) ? false : true;
             SameFlag = (_Password == _SecondPassword && _Password !="" && SecondPassword!="") ? true : false;
             EmptyFlag = (Username != null && Password != null && SecondPassword != null && Username != "" && Password != "" && SecondPassword != "") ? true : false;
             LenghtFlag = (Password.Length >=7 && Password.Length <=16) ? true : false;

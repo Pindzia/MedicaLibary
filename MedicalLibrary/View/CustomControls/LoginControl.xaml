@@ -10,27 +10,13 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
-        <Label  Grid.Row="0" Content="Logowanie" TextBlock.FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="7*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="0.5*"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Nazwa Użytkownika:" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="20,0,0,0" />
-            <Label Grid.Row="1" Grid.Column="0" Content="Hasło:" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="20,0,0,0"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Height="25" Width="150"  Text="{Binding Username , UpdateSourceTrigger=PropertyChanged}"/>
-            <PasswordBox Grid.Row="1" Grid.Column="1" Height="25" Width="150" PasswordChanged="PasswordBox_PasswordChanged" MaxLength="16"/>
-            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <DockPanel Grid.Row="0">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Label Content="Nie masz konta? Zarejestruj się: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Button  Width="20" Height="20" Command="{Binding NavReg}">
                     <Button.Template>
@@ -53,7 +39,23 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
+            <Label  Content="Logowanie" TextBlock.FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </DockPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Nazwa Użytkownika:" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="20,0,0,0" />
+            <Label Grid.Row="1" Grid.Column="0" Content="Hasło:" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="20,0,0,0"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Height="25" Width="150"  Text="{Binding Username , UpdateSourceTrigger=PropertyChanged}" MaxLength="25"/>
+            <PasswordBox Grid.Row="1" Grid.Column="1" Height="25" Width="150" PasswordChanged="PasswordBox_PasswordChanged" MaxLength="16"/>
         </Grid>
-        <Button Grid.Row="2" Content="Zaloguj"  VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding LogIn}"/>
+        <Button Grid.Row="2" Content="Zaloguj"  VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding LogIn}" IsDefault="True"/>
     </Grid>
 </UserControl>
