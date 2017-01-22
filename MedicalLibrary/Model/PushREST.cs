@@ -837,8 +837,32 @@ namespace MedicalLibrary.Model
             HttpResponseMessage response = await client.PostAsJsonAsync(uri, obj);
             response.EnsureSuccessStatusCode();
 
-            List<LekarzDTO> ver = await LekarzeGET();
-            int idl = ver.Max(e => e.Id);
+            int idl = await Login(login,haslo);
+
+            uri = "/magazyn/" + idl.ToString() + "/nowy";
+            MagazynNowyDTO obj2 = new MagazynNowyDTO()
+            {
+                nazwa = "DomyslnyMagazyn",
+                max_rozmiar = 50000,
+                priorytet = 5000
+            };
+            response = await client.PostAsJsonAsync(uri, obj2);
+            response.EnsureSuccessStatusCode();
+
+            var list = await MagazynWszystkieGET(idl,haslo);
+            var id = list.Max(e => e.id);
+
+            uri = "/zasada/"+ idl.ToString() +"/nowy";
+            ZasadaNowaDTO obj3 = new ZasadaNowaDTO()
+            {
+                id_magazynu = id,
+                nazwa_atrybutu = "idp",
+                operacja_porownania = "greater",
+                wartosc_porownania = "0",
+                spelnialnosc_operacji = true
+            };
+            response = await client.PostAsJsonAsync(uri, obj3);
+            response.EnsureSuccessStatusCode();
 
             return idl;
         }
