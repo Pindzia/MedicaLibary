@@ -1,4 +1,4 @@
-﻿namespace MedicalLibary.DTO
+﻿namespace MedicalLibrary.DTO
 {
     public class ZasadaNowaDTO : ObjectNewDTOs
     {

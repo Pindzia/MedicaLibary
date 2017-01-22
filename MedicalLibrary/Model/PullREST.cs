@@ -8,7 +8,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using MedicaLibrary.Model;
+using MedicalLibrary.Model;
 
 namespace MedicalLibrary.Model
 {

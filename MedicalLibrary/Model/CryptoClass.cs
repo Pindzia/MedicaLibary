@@ -9,7 +9,7 @@ using System.Xml;
 using System.Security.Cryptography;
 using System.IO;
 
-namespace MedicaLibrary.Model
+namespace MedicalLibrary.Model
 {
     class CryptoClass
     {

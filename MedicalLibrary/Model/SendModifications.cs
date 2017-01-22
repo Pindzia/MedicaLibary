@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MedicalLibary.DTO;
+using MedicalLibrary.DTO;
 using System.Xml.Linq;
 using System;
 using System.Data;
-using MedicaLibrary.Model;
+using MedicalLibrary.Model;
 
 namespace MedicalLibrary.Model
 {
@@ -32,7 +32,7 @@ namespace MedicalLibrary.Model
             int ver = lista.Max(e => e.id);
 
             // foreach modyfikacje :v
-            foreach (var modyfikacja in MedicaLibrary.Model.XElementon.Instance.Modification.Modifications())
+            foreach (var modyfikacja in MedicalLibrary.Model.XElementon.Instance.Modification.Modifications())
             {
                 // uzupełnij prawe strony swoimi
                 ModyfikacjaToSend mod = new ModyfikacjaToSend()
@@ -101,7 +101,7 @@ namespace MedicalLibrary.Model
                     await PushREST.UniversalPost(daneMod, uri, idLekarz, pass);
                 }
             }
-            MedicaLibrary.Model.XElementon.Instance.Modification.Clean();
+            MedicalLibrary.Model.XElementon.Instance.Modification.Clean();
             System.Windows.MessageBox.Show("Modyfikacje wysłane!");
         }
 

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MedicalLibary.DTO
+namespace MedicalLibrary.DTO
 {
     public class WizytaNowaDTO : ObjectNewDTOs
     {

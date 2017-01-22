@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.IO;
 using MedicalLibrary.Model;
 
-namespace MedicaLibrary.Model
+namespace MedicalLibrary.Model
 {
     public sealed class XElementon
     {
@@ -69,6 +69,13 @@ namespace MedicaLibrary.Model
         {
             get { return _idLekarz; }
             set { _idLekarz = value; }
+        }
+
+        private string _nazwaLekarz = "";
+        public string nazwaLekarz
+        {
+            get { return _nazwaLekarz; }
+            set { _nazwaLekarz = value; }
         }
 
         private string _Haslo = "";

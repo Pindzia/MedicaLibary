@@ -9,7 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Windows;
 using MedicalLibrary.ViewModel.PagesViewModel;
-using MedicaLibrary.Model;
+using MedicalLibrary.Model;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Threading.Tasks;

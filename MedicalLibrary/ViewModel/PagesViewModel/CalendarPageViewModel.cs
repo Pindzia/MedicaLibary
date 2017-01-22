@@ -1,4 +1,4 @@
-﻿using MedicaLibrary.Model;
+﻿using MedicalLibrary.Model;
 using OutlookCalendar.Model;
 using System;
 using System.Collections.Generic;

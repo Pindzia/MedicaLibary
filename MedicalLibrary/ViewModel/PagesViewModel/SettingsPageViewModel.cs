@@ -1,4 +1,4 @@
-﻿using MedicaLibrary.Model;
+﻿using MedicalLibrary.Model;
 using MedicalLibrary.Model;
 using System;
 using System.Collections.Generic;
@@ -122,20 +122,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private async void Register(string nazwaLekarza, string pass)
         {
-            //haszowanie
-            pass = CryptoClass.Instance.GetStringSha256Hash(pass);
 
-            int idLekarz;
-            if ((idLekarz = await PushREST.Rejestracja(nazwaLekarza, pass)) == 0) //Co zwraca rejestracja?
-            {
-                System.Windows.MessageBox.Show("Błędne hasło!");
-                return;
-            }
-            else
-            {
-                XElementon.Instance.idLekarz = idLekarz;
-                XElementon.Instance.Haslo = pass;
-            }
         }
 
         private async void Logout()
@@ -145,7 +132,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             XElementon.Instance.getDatabase();
             //Zmień zakładkę na pierwszą
 
-            List<string> a = await PushREST.LekarzNazwyGET();
+            List<string> LoginyLekarzy = await PushREST.LekarzNazwyGET();
         }
 
         //

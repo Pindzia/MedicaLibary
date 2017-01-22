@@ -1,4 +1,4 @@
-﻿using MedicaLibrary.Model;
+﻿using MedicalLibrary.Model;
 using MedicalLibrary.View.CustomControls;
 using MedicalLibrary.View.Windows;
 using MedicalLibrary.ViewModel.CustomControlsViewModel;

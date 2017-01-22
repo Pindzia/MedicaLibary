@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MedicalLibary.DTO
+namespace MedicalLibrary.DTO
 {
     public class LekarzDTO : ObjectNewDTOs
     {

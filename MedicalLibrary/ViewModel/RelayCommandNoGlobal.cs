@@ -1,4 +1,4 @@
-﻿using MedicaLibrary.Model;
+﻿using MedicalLibrary.Model;
 using System;
 using System.Diagnostics;
 using System.Windows.Input;

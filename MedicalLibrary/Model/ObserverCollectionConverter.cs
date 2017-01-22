@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Collections.ObjectModel; //ObservableCollection
 
-namespace MedicaLibrary.Model
+namespace MedicalLibrary.Model
 {
     public sealed class ObserverCollectionConverter
     {

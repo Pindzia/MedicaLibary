@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows.Annotations.Storage;
 using Newtonsoft.Json;
-using MedicalLibary.DTO;
+using MedicalLibrary.DTO;
 
 namespace MedicalLibrary.Model
 {

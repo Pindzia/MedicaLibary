@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml.Linq;
-using MedicaLibrary.Model;
+using MedicalLibrary.Model;
 using System.Windows;
 using System.Collections.ObjectModel;
 using MedicalLibrary.View.Windows;

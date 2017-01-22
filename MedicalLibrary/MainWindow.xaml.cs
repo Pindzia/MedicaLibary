@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FirstFloor.ModernUI.Windows.Controls;
-using MedicaLibrary.Model;
+using MedicalLibrary.Model;
 using FirstFloor.ModernUI.Presentation;
 using MedicalLibrary.testFolder;
 using MedicalLibrary.View.Windows;
@@ -27,6 +27,7 @@ namespace MedicalLibrary
     {
         public MainWindow()
         {
+            PushREST.SetClient();
             EntryWindow window = new EntryWindow();
             Nullable<bool> result = window.ShowDialog();
             if(result == true && result!=null)
@@ -67,7 +68,7 @@ namespace MedicalLibrary
         }
         private static void ChangeRest()
         {
-            linkRest.DisplayName = "Połaczenie z Bazą: " + "Nie";
+            linkRest.DisplayName = "Zalogowany jako: " + XElementon.Instance.nazwaLekarz;
         }
     }
 }

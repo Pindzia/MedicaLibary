@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
-namespace MedicaLibrary.Model
+namespace MedicalLibrary.Model
 {
     public class Patient
     {
