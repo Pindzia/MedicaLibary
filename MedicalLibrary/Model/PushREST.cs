@@ -43,14 +43,14 @@ namespace MedicalLibrary.Model
             if (await LoggedIn(lid, pass))
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync(uri, obj);
-                response.EnsureSuccessStatusCode();
+                //response.EnsureSuccessStatusCode();
             }
         }
 
         public static async Task UniversalPut(ObjectNewDTOs obj, string uri)
         {
             HttpResponseMessage response = await client.PutAsJsonAsync(uri, obj);
-            response.EnsureSuccessStatusCode();
+            //response.EnsureSuccessStatusCode();
         }
 
         public static void ReplaceThisStuff(string a)
@@ -835,7 +835,7 @@ namespace MedicalLibrary.Model
             };
             string uri = "/lekarz/nowy";
             HttpResponseMessage response = await client.PostAsJsonAsync(uri, obj);
-            response.EnsureSuccessStatusCode();
+            //response.EnsureSuccessStatusCode();
 
             int idl = await Login(login,haslo);
 
@@ -847,7 +847,7 @@ namespace MedicalLibrary.Model
                 priorytet = 5000
             };
             response = await client.PostAsJsonAsync(uri, obj2);
-            response.EnsureSuccessStatusCode();
+            //response.EnsureSuccessStatusCode();
 
             var list = await MagazynWszystkieGET(idl,haslo);
             var id = list.Max(e => e.id);
@@ -862,7 +862,7 @@ namespace MedicalLibrary.Model
                 spelnialnosc_operacji = true
             };
             response = await client.PostAsJsonAsync(uri, obj3);
-            response.EnsureSuccessStatusCode();
+            //response.EnsureSuccessStatusCode();
 
             return idl;
         }
