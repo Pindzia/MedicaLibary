@@ -16,6 +16,7 @@ using FirstFloor.ModernUI.Windows.Controls;
 using MedicaLibrary.Model;
 using FirstFloor.ModernUI.Presentation;
 using MedicalLibrary.testFolder;
+using MedicalLibrary.View.Windows;
 
 namespace MedicalLibrary
 {
@@ -26,14 +27,24 @@ namespace MedicalLibrary
     {
         public MainWindow()
         {
-            InitializeComponent();
-            XElementon.Instance.LoadRaw();
-            //XElementon.Instance.LoadEncrypted();
-            ContentSource = MenuLinkGroups.First().Links.First().Source;
-            linkWrong = WrongPatient;
-            linkMod = Modifications;
-            linkRest = RestAPI;
-            GlobalUpdate();
+            EntryWindow window = new EntryWindow();
+            Nullable<bool> result = window.ShowDialog();
+            if(result == true && result!=null)
+            {
+                InitializeComponent();
+                XElementon.Instance.LoadRaw();
+                //XElementon.Instance.LoadEncrypted();
+                ContentSource = MenuLinkGroups.First().Links.First().Source;
+                linkWrong = WrongPatient;
+                linkMod = Modifications;
+                linkRest = RestAPI;
+                GlobalUpdate();
+            }
+            else
+            {
+                Close();
+            }
+            
         }
         public static Link linkWrong;
         public static Link linkMod;

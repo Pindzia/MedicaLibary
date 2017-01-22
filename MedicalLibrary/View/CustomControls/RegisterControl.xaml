@@ -1,0 +1,142 @@
+﻿<UserControl x:Class="MedicalLibrary.View.CustomControls.RegisterControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MedicalLibrary.View.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1" />
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Rejestracja" TextBlock.FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Nazwa Użytkownika:" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="20,0,0,0" />
+            <Label Grid.Row="1" Grid.Column="0" Content="Hasło:" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="20,0,0,0"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Hasło Ponownie:" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="20,0,0,0"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Height="25" Width="150"  Text="{Binding Username , UpdateSourceTrigger=PropertyChanged}"/>
+            <PasswordBox Grid.Row="1" Grid.Column="1" Height="25" Width="150" PasswordChanged="PasswordBox_FirstPasswordChanged" MaxLength="16"/>
+            <PasswordBox Grid.Row="2" Grid.Column="1" Height="25" Width="150" PasswordChanged="PasswordBox_SecondPasswordChanged" MaxLength="16"/>
+        </Grid>
+        <GridSplitter Grid.Row="2" Margin="20,0,10,0" BorderBrush="Gray" BorderThickness="1"/>
+        <Grid Grid.Row="3" Margin="18,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                </Style>
+                <Style TargetType="{x:Type Image}" x:Key="BaseStyle">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="Height" Value="27"/>
+                    <Setter Property="Height" Value="27"/>
+                </Style>
+            </Grid.Resources>
+            <Label Grid.Row="0" Grid.Column="0" Content="Login musi być unikalny:"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Wszystkie pola muszą być zapełnione:" />
+            <Label Grid.Row="2" Grid.Column="0" Content="Hasło musi mieć od 7 do 16 znaków:" />
+            <Label Grid.Row="3" Grid.Column="0" Content="Hasło musi posiadać dużą jedną dużą i małą literę oraz cyfrę:" />
+            <Label Grid.Row="4" Grid.Column="0" Content="Hasła muszą być takie same:"/>
+            <Image Grid.Row="0" Grid.Column="1">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}" BasedOn="{StaticResource BaseStyle}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding UsernameFlag}" Value="true">
+                                <Setter Property="Source" Value="/Images/ok.jpg"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding UsernameFlag}" Value="false">
+                                <Setter Property="Source" Value="/Images/notok.jpg"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Image Grid.Row="1" Grid.Column="1">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}" BasedOn="{StaticResource BaseStyle}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding EmptyFlag}" Value="true">
+                                <Setter Property="Source" Value="/Images/ok.jpg"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding EmptyFlag}" Value="false">
+                                <Setter Property="Source" Value="/Images/notok.jpg"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Image Grid.Row="2" Grid.Column="1">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}" BasedOn="{StaticResource BaseStyle}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding LenghtFlag}" Value="true">
+                                <Setter Property="Source" Value="/Images/ok.jpg"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding LenghtFlag}" Value="false">
+                                <Setter Property="Source" Value="/Images/notok.jpg"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Image Grid.Row="3" Grid.Column="1">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}" BasedOn="{StaticResource BaseStyle}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SpecCharFlag}" Value="true">
+                                <Setter Property="Source" Value="/Images/ok.jpg"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SpecCharFlag}" Value="false">
+                                <Setter Property="Source" Value="/Images/notok.jpg"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Image Grid.Row="4" Grid.Column="1">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}" BasedOn="{StaticResource BaseStyle}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SameFlag}" Value="true">
+                                <Setter Property="Source" Value="/Images/ok.jpg"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SameFlag}" Value="false">
+                                <Setter Property="Source" Value="/Images/notok.jpg"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </Grid>
+
+        <Button Grid.Row="4" Content="Zarejestruj" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding Register}"/>
+    </Grid>
+</UserControl>

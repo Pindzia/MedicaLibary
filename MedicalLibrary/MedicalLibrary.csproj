@@ -149,18 +149,26 @@
     </Compile>
     <Compile Include="ViewModel\CustomControlsViewModel\CheckControlViewModel.cs" />
     <Compile Include="ViewModel\CustomControlsViewModel\NumberControlViewModel.cs" />
+    <Compile Include="ViewModel\CustomControlsViewModel\RegisterControlViewModel.cs" />
     <Compile Include="ViewModel\CustomControlsViewModel\TextControlViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\CalendarPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\CustomFieldPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\ModificationViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\RulePageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommandNoGlobal.cs" />
     <Compile Include="ViewModel\WindowsViewModel\AddEditCustomFieldViewModel.cs" />
     <Compile Include="View\CustomControls\CheckControl.xaml.cs">
       <DependentUpon>CheckControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CustomControls\LoginControl.xaml.cs">
+      <DependentUpon>LoginControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CustomControls\NumberControl.xaml.cs">
       <DependentUpon>NumberControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomControls\RegisterControl.xaml.cs">
+      <DependentUpon>RegisterControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CustomControls\TextControl.xaml.cs">
       <DependentUpon>TextControl.xaml</DependentUpon>
@@ -208,6 +216,9 @@
     <Compile Include="View\Windows\AddEditVistitWindow.xaml.cs">
       <DependentUpon>AddEditVistitWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Windows\EntryWindow.xaml.cs">
+      <DependentUpon>EntryWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -228,7 +239,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CustomControls\LoginControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CustomControls\NumberControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CustomControls\RegisterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -293,6 +312,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Windows\AddEditVistitWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\EntryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

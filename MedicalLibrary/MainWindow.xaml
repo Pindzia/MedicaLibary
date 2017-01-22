@@ -37,6 +37,7 @@
             <mui:LinkGroup DisplayName="Magazyn">
                 <mui:LinkGroup.Links>
                     <mui:Link DisplayName="Lista Magazynów" Source="/View/Pages/MagazinePage.xaml"/>
+                    <mui:Link DisplayName="Zasady" Source="/View/Pages/RulePage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Niestandardowe Pola">
