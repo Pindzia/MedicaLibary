@@ -1,4 +1,5 @@
-﻿using MedicalLibrary.View.Windows;
+﻿using MedicalLibrary.Model;
+using MedicalLibrary.View.Windows;
 using MedicalLibrary.ViewModel.PagesViewModel;
 using System;
 using System.Collections.Generic;
@@ -153,12 +154,29 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
         public ICommand Register { get; set; }
 
 
-        private void RegNew()
+        private async void RegNew() //async!
         {
             //place do spinania
-            if(UsernameFlag&&SameFlag&&EmptyFlag&&LenghtFlag&&SpecCharFlag)
+            if (UsernameFlag && SameFlag && EmptyFlag && LenghtFlag && SpecCharFlag)
             {
-                EntryWindow.Complete();
+                //haszowanie
+                var pass = CryptoClass.Instance.GetStringSha256Hash(_Password);
+                int idLekarz;
+                if ((idLekarz = await PushREST.Rejestracja(_Username, pass)) == 0) //Co zwraca rejestracja?
+                {
+                    System.Windows.MessageBox.Show("Błąd Rejestracji!");
+                    return; // Close app?
+                }
+                else
+                {
+                    XElementon.Instance.idLekarz = idLekarz;
+                    XElementon.Instance.nazwaLekarz = _Username;
+                    XElementon.Instance.Haslo = pass;
+                    PullREST.PullAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo);
+                    EntryWindow.Complete();
+                }
+                //Rejestracja
+                
             }
         }
 
