@@ -4,9 +4,56 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MedicalLibrary.View.CustomControls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+        <Label  Grid.Row="0" Content="Logowanie" TextBlock.FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Nazwa Użytkownika:" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="20,0,0,0" />
+            <Label Grid.Row="1" Grid.Column="0" Content="Hasło:" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="20,0,0,0"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Height="25" Width="150"  Text="{Binding Username , UpdateSourceTrigger=PropertyChanged}"/>
+            <PasswordBox Grid.Row="1" Grid.Column="1" Height="25" Width="150" PasswordChanged="PasswordBox_PasswordChanged" MaxLength="16"/>
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="Nie masz konta? Zarejestruj się: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Button  Width="20" Height="20" Command="{Binding NavReg}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Ellipse Stroke="Black" StrokeThickness="1" x:Name="Ellipse" Fill="White"/>
+                                <ContentPresenter HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"/>
+                                <icon:PackIconMaterial Kind="ArrowRight" Height="8" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Fill" Value="LightGray" TargetName="Ellipse" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Fill" Value="Gray" TargetName="Ellipse" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Button Grid.Row="2" Content="Zaloguj"  VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding LogIn}"/>
     </Grid>
 </UserControl>

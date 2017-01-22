@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicalLibrary.ViewModel.CustomControlsViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,15 @@ namespace MedicalLibrary.View.CustomControls
         public LoginControl()
         {
             InitializeComponent();
+            DataContext = new LoginControlViewModel();
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (DataContext != null)
+            {
+                ((dynamic)DataContext).Password = ((PasswordBox)sender).Password;
+            }
         }
     }
 }

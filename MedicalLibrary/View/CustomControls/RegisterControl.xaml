@@ -4,24 +4,52 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MedicalLibrary.View.CustomControls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="1" />
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="3.5*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Content="Rejestracja" TextBlock.FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <DockPanel Grid.Row="0">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Label Content="Cofnij do ekranu Logowania: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Button  Width="20" Height="20" Command="{Binding NavLog}" >
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Ellipse Stroke="Black" StrokeThickness="1" x:Name="Ellipse" Fill="White"/>
+                                <ContentPresenter HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"/>
+                                <icon:PackIconMaterial Kind="ArrowLeft" Height="8" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Fill" Value="LightGray" TargetName="Ellipse" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Fill" Value="Gray" TargetName="Ellipse" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <Label Content="Rejestracja" TextBlock.FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </DockPanel>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>

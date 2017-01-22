@@ -18,7 +18,10 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
         public RegisterControlViewModel()
         {
             Register = new RelayCommandNoGlobal(pars => RegNew());
+            NavLog = new RelayCommandNoGlobal(pars => Navigate());
+            //lub tu
         }
+
 
         private string _Username = "";
         public string Username
@@ -35,7 +38,7 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
             }
         }
 
-        private List<string> _ListUser = new List<string>();
+        private List<string> _ListUser = new List<string>();//tutaj init nazw unikalnych
         public List<string> ListUser
         {
              private get
@@ -152,6 +155,7 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
         }
 
         public ICommand Register { get; set; }
+        public ICommand NavLog { get; set; }
 
 
         private async void RegNew() //async!
@@ -178,6 +182,10 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
                 //Rejestracja
                 
             }
+        }
+        private void Navigate()
+        {
+            EntryWindow.NavigateTo("Login");
         }
 
         private void Check()
