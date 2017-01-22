@@ -19,7 +19,12 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
         {
             Register = new RelayCommandNoGlobal(pars => RegNew());
             NavLog = new RelayCommandNoGlobal(pars => Navigate());
-            //lub tu
+            listaLekarzy();
+        }
+
+        private async void listaLekarzy()
+        {
+            _ListUser = await PushREST.LekarzNazwyGET();
         }
 
 
@@ -160,6 +165,13 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
 
         private async void RegNew() //async!
         {
+
+            if(_ListUser == null)
+            {
+                System.Windows.MessageBox.Show("_ListUser pusty?!");
+                return;
+            }
+
             //place do spinania
             if (UsernameFlag && SameFlag && EmptyFlag && LenghtFlag && SpecCharFlag)
             {
@@ -176,7 +188,7 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
                     XElementon.Instance.idLekarz = idLekarz;
                     XElementon.Instance.nazwaLekarz = _Username;
                     XElementon.Instance.Haslo = pass;
-                    PullREST.PullAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo);
+                    await PullREST.PullAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo);
                     EntryWindow.Complete();
                 }
                 //Rejestracja

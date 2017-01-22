@@ -33,7 +33,7 @@ namespace MedicalLibrary
             if(result == true && result!=null)
             {
                 InitializeComponent();
-                XElementon.Instance.LoadRaw();
+                //XElementon.Instance.LoadRaw();
                 //XElementon.Instance.LoadEncrypted();
                 ContentSource = MenuLinkGroups.First().Links.First().Source;
                 linkWrong = WrongPatient;

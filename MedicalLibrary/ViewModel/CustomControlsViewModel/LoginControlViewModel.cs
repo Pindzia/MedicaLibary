@@ -1,4 +1,5 @@
-﻿using MedicalLibrary.View.Windows;
+﻿using MedicalLibrary.Model;
+using MedicalLibrary.View.Windows;
 using MedicalLibrary.ViewModel.PagesViewModel;
 using System;
 using System.Collections.Generic;
@@ -49,11 +50,42 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
         public ICommand NavReg { get; set; }
         public ICommand LogIn { get; set; }
 
-        private void Login()
+        private async void Login()
         {
             if(Username != null && Username !="" && _Password!=null && _Password!="")//zawrzeć warunek moze byc jakis dodatkowy
             {
                 //logika zalogowania
+                //haszowanie
+                var pass = CryptoClass.Instance.GetStringSha256Hash(_Password);
+
+                int idLekarz;
+                if ((idLekarz = await PushREST.Login(Username, pass)) == 0)
+                {
+                    System.Windows.MessageBox.Show("Błędne hasło lub login!");
+                    return;
+                }
+                else
+                {
+
+                    System.Windows.MessageBox.Show("Poprawne zalogowanie!!");
+                    XElementon.Instance.idLekarz = idLekarz;
+                    XElementon.Instance.nazwaLekarz = Username;
+                    XElementon.Instance.Haslo = pass;
+
+                    System.Windows.MessageBox.Show("Pobieranie danch w toku...");
+                    var x = await PullREST.PullAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo);
+                    if (x != null)
+                    {
+                        XElementon.Instance.setDatabase(x);
+                        System.Windows.MessageBox.Show("Dane pobrane!");
+                    } else
+                    {
+                        //ERROR!
+                        System.Windows.MessageBox.Show("Błąd pobrania!");
+                        return;
+                    }
+                }
+
                 EntryWindow.Complete();
             }
         }

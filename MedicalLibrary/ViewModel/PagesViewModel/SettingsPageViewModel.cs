@@ -98,26 +98,14 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             System.Windows.MessageBox.Show("Wysyłanie modyfikacji na serwer w toku...");
 
-            XElementon.Instance.SendModifications.SendAll(1, "string"); //TODO ID-lekarz TODO-pass
+            XElementon.Instance.SendModifications.SendAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo); //TODO ID-lekarz TODO-pass
             
         }
 
 
         private async void Login(string nazwaLekarza, string pass)
         {
-            //haszowanie
-            pass = CryptoClass.Instance.GetStringSha256Hash(pass);
-            
-            int idLekarz;
-            if ((idLekarz = await PushREST.Login(nazwaLekarza, pass)) == 0)
-            {
-                System.Windows.MessageBox.Show("Błędne hasło!");
-                return;
-            } else
-            {
-                XElementon.Instance.idLekarz = idLekarz;
-                XElementon.Instance.Haslo = pass;
-            }
+
         }
 
         private async void Register(string nazwaLekarza, string pass)
@@ -139,13 +127,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private async void Pull()
         {
-            System.Windows.MessageBox.Show("Pobieranie danch w toku...");
-            var x = await PullREST.PullAll(1, "string"); //TODO ID-lekarz TODO-pass;
-            if(x != null)
-            {
-                XElementon.Instance.setDatabase(x);
-                System.Windows.MessageBox.Show("Dane pobrane!");
-            }
+
         }
     }
 }

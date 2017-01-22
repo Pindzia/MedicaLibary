@@ -880,7 +880,7 @@ namespace MedicalLibrary.Model
 
         public static async Task<List<string>> LekarzNazwyGET()
         {
-            List<string> nazwy = null;
+            List<string> nazwy = new List<string>();
             List<LekarzDTO> lista = await LekarzeGET();
             foreach (var a in lista)
             {
