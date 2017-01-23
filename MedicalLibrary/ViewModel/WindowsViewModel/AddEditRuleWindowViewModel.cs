@@ -147,9 +147,20 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             if (Rule != null) //Edycja
             {
-                Rule.Element("attribute").Value = SelectedAttribute;
-                Rule.Element("operation").Value = SelectedOperation;
-                Rule.Element("value").Value = VarOfRule;
+
+                var list = new List<Tuple<string, string>>();
+                Tuple<string, string> a = new Tuple<string, string>("attribute", SelectedAttribute);
+                Tuple<string, string> b = new Tuple<string, string>("operation", SelectedOperation);
+                Tuple<string, string> c = new Tuple<string, string>("value", VarOfRule);
+                list.Add(a);
+                list.Add(b);
+                list.Add(c);
+
+                XElementon.Instance.Rule.Change((int)Rule.Element("idr"), list.ToArray());
+
+                //Rule.Element("attribute").Value = SelectedAttribute;
+                //Rule.Element("operation").Value = SelectedOperation;
+                //Rule.Element("value").Value = VarOfRule;
             }
             else //Dodawanie
             {

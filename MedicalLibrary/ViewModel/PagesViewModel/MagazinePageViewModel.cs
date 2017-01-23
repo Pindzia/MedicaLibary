@@ -411,7 +411,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                     if (viewModel.Rule.ToString() != compare.ToString()) //SelectedItem ma w sobie envelope a Patient nie //TODO czy to w ogóle potrzebne? Czy pozwolić na to i cancele?
                     {
                         NewRule = viewModel.Rule;
-                        XElementon.Instance.Rule.Change((int)SelectedButton.Element("ids"), TupleList());
+                        XElementon.Instance.Rule.Change((int)SelectedRule.Element("idr"), TupleList());
                         //UpdateDataAsync(); //Naleciałość z PatientPageViewModel
                     }
                 }

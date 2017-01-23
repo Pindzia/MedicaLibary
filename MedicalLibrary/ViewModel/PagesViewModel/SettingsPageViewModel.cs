@@ -2,6 +2,7 @@
 using MedicalLibrary.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,24 +48,20 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
 
 
-        bool toggle = true;
         private void AddSome()
         {
+            //Zapisz modyfikacje do pliku
+            var modyfikacje = XElementon.Instance.Modification.Modifications();
 
-            //var x = XElementon.Instance.Visit.UniqueDates();
-            //return;
-            if (toggle)
+            string text = "";
+            foreach (var modyfikacja in modyfikacje)
             {
-                
-                XElementon.Instance.SaveEncrypted();
-                toggle = false;
+                text += modyfikacja.ToString();
             }
-            else
-            {
                 
-                XElementon.Instance.LoadEncrypted();
-                toggle = true;
-            }
+            
+
+            File.WriteAllText(Environment.CurrentDirectory + "\\modyfikacje.xml", text);
         }
 
         private void SaveEncrypted()
