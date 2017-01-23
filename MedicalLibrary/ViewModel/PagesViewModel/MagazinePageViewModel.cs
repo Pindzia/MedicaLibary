@@ -426,7 +426,22 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             if (SelectedRule != null)
             {
-                //logika usuwania
+
+                if (SelectedButton.Element("name").Value != "DomyslnyMagazyn")
+                {
+                    if (MessageBox.Show("Czy chcesz wykasować zasadę o ID: "+ idr +" z Magazyn : " + SelectedButton.Element("name").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+
+                        int index;
+                        int.TryParse(idr, out index);
+                        //Place to delete
+                        UpdateData();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nie można usunąć zasady Domyślnego Magazynu");
+                }
             }
             else
             {
