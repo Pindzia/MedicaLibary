@@ -25,6 +25,9 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             LoadedCommand = new RelayCommand(pars =>Load());
             OrderUp = new RelayCommand(pars => ChangeOrderUp());
             OrderDown = new RelayCommand(pars => ChangeOrderDown());
+            AddRule = new RelayCommand(pars => AddRules());
+            EditRule = new RelayCommand(pars => EditRules());
+            DeleteRule = new RelayCommand(pars => DeleteRules((string)pars));
             UpdateData();
         }
 
@@ -172,6 +175,34 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
+        private ObservableCollection<XElement> _RuleList = new ObservableCollection<XElement>();
+        public ObservableCollection<XElement> RuleList
+        {
+            get
+            {
+                return _RuleList;
+            }
+            set
+            {
+                _RuleList = value;
+                OnPropertyChanged(nameof(RuleList));
+            }
+        }
+
+        private XElement _SelectedRule = null;
+        public XElement SelectedRule
+        {
+            get
+            {
+                return _SelectedRule;
+            }
+            set
+            {
+                _SelectedRule = value;
+                OnPropertyChanged(nameof(SelectedRule));
+            }
+        }
+
         private XElement _NewRule = null;
         public XElement NewRule
         {
@@ -222,6 +253,9 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         public ICommand OrderUp { get; set; }
         public ICommand OrderDown { get; set; }
         public ICommand PushButton { get; set; }
+        public ICommand AddRule { get; set; }
+        public ICommand EditRule { get; set; }
+        public ICommand DeleteRule { get; set; }
         public ICommand LoadedCommand { get; set; }
 
         private void UpdateData()
@@ -240,6 +274,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             MagazineId = SelectedButton.Element("ids").Value;
             MagazineCount = PatientsOfMagazine.Count.ToString() + "/" + SelectedButton.Element("size").Value;
             MagazinePriority = SelectedButton.Element("priority").Value;
+            RuleList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Rule.WithIDS((int)SelectedButton.Element("ids")));
+            SelectedRule = RuleList.FirstOrDefault();
         }
 
         private void Add()
@@ -322,6 +358,53 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             else
             {
                 MessageBox.Show("Nie wybrałeś magazynu");
+            }
+        }
+
+        private void AddRules()
+        {
+            AddEditRuleWindowViewModel viewModel = new AddEditRuleWindowViewModel();
+            AddEditRuleWindow window = new AddEditRuleWindow(ref viewModel);
+            Nullable<bool> result = window.ShowDialog();
+            if(result==true)
+            {
+                // logika
+
+                NewRule = viewModel.Rule;
+                //Place na dodanie do SelectedButton zasady
+                UpdateData();
+            }
+
+        }
+
+        private void EditRules()
+        {
+            if(SelectedRule !=null)// Case of emergency sprawdzać czy wybrana zasada jest w tym wybranym magazynie
+            {
+                AddEditRuleWindowViewModel viewModel = new AddEditRuleWindowViewModel(SelectedRule);
+                AddEditRuleWindow window = new AddEditRuleWindow(ref viewModel);
+                Nullable<bool> result = window.ShowDialog();
+                if (result == true)
+                {
+                    // logika porównać ze stara zasada (selected rule) jak w PatientPageViewModel jesli git to jak w addycji
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nie wybrałeś zasady");
+            }
+        }
+
+        private void DeleteRules(string idr)
+        {
+            if (SelectedRule != null)
+            {
+                //logika usuwania
+            }
+            else
+            {
+                MessageBox.Show("Nie wybrałeś zasady");
             }
         }
 

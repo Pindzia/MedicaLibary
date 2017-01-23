@@ -20,7 +20,7 @@
             <mui:LinkGroup DisplayName="Pacjenci">
                 <mui:LinkGroup.Links>
                     <mui:Link DisplayName="Lista Pacjentów" Source="View\Pages\PatientPage.xaml" />
-                    <mui:Link DisplayName="Pozycje w Magazynach" Source="View\Pages\WrongStorhousePage.xaml"/>
+                    <mui:Link DisplayName="Źle Umieszczeni Pacjenci" Source="View\Pages\WrongStorhousePage.xaml"/>
                     <mui:Link DisplayName="Wizyty" Source="View\Pages\VisitPage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>

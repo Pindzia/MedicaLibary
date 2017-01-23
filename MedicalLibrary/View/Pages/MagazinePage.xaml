@@ -7,6 +7,7 @@
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:cnv ="clr-namespace:MedicalLibrary.Converters"
       x:Name="Page"
       mc:Ignorable="d" 
       Title="MagazinePage"
@@ -20,6 +21,8 @@
             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
             <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
         </Style>
+        <cnv:RuleOperationConverter x:Key="Operations"/>
+        <cnv:NodeConverterRule x:Key="Nodes"/>
     </Page.Resources>
 
     <i:Interaction.Triggers>
@@ -35,8 +38,9 @@
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="2"/>
-                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <GroupBox Grid.Column="0" Header="Lista Magazynów">
                 <Grid>
@@ -44,11 +48,12 @@
                         <RowDefinition Height="8*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0">
+                    <ScrollViewer Grid.Row="0" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Visible" Margin="10,5,0,5">
                         <ListBox x:Name="List" 
                          ItemsSource="{Binding ListMagazine}"
                          PreviewMouseRightButtonDown="List_PreviewMouseRightButtonDown"
-                         Margin="10,10,10,5">
+                         BorderBrush="LightBlue"
+                         BorderThickness="1">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -83,21 +88,40 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                    </StackPanel>
+                    </ScrollViewer>
+
+
                     <StackPanel Grid.Row="1">
-                        <Button Command="{Binding OrderUp}" Margin="10,0,10,0" Content="{iconPacks:PackIconFontAwesome AngleDoubleUp}" IsEnabled="{Binding ChangeUp}"/>
-                        <Button Command="{Binding OrderDown}" Margin="10,0,10,0" Content="{iconPacks:PackIconFontAwesome AngleDoubleDown}" IsEnabled="{Binding ChangeDown}"/>
+                        <Button Command="{Binding OrderUp}" Margin="10,0,0,0" IsEnabled="{Binding ChangeUp}" HorizontalContentAlignment="Stretch">
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="9*"/>
+                                </Grid.ColumnDefinitions>
+                                <iconPacks:PackIconFontAwesome Grid.Column="0" Kind ="AngleDoubleUp" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text=" Zwiększ priorytet" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Button>
+                        <Button Command="{Binding OrderDown}" Margin="10,0,0,0" IsEnabled="{Binding ChangeDown}" HorizontalContentAlignment="Stretch">
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="9*"/>
+                                </Grid.ColumnDefinitions>
+                                <iconPacks:PackIconFontAwesome Grid.Column="0" Kind ="AngleDoubleDown" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text=" Zmniejsz priorytet" Margin="5,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </GroupBox>
-            <GroupBox Grid.Column="2" Header="Dane Magazynu" Margin="10,0,10,0">
-                <Grid  Margin="20,0,0,0" Height="Auto" Width="Auto">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="7*"/>
-                    </Grid.RowDefinitions>
-                    <DockPanel Grid.Row="0">
-                        <Label Content="Dane Wybranego Magazynu" FontSize="14" FontWeight="Bold" Margin="70,0,0,0" DockPanel.Dock="Top"/>
+            <Grid Grid.Column="2"  Margin="5,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Dane Wybranego Magazynu" Grid.Row="0">
+                    <DockPanel>
                         <StackPanel  Orientation="Vertical" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <StackPanel.Resources>
                                 <Style TargetType="{x:Type DockPanel}">
@@ -122,45 +146,105 @@
                             </DockPanel>
                         </StackPanel>
                     </DockPanel>
-                    <DockPanel Grid.Row="1">
-                        <Label Content="Lista Pacjentów Danego Magazynu:" FontSize="14" DockPanel.Dock="Top" FontWeight="Bold" Margin="70,0,0,0"/>
+                </GroupBox>
+
+
+                <GroupBox Grid.Row="1" Header="Lista Pacjentów Danego Magazynu">
+                    <ScrollViewer  VerticalScrollBarVisibility="Visible" Margin="5,5,5,5">
                         <DataGrid DataContext="{Binding PatientsOfMagazine}" 
                                           Grid.Row="1"
                                           ItemsSource="{Binding}"  
                                           IsReadOnly="True" 
                                           SelectionMode="Single"
                                           AutoGenerateColumns="False"
-                                          Width="540"
-                                          Height="300"
                                           RowHeaderWidth="1"
-                                          VerticalContentAlignment="Center"
-                                          Margin="50,10,50,0"
-                                          HorizontalContentAlignment="Center" 
-                                          BorderBrush="AliceBlue" 
-                                          BorderThickness="2">
+                                          VerticalContentAlignment="Stretch"
+                                          HorizontalContentAlignment="Stretch" 
+                                          BorderBrush="LightBlue" 
+                                          BorderThickness="1">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"/>
-                                <DataGridTextColumn Header="Magazyn" Binding="{Binding Path=Element[storehouse].Value}"/>
                                 <DataGridTextColumn Header="Koperta" Binding="{Binding Path=Element[envelope].Value}"/>
                                 <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"/>
                                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"/>
                                 <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"/>
                             </DataGrid.Columns>
                         </DataGrid>
+                    </ScrollViewer>
+                </GroupBox>
+            </Grid>
+            <GroupBox Header="Zasady Wybranego Magazynu" Grid.Column="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="0" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Visible" Margin="5,5,0,0">
+                        <ListBox DataContext="{Binding RuleList}"
+                         ItemsSource="{Binding}"
+                         SelectedItem="{Binding SelectedRule}"
+                         PreviewMouseRightButtonDown="List_PreviewMouseRightButtonDown"
+                         BorderBrush="LightBlue"
+                         BorderThickness="1"
+                         ItemContainerStyle="{StaticResource FlatListBoxItem}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding Path=Element[attribute].Value ,Converter={StaticResource Nodes}}" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding Path=Element[operation].Value ,Converter={StaticResource Operations}}" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2" Grid.IsSharedSizeScope="True" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding Path=Element[value].Value}" />
+                                        </StackPanel>
+                                        <Button Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="20" Width="20" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Page}},Path=DataContext.DeleteRule}" CommandParameter="{Binding Path=Element[idr].Value}">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Grid>
+                                                        <Ellipse Stroke="Black" StrokeThickness="1" x:Name="EllipseTwo" Fill="White" />
+                                                        <ContentPresenter HorizontalAlignment="Stretch"
+                                                                          VerticalAlignment="Stretch"/>
+                                                        <iconPacks:PackIconMaterial Kind="Minus" Height="8" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Fill" Value="#FFF06F65" TargetName="EllipseTwo" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="Fill" Value="#FFFF1B00" TargetName="EllipseTwo" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Row="1">
+                        <Button Command="{Binding AddRule}" Height="27" Width="120" HorizontalAlignment="Left" Margin="5,0,0,0">Dodaj Zasadę</Button>
+                        <Button Command="{Binding EditRule}" Height="27" Width="120" HorizontalAlignment="Right">Edytuj Zasadę</Button>
                     </DockPanel>
                 </Grid>
-        
-        </GroupBox>
+            </GroupBox>
         </Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
             <StackPanel.Resources>
-                <Style TargetType="{x:Type mui:ModernButton}">
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                     <Setter Property="Margin" Value="25,10,25,10"/>
                 </Style>
             </StackPanel.Resources>
-            <mui:ModernButton Command="{Binding AddMagazine}" Height="25" Width="120">Dodaj Magazyn</mui:ModernButton>
-            <mui:ModernButton Command="{Binding EditMagazine}" Height="25" Width="120">Edytuj Magazyn</mui:ModernButton>
-            <mui:ModernButton Command="{Binding DeleteMagazine}" Height="25" Width="120">Usuń Magazyn</mui:ModernButton>
+            <Button Command="{Binding AddMagazine}" Height="27" Width="125">Dodaj Magazyn</Button>
+            <Button Command="{Binding EditMagazine}" Height="27" Width="125">Edytuj Magazyn</Button>
+            <Button Command="{Binding DeleteMagazine}" Height="27" Width="125">Usuń Magazyn</Button>
         </StackPanel>
     </Grid>
 </Page>

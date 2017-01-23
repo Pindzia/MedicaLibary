@@ -54,13 +54,13 @@
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" Grid.IsSharedSizeScope="True">
-                                    <TextBlock  Text="{Binding Path=Element[idr].Value}" />
+                                    <TextBlock Text="{Binding Path=Element[attribute].Value}" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Grid.IsSharedSizeScope="True">
-                                    <TextBlock Grid.Column="1" Text="{Binding Path=Element[attribute].Value}" />
+                                    <TextBlock Text="{Binding Path=Element[operation].Value}" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="2" Grid.IsSharedSizeScope="True">
-                                    <TextBlock Grid.Column="1" Text="{Binding Path=Element[value].Value}" />
+                                    <TextBlock Text="{Binding Path=Element[value].Value}" />
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>

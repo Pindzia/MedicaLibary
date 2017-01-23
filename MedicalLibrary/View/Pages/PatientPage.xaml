@@ -14,11 +14,11 @@
     <Page.Resources>
         <Style x:Key="StretchedButtonContent" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderBrush" Value="LightBlue"/>
             <Setter Property="ContentTemplate">
                 <Setter.Value>
                     <DataTemplate>
-                        <Viewbox Stretch="Fill">
+                        <Viewbox>
                             <ContentPresenter Content="{TemplateBinding Content}"/>
                         </Viewbox>
                     </DataTemplate>
@@ -48,40 +48,49 @@
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
-                    <Label Content="Wyszukaj Pacjenta:" Margin="0,0,10,0"/>
-                    <TextBox Text="{Binding FindQuery, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
-                </StackPanel>
+            <GroupBox Header="Wyszukaj Pacjenta" Grid.Row="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
+                        <Label Content="Nazwa Pola :" Margin="0,0,10,0"/>
+                        <TextBox Text="{Binding FindQuery, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center">
-                    <Label Content="Kolumna:" Margin="0,0,10,0"/>
-                    <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center">
+                        <Label Content="Kolumna :" Margin="0,0,10,0"/>
+                        <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"
                               DataContext="{Binding QueryOptionList}" 
                               ItemsSource="{Binding}" 
                               SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedQuery}">
-                    </ComboBox>
-                </StackPanel >
-                <Button HorizontalAlignment="Left" Grid.Column ="2" Command="{Binding ClearSearch}" Width="24" Height="24" Style="{StaticResource StretchedButtonContent}">
-                    <Grid>
-                        <iconPacks:PackIconMaterial Kind="Close" Height="24" Width="24"></iconPacks:PackIconMaterial>
-                    </Grid>
-                </Button>
-            </Grid>
-            <StackPanel Margin="20,10,20,10" Grid.Row="1" Grid.IsSharedSizeScope="True" Orientation="Vertical">
-                <ScrollViewer Grid.IsSharedSizeScope="True">
-                    <DataGrid DataContext="{Binding DataToBind}" Height="480"  
+                        </ComboBox>
+                    </StackPanel >
+                    <Button HorizontalAlignment="Left" Grid.Column ="2" Command="{Binding ClearSearch}" Width="150" Height="23" Style="{StaticResource StretchedButtonContent}">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Close" Height="8" VerticalAlignment="Center"></iconPacks:PackIconMaterial>
+                                <TextBlock Text="Wyczyść wyszukiwanie"/>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Lista Pacjentów" Grid.Row="1" Grid.IsSharedSizeScope="True" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <ScrollViewer Grid.IsSharedSizeScope="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="10,15,10,10" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                    <DataGrid DataContext="{Binding DataToBind}"  
                           ItemsSource="{Binding}" 
                           SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" 
                           IsReadOnly="True" 
                           SelectionMode="Single"
                           AutoGenerateColumns="False"
+                          VerticalAlignment="Stretch"
                           RowHeaderWidth="1"
+                          BorderBrush="LightBlue"
+                          BorderThickness="1"
                           x:Name="MyGrid">
                         <i:Interaction.Triggers>
                             <i:EventTrigger SourceName="MyGrid" EventName="Loaded">
@@ -98,16 +107,17 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </ScrollViewer>
-            </StackPanel>
+            </GroupBox>
+            
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="2">
                 <StackPanel.Resources>
-                    <Style TargetType="{x:Type mui:ModernButton}">
-                        <Setter Property="Margin" Value="25,10,25,10"/>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Margin" Value="25,5,25,5"/>
                     </Style>
                 </StackPanel.Resources>
-                <mui:ModernButton Command="{Binding AddPatient}" Height="25" Width="120">Dodaj Pacjenta</mui:ModernButton>
-                <mui:ModernButton Command="{Binding EditPatient}" Height="25" Width="120">Edytuj Pacjenta</mui:ModernButton>
-                <mui:ModernButton Command="{Binding DeletePatient}" Height="25" Width="120">Usuń Pacjenta</mui:ModernButton>
+                <Button Command="{Binding AddPatient}" Height="27" Width="125">Dodaj Pacjenta</Button>
+                <Button Command="{Binding EditPatient}" Height="27" Width="125">Edytuj Pacjenta</Button>
+                <Button Command="{Binding DeletePatient}" Height="27" Width="125">Usuń Pacjenta</Button>
             </StackPanel>
         </Grid>
     </Grid>

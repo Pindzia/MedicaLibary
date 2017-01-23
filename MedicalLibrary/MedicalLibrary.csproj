@@ -117,7 +117,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\ElementsConverter.cs" />
-    <Compile Include="Converters\NameConverter.cs" />
+    <Compile Include="Converters\NodeConverterRule.cs" />
+    <Compile Include="Converters\RuleOperationConverter.cs" />
     <Compile Include="Converters\NodeConverter.cs" />
     <Compile Include="Converters\OperationConverter.cs" />
     <Compile Include="Converters\XElementNodeNameConverter.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="ViewModel\PagesViewModel\SettingsPageViewModel.cs" />
     <Compile Include="ViewModel\RelayCommandNoGlobal.cs" />
     <Compile Include="ViewModel\WindowsViewModel\AddEditCustomFieldViewModel.cs" />
+    <Compile Include="ViewModel\WindowsViewModel\AddEditRuleWindowViewModel.cs" />
     <Compile Include="View\CustomControls\CheckControl.xaml.cs">
       <DependentUpon>CheckControl.xaml</DependentUpon>
     </Compile>
@@ -213,6 +215,9 @@
     </Compile>
     <Compile Include="View\Windows\AddEditPatientWindow.xaml.cs">
       <DependentUpon>AddEditPatientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\AddEditRuleWindow.xaml.cs">
+      <DependentUpon>AddEditRuleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\AddEditVistitWindow.xaml.cs">
       <DependentUpon>AddEditVistitWindow.xaml</DependentUpon>
@@ -309,6 +314,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Windows\AddEditPatientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\AddEditRuleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

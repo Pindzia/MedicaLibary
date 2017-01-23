@@ -31,8 +31,8 @@
 
         </Grid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <mui:ModernButton  Width="120" Height="25" Command="{Binding SaveVisit}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</mui:ModernButton>
-            <mui:ModernButton Width="120" Height="25" Command="{Binding CancelVisit}" CommandParameter="{Binding ElementName=WindowToClose}">Anuluj</mui:ModernButton>
+            <Button  Width="120" Height="25" Command="{Binding SaveVisit}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</Button>
+            <Button  Width="120" Height="25" Command="{Binding CancelVisit}" CommandParameter="{Binding ElementName=WindowToClose}">Anuluj</Button>
         </StackPanel>
             </Grid>
 </Window>

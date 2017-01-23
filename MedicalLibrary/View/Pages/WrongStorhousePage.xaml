@@ -23,16 +23,18 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="8*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <StackPanel Margin="20,10,20,10" Grid.Row="0" Grid.IsSharedSizeScope="True">
-                <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="10,15,10,10">
                     <DataGrid DataContext="{Binding WrongPatients}"  
                           ItemsSource="{Binding}" 
                           SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" 
-                          IsReadOnly="True" 
+                          IsReadOnly="True"
                           SelectionMode="Single"
+                          RowHeaderWidth="1"
+                          BorderBrush="LightBlue"
+                          BorderThickness="1"
                           AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding Path=.Element[idp].Value}"></DataGridTextColumn>
@@ -46,17 +48,15 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </ScrollViewer>
-                
-                <Label Content="{Binding SelectedItem.Element[idp].Value}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
+            </GroupBox>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">
                 <StackPanel.Resources>
-                    <Style TargetType="{x:Type mui:ModernButton}">
-                        <Setter Property="Margin" Value="25,10,25,10"/>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Margin" Value="25,5,25,5"/>
                     </Style>
                 </StackPanel.Resources>
-                <mui:ModernButton Command="{Binding WhatStorehouse}" Height="25" Width="120">Zasugeruj Magazyn</mui:ModernButton>
-                <mui:ModernButton Command="{Binding FixStorehouse}" Height="25" Width="120">Popraw Pacjenta</mui:ModernButton>
+                <Button Command="{Binding WhatStorehouse}" Height="27" Width="150">Zasugeruj Magazyn</Button>
+                <Button Command="{Binding FixStorehouse}" Height="27" Width="150">Popraw Pacjenta</Button>
             </StackPanel>
         </Grid>
     </Grid>

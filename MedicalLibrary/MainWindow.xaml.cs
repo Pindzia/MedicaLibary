@@ -27,24 +27,24 @@ namespace MedicalLibrary
     {
         public MainWindow()
         {
-            PushREST.SetClient();
+            /*PushREST.SetClient();
             EntryWindow window = new EntryWindow();
             Nullable<bool> result = window.ShowDialog();
             if(result == true && result!=null)
-            {
+            {*/
                 InitializeComponent();
-                //XElementon.Instance.LoadRaw();
+                XElementon.Instance.LoadRaw();
                 //XElementon.Instance.LoadEncrypted();
                 ContentSource = MenuLinkGroups.First().Links.First().Source;
                 linkWrong = WrongPatient;
                 linkMod = Modifications;
                 linkRest = RestAPI;
                 GlobalUpdate();
-            }
+            /*}
             else
             {
                 Close();
-            }
+            }*/
             
         }
         public static Link linkWrong;
