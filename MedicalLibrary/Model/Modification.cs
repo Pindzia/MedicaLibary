@@ -125,7 +125,7 @@ namespace MedicalLibrary.Model
             {
                 reverted = XElementon.Instance.Rule.WithIDR(Convert.ToInt16(revert.Element("id").Value)).FirstOrDefault();
                 if (operation == "D")
-                    XElementon.Instance.Rule.Add(Convert.ToInt16(revert.Element("ids")), datatable, false);
+                    XElementon.Instance.Rule.Add((int)revert.Element("ids"), datatable, false);
             }
             else if (nodetype == "field")
             {

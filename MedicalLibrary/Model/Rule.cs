@@ -107,7 +107,11 @@ namespace MedicalLibrary.Model
             XElementon.Instance.ChangeX("rule", id, modifications, log);
         }
 
-        //TODO - Delete()?
+        //Usuwanie Zasady
+        public void Delete(int id, bool log = true)
+        {
+            XElementon.Instance.DeleteX("rule", id, log);
+        }
 
 
     }
