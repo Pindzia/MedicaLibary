@@ -41,14 +41,14 @@ namespace MedicalLibrary.View.Windows
                 window.MaxHeight = 550;
                 window.MaxWidth = 500;
                 window.Height = 550;
-                window.Width = 500;
+                window.Width = 400;
             }
             
             if(whereTo == "Login")
             {
                 window.ModernTab.SelectedSource = window.ModernTab.Links[1].Source;
-                window.MaxHeight = 350;
-                window.MaxWidth = 340;
+                window.Height = 550;
+                window.Width = 400;
             }
             
         }

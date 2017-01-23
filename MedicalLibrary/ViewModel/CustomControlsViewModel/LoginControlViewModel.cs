@@ -47,8 +47,58 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
             }
         }
 
+        private bool _IsActive = false;
+        public bool IsActive
+        {
+            private get
+            {
+                return _IsActive;
+            }
+
+            set
+            {
+                _IsActive = value;
+                OnPropertyChanged(nameof(IsActive));
+            }
+        }
+
+        private bool _IsEnabled = true;
+        public bool IsEnabled
+        {
+            private get
+            {
+                return _IsEnabled;
+            }
+
+            set
+            {
+                _IsEnabled = value;
+                OnPropertyChanged(nameof(IsEnabled));
+            }
+        }
+
+        private string _LoginMessage = "";
+        public string LoginMessage
+        {
+            get
+            {
+                return _LoginMessage;
+            }
+
+            set
+            {
+                _LoginMessage = value;
+                OnPropertyChanged(nameof(LoginMessage));
+            }
+        }
+
         public ICommand NavReg { get; set; }
         public ICommand LogIn { get; set; }
+
+        async Task PutTaskDelay()
+        {
+            await Task.Delay(2000);
+        }
 
         private async void Login()
         {
@@ -56,32 +106,42 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
             {
                 //logika zalogowania
                 //haszowanie
+                IsEnabled = false;
+                IsActive = true;
+                LoginMessage = "Logowanie w toku...";
                 var pass = CryptoClass.Instance.GetStringSha256Hash(_Password);
-
                 int idLekarz;
                 if ((idLekarz = await PushREST.Login(Username, pass)) == 0)
                 {
-                    System.Windows.MessageBox.Show("Błędne hasło lub login!");
+                    LoginMessage = "Błędne hasło lub login!";
+                    IsEnabled = true;
+                    IsActive = false;
                     return;
                 }
                 else
                 {
-
-                    System.Windows.MessageBox.Show("Poprawne zalogowanie!!");
+                    DateTime timer = DateTime.Now.AddSeconds(2);
+                    LoginMessage = "Poprawne zalogowanie!!";
+                    await PutTaskDelay();
                     XElementon.Instance.idLekarz = idLekarz;
                     XElementon.Instance.nazwaLekarz = Username;
                     XElementon.Instance.Haslo = pass;
 
-                    System.Windows.MessageBox.Show("Pobieranie danch w toku...");
+                    LoginMessage = "Pobieranie danch w toku...";
                     var x = await PullREST.PullAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo);
                     if (x != null)
                     {
                         XElementon.Instance.setDatabase(x);
-                        System.Windows.MessageBox.Show("Dane pobrane!");
+                        IsActive = false;
+                        LoginMessage = "Dane pobrane!";
+                        DateTime secondtimer = DateTime.Now.AddSeconds(2);
+                        await PutTaskDelay();
                     } else
                     {
                         //ERROR!
-                        System.Windows.MessageBox.Show("Błąd pobrania!");
+                        IsActive = false;
+                        IsEnabled = true;
+                        LoginMessage ="Błąd pobrania!";
                         return;
                     }
                 }

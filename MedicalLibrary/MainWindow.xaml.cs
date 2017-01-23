@@ -27,11 +27,11 @@ namespace MedicalLibrary
     {
         public MainWindow()
         {
-            /*PushREST.SetClient();
+            PushREST.SetClient();
             EntryWindow window = new EntryWindow();
             Nullable<bool> result = window.ShowDialog();
             if(result == true && result!=null)
-            {*/
+            {
                 InitializeComponent();
                 XElementon.Instance.LoadRaw();
                 //XElementon.Instance.LoadEncrypted();
@@ -40,11 +40,11 @@ namespace MedicalLibrary
                 linkMod = Modifications;
                 linkRest = RestAPI;
                 GlobalUpdate();
-            /*}
+            }
             else
             {
                 Close();
-            }*/
+            }
             
         }
         public static Link linkWrong;

@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:MedicalLibrary.View.Windows"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         mc:Ignorable="d"
-        Title="EntryWindow" Height="500" Width="550" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="EntryWindow" Height="550" Width="400" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Grid Style="{StaticResource ContentRoot}">
-        <mui:ModernTab SelectedSource="/View/CustomControls/RegisterControl.xaml" x:Name="ModernTab" Layout="Tab">
+        <mui:ModernTab SelectedSource="/View/CustomControls/LoginControl.xaml" x:Name="ModernTab" Layout="Tab">
             <mui:ModernTab.Links>
                 <mui:Link Source="/View/CustomControls/RegisterControl.xaml" />
                 <mui:Link Source="/View/CustomControls/LoginControl.xaml" />
