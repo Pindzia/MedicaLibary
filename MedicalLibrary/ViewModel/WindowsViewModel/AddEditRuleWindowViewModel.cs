@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace MedicalLibrary.ViewModel.WindowsViewModel
 {
-    public class AddEditRuleWindowViewModel: BaseViewModel
+    public class AddEditRuleWindowViewModel : BaseViewModel
     {
 
         public AddEditRuleWindowViewModel()
@@ -145,15 +145,19 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
 
         private void CreateRule()
         {
-            if(Rule != null)
+            if (Rule != null) //Edycja
             {
                 Rule.Element("attribute").Value = SelectedAttribute;
                 Rule.Element("operation").Value = SelectedOperation;
                 Rule.Element("value").Value = VarOfRule;
             }
-            else
+            else //Dodawanie
             {
-                //wytwórz
+                Rule = new XElement(
+                    new XElement("rule",
+                    new XElement("attribute", SelectedAttribute),
+                    new XElement("operation", SelectedOperation),
+                    new XElement("value", VarOfRule)));
             }
         }
 

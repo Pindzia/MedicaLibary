@@ -361,6 +361,21 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
+        private Tuple<string, string>[] TupleList()
+        {
+            var list = new List<Tuple<string, string>>();
+            Tuple<string, string> a = new Tuple<string, string>("attribute", (string)NewRule.Element("attribute"));
+            Tuple<string, string> b = new Tuple<string, string>("operation", (string)NewRule.Element("operation"));
+            Tuple<string, string> c = new Tuple<string, string>("value", (string)NewRule.Element("value"));
+            list.Add(a);
+            list.Add(b);
+            list.Add(c);
+
+
+            Tuple<string, string>[] tup = list.ToArray();
+            return tup;
+        }
+
         private void AddRules()
         {
             AddEditRuleWindowViewModel viewModel = new AddEditRuleWindowViewModel();
@@ -369,9 +384,13 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             if(result==true)
             {
                 // logika
-
                 NewRule = viewModel.Rule;
+
+
+
                 //Place na dodanie do SelectedButton zasady
+                XElementon.Instance.Rule.Add((int)SelectedButton.Element("ids"), TupleList());
+
                 UpdateData();
             }
 
@@ -387,7 +406,14 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 if (result == true)
                 {
                     // logika porównać ze stara zasada (selected rule) jak w PatientPageViewModel jesli git to jak w addycji
-
+                    var compare = new XElement(SelectedRule);
+                    compare.Element("idr").Remove();
+                    if (viewModel.Rule.ToString() != compare.ToString()) //SelectedItem ma w sobie envelope a Patient nie //TODO czy to w ogóle potrzebne? Czy pozwolić na to i cancele?
+                    {
+                        NewRule = viewModel.Rule;
+                        XElementon.Instance.Rule.Change((int)SelectedButton.Element("ids"), TupleList());
+                        //UpdateDataAsync(); //Naleciałość z PatientPageViewModel
+                    }
                 }
             }
             else

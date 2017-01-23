@@ -166,9 +166,9 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
         private async void RegNew() //async!
         {
 
-            if(_ListUser == null)
+            if(_ListUser.Count == 0)
             {
-                System.Windows.MessageBox.Show("_ListUser pusty?!");
+                System.Windows.MessageBox.Show("Nie pobrano jeszcze listy nazw Lekarzy?!");
                 return;
             }
 
