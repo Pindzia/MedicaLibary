@@ -82,7 +82,7 @@ namespace MedicalLibrary.Model
         //Dodaj pacjenta
         public void Add(Tuple<string, string>[] data, bool log = true, string magazyn = "") //TODO argumenty?
         {
-            string imie = "", nazwisko = "", pesel = "";
+            string imie = "", nazwisko = "", pesel = "", idp = null;
             var customfields = XElementon.Instance.Field.Fields();
             List<XElement> fieldsindata = new List<XElement>();
 
@@ -95,6 +95,10 @@ namespace MedicalLibrary.Model
                     nazwisko = dat.Item2;
                 else if (dat.Item1 == "pesel")
                     pesel = dat.Item2;
+                else if (dat.Item1 == "idp" && !log)
+                {
+                    idp = dat.Item2;
+                }
                 else
                 {
                     foreach (var customfield in customfields)
@@ -112,10 +116,16 @@ namespace MedicalLibrary.Model
                 return;
             }
 
-            //Autonumeracja po id - olewamy 'dziury'
-            var max = database.Descendants("max_idp").First();
-            var idp = (string)max;
-            max.Value = (Convert.ToInt16(idp) + 1).ToString();
+
+            if (log)
+            {
+                //Autonumeracja po id - olewamy 'dziury'
+                var max = database.Descendants("max_idp").First();
+                idp = (string)max;
+                max.Value = (Convert.ToInt16(idp) + 1).ToString();
+            }
+
+
 
             //Tworzymy element pacjent który później wszczepimy w nasz dokument
             XElement nowy_pacjent = new XElement(

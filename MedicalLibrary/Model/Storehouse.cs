@@ -47,7 +47,7 @@ namespace MedicalLibrary.Model
         public void Add(Tuple<string, string>[] data, bool log = true)
         {
             //Szczytywanie danych z źródła
-            string nazwa = "", priority = "", size = "";
+            string nazwa = "", priority = "", size = "", ids = null;
 
             foreach (var dat in data)
             {
@@ -57,6 +57,10 @@ namespace MedicalLibrary.Model
                     size = dat.Item2;
                 else if (dat.Item1 == "priority")
                     priority = dat.Item2;
+                else if (dat.Item1 == "ids" && !log)
+                {
+                    ids = dat.Item2;
+                }
             }
 
             if (nazwa == "" || size == "" || priority == "")
@@ -64,10 +68,13 @@ namespace MedicalLibrary.Model
                 return;
             }
 
-            //Autonumeracja ID
-            var max_ids = database.Descendants("max_ids").First();
-            var ids = (string)max_ids;
-            max_ids.Value = (Convert.ToInt16((string)max_ids) + 1).ToString();
+            if (log)
+            {
+                //Autonumeracja ID
+                var max_ids = database.Descendants("max_ids").First();
+                ids = (string)max_ids;
+                max_ids.Value = (Convert.ToInt16((string)max_ids) + 1).ToString();
+            }
 
             //Tworzymy element storehouse który później wszczepimy w nasz dokument 
             XElement nowy_magazyn = new XElement(

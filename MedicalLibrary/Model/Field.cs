@@ -36,7 +36,7 @@ namespace MedicalLibrary.Model
         {
 
             //Szczytywanie danych z źródła
-            string fieldname = "", fieldtype = "", fielddefault = "";
+            string fieldname = "", fieldtype = "", fielddefault = "", idf = null;
 
             foreach (var dat in data)
             {
@@ -46,6 +46,10 @@ namespace MedicalLibrary.Model
                     fieldtype = dat.Item2;
                 else if (dat.Item1 == "fielddefault")
                     fielddefault = dat.Item2;
+                else if (dat.Item1 == "idf" && !log)
+                {
+                    idf = dat.Item2;
+                }
             }
 
             if (fieldname == "") //fieldtype - bool. Int? uInt? String? Inne? //Jak dotyczczas jest podział na bool - checkboxy i niebool - liczby
@@ -53,10 +57,14 @@ namespace MedicalLibrary.Model
                 return;
             }
 
-            //Autonumeracja ID
-            var max_idf = database.Descendants("max_idf").First();
-            var idf = max_idf.Value;
-            max_idf.Value = (Convert.ToInt16(max_idf.Value) + 1).ToString();
+            if (log)
+            {
+                //Autonumeracja ID
+                var max_idf = database.Descendants("max_idf").First();
+                idf = max_idf.Value;
+                max_idf.Value = (Convert.ToInt16(max_idf.Value) + 1).ToString();
+            }
+
 
             //Tworzymy element rule który później wszczepimy w nasz dokument
             XElement nowe_pole = new XElement(

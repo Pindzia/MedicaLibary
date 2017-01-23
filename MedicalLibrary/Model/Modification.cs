@@ -263,7 +263,7 @@ namespace MedicalLibrary.Model
                                            || (string)x.Element("operation") == "E")
                                            && (string)modification.Element("node_type") == "patient"
                                            && (string)x.Element("node_type") == "visit"
-                                           && (string)x.Element("id") == (string)modification.Element("id"));
+                                           && (string)x.Element("idp") == (string)modification.Element("olddata").Element("idp"));
 
                 var obsolete4 = this.Modifications().Where(x => (string)x.Element("idm") != (string)modification.Element("idm") 
                                && ((string)x.Element("operation") == "A"
@@ -285,7 +285,31 @@ namespace MedicalLibrary.Model
 
             while (obsolete2.Any())
             {
+                var Duplicate = obsolete2.First();
+                var unionold = new List<XElement>(Duplicate.Elements("olddata").Elements().Concat(modification.Elements("olddata").Elements()).GroupBy(x => x.Name).Select(g => g.First())).ToList();
+
+                //SortBy using join na podstawie kolejności z PatientAttributeList
+                var orderedold = from i in XElementon.Instance.Patient.PatientAttributeList()
+                                 join o in unionold
+                                 on i equals o.Name
+                                 select o;
+
+                //Wyszukujemy i doklejamy zgubione pola istniejące w modyfikacji ale nie istniejące w PatientAttributeList
+                var unlistedold = from el in unionold
+                                  let i = XElementon.Instance.Patient.PatientAttributeList()
+                                  where !i.Contains(el.Name.LocalName)
+                                  select el;
+
+                unionold = orderedold.ToList();
+
+                unionold = unionold.Concat(unlistedold).ToList();
+
+                //Odklejamy starą parę olddata i newdata, przyklejamy nową parę
                 modification.Element("olddata").Remove();
+
+                modification.Add(new XElement("olddata", unionold));
+
+                //modification.Element("olddata").Remove();
                 modification.Add(obsolete2.First().Element("olddata"));
                 obsolete2.Remove();
             }

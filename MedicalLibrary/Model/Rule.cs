@@ -50,7 +50,7 @@ namespace MedicalLibrary.Model
         {
 
             //Szczytywanie danych z źródła
-            string attribute = "", operation = "", value = "";
+            string attribute = "", operation = "", value = "", idr = null;
 
             foreach (var dat in data)
             {
@@ -60,6 +60,10 @@ namespace MedicalLibrary.Model
                     operation = dat.Item2;
                 else if (dat.Item1 == "value")
                     value = dat.Item2;
+                else if (dat.Item1 == "idr" && !log)
+                {
+                    idr = dat.Item2;
+                }
             }
 
             if (attribute == "" || value == "" || (operation != "greater" && operation != "equal" && operation != "lesser"))
@@ -67,10 +71,13 @@ namespace MedicalLibrary.Model
                 return;
             }
 
-            //Autonumeracja ID
-            var max_idr = database.Descendants("max_idr").First();
-            var idr = (string)max_idr;
-            max_idr.Value = (Convert.ToInt16(max_idr.Value) + 1).ToString();
+            if (log)
+            {
+                //Autonumeracja ID
+                var max_idr = database.Descendants("max_idr").First();
+                idr = (string)max_idr;
+                max_idr.Value = (Convert.ToInt16(max_idr.Value) + 1).ToString();
+            }
 
             //Tworzymy element rule który później wszczepimy w nasz dokument
             XElement nowa_zasada = new XElement(

@@ -531,14 +531,6 @@ namespace MedicalLibrary.Model
             var dana = (string)modification.Element("node_type");
             var id = (string)modification.Element("id");
 
-
-            //Wyślij modyfikacje "modyfikacja.dbo"
-            //Wyślij modyfikacje "dane_modyfikacji.dbo"
-
-            //Pobierz z RESTa ów element (dana o podanym id)
-            //Zmień wczytanego elementa
-            //Przeczytaj operację i Wysłać nowego elementa (ze zmienionymi danymi na podstawie newdata)
-
         }
 
         public void FillDatabase()

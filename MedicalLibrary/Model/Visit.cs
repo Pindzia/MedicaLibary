@@ -44,25 +44,34 @@ namespace MedicalLibrary.Model
         {
 
             //Szczytywanie danych z źródła
+            string idv = null;
             string comment = "";
             string time = "";
             foreach (var dat in data)
             {
                 if (dat.Item1 == "comment")
                     comment = dat.Item2;
-                if (dat.Item1 == "visit_addition_date")
+                else if (dat.Item1 == "visit_addition_date")
                     time = dat.Item2;
+                else if (dat.Item1 == "idv" && !log)
+                {
+                    idv = dat.Item2;
+                }
             }
 
             if(time == "")
             {
                 time = DateTimeOffset.Now.ToString();
             }
-            
-            //Autonumeracja ID
-            var max_idv = database.Descendants("max_idv").First();
-            var idv = max_idv.Value;
-            max_idv.Value = (Convert.ToInt16(max_idv.Value) + 1).ToString();
+
+
+            if (log)
+            {
+                //Autonumeracja ID
+                var max_idv = database.Descendants("max_idv").First();
+                idv = max_idv.Value;
+                max_idv.Value = (Convert.ToInt16(max_idv.Value) + 1).ToString();
+            }
 
 
             XElement nowa_wizyta = new XElement(
