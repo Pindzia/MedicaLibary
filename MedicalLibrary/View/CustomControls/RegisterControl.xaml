@@ -78,7 +78,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.Resources>
-                <Style TargetType="{x:Type Label}">
+                <Style TargetType="{x:Type Label}" x:Key="BaseLabel">
                     <Setter Property="HorizontalAlignment" Value="Left"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -91,11 +91,76 @@
                     <Setter Property="Height" Value="27"/>
                 </Style>
             </Grid.Resources>
-            <Label Grid.Row="0" Grid.Column="0" Content="Login musi być unikalny bez znaków specjalnych od 3 do 25 znaków:"/>
-            <Label Grid.Row="1" Grid.Column="0" Content="Wszystkie pola muszą być zapełnione:" />
-            <Label Grid.Row="2" Grid.Column="0" Content="Hasło musi mieć od 7 do 16 znaków:" />
-            <Label Grid.Row="3" Grid.Column="0" Content="Hasło musi posiadać dużą jedną dużą i małą literę oraz cyfrę:" />
-            <Label Grid.Row="4" Grid.Column="0" Content="Hasła muszą być takie same:"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="Login musi być unikalny bez znaków specjalnych od 3 do 25 znaków:">
+                <Label.Style>
+                    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseLabel}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding UsernameFlag}" Value="true">
+                                <Setter Property="Foreground" Value="Green"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding UsernameFlag}" Value="false">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <Label Grid.Row="1" Grid.Column="0" Content="Wszystkie pola muszą być zapełnione:">
+                <Label.Style>
+                    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseLabel}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding EmptyFlag}" Value="true">
+                                <Setter Property="Foreground" Value="Green"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding EmptyFlag}" Value="false">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <Label Grid.Row="2" Grid.Column="0" Content="Hasło musi mieć od 7 do 16 znaków:">
+                <Label.Style>
+                    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseLabel}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding LenghtFlag}" Value="true">
+                                <Setter Property="Foreground" Value="Green"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding LenghtFlag}" Value="false">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <Label Grid.Row="3" Grid.Column="0" Content="Hasło musi posiadać dużą jedną dużą i małą literę oraz cyfrę:">
+                <Label.Style>
+                    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseLabel}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SpecCharFlag}" Value="true">
+                                <Setter Property="Foreground" Value="Green"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SpecCharFlag}" Value="false">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <Label Grid.Row="4" Grid.Column="0" Content="Hasła muszą być takie same:">
+                <Label.Style>
+                    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseLabel}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SameFlag}" Value="true">
+                                <Setter Property="Foreground" Value="Green"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SameFlag}" Value="false">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
             <Image Grid.Row="0" Grid.Column="1">
                 <Image.Style>
                     <Style TargetType="{x:Type Image}" BasedOn="{StaticResource BaseStyle}">
