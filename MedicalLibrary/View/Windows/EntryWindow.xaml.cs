@@ -38,17 +38,11 @@ namespace MedicalLibrary.View.Windows
             if(whereTo == "Register")
             {
                 window.ModernTab.SelectedSource = window.ModernTab.Links[0].Source;
-                window.MaxHeight = 550;
-                window.MaxWidth = 500;
-                window.Height = 550;
-                window.Width = 400;
             }
             
             if(whereTo == "Login")
             {
                 window.ModernTab.SelectedSource = window.ModernTab.Links[1].Source;
-                window.Height = 550;
-                window.Width = 400;
             }
             
         }

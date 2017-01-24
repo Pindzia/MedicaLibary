@@ -100,27 +100,41 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
             await Task.Delay(2000);
         }
 
+        private void TurnProgress()
+        {
+            IsEnabled = false;
+            IsActive = true;
+        }
+
+        private void TurnOffProgress()
+        {
+            IsEnabled = true;
+            IsActive = false;
+        }
+        private void Finish()
+        {
+            IsEnabled = false;
+            IsActive = false;
+        }
         private async void Login()
         {
             if(Username != null && Username !="" && _Password!=null && _Password!="")//zawrzeć warunek moze byc jakis dodatkowy
             {
                 //logika zalogowania
                 //haszowanie
-                IsEnabled = false;
-                IsActive = true;
+                
                 LoginMessage = "Logowanie w toku...";
+                TurnProgress();
                 var pass = CryptoClass.Instance.GetStringSha256Hash(_Password);
                 int idLekarz;
                 if ((idLekarz = await PushREST.Login(Username, pass)) == 0)
                 {
                     LoginMessage = "Błędne hasło lub login!";
-                    IsEnabled = true;
-                    IsActive = false;
+                    TurnOffProgress();
                     return;
                 }
                 else
                 {
-                    DateTime timer = DateTime.Now.AddSeconds(2);
                     LoginMessage = "Poprawne zalogowanie!!";
                     await PutTaskDelay();
                     XElementon.Instance.idLekarz = idLekarz;
@@ -132,21 +146,24 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
                     if (x != null)
                     {
                         XElementon.Instance.setDatabase(x);
-                        IsActive = false;
+                        Finish();
                         LoginMessage = "Dane pobrane!";
-                        DateTime secondtimer = DateTime.Now.AddSeconds(2);
                         await PutTaskDelay();
                     } else
                     {
                         //ERROR!
-                        IsActive = false;
-                        IsEnabled = true;
+                        TurnOffProgress();
                         LoginMessage ="Błąd pobrania!";
                         return;
                     }
                 }
 
                 EntryWindow.Complete();
+            }else
+            {
+                LoginMessage = "Uzupełnij dane logowania";
+                await PutTaskDelay();
+                LoginMessage = "";
             }
         }
 

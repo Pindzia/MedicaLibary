@@ -159,16 +159,85 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
             }
         }
 
+        private bool _IsActive = false;
+        public bool IsActive
+        {
+            private get
+            {
+                return _IsActive;
+            }
+
+            set
+            {
+                _IsActive = value;
+                OnPropertyChanged(nameof(IsActive));
+            }
+        }
+
+        private bool _IsEnabled = true;
+        public bool IsEnabled
+        {
+            private get
+            {
+                return _IsEnabled;
+            }
+
+            set
+            {
+                _IsEnabled = value;
+                OnPropertyChanged(nameof(IsEnabled));
+            }
+        }
+
+        private string _LoginMessage = "";
+        public string LoginMessage
+        {
+            get
+            {
+                return _LoginMessage;
+            }
+
+            set
+            {
+                _LoginMessage = value;
+                OnPropertyChanged(nameof(LoginMessage));
+            }
+        }
+
         public ICommand Register { get; set; }
         public ICommand NavLog { get; set; }
 
+
+        async Task PutTaskDelay()
+        {
+            await Task.Delay(2000);
+        }
+
+        private void TurnProgress()
+        {
+            IsEnabled = false;
+            IsActive = true;
+        }
+
+        private void TurnOffProgress()
+        {
+            IsEnabled = true;
+            IsActive = false;
+        }
+        private void Finish()
+        {
+            IsEnabled = false;
+            IsActive = false;
+        }
 
         private async void RegNew() //async!
         {
 
             if(_ListUser.Count == 0)
             {
-                System.Windows.MessageBox.Show("Nie pobrano jeszcze listy nazw Lekarzy?!");
+                LoginMessage = "Nie pobrano jeszcze listy nazw Lekarzy?!";
+                await PutTaskDelay();
+                LoginMessage = "";
                 return;
             }
 
@@ -176,23 +245,37 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
             if (UsernameFlag && SameFlag && EmptyFlag && LenghtFlag && SpecCharFlag)
             {
                 //haszowanie
+                TurnProgress();
+                LoginMessage = "Rejestracja w toku...";
                 var pass = CryptoClass.Instance.GetStringSha256Hash(_Password);
                 int idLekarz;
+
                 if ((idLekarz = await PushREST.Rejestracja(_Username, pass)) == 0) //Co zwraca rejestracja?
                 {
-                    System.Windows.MessageBox.Show("Błąd Rejestracji!");
+                    LoginMessage = "Błąd Rejestracji!";
+                    TurnOffProgress();
                     return; // Close app?
                 }
                 else
                 {
+                    LoginMessage = "Zarejestrowano Pomyślnie!!";
+                    Finish();
                     XElementon.Instance.idLekarz = idLekarz;
                     XElementon.Instance.nazwaLekarz = _Username;
                     XElementon.Instance.Haslo = pass;
                     await PullREST.PullAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo);
+                    await PutTaskDelay();
                     EntryWindow.Complete();
                 }
                 //Rejestracja
                 
+            }
+            else
+            {
+                LoginMessage = "Warunki rejestracji nie zostały spełnione";
+                await PutTaskDelay();
+                LoginMessage = "";
+                return;
             }
         }
         private void Navigate()
