@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+      xmlns:custom="clr-namespace:OutlookCalendar.Controls;assembly=OutlookCalendar"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       x:Name="Page"
@@ -97,26 +98,14 @@
                     <RowDefinition Height="7*"/>
                 </Grid.RowDefinitions>
                 <DockPanel Grid.Row="0">
-                    <GroupBox Header="Dane Wybranego Pacjenta">
-                        <StackPanel Orientation="Vertical" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <StackPanel.Resources>
-                                <Style TargetType="{x:Type DockPanel}">
-                                    <Setter Property="Margin" Value="0,10,0,10"/>
+                    <GroupBox Header="Kalendarz">
+                        <Calendar x:Name="calendar" Grid.Column="1" SelectedDate="{Binding MyTime}">
+                            <Calendar.CalendarDayButtonStyle>
+                                <Style TargetType="CalendarDayButton" BasedOn="{StaticResource {x:Type CalendarDayButton}}">
+                                    <EventSetter Event="Loaded" Handler="calendarButton_Loaded"/>
                                 </Style>
-                            </StackPanel.Resources>
-                            <DockPanel>
-                                <Label Content ="Imie :" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{Binding SelectedItem.Element[imie].Value}" HorizontalAlignment="Right"/>
-                            </DockPanel>
-                            <DockPanel>
-                                <Label Content ="Nazwisko :" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{Binding SelectedItem.Element[nazwisko].Value}" HorizontalAlignment="Right"/>
-                            </DockPanel>
-                            <DockPanel>
-                                <Label Content ="Pesel :" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{Binding SelectedItem.Element[pesel].Value}" HorizontalAlignment="Right"/>
-                            </DockPanel>
-                        </StackPanel>
+                            </Calendar.CalendarDayButtonStyle>
+                        </Calendar>
                     </GroupBox>
                 </DockPanel>
                 <DockPanel Grid.Row="1">
@@ -131,7 +120,7 @@
                           RowHeaderWidth="1"
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center" 
-                          Margin="50,10,50,0"
+                          Margin="10,10,10,5"
                           BorderBrush="AliceBlue" 
                           BorderThickness="2">
                             <DataGrid.Columns>
@@ -150,9 +139,9 @@
                     <Setter Property="Margin" Value="25,10,25,10"/>
                 </Style>
             </StackPanel.Resources>
-            <mui:ModernButton Command="{Binding AddVisit}" Height="25" Width="120">Dodaj Wizytę</mui:ModernButton>
-            <mui:ModernButton Command="{Binding EditVisit}" Height="25" Width="120">Edytuj Wizytę</mui:ModernButton>
-            <mui:ModernButton Command="{Binding DeleteVisit}" Height="25" Width="120">Usuń Wizytę</mui:ModernButton>
+            <Button Command="{Binding AddVisit}" Height="25" Width="120">Dodaj Wizytę</Button>
+            <Button Command="{Binding EditVisit}" Height="25" Width="120">Edytuj Wizytę</Button>
+            <Button Command="{Binding DeleteVisit}" Height="25" Width="120">Usuń Wizytę</Button>
         </StackPanel>
     </Grid>
 </Page>

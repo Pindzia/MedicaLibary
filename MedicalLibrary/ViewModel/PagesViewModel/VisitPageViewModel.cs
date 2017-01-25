@@ -11,6 +11,7 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using MedicalLibrary.View.Windows;
 using MedicalLibrary.ViewModel.WindowsViewModel;
+using OutlookCalendar.Model;
 
 namespace MedicalLibrary.ViewModel.PagesViewModel
 {
@@ -149,6 +150,48 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             }
         }
 
+        private Appointments _Collection = new Appointments();
+        public Appointments Collection
+        {
+            get
+            {
+                return _Collection;
+            }
+            set
+            {
+                _Collection = value;
+                OnPropertyChanged(nameof(Collection)); // zapamiętać !!
+            }
+        }
+
+        private DateTime _MyTime = DateTime.Now;
+        public DateTime MyTime
+        {
+            get
+            {
+                return _MyTime;
+            }
+            set
+            {
+                _MyTime = value;
+                OnPropertyChanged(nameof(MyTime)); // zapamiętać !!
+            }
+        }
+
+        private ObservableCollection<DateTime> _HighlightedDates = new ObservableCollection<DateTime>();
+        public ObservableCollection<DateTime> HighlightedDates
+        {
+            get
+            {
+                return _HighlightedDates;
+            }
+            set
+            {
+                _HighlightedDates = value;
+                OnPropertyChanged(nameof(HighlightedDates)); // zapamiętać !!
+            }
+        }
+
         public ICommand AddVisit { get; set; }
         public ICommand EditVisit { get; set; }
         public ICommand DeleteVisit { get; set; }
@@ -158,6 +201,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             PatientList = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Patients());
             SelectedItem = PatientList.FirstOrDefault();
+            HighlightedDates = PrepareHighlight();
+            Collection = PrepareAppointments();
         }
         private void UpdateData(ObservableCollection<XElement> data)
         {
@@ -244,6 +289,33 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             if (SelectedQuery != "")
                 UpdateData(ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Filtered(SelectedQuery, FindQuery)));
+        }
+
+        private ObservableCollection<DateTime> PrepareHighlight()
+        {
+            ObservableCollection<DateTime> dates = new ObservableCollection<DateTime>();
+            foreach (DateTime date in XElementon.Instance.Visit.UniqueDates())
+            {
+                DateTime newDate = new DateTime(date.Year, date.Month, date.Day);
+                dates.Add(newDate);
+            }
+            return dates;
+        }
+
+        private Appointments PrepareAppointments()
+        {
+            Appointments collection = new Appointments();
+
+            foreach (XElement visit in XElementon.Instance.Visit.Visits())
+            {
+                Appointment appoint = new Appointment();
+                XElement startTime = visit.Element("visit_addition_date");
+                appoint.Subject = "Wizyta Pacjenta " + visit.Parent.Element("imie").Value + " " + visit.Parent.Element("nazwisko").Value + " " + visit.Parent.Element("pesel").Value;
+                appoint.StartTime = Convert.ToDateTime((string)startTime);
+                appoint.EndTime = appoint.StartTime.AddMinutes(16);
+                collection.Add(appoint);
+            }
+            return collection;
         }
 
     }
