@@ -9,6 +9,7 @@ using System.Xml;
 using System.Security.Cryptography;
 using System.IO;
 using MedicalLibrary.Model;
+using System.Text.RegularExpressions;
 
 namespace MedicalLibrary.Model
 {
@@ -105,7 +106,7 @@ namespace MedicalLibrary.Model
             else
             {
                 LoadRaw();
-            }   
+            }
             InitializeComponents();
         }
 
@@ -396,36 +397,36 @@ namespace MedicalLibrary.Model
             }
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
 
-                XElement mdpamodification = new XElement("modification");
-                mdpamodification.Add(new XElement("idm", AutonumerateModifications()));
-                mdpamodification.Add(new XElement("operation", "E"));
-                mdpamodification.Add(new XElement("node_type", nodetype));
-                mdpamodification.Add(new XElement("id", id));
+            XElement mdpamodification = new XElement("modification");
+            mdpamodification.Add(new XElement("idm", AutonumerateModifications()));
+            mdpamodification.Add(new XElement("operation", "E"));
+            mdpamodification.Add(new XElement("node_type", nodetype));
+            mdpamodification.Add(new XElement("id", id));
 
-                if (nodetype == "visit")
-                {
-                    string idp = (string)modify.Parent.Element("idp");
-                    mdpamodification.Add(new XElement("idp", idp));
-                }
-                else if (nodetype == "rule")
-                {
-                    string ids = (string)modify.Parent.Element("ids");
-                    mdpamodification.Add(new XElement("ids", ids));
-                }
+            if (nodetype == "visit")
+            {
+                string idp = (string)modify.Parent.Element("idp");
+                mdpamodification.Add(new XElement("idp", idp));
+            }
+            else if (nodetype == "rule")
+            {
+                string ids = (string)modify.Parent.Element("ids");
+                mdpamodification.Add(new XElement("ids", ids));
+            }
 
-                XElement olddata = new XElement("olddata");
-                foreach (var mod in olddatalist)
-                {
-                    olddata.Add(mod);
-                }
-                XElement newdata = new XElement("newdata");
-                foreach (var mod in newdatalist)
-                {
-                    newdata.Add(mod);
-                }
+            XElement olddata = new XElement("olddata");
+            foreach (var mod in olddatalist)
+            {
+                olddata.Add(mod);
+            }
+            XElement newdata = new XElement("newdata");
+            foreach (var mod in newdatalist)
+            {
+                newdata.Add(mod);
+            }
 
-                mdpamodification.Add(olddata);
-                mdpamodification.Add(newdata);
+            mdpamodification.Add(olddata);
+            mdpamodification.Add(newdata);
 
             mdpamodification = XElementon.Instance.Modification.MergeModifications(mdpamodification);
 
@@ -487,30 +488,30 @@ namespace MedicalLibrary.Model
             }
 
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
-                XElement mdpamodification = new XElement("modification");
-                mdpamodification.Add(new XElement("idm", AutonumerateModifications()));
-                mdpamodification.Add(new XElement("operation", "D"));
-                mdpamodification.Add(new XElement("node_type", nodetype));
-                mdpamodification.Add(new XElement("id", id));
+            XElement mdpamodification = new XElement("modification");
+            mdpamodification.Add(new XElement("idm", AutonumerateModifications()));
+            mdpamodification.Add(new XElement("operation", "D"));
+            mdpamodification.Add(new XElement("node_type", nodetype));
+            mdpamodification.Add(new XElement("id", id));
 
-                if (nodetype == "visit")
-                {
-                    string idp = (string)modify.Parent.Element("idp");
-                    mdpamodification.Add(new XElement("idp", idp));
-                }
-                else if (nodetype == "rule")
-                {
-                    string ids = (string)modify.Parent.Element("ids");
-                    mdpamodification.Add(new XElement("ids", ids));
-                }
+            if (nodetype == "visit")
+            {
+                string idp = (string)modify.Parent.Element("idp");
+                mdpamodification.Add(new XElement("idp", idp));
+            }
+            else if (nodetype == "rule")
+            {
+                string ids = (string)modify.Parent.Element("ids");
+                mdpamodification.Add(new XElement("ids", ids));
+            }
 
-                XElement olddata = new XElement("olddata");
-                foreach (var node in modify.Elements())
-                {
-                    olddata.Add(node);
-                }
-                mdpamodification.Add(olddata);
-                mdpamodification.Add(new XElement("newdata"));
+            XElement olddata = new XElement("olddata");
+            foreach (var node in modify.Elements())
+            {
+                olddata.Add(node);
+            }
+            mdpamodification.Add(olddata);
+            mdpamodification.Add(new XElement("newdata"));
 
             modify.Remove();
             mdpamodification = XElementon.Instance.Modification.ClearModificationsAfterDelete(mdpamodification);
@@ -519,8 +520,8 @@ namespace MedicalLibrary.Model
             {
                 database.Descendants("modifications").First().Add(mdpamodification);
             }
-            
-            
+
+
         }
 
         //HAXY na potrzeby MagazinePageViewModel
@@ -543,8 +544,8 @@ namespace MedicalLibrary.Model
         public void FillDatabase()
         {
             Random RNG = new Random();
-            
-            var listaimion = new List<string> { "Jakub", "Julia", "Kacper", "Maja", "Szymon", "Zuzanna", "Mateusz", "Wiktoria", "Filip", "Oliwia", "Michał", "Bartosz", "Natalia", "Wiktor", "Aleksandra", "Piotr", "Dawid", "Adam", "Zofia", "Maciej", "Martyna", "Jan", "Weronika", "Anna", "Mikołaj", "Emilia", "Patryk", "Magdalena", "Paweł"};
+
+            var listaimion = new List<string> { "Jakub", "Julia", "Kacper", "Maja", "Szymon", "Zuzanna", "Mateusz", "Wiktoria", "Filip", "Oliwia", "Michał", "Bartosz", "Natalia", "Wiktor", "Aleksandra", "Piotr", "Dawid", "Adam", "Zofia", "Maciej", "Martyna", "Jan", "Weronika", "Anna", "Mikołaj", "Emilia", "Patryk", "Magdalena", "Paweł" };
             var listanazwisk = new List<string> { "Nowak", "Kowalski", "Wiśniewski", "Dąbrowski", "Lewandowski", "Wójcik", "Kamiński", "Kowalczyk", "Zieliński", "Szymański", "Woźniak", "Kozłowski", "Jankowski", "Wojciechowski", "Kwiatkowski", "Kaczmarek", "Mazur", "Krawczyk", "Piotrowski", "Grabowski", "Nowakowski", "Pawłowski", "Michalski", "Nowicki", "Adamczyk", "Dudek", "Zając", "Wieczorek", "Jabłoński", "Król", "Majewski", "Olszewski", "Jaworski", "Wróbel", "Malinowski", "Pawlak", "Witkowski", "Walczak", "Stępień", "Górski", "Rutkowski", "Michalak", "Sikora", "Ostrowski", "Baran", "Duda", "Szewczyk", "Tomaszewski", "Pietrzak", "Marciniak", "Wróblewski", "Zalewski", "Jakubowski", "Jasiński", "Zawadzki", "Sadowski", "Bąk", "Chmielewski", "Włodarczyk", "Borkowski", "Czarnecki", "Sawicki", "Sokołowski", "Urbański", "Kubiak", "Maciejewski", "Szczepański", "Kucharski", "Wilk", "Kalinowski", "Lis" };
             var startingpesel = 12345678901;
 
@@ -552,15 +553,15 @@ namespace MedicalLibrary.Model
             {
                 startingpesel = (long)XElementon.Instance.Patient.Patients().Max(x => (long)x.Element("pesel")) + 11;
             }
-            
+
 
             var listakomentarzy = new List<string> { "pytlakowski", "merkantylny", "słowianoznawczy", "taiwański", "karpi", "przedzlotowy", "saudyjskoarabski", "chlorooctowy", "burgrabski", "drobnorozpryskowy", "mgnieniowy", "niedosiężny", "truskolaski", "dioptryczny", "przewspaniały", "dziewięciostopniowy", "podażowy", "semazjologiczny", "podpróchniały", "adeński", "gwiazdorski", "aprowincjonalny", "bożeniny", "dźwiękoszczelny", "ujemny", "moręgowaty", "różnowierczy", "pokrowcowy", "salomonowy", "kamiński" };
 
-            var listanazwfield = new List<string> {"waga",  "BMI",  "długość_nosa",  "kształt_uszu",  "kolor_oczu",  "kolor_skóry",  "kształt_nosa",  "długość_paznokci",  "długość_palców",  "IQ",  "ilość_palców",  "wada_wymowy",  "kształt_kręgosłupa",  "wada_wzroku"};
+            var listanazwfield = new List<string> { "waga", "BMI", "długość_nosa", "kształt_uszu", "kolor_oczu", "kolor_skóry", "kształt_nosa", "długość_paznokci", "długość_palców", "IQ", "ilość_palców", "wada_wymowy", "kształt_kręgosłupa", "wada_wzroku" };
             //Pacjenci
             for (int i = 0; i < 5; i++) //50
             {
-                Tuple<string, string> a = new Tuple<string,string> ("imie", listaimion[RNG.Next(listaimion.Count)]);
+                Tuple<string, string> a = new Tuple<string, string>("imie", listaimion[RNG.Next(listaimion.Count)]);
                 Tuple<string, string> b = new Tuple<string, string>("nazwisko", listanazwisk[RNG.Next(listaimion.Count)]);
                 Tuple<string, string> c = new Tuple<string, string>("pesel", startingpesel.ToString());
                 startingpesel = startingpesel + 11;
@@ -608,6 +609,40 @@ namespace MedicalLibrary.Model
         }
 
 
+        public List<List<string>> getLocalDatabases()
+        {
+            Regex reg = new Regex(@"^encrypted![0-9]*!.*$");
+            var files = Directory.GetFiles(Environment.CurrentDirectory).Where(path => reg.IsMatch(path));
+            //var files = Directory.GetFiles(Environment.CurrentDirectory).Where(path => g = reg.Match(Path));
 
+
+            Regex cath = new Regex(@"^encrypted!([0-9]*)!(.*)$");
+            Match m;
+            Group g;
+            List<string> a = new List<string>();
+            List<string> b = new List<string>();
+            List<string> c = new List<string>();
+            List<string> d = new List<string>();
+            foreach (var file in files)
+            {
+                m = cath.Match(file);
+
+                var g1 = m.Groups[1];
+                var g2 = m.Groups[2];
+
+                var t1 = g1.Captures.ToString();
+                var t2 = g1.Captures.ToString();
+
+
+                a.Add(file);
+                b.Add(t1);
+                c.Add(t2);
+
+                DateTime lastModified = File.GetLastWriteTime(file);
+                d.Add(lastModified.ToString("dd/MM/yy HH:mm:ss"));
+
+            }
+            return new List<List<string>> { a, b, c, d };
+        }
     }
 }

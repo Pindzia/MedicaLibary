@@ -51,9 +51,9 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         private void AddSome()
         {
             //Zapisz modyfikacje do pliku
-            //XElementon.Instance.Modification.saveToFile();
+            XElementon.Instance.Modification.saveToFile();
             //Debug stuff :V
-            XElementon.Instance.Patient.OutdatedPatients();
+            //XElementon.Instance.Patient.OutdatedPatients();
         }
 
         private void SaveEncrypted()
