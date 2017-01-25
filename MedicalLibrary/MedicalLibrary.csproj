@@ -157,7 +157,7 @@
     <Compile Include="ViewModel\PagesViewModel\CustomFieldPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\ModificationViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\RulePageViewModel.cs" />
-    <Compile Include="ViewModel\PagesViewModel\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\PagesViewModel\ToolsPageViewModel.cs" />
     <Compile Include="ViewModel\RelayCommandNoGlobal.cs" />
     <Compile Include="ViewModel\WindowsViewModel\AddEditCustomFieldViewModel.cs" />
     <Compile Include="ViewModel\WindowsViewModel\AddEditRuleWindowViewModel.cs" />
@@ -187,6 +187,9 @@
     </Compile>
     <Compile Include="View\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\ToolsPage.xaml.cs">
+      <DependentUpon>ToolsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\WrongStorhousePage.xaml.cs">
       <DependentUpon>WrongStorhousePage.xaml</DependentUpon>
@@ -274,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\ToolsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

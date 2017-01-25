@@ -17,7 +17,7 @@
             <Grid IsEnabled="{Binding IsChecked}">
                 <DockPanel HorizontalAlignment="Stretch">
                     <TextBlock Text="{Binding FieldName}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding FieldValue}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="125" MaxLength="25" ToolTipService.IsEnabled="{Binding IsGood}" ToolTipService.ToolTip="Pole powinno być nie puste i posiadać do 25 znaków">
+                    <TextBox Text="{Binding FieldValue,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="125" MaxLength="25" ToolTipService.IsEnabled="{Binding IsGood}" ToolTipService.ToolTip="Pole powinno być nie puste i posiadać do 25 znaków">
                         <TextBox.Style>
                             <Style TargetType="{x:Type TextBox}">
                                 <Style.Triggers>

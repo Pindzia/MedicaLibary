@@ -38,10 +38,15 @@ namespace MedicalLibrary.View.Pages
             else
             {
                 if (viewModel.HighlightedDates.Contains(date))
-                    button.Background = Brushes.LightBlue;
+                    button.Background = Brushes.LightSkyBlue;
                 else
                     button.Background = Brushes.White;
             }
+
+        }
+
+        public static void UpdateCalendar()
+        {
 
         }
 

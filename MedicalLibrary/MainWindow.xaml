@@ -12,7 +12,7 @@
     <mui:ModernWindow.TitleLinks>
         <mui:Link x:Name="WrongPatient" DisplayName="Źle Umieszczeni Pacjenci:" Source="View/Pages/WrongStorhousePage.xaml"/>
         <mui:Link x:Name="Modifications" DisplayName="Ilość Modyfikacji:" Source="View/Pages/ModificationPage.xaml"/>
-        <mui:Link x:Name="RestAPI" DisplayName="Połaczenie z Bazą:"/>
+        <mui:Link x:Name="RestAPI" DisplayName="Zalogowany jako:"/>
     </mui:ModernWindow.TitleLinks>
     
     <mui:ModernWindow.MenuLinkGroups>
@@ -21,12 +21,11 @@
                 <mui:LinkGroup.Links>
                     <mui:Link DisplayName="Lista Pacjentów" Source="View\Pages\PatientPage.xaml" />
                     <mui:Link DisplayName="Źle Umieszczeni Pacjenci" Source="View\Pages\WrongStorhousePage.xaml"/>
-                    <mui:Link DisplayName="Wizyty" Source="View\Pages\VisitPage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Wizyty">
                 <mui:LinkGroup.Links>
-                    <mui:Link Source="View\Pages\CalendarPage.xaml"/>
+                    <mui:Link DisplayName="Wizyty" Source="View\Pages\VisitPage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Modyfikacje">
@@ -36,8 +35,7 @@
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Magazyn">
                 <mui:LinkGroup.Links>
-                    <mui:Link DisplayName="Lista Magazynów" Source="/View/Pages/MagazinePage.xaml"/>
-                    <mui:Link DisplayName="Zasady" Source="/View/Pages/RulePage.xaml"/>
+                    <mui:Link Source="/View/Pages/MagazinePage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Niestandardowe Pola">
@@ -47,7 +45,7 @@
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Ustawienia">
                 <mui:LinkGroup.Links>
-                    <mui:Link DisplayName="Ustawienia" Source="View\Pages\SettingsPage.xaml"/>
+                    <mui:Link Source="View\Pages\SettingsPage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
         </mui:LinkGroupCollection>

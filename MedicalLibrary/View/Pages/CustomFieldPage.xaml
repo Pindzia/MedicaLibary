@@ -1,4 +1,4 @@
-﻿<Page x:Class="MedicalLibrary.View.Pages.CustomFieldPage"
+﻿<UserControl x:Class="MedicalLibrary.View.Pages.CustomFieldPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,11 +7,10 @@
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Title="CustomFieldPage">
+      d:DesignHeight="300" d:DesignWidth="300" x:Name="Page">
 
 
-    <Page.Resources>
+    <UserControl.Resources>
         <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
@@ -20,7 +19,7 @@
             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
             <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
         </Style>
-    </Page.Resources>
+    </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceName="Page" EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
@@ -74,13 +73,13 @@
         </Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
             <StackPanel.Resources>
-                <Style TargetType="{x:Type Button}">
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                     <Setter Property="Margin" Value="25,10,25,10"/>
                 </Style>
             </StackPanel.Resources>
-            <mui:ModernButton Command="{Binding AddField}" Height="25" Width="120">Dodaj Niestandardowe Pole</mui:ModernButton>
-            <mui:ModernButton Command="{Binding EditField}" Height="25" Width="120">Edytuj Niestandardowe Pola</mui:ModernButton>
-            <mui:ModernButton Command="{Binding DeleteField}" Height="25" Width="120">Usuń Niestandardowe Pola</mui:ModernButton>
+            <Button Command="{Binding AddField}" Height="25" Width="150">Dodaj Niestandardowe Pole</Button>
+            <Button Command="{Binding EditField}" Height="25" Width="150">Edytuj Niestandardowe Pola</Button>
+            <Button Command="{Binding DeleteField}" Height="25" Width="150">Usuń Niestandardowe Pola</Button>
         </StackPanel>
     </Grid>
-</Page>
+</UserControl>

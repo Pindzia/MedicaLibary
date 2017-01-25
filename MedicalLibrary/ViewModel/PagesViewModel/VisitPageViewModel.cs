@@ -232,7 +232,9 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             {
                 NewVisit = viewModel.Visit; //zobaczyc jak parsować
                 XElementon.Instance.Visit.Add((int)SelectedItem.Element("idp"),TupleList());
-                UpdateVisits();
+                UpdateVisits();// sprawdzić logikę
+                UpdateData();
+                MyTime = MyTime.AddMilliseconds(1);//trick to update Calendar highlights :)
             }
         }
 

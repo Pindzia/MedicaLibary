@@ -19,7 +19,7 @@ namespace MedicalLibrary.View.Pages
     /// <summary>
     /// Interaction logic for CustomFieldPage.xaml
     /// </summary>
-    public partial class CustomFieldPage : Page
+    public partial class CustomFieldPage : UserControl
     {
         public CustomFieldPage()
         {

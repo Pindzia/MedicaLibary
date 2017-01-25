@@ -17,13 +17,14 @@ using System.Windows.Shapes;
 namespace MedicalLibrary.View.Pages
 {
     /// <summary>
-    /// Interaction logic for SettingsPage.xaml
+    /// Interaction logic for ToolsPage.xaml
     /// </summary>
-    public partial class SettingsPage : Page
+    public partial class ToolsPage : UserControl
     {
-        public SettingsPage()
+        public ToolsPage()
         {
             InitializeComponent();
+            DataContext = new ToolsPageViewModel();
         }
     }
 }

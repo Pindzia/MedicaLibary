@@ -10,9 +10,9 @@ using System.Windows.Input;
 
 namespace MedicalLibrary.ViewModel.PagesViewModel
 {
-    public class SettingsPageViewModel :BaseViewModel
+    public class ToolsPageViewModel :BaseViewModel
     {
-        public SettingsPageViewModel()
+        public ToolsPageViewModel()
         {
             AddSomeToDatabase = new RelayCommand(pars => AddSome());
             SaveEncryptedDatabase = new RelayCommand(pars => SaveEncrypted());
