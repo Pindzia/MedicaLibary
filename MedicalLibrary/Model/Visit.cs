@@ -61,7 +61,7 @@ namespace MedicalLibrary.Model
 
             if(time == "")
             {
-                time = DateTimeOffset.Now.ToString();
+                time = DateTime.Now.ToString(); //DateTimeOffset.Now.ToString();
             }
 
 

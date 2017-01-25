@@ -16,6 +16,7 @@ namespace MedicalLibrary.Model
     {
         public static async Task<XElement> PullAll(int idLekarz, string pass) //TODO ID-lekarz TODO-pass)
         {
+
             PushREST.SetClient();
 
             if (await PushREST.LoggedIn(idLekarz, pass) == false) //fix
@@ -37,7 +38,7 @@ namespace MedicalLibrary.Model
             XElement Rules = null;
             XElement ParamBind = null;
 
-            HttpResponseMessage result = await client.GetAsync("/pacjent/lista/1");
+            HttpResponseMessage result = await client.GetAsync("/pacjent/lista/" + XElementon.Instance.idLekarz.ToString());
 
             if (result.IsSuccessStatusCode)
             {
@@ -53,7 +54,7 @@ namespace MedicalLibrary.Model
                 Console.WriteLine("{0} ({1})", (int)result.StatusCode, result.ReasonPhrase);
             }
 
-            result = await client.GetAsync("/wizyta/lista/1");
+            result = await client.GetAsync("/wizyta/lista/" + XElementon.Instance.idLekarz.ToString());
 
             if (result.IsSuccessStatusCode)
             {
@@ -70,7 +71,7 @@ namespace MedicalLibrary.Model
                 Console.WriteLine("{0} ({1})", (int)result.StatusCode, result.ReasonPhrase);
             }
 
-            result = await client.GetAsync("/magazyn/lista/1");
+            result = await client.GetAsync("/magazyn/lista/" + XElementon.Instance.idLekarz.ToString());
 
             if (result.IsSuccessStatusCode)
             {
@@ -87,7 +88,7 @@ namespace MedicalLibrary.Model
                 Console.WriteLine("{0} ({1})", (int)result.StatusCode, result.ReasonPhrase);
             }
 
-            result = await client.GetAsync("/zasada/lista/1");
+            result = await client.GetAsync("/zasada/lista/" + XElementon.Instance.idLekarz.ToString());
 
             if (result.IsSuccessStatusCode)
             {
@@ -104,7 +105,7 @@ namespace MedicalLibrary.Model
                 Console.WriteLine("{0} ({1})", (int)result.StatusCode, result.ReasonPhrase);
             }
 
-            result = await client.GetAsync("/parametr/lista/1");
+            result = await client.GetAsync("/parametr/lista/" + XElementon.Instance.idLekarz.ToString());
 
             if (result.IsSuccessStatusCode)
             {
@@ -121,7 +122,7 @@ namespace MedicalLibrary.Model
                 Console.WriteLine("{0} ({1})", (int)result.StatusCode, result.ReasonPhrase);
             }
 
-            result = await client.GetAsync("/przypisanie/lista/1");
+            result = await client.GetAsync("/przypisanie/lista/" + XElementon.Instance.idLekarz.ToString());
 
             if (result.IsSuccessStatusCode)
             {

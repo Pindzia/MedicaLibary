@@ -66,13 +66,13 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void SaveEncrypted()
         {
-            XElementon.Instance.SetKey("test567890123456");
+            XElementon.Instance.SetKey(XElementon.Instance.Haslo);
             XElementon.Instance.SaveEncrypted();
         }
 
         private void LoadEncrypted()
         {
-            XElementon.Instance.SetKey("test567890123456");
+            XElementon.Instance.SetKey(XElementon.Instance.Haslo);
             XElementon.Instance.LoadEncrypted();
         }
 

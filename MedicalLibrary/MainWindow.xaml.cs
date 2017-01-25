@@ -33,7 +33,7 @@ namespace MedicalLibrary
             if(result == true && result!=null)
             {
                 InitializeComponent();
-                XElementon.Instance.LoadRaw();
+                //XElementon.Instance.LoadRaw(); //Najpierw wczytywanie przez login z EntryWindow a potem nadpisywanie...
                 //XElementon.Instance.LoadEncrypted();
                 ContentSource = MenuLinkGroups.First().Links.First().Source;
                 linkWrong = WrongPatient;
@@ -53,9 +53,18 @@ namespace MedicalLibrary
 
         public static void GlobalUpdate()
         {
-            ChangeWrong();
-            ChangeMod();
-            ChangeRest();
+            if (XElementon.Instance.Patient != null)
+            {
+                ChangeWrong();
+                ChangeMod();
+                ChangeRest();
+            }
+            else
+            {
+                linkWrong.DisplayName = "Źle Umieszczeni Pacjenci: ?";
+                linkMod.DisplayName = "Ilość Modyfikacji: ?";
+                linkRest.DisplayName = "Zalogowany jako: ?";
+            }
         }
 
         private static void ChangeWrong()

@@ -233,7 +233,7 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
         private async void RegNew() //async!
         {
 
-            if(_ListUser.Count == 0)
+            if(_ListUser == null)
             {
                 LoginMessage = "Nie pobrano jeszcze listy nazw Lekarzy?!";
                 await PutTaskDelay();
@@ -263,7 +263,22 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
                     XElementon.Instance.idLekarz = idLekarz;
                     XElementon.Instance.nazwaLekarz = _Username;
                     XElementon.Instance.Haslo = pass;
-                    await PullREST.PullAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo);
+                    var x = await PullREST.PullAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo);
+                    if (x != null)
+                    {
+                        XElementon.Instance.setDatabase(x);
+                        //LoginMessage = "Dane pobrane!";
+                        await PutTaskDelay();
+                    }
+                    else
+                    {
+                        //ERROR!
+                        TurnOffProgress();
+                        //LoginMessage = "Błąd pobrania!";
+                        return;
+                    }
+
+
                     await PutTaskDelay();
                     EntryWindow.Complete();
                 }
