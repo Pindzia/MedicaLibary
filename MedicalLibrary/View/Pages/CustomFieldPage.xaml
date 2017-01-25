@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
+      xmlns:cnv="clr-namespace:MedicalLibrary.Converters"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300" x:Name="Page">
@@ -19,6 +20,7 @@
             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
             <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
         </Style>
+        <cnv:CustomTypeConverter x:Key="TypeCust" />
     </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceName="Page" EventName="Loaded">
@@ -47,8 +49,9 @@
                     AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nazwa Pola" Binding="{Binding Path=Element[fieldname].Value}" />
-                        <DataGridTextColumn Header="Typ pola" Binding="{Binding Path=Element[fieldtype].Value}" />
+                        <DataGridTextColumn Header="Typ pola" Binding="{Binding Path=Element[fieldtype].Value, Converter={StaticResource TypeCust}}" />
                         <DataGridTextColumn Header="Wartość Domyślna" Binding="{Binding Path=Element[fielddefault].Value}"/>
+                        <DataGridTextColumn Header="Jednostka" Binding="{Binding Path=Element[suffix].Value ,FallbackValue='Brak'}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>

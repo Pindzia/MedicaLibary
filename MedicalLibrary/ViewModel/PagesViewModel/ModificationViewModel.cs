@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
-using Xceed.Wpf.Toolkit;
+
 
 namespace MedicalLibrary.ViewModel.PagesViewModel
 {
@@ -71,14 +71,14 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 XElementon.Instance.Modification.RevertX((int)SelectedItem.Element("idm"));
                 if (true) //TODO if checkbox jest zaznaczony
                 {
-                    System.Windows.MessageBox.Show("Wycofano Operacje");
+                    MessageBox.Show("Wycofano Operacje");
                 }
                 
                 UpdateData();
             }
             else
             {
-                Xceed.Wpf.Toolkit.MessageBox.Show("Zaznacz Operacje ,którą chciałbyś cofnąć");
+                MessageBox.Show("Zaznacz Operacje ,którą chciałbyś cofnąć");
             }
             
         }

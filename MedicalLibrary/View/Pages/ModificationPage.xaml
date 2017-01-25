@@ -46,8 +46,7 @@
                           RowHeaderWidth="1"
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center" 
-                          Width="700"
-                          Margin="50,10,50,0"
+                          Margin="10,10,10,0"
                           BorderBrush="AliceBlue" 
                           BorderThickness="2">
                 <DataGrid.Columns>
@@ -113,6 +112,6 @@
                 </ListBox>
             </GroupBox>
         </Grid>
-        <mui:ModernButton Grid.Row ="2"  Command="{Binding RevertModification}" Height="25" Width="120">Odwróć Operacje</mui:ModernButton>
+        <Button Grid.Row ="2"  Command="{Binding RevertModification}" Height="25" Width="140">Odwróć Operacje</Button>
     </Grid>
 </Page>

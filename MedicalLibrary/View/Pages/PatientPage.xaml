@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MedicalLibrary"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:cnv="clr-namespace:MedicalLibrary.Converters"
       mc:Ignorable="d"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       x:Name="Page"
@@ -33,6 +34,7 @@
             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
             <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
         </Style>
+        <cnv:NodeConverterRule x:Key="Nodes" />
     </Page.Resources>
 
     <i:Interaction.Triggers>
@@ -66,6 +68,11 @@
                               DataContext="{Binding QueryOptionList}" 
                               ItemsSource="{Binding}" 
                               SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedQuery}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource Nodes}}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                     </StackPanel >
                     <Button HorizontalAlignment="Left" Grid.Column ="2" Command="{Binding ClearSearch}" Width="150" Height="23" Style="{StaticResource StretchedButtonContent}">

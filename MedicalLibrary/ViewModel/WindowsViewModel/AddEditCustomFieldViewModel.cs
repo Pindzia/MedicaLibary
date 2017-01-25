@@ -99,8 +99,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _Suffix = value;
-                Regex regex = new Regex("[a-zA-Z0-9_ ]{0,9}");
-                IsGoodSuf = (!regex.IsMatch(_TextDefault)) ? true : false;
+                Regex regex = new Regex("^[a-zA-Z0-9_ ]{0,9}$");
+                IsGoodSuf = (!regex.IsMatch(Suffix)) ? true : false;
                 OnPropertyChanged("Suffix");
             }
         }

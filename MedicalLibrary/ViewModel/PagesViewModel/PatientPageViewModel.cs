@@ -314,7 +314,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 fieldColumn.Header = field.Element("fieldname").Value;
                 var binding = new Binding();
                 binding.Path = new PropertyPath("Element.[" + field.Element("fieldname").Value + "].Value");
-                binding.FallbackValue = field.Element("fielddefault").Value;
+                binding.StringFormat = "{0} " + field.Element("suffix").Value;
+                binding.FallbackValue = field.Element("fielddefault").Value +" "+ field.Element("suffix").Value;
                 fieldColumn.Binding = binding;
                 grid.Columns.Add(fieldColumn);
                 ColumnAdded += 1;
