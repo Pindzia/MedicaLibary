@@ -101,6 +101,7 @@
                 <DockPanel Grid.Row="0">
                     <GroupBox Header="Kalendarz">
                         <Viewbox Stretch="Uniform">
+                            <Calendar x:Name="calendar" Grid.Column="1" SelectedDate="{Binding MyTime}">
                                 <Calendar.CalendarDayButtonStyle>
                                     <Style TargetType="CalendarDayButton" BasedOn="{StaticResource {x:Type CalendarDayButton}}">
                                         <EventSetter Event="Loaded" Handler="calendarButton_Loaded"/>
