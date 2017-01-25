@@ -157,6 +157,7 @@
     <Compile Include="ViewModel\CustomControlsViewModel\TextControlViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\CalendarPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\CustomFieldPageViewModel.cs" />
+    <Compile Include="ViewModel\PagesViewModel\ExpiredPatientsPageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\ModificationViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\RulePageViewModel.cs" />
     <Compile Include="ViewModel\PagesViewModel\ToolsPageViewModel.cs" />
@@ -169,6 +170,9 @@
     <Compile Include="View\CustomControls\LoginControl.xaml.cs">
       <DependentUpon>LoginControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CustomControls\LoginOfflineControl.xaml.cs">
+      <DependentUpon>LoginOfflineControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CustomControls\NumberControl.xaml.cs">
       <DependentUpon>NumberControl.xaml</DependentUpon>
     </Compile>
@@ -180,6 +184,9 @@
     </Compile>
     <Compile Include="View\Pages\CustomFieldPage.xaml.cs">
       <DependentUpon>CustomFieldPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\ExpiredPatientsPage.xaml.cs">
+      <DependentUpon>ExpiredPatientsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\ModificationPage.xaml.cs">
       <DependentUpon>ModificationPage.xaml</DependentUpon>
@@ -254,6 +261,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CustomControls\LoginOfflineControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CustomControls\NumberControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -267,6 +278,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Pages\CustomFieldPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\ExpiredPatientsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

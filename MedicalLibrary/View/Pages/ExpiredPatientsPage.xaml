@@ -1,19 +1,13 @@
-﻿<Page x:Class="MedicalLibrary.View.Pages.WrongStorehousePage"
+﻿<Page x:Class="MedicalLibrary.View.Pages.ExpiredPatientsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
-      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
-      x:Name="Page"
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="TestPage">
-
-    <Page.Resources>
-        <XmlDataProvider x:Key="XMLData" Source="/lib.xml" XPath="/lib/patient" />
-    </Page.Resources>
+      Title="ExpiredPatientsPage" x:Name="Page">
 
     <i:Interaction.Triggers>
         <i:EventTrigger SourceName="Page" EventName="Loaded">
@@ -28,7 +22,7 @@
             </Grid.RowDefinitions>
             <GroupBox Header="Lista źle umieszczonych Pacjentów" Margin="20,10,20,10" Grid.Row="0" Grid.IsSharedSizeScope="True">
                 <ScrollViewer HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="10,15,10,10">
-                    <DataGrid DataContext="{Binding WrongPatients}"  
+                    <DataGrid DataContext="{Binding ExpiredPatients}"  
                           ItemsSource="{Binding}" 
                           SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" 
                           IsReadOnly="True"
@@ -44,8 +38,6 @@
                             <DataGridTextColumn Header="Imie" Binding="{Binding Path=Element[imie].Value}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=Element[nazwisko].Value}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Pesel" Binding="{Binding Path=Element[pesel].Value}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Sugerowany Magazyn" Binding="{Binding Path=Element[SuggestedStorehouse].Value}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Sugerowana Koperta" Binding="{Binding Path=Element[SugestedEnvelope].Value}"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </ScrollViewer>
@@ -56,8 +48,12 @@
                         <Setter Property="Margin" Value="25,5,25,5"/>
                     </Style>
                 </StackPanel.Resources>
-                <Button Command="{Binding FixStorehouse}" Height="27" Width="150">Popraw Pacjenta</Button>
+                <Button Command="{Binding DestroyPatient}" Height="27" Width="150">Zniszcz Dokumentacje</Button>
             </StackPanel>
         </Grid>
+    </Grid>
+
+    <Grid>
+        
     </Grid>
 </Page>
