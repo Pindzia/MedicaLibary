@@ -443,7 +443,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                             //UpdateDataAsync(); //Naleciałość z PatientPageViewModel
                         }
                     }
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Nie można edytować zasad Domyślnego Magazynu ani zasady Miejsca Roboczego");
                 }
@@ -461,7 +462,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
                 if (SelectedButton.Element("name").Value != "DomyslnyMagazyn" && SelectedButton.Element("name").Value != "MiejsceRobocze")
                 {
-                    if (MessageBox.Show("Czy chcesz wykasować zasadę o ID: "+ idr +" z Magazyn : " + SelectedButton.Element("name").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (MessageBox.Show("Czy chcesz wykasować zasadę o ID: " + idr + " z Magazyn : " + SelectedButton.Element("name").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
 
                         int index;
@@ -495,16 +496,16 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             ChangeUp = true;
             ChangeDown = true;
-            if(ListMagazine.Count < 2 || SelectedButtonIndex ==  ListMagazine.Count -1)
+            if (ListMagazine.Count < 2 || SelectedButtonIndex == ListMagazine.Count - 1)
             {
                 ChangeUp = false;
                 ChangeDown = false;
             }
-            if(SelectedButtonIndex == 0)
+            if (SelectedButtonIndex == 0)
             {
                 ChangeUp = false;
             }
-            if(SelectedButtonIndex == ListMagazine.Count -2)
+            if (SelectedButtonIndex == ListMagazine.Count - 2)
             {
                 ChangeDown = false;
             }

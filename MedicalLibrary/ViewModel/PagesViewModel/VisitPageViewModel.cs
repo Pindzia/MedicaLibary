@@ -226,16 +226,19 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void Add()
         {
-            AddEditVisitViewModel viewModel = new AddEditVisitViewModel();
-            AddEditVistitWindow window = new AddEditVistitWindow(ref viewModel);
-            Nullable<bool> result = window.ShowDialog();
-            if (result == true)
+            if (SelectedItem != null)
             {
-                NewVisit = viewModel.Visit; //zobaczyc jak parsować
-                XElementon.Instance.Visit.Add((int)SelectedItem.Element("idp"),TupleList());
-                UpdateVisits();// sprawdzić logikę
-                UpdateData();
-                MyTime = MyTime.AddMilliseconds(1);//trick to update Calendar highlights :)
+                AddEditVisitViewModel viewModel = new AddEditVisitViewModel();
+                AddEditVistitWindow window = new AddEditVistitWindow(ref viewModel);
+                Nullable<bool> result = window.ShowDialog();
+                if (result == true)
+                {
+                    NewVisit = viewModel.Visit; //zobaczyc jak parsować
+                    XElementon.Instance.Visit.Add((int)SelectedItem.Element("idp"), TupleList());
+                    UpdateVisits();// sprawdzić logikę
+                    UpdateData();
+                    MyTime = MyTime.AddMilliseconds(1);//trick to update Calendar highlights :)
+                }
             }
         }
 

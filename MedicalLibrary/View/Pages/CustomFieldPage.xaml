@@ -42,9 +42,9 @@
                 <DataGrid
                     DataContext="{Binding ListOfCustomFields}"
                     ItemsSource="{Binding}"
-                    SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor ,AncestorType={x:Type Page}} , Path=DataContext.SelectedField}"
-                    AutoGenerateColumns="False"
-                    ColumnWidth="*">
+                    SelectedItem="{Binding RelativeSource={RelativeSource Mode=FindAncestor ,AncestorType={x:Type UserControl}} , Path=DataContext.SelectedField}"
+                    IsReadOnly="True"
+                    AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nazwa Pola" Binding="{Binding Path=Element[fieldname].Value}" />
                         <DataGridTextColumn Header="Typ pola" Binding="{Binding Path=Element[fieldtype].Value}" />
