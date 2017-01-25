@@ -308,32 +308,47 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void Edit()
         {
-            AddEditMagazineViewModel viewModel = new AddEditMagazineViewModel(SelectedButton);
-            AddEditMagazineWindow window = new AddEditMagazineWindow(ref viewModel);
-            Nullable<bool> result = window.ShowDialog();
-            if (result == true)
+            if (SelectedButton != null)
             {
-                NewRule = viewModel.Rule;
-                NewMagazine = viewModel.Magazine;
+                if (SelectedButton.Element("name").Value != "DomyslnyMagazyn")
+                {
+                    AddEditMagazineViewModel viewModel = new AddEditMagazineViewModel(SelectedButton);
+                    AddEditMagazineWindow window = new AddEditMagazineWindow(ref viewModel);
+                    Nullable<bool> result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        NewRule = viewModel.Rule;
+                        NewMagazine = viewModel.Magazine;
 
-                Tuple<string, string> a = new Tuple<string, string>("name", (string)NewMagazine.Element("name"));
-                Tuple<string, string> b = new Tuple<string, string>("size", (string)NewMagazine.Element("size"));
-                Tuple<string, string> c = new Tuple<string, string>("priority", (string)NewMagazine.Element("priority"));
-                Tuple<string, string>[] tup = { a, b, c };
+                        Tuple<string, string> a = new Tuple<string, string>("name", (string)NewMagazine.Element("name"));
+                        Tuple<string, string> b = new Tuple<string, string>("size", (string)NewMagazine.Element("size"));
+                        Tuple<string, string> c = new Tuple<string, string>("priority", (string)NewMagazine.Element("priority"));
+                        Tuple<string, string>[] tup = { a, b, c };
 
-                XElementon.Instance.Storehouse.Change((int)SelectedButton.Element("ids"),tup);
+                        XElementon.Instance.Storehouse.Change((int)SelectedButton.Element("ids"), tup);
 
-                Tuple<string, string> e = new Tuple<string, string>("attribute", (string)NewRule.Element("attribute"));
-                Tuple<string, string> f = new Tuple<string, string>("operation", (string)NewRule.Element("operation"));
-                Tuple<string, string> g = new Tuple<string, string>("value", (string)NewRule.Element("value"));
-                Tuple<string, string>[] tup2 = { e, f, g };
-
-
-                int addedIDS = XElementon.Instance.GetMaxIDS(); //TODO - wywalić te haxy, nie polecam
-                XElementon.Instance.Rule.Change(addedIDS, tup2);
+                        Tuple<string, string> e = new Tuple<string, string>("attribute", (string)NewRule.Element("attribute"));
+                        Tuple<string, string> f = new Tuple<string, string>("operation", (string)NewRule.Element("operation"));
+                        Tuple<string, string> g = new Tuple<string, string>("value", (string)NewRule.Element("value"));
+                        Tuple<string, string>[] tup2 = { e, f, g };
 
 
-                UpdateData();
+                        int addedIDS = XElementon.Instance.GetMaxIDS(); //TODO - wywalić te haxy, nie polecam
+                        XElementon.Instance.Rule.Change(addedIDS, tup2);
+
+
+                        UpdateData();
+                    }
+                }else
+                {
+
+                    MessageBox.Show("Nie można edytować Domyślnego Magazynu");
+                }
+            }
+            else
+            {
+
+                MessageBox.Show("Należy wybrać pole by edytować");
             }
         }
 
