@@ -284,7 +284,7 @@ namespace MedicalLibrary.Model
                                     fits = true;
                                 }
                             }
-                            if (fits == true)
+                            if (fits == false)
                                 break;
                         }
                     }

@@ -13,6 +13,7 @@ using MedicalLibrary.Model;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Threading.Tasks;
+using MedicalLibrary.Converters;
 
 namespace MedicalLibrary.ViewModel.WindowsViewModel
 {
@@ -103,6 +104,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 _FindQuery = value;
                 if (SelectedQuery != "" && SelectedQuery != null) { Search(); }
+                if (FindQuery == "" && SelectedQuery != null && SelectedQuery != "pacjent") { Clear(false); }
                 OnPropertyChanged("FindQuery");
             }
         }
@@ -287,11 +289,14 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 DeployData(ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.Filtered(SelectedQuery, FindQuery)));
         }
 
-        private void Clear()
+        private void Clear(bool clearFindQuery = true)
         {
             var saveSelected = SelectedQuery;
-            FindQuery = "";
-            SelectedQuery = null;
+            if (clearFindQuery)
+            {
+                FindQuery = "";
+                SelectedQuery = null;
+            }
             if (!options.Contains(saveSelected))
                 UpdateDataAsync();
         }
@@ -310,12 +315,15 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             IEnumerable<XElement> fields = XElementon.Instance.Field.Fields();
             foreach(XElement field in fields)
             {
+                var converter = new BoolConverter();
+
                 DataGridTextColumn fieldColumn = new DataGridTextColumn();
                 fieldColumn.Header = field.Element("fieldname").Value;
                 var binding = new Binding();
                 binding.Path = new PropertyPath("Element.[" + field.Element("fieldname").Value + "].Value");
                 binding.StringFormat = "{0} " + field.Element("suffix").Value;
-                binding.FallbackValue = field.Element("fielddefault").Value +" "+ field.Element("suffix").Value;
+                binding.Converter = converter;
+                binding.FallbackValue = converter.Convert(field.Element("fielddefault").Value) +" "+ field.Element("suffix").Value;
                 fieldColumn.Binding = binding;
                 grid.Columns.Add(fieldColumn);
                 ColumnAdded += 1;

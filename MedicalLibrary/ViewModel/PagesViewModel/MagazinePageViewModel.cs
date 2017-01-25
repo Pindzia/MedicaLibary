@@ -467,7 +467,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
                         int index;
                         int.TryParse(idr, out index);
-                        XElementon.Instance.Rule.Delete((int)SelectedRule.Element("idr"));
+                        XElementon.Instance.Rule.Delete(index);
                         UpdateData();
                     }
                 }
