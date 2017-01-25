@@ -846,11 +846,23 @@ namespace MedicalLibrary.Model
                 max_rozmiar = 50000,
                 priorytet = 5000
             };
+
+            uri = "/magazyn/" + idl.ToString() + "/nowy";
+            MagazynNowyDTO obj2_2 = new MagazynNowyDTO()
+            {
+                nazwa = "MiejsceRobocze",
+                max_rozmiar = 50000,
+                priorytet = 6000
+            };
+
             response = await client.PostAsJsonAsync(uri, obj2);
+            //response.EnsureSuccessStatusCode();
+            response = await client.PostAsJsonAsync(uri, obj2_2);
             //response.EnsureSuccessStatusCode();
 
             var list = await MagazynWszystkieGET(idl,haslo);
-            var id = list.Max(e => e.id);
+            var sortedlist = list.OrderBy(e => e.id);
+            var id = sortedlist.First().id;
 
             uri = "/zasada/"+ idl.ToString() +"/nowy";
             ZasadaNowaDTO obj3 = new ZasadaNowaDTO()
@@ -862,6 +874,21 @@ namespace MedicalLibrary.Model
                 spelnialnosc_operacji = true
             };
             response = await client.PostAsJsonAsync(uri, obj3);
+
+            id = sortedlist.Skip(1).First().id;
+
+            uri = "/zasada/" + idl.ToString() + "/nowy";
+            ZasadaNowaDTO obj4 = new ZasadaNowaDTO()
+            {
+                id_magazynu = id,
+                nazwa_atrybutu = "idp",
+                operacja_porownania = "greater",
+                wartosc_porownania = "0",
+                spelnialnosc_operacji = true
+            };
+            response = await client.PostAsJsonAsync(uri, obj4);
+
+
             //response.EnsureSuccessStatusCode();
 
             return idl;

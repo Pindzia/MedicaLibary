@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 namespace MedicalLibrary.ViewModel.PagesViewModel
 {
-    public class MagazinePageViewModel: BaseViewModel
+    public class MagazinePageViewModel : BaseViewModel
     {
         public MagazinePageViewModel()
         {
@@ -21,8 +21,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             AddMagazine = new RelayCommand(pars => Add());
             EditMagazine = new RelayCommand(pars => Edit());
             DeleteMagazine = new RelayCommand(pars => Delete());
-            PushButton = new RelayCommand(pars =>Push());
-            LoadedCommand = new RelayCommand(pars =>Load());
+            PushButton = new RelayCommand(pars => Push());
+            LoadedCommand = new RelayCommand(pars => Load());
             OrderUp = new RelayCommand(pars => ChangeOrderUp());
             OrderDown = new RelayCommand(pars => ChangeOrderDown());
             AddRule = new RelayCommand(pars => AddRules());
@@ -308,41 +308,55 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void Edit()
         {
-            AddEditMagazineViewModel viewModel = new AddEditMagazineViewModel(SelectedButton);
-            AddEditMagazineWindow window = new AddEditMagazineWindow(ref viewModel);
-            Nullable<bool> result = window.ShowDialog();
-            if (result == true)
+            if (SelectedButton != null)
             {
-                NewRule = viewModel.Rule;
-                NewMagazine = viewModel.Magazine;
+                if (SelectedButton.Element("name").Value != "DomyslnyMagazyn" && SelectedButton.Element("name").Value != "MiejsceRobocze")
+                {
+                    AddEditMagazineViewModel viewModel = new AddEditMagazineViewModel(SelectedButton);
+                    AddEditMagazineWindow window = new AddEditMagazineWindow(ref viewModel);
+                    Nullable<bool> result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        NewRule = viewModel.Rule;
+                        NewMagazine = viewModel.Magazine;
 
-                Tuple<string, string> a = new Tuple<string, string>("name", (string)NewMagazine.Element("name"));
-                Tuple<string, string> b = new Tuple<string, string>("size", (string)NewMagazine.Element("size"));
-                Tuple<string, string> c = new Tuple<string, string>("priority", (string)NewMagazine.Element("priority"));
-                Tuple<string, string>[] tup = { a, b, c };
+                        Tuple<string, string> a = new Tuple<string, string>("name", (string)NewMagazine.Element("name"));
+                        Tuple<string, string> b = new Tuple<string, string>("size", (string)NewMagazine.Element("size"));
+                        Tuple<string, string> c = new Tuple<string, string>("priority", (string)NewMagazine.Element("priority"));
+                        Tuple<string, string>[] tup = { a, b, c };
 
-                XElementon.Instance.Storehouse.Change((int)SelectedButton.Element("ids"),tup);
+                        XElementon.Instance.Storehouse.Change((int)SelectedButton.Element("ids"), tup);
 
-                Tuple<string, string> e = new Tuple<string, string>("attribute", (string)NewRule.Element("attribute"));
-                Tuple<string, string> f = new Tuple<string, string>("operation", (string)NewRule.Element("operation"));
-                Tuple<string, string> g = new Tuple<string, string>("value", (string)NewRule.Element("value"));
-                Tuple<string, string>[] tup2 = { e, f, g };
-
-
-                int addedIDS = XElementon.Instance.GetMaxIDS(); //TODO - wywalić te haxy, nie polecam
-                XElementon.Instance.Rule.Change(addedIDS, tup2);
+                        Tuple<string, string> e = new Tuple<string, string>("attribute", (string)NewRule.Element("attribute"));
+                        Tuple<string, string> f = new Tuple<string, string>("operation", (string)NewRule.Element("operation"));
+                        Tuple<string, string> g = new Tuple<string, string>("value", (string)NewRule.Element("value"));
+                        Tuple<string, string>[] tup2 = { e, f, g };
 
 
-                UpdateData();
+                        int addedIDS = XElementon.Instance.GetMaxIDS(); //TODO - wywalić te haxy, nie polecam
+                        XElementon.Instance.Rule.Change(addedIDS, tup2);
+
+
+                        UpdateData();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nie można edytować Domyślnego Magazynu ani Miejsca Roboczego!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nie wybrałeś magazynu");
             }
         }
 
 
         private void Delete()
         {
-            if(SelectedButton != null )
+            if (SelectedButton != null)
             {
-                if (SelectedButton.Element("name").Value != "DomyslnyMagazyn")
+                if (SelectedButton.Element("name").Value != "DomyslnyMagazyn" && SelectedButton.Element("name").Value != "MiejsceRobocze")
                 {
                     if (MessageBox.Show("Czy chcesz wykasować Magazyn : " + SelectedButton.Element("name").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
@@ -352,7 +366,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Nie można usunąć Domyślnego Magazynu");
+                    MessageBox.Show("Nie można usunąć Domyślnego Magazynu ani Miejsca Roboczego!");
                 }
             }
             else
@@ -378,42 +392,60 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void AddRules()
         {
-            AddEditRuleWindowViewModel viewModel = new AddEditRuleWindowViewModel();
-            AddEditRuleWindow window = new AddEditRuleWindow(ref viewModel);
-            Nullable<bool> result = window.ShowDialog();
-            if(result==true)
+            if (SelectedRule != null)// Case of emergency sprawdzać czy wybrana zasada jest w tym wybranym magazynie
             {
-                // logika
-                NewRule = viewModel.Rule;
+                if (SelectedButton.Element("name").Value != "DomyslnyMagazyn" && SelectedButton.Element("name").Value != "MiejsceRobocze")
+                {
+                    AddEditRuleWindowViewModel viewModel = new AddEditRuleWindowViewModel();
+                    AddEditRuleWindow window = new AddEditRuleWindow(ref viewModel);
+                    Nullable<bool> result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        // logika
+                        NewRule = viewModel.Rule;
 
+                        //Place na dodanie do SelectedButton zasady
+                        XElementon.Instance.Rule.Add((int)SelectedButton.Element("ids"), TupleList());
 
-
-                //Place na dodanie do SelectedButton zasady
-                XElementon.Instance.Rule.Add((int)SelectedButton.Element("ids"), TupleList());
-
-                UpdateData();
+                        UpdateData();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nie można dodawać zasad Domyślnego Magazynu ani zasady Miejsca Roboczego");
+                }
             }
-
+            else
+            {
+                MessageBox.Show("Nie wybrałeś zasady");
+            }
         }
+
 
         private void EditRules()
         {
-            if(SelectedRule !=null)// Case of emergency sprawdzać czy wybrana zasada jest w tym wybranym magazynie
+            if (SelectedRule != null)// Case of emergency sprawdzać czy wybrana zasada jest w tym wybranym magazynie
             {
-                AddEditRuleWindowViewModel viewModel = new AddEditRuleWindowViewModel(SelectedRule);
-                AddEditRuleWindow window = new AddEditRuleWindow(ref viewModel);
-                Nullable<bool> result = window.ShowDialog();
-                if (result == true)
+                if (SelectedButton.Element("name").Value != "DomyslnyMagazyn" && SelectedButton.Element("name").Value != "MiejsceRobocze")
                 {
-                    // logika porównać ze stara zasada (selected rule) jak w PatientPageViewModel jesli git to jak w addycji
-                    var compare = new XElement(SelectedRule);
-                    compare.Element("idr").Remove();
-                    if (viewModel.Rule.ToString() != compare.ToString()) //SelectedItem ma w sobie envelope a Patient nie //TODO czy to w ogóle potrzebne? Czy pozwolić na to i cancele?
+                    AddEditRuleWindowViewModel viewModel = new AddEditRuleWindowViewModel(SelectedRule);
+                    AddEditRuleWindow window = new AddEditRuleWindow(ref viewModel);
+                    Nullable<bool> result = window.ShowDialog();
+                    if (result == true)
                     {
-                        NewRule = viewModel.Rule;
-                        XElementon.Instance.Rule.Change((int)SelectedRule.Element("idr"), TupleList());
-                        //UpdateDataAsync(); //Naleciałość z PatientPageViewModel
+                        // logika porównać ze stara zasada (selected rule) jak w PatientPageViewModel jesli git to jak w addycji
+                        var compare = new XElement(SelectedRule);
+                        compare.Element("idr").Remove();
+                        if (viewModel.Rule.ToString() != compare.ToString()) //SelectedItem ma w sobie envelope a Patient nie //TODO czy to w ogóle potrzebne? Czy pozwolić na to i cancele?
+                        {
+                            NewRule = viewModel.Rule;
+                            XElementon.Instance.Rule.Change((int)SelectedRule.Element("idr"), TupleList());
+                            //UpdateDataAsync(); //Naleciałość z PatientPageViewModel
+                        }
                     }
+                } else
+                {
+                    MessageBox.Show("Nie można edytować zasad Domyślnego Magazynu ani zasady Miejsca Roboczego");
                 }
             }
             else
@@ -427,7 +459,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             if (SelectedRule != null)
             {
 
-                if (SelectedButton.Element("name").Value != "DomyslnyMagazyn")
+                if (SelectedButton.Element("name").Value != "DomyslnyMagazyn" && SelectedButton.Element("name").Value != "MiejsceRobocze")
                 {
                     if (MessageBox.Show("Czy chcesz wykasować zasadę o ID: "+ idr +" z Magazyn : " + SelectedButton.Element("name").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
@@ -440,7 +472,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Nie można usunąć zasady Domyślnego Magazynu");
+                    MessageBox.Show("Nie można usunąć zasad Domyślnego Magazynu ani zasady Miejsca Roboczego");
                 }
             }
             else

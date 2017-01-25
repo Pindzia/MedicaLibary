@@ -258,8 +258,7 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
                 }
                 else
                 {
-                    LoginMessage = "Zarejestrowano Pomyślnie!!";
-                    Finish();
+                    LoginMessage = "Zarejestrowano Pomyślnie! Uruchamianie aplikacji...";
                     XElementon.Instance.idLekarz = idLekarz;
                     XElementon.Instance.nazwaLekarz = _Username;
                     XElementon.Instance.Haslo = pass;

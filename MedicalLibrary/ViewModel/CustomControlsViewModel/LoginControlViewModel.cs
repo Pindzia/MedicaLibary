@@ -143,11 +143,15 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
 
                     LoginMessage = "Pobieranie danch w toku...";
 
-                    if ((XElementon.Instance.numerWersji = await PushREST.MaxWersja(idLekarz, pass)) == 0)
+
+
+                    try
                     {
-                        LoginMessage = "Błąd w pobieraniu maksymalnej wersji!";
-                        TurnOffProgress();
-                        return;
+                        XElementon.Instance.numerWersji = await PushREST.MaxWersja(idLekarz, pass);
+                    }
+                    catch
+                    {
+                        XElementon.Instance.numerWersji = 0;
                     }
 
 
