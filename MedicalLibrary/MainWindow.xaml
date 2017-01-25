@@ -38,11 +38,6 @@
                     <mui:Link Source="/View/Pages/MagazinePage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
-            <mui:LinkGroup DisplayName="Niestandardowe Pola">
-                <mui:LinkGroup.Links>
-                    <mui:Link Source="View\Pages\CustomFieldPage.xaml"/>
-                </mui:LinkGroup.Links>
-            </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Ustawienia">
                 <mui:LinkGroup.Links>
                     <mui:Link Source="View\Pages\SettingsPage.xaml"/>
