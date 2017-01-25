@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace MedicalLibrary.ViewModel.CustomControlsViewModel
 {
-    public class LoginControlViewModel :BaseViewModel
+    public class LoginControlViewModel : BaseViewModel
     {
         public LoginControlViewModel()
         {
@@ -118,15 +118,15 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
         }
         private async void Login()
         {
-            if(Username != null && Username !="" && _Password!=null && _Password!="")//zawrzeć warunek moze byc jakis dodatkowy
+            if (Username != null && Username != "" && _Password != null && _Password != "")//zawrzeć warunek moze byc jakis dodatkowy
             {
                 //logika zalogowania
                 //haszowanie
-                
+
                 LoginMessage = "Logowanie w toku...";
                 TurnProgress();
                 var pass = CryptoClass.Instance.GetStringSha256Hash(_Password);
-                int idLekarz;
+                int idLekarz = 0;
                 if ((idLekarz = await PushREST.Login(Username, pass)) == 0)
                 {
                     LoginMessage = "Błędne hasło lub login!";
@@ -135,31 +135,41 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
                 }
                 else
                 {
-                    LoginMessage = "Poprawne zalogowanie!!";
+                    LoginMessage = "Poprawne zalogowanie!";
                     await PutTaskDelay();
                     XElementon.Instance.idLekarz = idLekarz;
                     XElementon.Instance.nazwaLekarz = Username;
                     XElementon.Instance.Haslo = pass;
 
                     LoginMessage = "Pobieranie danch w toku...";
+
+                    if ((XElementon.Instance.numerWersji = await PushREST.MaxWersja(idLekarz, pass)) == 0)
+                    {
+                        LoginMessage = "Błąd w pobieraniu maksymalnej wersji!";
+                        TurnOffProgress();
+                        return;
+                    }
+
+
                     var x = await PullREST.PullAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo);
                     if (x != null)
                     {
                         XElementon.Instance.setDatabase(x);
-                        Finish();
-                        LoginMessage = "Dane pobrane!";
+                        LoginMessage = "Dane pobrane! Uruchamianie aplikacji...";
                         await PutTaskDelay();
-                    } else
+                    }
+                    else
                     {
                         //ERROR!
                         TurnOffProgress();
-                        LoginMessage ="Błąd pobrania!";
+                        LoginMessage = "Błąd pobrania!";
                         return;
                     }
                 }
-
+                LoginMessage = "";
                 EntryWindow.Complete();
-            }else
+            }
+            else
             {
                 LoginMessage = "Uzupełnij dane logowania";
                 await PutTaskDelay();

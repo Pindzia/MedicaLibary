@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -323,6 +324,22 @@ namespace MedicalLibrary.Model
             }
 
             return modification;
+        }
+
+        public void saveToFile()
+        {
+            //Zapisz modyfikacje do pliku
+            var modyfikacje = XElementon.Instance.Modification.Modifications();
+
+            string text = "";
+            foreach (var modyfikacja in modyfikacje)
+            {
+                text += modyfikacja.ToString();
+            }
+
+
+
+            File.WriteAllText(Environment.CurrentDirectory + "\\modyfikacje!" + XElementon.Instance.numerWersji + "!" + XElementon.Instance.nazwaLekarz + ".txt", text);
         }
 
     }

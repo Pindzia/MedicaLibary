@@ -77,7 +77,7 @@ namespace MedicalLibrary
         }
         private static void ChangeRest()
         {
-            linkRest.DisplayName = "Zalogowany jako: " + XElementon.Instance.nazwaLekarz;
+            linkRest.DisplayName = "Zalogowany jako: " + XElementon.Instance.nazwaLekarz + ", Numer Wersji: " + XElementon.Instance.numerWersji;
         }
     }
 }

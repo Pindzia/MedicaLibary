@@ -36,7 +36,7 @@ namespace MedicalLibrary.Model
         {
 
             //Szczytywanie danych z źródła
-            string fieldname = "", fieldtype = "", fielddefault = "", idf = null;
+            string fieldname = "", fieldtype = "", fielddefault = "", idf = null, suffix = "";
 
             foreach (var dat in data)
             {
@@ -49,6 +49,10 @@ namespace MedicalLibrary.Model
                 else if (dat.Item1 == "idf" && !log)
                 {
                     idf = dat.Item2;
+                }
+                else if (dat.Item1 == "suffix")
+                {
+                    suffix = dat.Item2;
                 }
             }
 
@@ -72,7 +76,8 @@ namespace MedicalLibrary.Model
                     new XElement("idf", idf),
                     new XElement("fieldname", fieldname),
                     new XElement("fieldtype", fieldtype),
-                    new XElement("fielddefault", fielddefault)
+                    new XElement("fielddefault", fielddefault),
+                    new XElement("suffix", suffix)
                 ));
 
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian

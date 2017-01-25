@@ -85,6 +85,13 @@ namespace MedicalLibrary.Model
             set { _Haslo = value; }
         }
 
+        private int _numerWersji = 0;
+        public int numerWersji
+        {
+            get { return _numerWersji; }
+            set { _numerWersji = value; }
+        }
+
 
 
         public void LoadEncrypted()
@@ -563,13 +570,13 @@ namespace MedicalLibrary.Model
             }
 
             //Wizyty
-            for (int i = 0; i < 3; i++) //30
+            for (int i = 0; i < 8; i++) //30
             {
                 var listapacjentow = this.Patient.Patients().ToList();
                 var losowypacjent = listapacjentow[RNG.Next(listapacjentow.Count)].Element("idp");
 
-                DateTimeOffset now = DateTimeOffset.Now;
-                var randomtime = RNG.Next(1, 87600);
+                DateTime now = DateTime.Now;
+                var randomtime = RNG.Next(8640, 8880);
                 randomtime = -randomtime;
                 now = now.AddHours(randomtime);
                 var randomdate = now.ToString();
@@ -577,8 +584,9 @@ namespace MedicalLibrary.Model
 
                 Tuple<string, string> a = new Tuple<string, string>("visit_addition_date", randomdate);
                 Tuple<string, string> b = new Tuple<string, string>("comment", listakomentarzy[RNG.Next(listakomentarzy.Count)]);
+                Tuple<string, string> c = new Tuple<string, string>("years_to_keep", "1 ");
 
-                Tuple<string, string>[] randomvisit = { a, b };
+                Tuple<string, string>[] randomvisit = { a, b, c };
                 XElementon.instance.Visit.Add((int)losowypacjent, randomvisit);
             }
 
@@ -590,7 +598,7 @@ namespace MedicalLibrary.Model
                 {
                     Tuple<string, string> a = new Tuple<string, string>("fieldname", listanazwfield[i]);
                     Tuple<string, string> b = new Tuple<string, string>("fieldtype", "int");
-                    Tuple<string, string> c = new Tuple<string, string>("fielddefault", "8");
+                    Tuple<string, string> c = new Tuple<string, string>("fielddefault", "7");
 
                     Tuple<string, string>[] randomvisit = { a, b, c };
 

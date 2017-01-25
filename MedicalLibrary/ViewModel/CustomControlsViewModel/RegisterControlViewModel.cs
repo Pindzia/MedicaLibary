@@ -263,6 +263,7 @@ namespace MedicalLibrary.ViewModel.CustomControlsViewModel
                     XElementon.Instance.idLekarz = idLekarz;
                     XElementon.Instance.nazwaLekarz = _Username;
                     XElementon.Instance.Haslo = pass;
+                    XElementon.Instance.numerWersji = 1;
                     var x = await PullREST.PullAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo);
                     if (x != null)
                     {

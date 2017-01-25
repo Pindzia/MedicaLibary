@@ -55,6 +55,21 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 OnPropertyChanged("Comment");
             }
         }
+
+        private string _Years = "0";
+        public string Years
+        {
+            get
+            {
+                return _Years;
+            }
+            set
+            {
+                _Years = value;
+                OnPropertyChanged("Years");
+            }
+        }
+
         private XElement _Visit = null;
         public XElement Visit
         {
@@ -97,6 +112,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                          new XElement("visit",
                          new XElement("idv", Id),
                          new XElement("visit_addition_date", FullDate),
+                         new XElement("years_to_keep", Years),
                          new XElement("comment", Comment)));
 
                     window.DialogResult = true;

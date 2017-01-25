@@ -21,10 +21,20 @@ namespace MedicalLibrary.Model
                 return;
             }
 
+            int serwerNumerWersji = -1;
+            if((serwerNumerWersji = await PushREST.MaxWersja(idLekarz, pass)) != XElementon.Instance.numerWersji)
+            {
+                System.Windows.MessageBox.Show("Kolizja wersji! Wersja na serwerze: " + serwerNumerWersji + ", wersja lokalna: " + XElementon.Instance.numerWersji);
+                System.Windows.MessageBox.Show("Zapisywanie modyfikacji sesji do pliku 'modyfikacje.txt'");
+                XElementon.Instance.Modification.saveToFile();
+                return;
+            }
+
             // Nowa wersja
             WersjToSendDTO obj = new WersjToSendDTO();
             string uri = "/wersja/" + idLekarz.ToString() + "/nowa";
             await PushREST.UniversalPost(obj, uri,idLekarz,pass);
+            XElementon.Instance.numerWersji++;
 
 
             // Max id wersji = najnowasza wersja

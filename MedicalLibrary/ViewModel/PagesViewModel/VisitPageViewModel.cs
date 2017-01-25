@@ -219,7 +219,8 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             Tuple<string, string> a = new Tuple<string, string>("visit_addition_date", (string)NewVisit.Element("visit_addition_date"));
             Tuple<string, string> b = new Tuple<string, string>("comment", (string)NewVisit.Element("comment"));
-            Tuple<string, string>[] tup = { a, b };
+            Tuple<string, string> c = new Tuple<string, string>("years_to_keep", (string)NewVisit.Element("years_to_keep"));
+            Tuple<string, string>[] tup = { a, b, c };
             return tup;
         }
 

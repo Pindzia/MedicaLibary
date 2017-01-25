@@ -67,6 +67,17 @@ namespace MedicalLibrary.Model
             return wrwarehouse;
         }
 
+        //Wyświetl wszystkich pacjentów których wszystkie wizyty są przedawnione
+        public IEnumerable<XElement> OutdatedPatients()
+        {
+            var querry = from qpatient in database.Elements("patient")
+                         from qvisits in qpatient.Elements("visit")
+                         where (((DateTime.Now.AddYears(-(int)qvisits.Elements("years_to_keep").First()) > Convert.ToDateTime((string)qvisits.Elements("visit_addition_date").First()))))
+                         select qpatient;
+
+            return querry;            
+        }
+
         //Wyświetl wszystkich pacjentów którzy są w niepoprawnym magazynie
         public IEnumerable<XElement> Filtered(string attribute, string value)
         {

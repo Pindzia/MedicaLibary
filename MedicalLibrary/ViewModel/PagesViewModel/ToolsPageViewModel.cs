@@ -51,17 +51,9 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         private void AddSome()
         {
             //Zapisz modyfikacje do pliku
-            var modyfikacje = XElementon.Instance.Modification.Modifications();
-
-            string text = "";
-            foreach (var modyfikacja in modyfikacje)
-            {
-                text += modyfikacja.ToString();
-            }
-                
-            
-
-            File.WriteAllText(Environment.CurrentDirectory + "\\modyfikacje.xml", text);
+            //XElementon.Instance.Modification.saveToFile();
+            //Debug stuff :V
+            XElementon.Instance.Patient.OutdatedPatients();
         }
 
         private void SaveEncrypted()
@@ -110,7 +102,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         }
 
-        private async void Logout()
+        private async void Logout() //podpiąć do widoku?
         {
             XElementon.Instance.idLekarz = 0;
             XElementon.Instance.Haslo = "";

@@ -88,6 +88,20 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
+        private string _Suffix = "";
+        public string Suffix
+        {
+            get
+            {
+                return _Suffix;
+            }
+            set
+            {
+                _Suffix = value;
+                OnPropertyChanged("Suffix");
+            }
+        }
+
         private bool _CheckDefault = false;
         public bool CheckDefault
         {
@@ -225,7 +239,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             Tuple<string, string> a = new Tuple<string, string>("fieldname", FieldName);
             Tuple<string, string> b = new Tuple<string, string>("fieldtype", SelectedType);
-            Tuple<string, string> c =new Tuple<string, string>("","");
+            Tuple<string, string> c = new Tuple<string, string>("","");
+            Tuple<string, string> d = new Tuple<string, string>("suffix", Suffix);
 
             switch (SelectedType)
             {
@@ -240,7 +255,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                     break;
             }
 
-            Tuple<string, string>[] newField = { a, b, c };
+            Tuple<string, string>[] newField = { a, b, c, d };
 
             if (CustomField !=null)
             {
