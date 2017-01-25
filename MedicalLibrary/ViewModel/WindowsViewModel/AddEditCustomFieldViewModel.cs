@@ -42,6 +42,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                     TextDefault = CustomField.Element("fielddefault").Value;
                     break;
             }
+            Suffix = CustomField.Element("suffix").Value;
 
         }
 
@@ -98,6 +99,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _Suffix = value;
+                Regex regex = new Regex("[a-zA-Z0-9_ ]{0,9}");
+                IsGoodSuf = (!regex.IsMatch(_TextDefault)) ? true : false;
                 OnPropertyChanged("Suffix");
             }
         }
@@ -159,6 +162,20 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 _IsGoodNum = value;
                 OnPropertyChanged(nameof(IsGoodNum));
+            }
+        }
+
+        private bool _IsGoodSuf = false;
+        public bool IsGoodSuf
+        {
+            get
+            {
+                return _IsGoodSuf;
+            }
+            set
+            {
+                _IsGoodSuf = value;
+                OnPropertyChanged(nameof(IsGoodSuf));
             }
         }
 
@@ -262,7 +279,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 switch(SelectedType)
                 {
                     case "int":
-                        if(!IsGoodNum)
+                        if(!IsGoodNum && !IsGoodSuf)
                         {
                             XElementon.Instance.Field.Change((int)CustomField.Element("idf"), newField);
                             window.DialogResult = true;
@@ -289,7 +306,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 switch (SelectedType)
                 {
                     case "int":
-                        if (!IsGoodNum)
+                        if (!IsGoodNum && !IsGoodSuf)
                         {
                             XElementon.Instance.Field.Add(newField);
                             window.DialogResult = true;
