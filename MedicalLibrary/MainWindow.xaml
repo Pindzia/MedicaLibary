@@ -13,7 +13,7 @@
         <mui:Link x:Name="WrongPatient" DisplayName="Źle Umieszczeni Pacjenci:" Source="View/Pages/WrongStorhousePage.xaml"/>
         <mui:Link x:Name="Modifications" DisplayName="Ilość Modyfikacji:" Source="View/Pages/ModificationPage.xaml"/>
         <mui:Link x:Name="RestAPI" DisplayName="Zalogowany jako:"/>
-        <mui:Link x:Name="Old" DisplayName="Ilość Przedawnionych Dokumentacji:"/>
+        <mui:Link x:Name="Old" DisplayName="Ilość Przedawnionych Dokumentacji:" Source="View/Pages/ExpiredPatientsPage.xaml"/>
     </mui:ModernWindow.TitleLinks>
     
     <mui:ModernWindow.MenuLinkGroups>
@@ -21,7 +21,8 @@
             <mui:LinkGroup DisplayName="Pacjenci">
                 <mui:LinkGroup.Links>
                     <mui:Link DisplayName="Lista Pacjentów" Source="View\Pages\PatientPage.xaml" />
-                    <mui:Link DisplayName="Źle Umieszczeni Pacjenci" Source="View\Pages\WrongStorhousePage.xaml"/>
+                    <mui:Link DisplayName="Źle Umieszczeni Pacjenci" Source="View/Pages/WrongStorhousePage.xaml"/>
+                    <mui:Link DisplayName="Przedawniona Dokumentacja" Source="View/Pages/ExpiredPatientsPage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Wizyty">
@@ -31,7 +32,7 @@
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Modyfikacje">
                 <mui:LinkGroup.Links>
-                    <mui:Link Source="View\Pages\ModificationPage.xaml"/>
+                    <mui:Link Source="View/Pages/ModificationPage.xaml"/>
                 </mui:LinkGroup.Links>
             </mui:LinkGroup>
             <mui:LinkGroup DisplayName="Magazyn">
