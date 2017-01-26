@@ -15,9 +15,9 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
     {
         public ExpiredPatientsPageViewModel()
         {
-            UpdateData();
             DestroyPatient = new RelayCommand(pars => Destroy());
             LoadedCommand = new RelayCommand(pars => Loaded());
+            UpdateData();
         }
 
         private void UpdateData()
