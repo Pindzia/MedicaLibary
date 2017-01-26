@@ -193,6 +193,10 @@ namespace MedicalLibrary.Model
                     {
                         wizyta.komentarz = (string)zmiana;
                     }
+                    if (zmiana.Name.LocalName == "visit_end_date")
+                    {
+                        wizyta.koniec_wizyty = (Convert.ToDateTime((string)zmiana));
+                    }
                 }
 
                 string uri = "/wizyta/" + idLekarz.ToString() + "/nowa";
@@ -366,6 +370,10 @@ namespace MedicalLibrary.Model
                     if (zmiana.Name.LocalName == "comment")
                     {
                         wizyta.komentarz = (string)zmiana;
+                    }
+                    if (zmiana.Name.LocalName == "visit_end_date")
+                    {
+                        wizyta.koniec_wizyty = (Convert.ToDateTime((string)zmiana));
                     }
                 }
                 wizyta.id = (int) modyfikacja.Element("id");
