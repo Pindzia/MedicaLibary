@@ -13,7 +13,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="1"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="1"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
@@ -48,23 +48,19 @@
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="7*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Nazwa Użytkownika:" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="20,0,0,20" />
-                <Label Grid.Row="1" Grid.Column="0" Content="Hasło:" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20,20,0,0"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Height="25" Width="150"  Text="{Binding Username , UpdateSourceTrigger=PropertyChanged}" MaxLength="25" VerticalAlignment="Bottom" Margin="0,0,0,20"/>
-                <PasswordBox Grid.Row="1" Grid.Column="1" Height="25" Width="150" PasswordChanged="PasswordBox_PasswordChanged" MaxLength="16" VerticalAlignment="Top" Margin="0,20,0,0"/>
+                <Label Grid.Column="0" Content="Hasło:" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20,20,0,0"/>
+                <PasswordBox Height="25" Width="150" PasswordChanged="PasswordBox_PasswordChanged" MaxLength="16" VerticalAlignment="Top" Margin="0,20,0,0"/>
             </Grid>
             <GridSplitter Grid.Row="3" Margin="10,0,10,0" BorderBrush="Gray" BorderThickness="1"/>
             <Grid Grid.Row="4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.3*"/>
                     <RowDefinition Height="0.3*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.3*"/>
                 </Grid.RowDefinitions>
                 <Button Grid.Row="0" Content="Zaloguj"  VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding LogIn}" IsDefault="True" IsEnabled="{Binding IsEnabled}"/>
                 <Grid Grid.Row="1">
