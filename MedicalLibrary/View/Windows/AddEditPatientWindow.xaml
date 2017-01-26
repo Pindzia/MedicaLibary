@@ -55,6 +55,7 @@
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding NameFlag}" Value="false">
                                         <Setter Property="Visibility" Value="Visible"/>
+                                        <Setter Property="Content" Value="Pole powinno być nie puste i posiadać do 30 znaków bez znaków specjalnych"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -87,6 +88,7 @@
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding LastFlag}" Value="false">
                                         <Setter Property="Visibility" Value="Visible"/>
+                                        <Setter Property="Content" Value="Pole powinno być nie puste i posiadać do 50 znaków bez znaków specjalnych"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
