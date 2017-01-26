@@ -63,7 +63,7 @@ namespace MedicalLibrary.Model
                 {
                     years_to_keep = dat.Item2;
                 }
-                else if (dat.Item1 == "visit_time")
+                else if (dat.Item1 == "visit_end_date")
                 {
                     endtime = dat.Item2;
                 }

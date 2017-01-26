@@ -220,7 +220,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             Tuple<string, string> a = new Tuple<string, string>("visit_addition_date", (string)NewVisit.Element("visit_addition_date"));
             Tuple<string, string> b = new Tuple<string, string>("comment", (string)NewVisit.Element("comment"));
             Tuple<string, string> c = new Tuple<string, string>("years_to_keep", (string)NewVisit.Element("years_to_keep"));
-            Tuple<string, string> d = new Tuple<string, string>("visit_time", (string)NewVisit.Element("visit_time"));
+            Tuple<string, string> d = new Tuple<string, string>("visit_end_date", (string)NewVisit.Element("visit_end_date"));
             
             Tuple<string, string>[] tup = { a, b, c, d };
             return tup;
@@ -323,7 +323,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 XElement startTime = visit.Element("visit_addition_date");
                 appoint.Subject = "Wizyta Pacjenta " + visit.Parent.Element("imie").Value + " " + visit.Parent.Element("nazwisko").Value + " " + visit.Parent.Element("pesel").Value;
                 appoint.StartTime = Convert.ToDateTime((string)startTime);
-                appoint.EndTime = Convert.ToDateTime(visit.Element("visit_time").Value);
+                appoint.EndTime = Convert.ToDateTime(visit.Element("visit_end_date").Value);
                 collection.Add(appoint);
             }
             return collection;

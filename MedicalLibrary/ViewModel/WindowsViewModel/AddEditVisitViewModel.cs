@@ -25,7 +25,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             Visit = visit; //Tworzymy wcześniej XElementa a'la SelectedItem w AddEditPatientViewModel?
             DateTime dataToParse = DateTime.Parse(visit.Element("visit_addition_date").Value);
             FullDate = new DateTime(dataToParse.Year, dataToParse.Month, dataToParse.Day, dataToParse.Hour, dataToParse.Minute, dataToParse.Second);
-            DateTime dataToMinutes = DateTime.Parse(visit.Element("visit_time").Value);
+            DateTime dataToMinutes = DateTime.Parse(visit.Element("visit_end_date").Value);
             DateTime dataToCompare = new DateTime(dataToMinutes.Year, dataToMinutes.Month, dataToMinutes.Day, dataToMinutes.Hour, dataToMinutes.Minute, dataToMinutes.Second);
             TimeSpan interval = dataToCompare.Subtract(FullDate);
             Minutes = interval.Minutes.ToString();
@@ -185,7 +185,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                          new XElement("visit_addition_date", FullDate),
                          new XElement("years_to_keep", Years),
                          new XElement("comment", Comment), 
-                         new XElement("visit_time", FullDate.AddMinutes(minutes))));
+                         new XElement("visit_end_date", FullDate.AddMinutes(minutes))));
 
                     window.DialogResult = true;
                     window.Close();

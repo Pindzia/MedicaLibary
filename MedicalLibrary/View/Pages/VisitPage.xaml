@@ -150,9 +150,9 @@
                     <Setter Property="Margin" Value="25,10,25,10"/>
                 </Style>
             </StackPanel.Resources>
-            <Button Command="{Binding AddVisit}" Height="25" Width="120">Dodaj Wizytę</Button>
-            <Button Command="{Binding EditVisit}" Height="25" Width="120">Edytuj Wizytę</Button>
-            <Button Command="{Binding DeleteVisit}" Height="25" Width="120">Usuń Wizytę</Button>
+            <Button Command="{Binding AddVisit}" Height="27" Width="120">Dodaj Wizytę</Button>
+            <Button Command="{Binding EditVisit}" Height="27" Width="120">Edytuj Wizytę</Button>
+            <Button Command="{Binding DeleteVisit}" Height="27" Width="120">Usuń Wizytę</Button>
         </StackPanel>
     </Grid>
 </Page>
