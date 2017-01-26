@@ -160,7 +160,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             if (FullDate != null)
             {
-                if (IsGoodK&&IsGoodM&&IsGoodY)
+                if (!IsGoodK&&!IsGoodM&&!IsGoodY&&SpecialMin())
                 {
 
                     string Id = ""; //TODO - zmiana na zapis obiektowy a';a AddEditPatientViewMode z ichnijszym IDP?
@@ -185,7 +185,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                          new XElement("visit_addition_date", FullDate),
                          new XElement("years_to_keep", Years),
                          new XElement("comment", Comment), 
-                         new XElement("visit_time", FullDate.AddMinutes(minutes));
+                         new XElement("visit_time", FullDate.AddMinutes(minutes))));
 
                     window.DialogResult = true;
                     window.Close();
@@ -198,6 +198,39 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             else
             {
                 MessageBox.Show("Data jest pusta");
+            }
+        }
+
+        private bool SpecialMin()
+        {
+            if(!IsGoodM)
+            {
+                int minutes;
+                int.TryParse(Minutes, out minutes);
+                if(minutes >=15)
+                {
+                    DateTime checkDate = FullDate.AddMinutes(minutes);
+                    TimeSpan interval = checkDate.Subtract(FullDate);
+                    if(interval.Days == 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Czas trwania wizyty nie powinien przekraczać danego dnia");
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Czas trwania nie może być mniejszy niż 15 minut");
+                    return false;
+                }
+                    
+            }
+            else
+            {
+                return false;
             }
         }
 

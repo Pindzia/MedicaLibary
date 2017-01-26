@@ -91,7 +91,7 @@ namespace MedicalLibrary.Model
                 new XElement("years_to_keep", years_to_keep),
                 new XElement("comment", comment), //fix
                 new XElement("idp", idp)
-            ));
+            ));//////!!!!!!!!!!! dodaj lenght!!
 
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
             if (log)
