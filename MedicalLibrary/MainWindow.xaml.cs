@@ -60,6 +60,7 @@ namespace MedicalLibrary
                 ChangeWrong();
                 ChangeMod();
                 ChangeRest();
+                ChangeOld();
             }
             else
             {
