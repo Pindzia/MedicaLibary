@@ -20,7 +20,7 @@
                 <RowDefinition Height="9*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <GroupBox Header="Lista źle umieszczonych Pacjentów" Margin="20,10,20,10" Grid.Row="0" Grid.IsSharedSizeScope="True">
+            <GroupBox Header="Lista Przedawnionej Dokumentacji" Margin="20,10,20,10" Grid.Row="0" Grid.IsSharedSizeScope="True">
                 <ScrollViewer HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="10,15,10,10">
                     <DataGrid DataContext="{Binding ExpiredPatients}"  
                           ItemsSource="{Binding}" 

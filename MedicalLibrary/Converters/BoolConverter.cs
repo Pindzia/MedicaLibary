@@ -22,12 +22,7 @@ namespace MedicalLibrary.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            //walinas
-            if ((string)value == "Prawda")
-                return "true";
-            if ((string)value == "Fałsz")
-                return "false";
-            return value;
+            throw new NotImplementedException();
         }
 
         public string ConvertSpecial(string value)
