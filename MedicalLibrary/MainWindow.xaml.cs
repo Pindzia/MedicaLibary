@@ -81,7 +81,7 @@ namespace MedicalLibrary
         }
         private static void ChangeOld()
         {
-            linkOld.DisplayName = "Ilość Przedawnionych Dokumentacji:?"; // do uzupełnienia
+            linkOld.DisplayName = "Ilość Przedawnionych Dokumentacji: " + XElementon.Instance.Patient.OutdatedPatients().Count();
         }
         private static void ChangeRest()
         {

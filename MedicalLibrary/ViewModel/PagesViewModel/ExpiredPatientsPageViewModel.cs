@@ -22,7 +22,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void UpdateData()
         {
-            ExpiredPatients = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.InWrongStorehouse());
+            ExpiredPatients = ObserverCollectionConverter.Instance.Observe(XElementon.Instance.Patient.OutdatedPatients());
         }
 
         private ObservableCollection<XElement> _ExpiredPatients = new ObservableCollection<XElement>();
@@ -64,12 +64,15 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         {
             if (SelectedItem != null)
             {
-                Tuple<string, string> Answer = XElementon.Instance.Patient.WhatStorehouseEnvelope((int)SelectedItem.Element("idp"));
-                MessageBox.Show("Powinno sie przenieś wybranego pacjenta do magazynu o nazwie: \n" + Answer.Item1 + "\nw kopercie o numerze: " + Answer.Item2);
+                if (MessageBox.Show("Czy zniszczyłeś daną dokumentacje Pacjenta: " + SelectedItem.Element("imie").Value + " " + SelectedItem.Element("nazwisko").Value, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    XElementon.Instance.Patient.Delete((int)SelectedItem.Element("idp"));
+                    UpdateData();
+                }
             }
             else
             {
-                MessageBox.Show("Wybierz Pacjenta by dowiedzieć się do jakiego magazynu należy");
+                MessageBox.Show("Wybierz Pacjenta aby usunąć jego dokumentacje");
             }
         }
 
