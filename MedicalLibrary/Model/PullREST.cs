@@ -175,6 +175,8 @@ namespace MedicalLibrary.Model
                     var visita = new XElement("visit",
                         new XElement("idv", (string)visit.Element("id") ?? "ERROR"),
                         new XElement("visit_addition_date", (string)visit.Element("data_wizyty") ?? ""),
+                        new XElement("visit_end_date", (string)visit.Element("koniec_wizyty") ?? ""),
+                        new XElement("years_to_keep", (string)visit.Element("lata_waznosc") ?? ""),
                         new XElement("comment", (string)visit.Element("komentarz") ?? "")
                         );
 
@@ -323,8 +325,11 @@ namespace MedicalLibrary.Model
                 new XElement("idf", (string)l.Element("id")),
                 new XElement("fieldname", (string)l.Element("nazwa")),
                 new XElement("fieldtype", (string)l.Element("typ")),
-                new XElement("fielddefault", (string)l.Element("wartosc_domyslna")));
+                new XElement("fielddefault", (string)l.Element("wartosc_domyslna")),
+                new XElement("suffix", (string)l.Element("jednostka")));
 
+
+            
             lib.Elements("meta").First().Add(new XElement("customfields"));
 
             //pobierz IDMAX - max_idp

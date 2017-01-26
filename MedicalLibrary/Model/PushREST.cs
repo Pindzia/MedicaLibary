@@ -566,6 +566,10 @@ namespace MedicalLibrary.Model
                 {
                     obj.wartosc_domyslna = prevObj.wartosc_domyslna;
                 }
+                //if (obj.jednostka == null) //!!
+                //{
+                //    obj.jednostka = prevObj.jednostka;
+                //}
 
                 string uri = "/parametr/zmiana/" + lid.ToString() + "/" + obj.id.ToString();
 
@@ -667,6 +671,10 @@ namespace MedicalLibrary.Model
                 {
                     obj.koniec_wizyty = prevObj.koniec_wizyty;
                 }
+                //if (obj.koniec_wizyty == null) //!!
+                //{
+                //    obj.lata_waznosc = prevObj.lata_waznosc;
+                //}
 
                 string uri = "/wizyta/zmiana/" + lid.ToString() + "/" + obj.id.ToString();
 
@@ -674,7 +682,9 @@ namespace MedicalLibrary.Model
                 {
                     data_wizyty = obj.data_wizyty,
                     id_pacjent = obj.id_pacjent,
-                    komentarz = obj.komentarz
+                    komentarz = obj.komentarz,
+                    koniec_wizyty = obj.koniec_wizyty
+                    //!! lata_waznosc = obj.lata_waznosc
                 };
                 await UniversalPut(objToSend, uri);
             }
