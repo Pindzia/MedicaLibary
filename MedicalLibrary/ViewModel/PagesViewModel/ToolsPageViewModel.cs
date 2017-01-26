@@ -58,13 +58,11 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void SaveEncrypted()
         {
-            XElementon.Instance.SetKey(XElementon.Instance.Haslo);
             XElementon.Instance.SaveEncrypted();
         }
 
         private void LoadEncrypted()
         {
-            XElementon.Instance.SetKey(XElementon.Instance.Haslo);
             XElementon.Instance.LoadEncrypted();
         }
 
@@ -88,18 +86,24 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             System.Windows.MessageBox.Show("Wysyłanie modyfikacji na serwer w toku...");
 
             XElementon.Instance.SendModifications.SendAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo); //TODO ID-lekarz TODO-pass
-            
         }
 
-
-        private async void Login(string nazwaLekarza, string pass)
+        private async void Pull()
         {
-
-        }
-
-        private async void Register(string nazwaLekarza, string pass)
-        {
-
+            var x = await PullREST.PullAll(XElementon.Instance.idLekarz, XElementon.Instance.Haslo);
+            if (x != null)
+            {
+                XElementon.Instance.setDatabase(x);
+                //LoginMessage = "Dane pobrane! Uruchamianie aplikacji...";
+                //await PutTaskDelay();
+            }
+            else
+            {
+                //ERROR!
+                //TurnOffProgress();
+                //LoginMessage = "Błąd pobrania!";
+                return;
+            }
         }
 
         private async void Logout() //podpiąć do widoku?
@@ -112,11 +116,5 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             List<string> LoginyLekarzy = await PushREST.LekarzNazwyGET();
         }
 
-        //
-
-        private async void Pull()
-        {
-
-        }
     }
 }

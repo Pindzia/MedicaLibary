@@ -90,7 +90,10 @@ namespace MedicalLibrary
 
         private void ModernWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBox.Show("Dzieje się");
+            if (MessageBox.Show("Czy chcesz przed wyjściem zapisać sesję lokalnie?", "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                XElementon.Instance.SaveEncrypted();
+            }
         }
     }
 }

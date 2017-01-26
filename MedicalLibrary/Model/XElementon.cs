@@ -97,7 +97,7 @@ namespace MedicalLibrary.Model
 
         public void LoadEncrypted()
         {
-
+            XElementon.Instance.SetKey(XElementon.Instance.Haslo);
             CryptoClass crypt = CryptoClass.Instance;
             if (File.Exists("encrypted.xml"))
             {
@@ -146,6 +146,7 @@ namespace MedicalLibrary.Model
 
         public void SaveEncrypted()
         {
+            XElementon.Instance.SetKey(XElementon.Instance.Haslo);
             CryptoClass crypt = CryptoClass.Instance;
             var cipher = crypt.Encrypt(this.getDatabase().ToString());
 
