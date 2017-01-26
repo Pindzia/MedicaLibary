@@ -59,7 +59,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _Comment = value;
-                Regex regex = new Regex("^[a-zA-Z0-9_ ]+$");
+                Regex regex = new Regex("^[a-zA-Z0-9_ ]*$");
                 IsGoodK = (!regex.IsMatch(_Comment)) ? true : false;
                 OnPropertyChanged("Comment");
             }
@@ -89,7 +89,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _Years = value;
-                Regex regex = new Regex("^[0-9,]+$");
+                Regex regex = new Regex("^[0-9]+$");
                 IsGoodY = (!regex.IsMatch(_Years)) ? true : false;
                 OnPropertyChanged("Years");
             }
