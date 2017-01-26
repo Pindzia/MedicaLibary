@@ -23,7 +23,13 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         public AddEditVisitViewModel(XElement visit)
         {
             Visit = visit; //Tworzymy wcześniej XElementa a'la SelectedItem w AddEditPatientViewModel?
-            FullDate = DateTime.Parse(visit.Element("visit_addition_date").Value);
+            DateTime dataToParse = DateTime.Parse(visit.Element("visit_addition_date").Value);
+            FullDate = new DateTime(dataToParse.Year, dataToParse.Month, dataToParse.Day, dataToParse.Hour, dataToParse.Minute, dataToParse.Second);
+            DateTime dataToMinutes = DateTime.Parse(visit.Element("visit_time").Value);
+            DateTime dataToCompare = new DateTime(dataToMinutes.Year, dataToMinutes.Month, dataToMinutes.Day, dataToMinutes.Hour, dataToMinutes.Minute, dataToMinutes.Second);
+            TimeSpan interval = dataToCompare.Subtract(FullDate);
+            Minutes = interval.Minutes.ToString();
+            Years = visit.Element("years_to_keep").Value;
             Comment = visit.Element("comment").Value;
             SaveVisit = new RelayCommand(pars => Save((AddEditVistitWindow)pars));
             CancelVisit = new RelayCommand(pars => Cancel((AddEditVistitWindow)pars));
@@ -54,7 +60,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 _Comment = value;
                 Regex regex = new Regex("^[a-zA-Z0-9_ ]+$");
-                IsGoodK = (!regex.IsMatch(Comment)) ? true : false;
+                IsGoodK = (!regex.IsMatch(_Comment)) ? true : false;
                 OnPropertyChanged("Comment");
             }
         }
@@ -83,8 +89,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _Years = value;
-                Regex regex = new Regex("-?[0-9,]+");
-                IsGoodY = (!regex.IsMatch(Years)) ? true : false;
+                Regex regex = new Regex("^[0-9,]+$");
+                IsGoodY = (!regex.IsMatch(_Years)) ? true : false;
                 OnPropertyChanged("Years");
             }
         }
@@ -103,7 +109,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             }
         }
 
-        private string _Minutes = "0";
+        private string _Minutes = "15";
         public string Minutes
         {
             get
@@ -113,8 +119,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _Minutes = value;
-                Regex regex = new Regex("-?[0-9,]+");
-                IsGoodM = (!regex.IsMatch(Minutes)) ? true : false;
+                Regex regex = new Regex("^[0-9]+$");
+                IsGoodM = (!regex.IsMatch(_Minutes)) ? true : false;
                 OnPropertyChanged("Minutes");
             }
         }
@@ -171,12 +177,15 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                     }
 
                     // data do wizyty do przypisania ew. zmienna do wytworzenia
+                    int minutes;
+                    int.TryParse(Minutes,out minutes);
                     Visit = new XElement(
                          new XElement("visit",
                          new XElement("idv", Id),
                          new XElement("visit_addition_date", FullDate),
                          new XElement("years_to_keep", Years),
-                         new XElement("comment", Comment)));
+                         new XElement("comment", Comment), 
+                         new XElement("visit_time", FullDate.AddMinutes(minutes));
 
                     window.DialogResult = true;
                     window.Close();
