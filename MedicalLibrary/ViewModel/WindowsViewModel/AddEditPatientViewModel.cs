@@ -410,7 +410,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                     NameFlag = (System.Text.RegularExpressions.Regex.IsMatch(FirstName, @"^[^\\\?;/]+$")) ? true : false;
                     break;
                 case "LastName":
-                    LastFlag = (System.Text.RegularExpressions.Regex.IsMatch(FirstName, @"^[^\\\?;/]+$")) ? true : false;
+                    LastFlag = (System.Text.RegularExpressions.Regex.IsMatch(LastName, @"^[^\\\?;/]+$")) ? true : false;
                     break;
                 case "Pesel":
                     PesFlag = (System.Text.RegularExpressions.Regex.IsMatch(Pesel, "^\\d{11}$")) ? true : false;
