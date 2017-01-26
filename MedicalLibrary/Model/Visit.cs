@@ -47,7 +47,7 @@ namespace MedicalLibrary.Model
             string idv = null;
             string comment = "";
             string time = "";
-            string length = "";
+            string endtime = "";
             string years_to_keep = "";
             foreach (var dat in data)
             {
@@ -65,7 +65,7 @@ namespace MedicalLibrary.Model
                 }
                 else if (dat.Item1 == "visit_time")
                 {
-                    length = dat.Item2;
+                    endtime = dat.Item2;
                 }
             }
 
@@ -88,10 +88,11 @@ namespace MedicalLibrary.Model
             new XElement("visit",
                 new XElement("idv", idv),
                 new XElement("visit_addition_date", time),
+                new XElement("visit_end_date", endtime),
                 new XElement("years_to_keep", years_to_keep),
                 new XElement("comment", comment), //fix
                 new XElement("idp", idp)
-            ));//////!!!!!!!!!!! dodaj lenght!!
+            ));
 
             //Dodanie modyfikacji na potrzeby Revertów i wysyłanie Logu zmian
             if (log)
