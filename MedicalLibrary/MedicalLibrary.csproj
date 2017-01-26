@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="ViewModel\CustomControlsViewModel\CheckControlViewModel.cs" />
     <Compile Include="ViewModel\CustomControlsViewModel\LoginControlViewModel.cs" />
+    <Compile Include="ViewModel\CustomControlsViewModel\LoginOfflineControlViewModel.cs" />
     <Compile Include="ViewModel\CustomControlsViewModel\NumberControlViewModel.cs" />
     <Compile Include="ViewModel\CustomControlsViewModel\RegisterControlViewModel.cs" />
     <Compile Include="ViewModel\CustomControlsViewModel\TextControlViewModel.cs" />

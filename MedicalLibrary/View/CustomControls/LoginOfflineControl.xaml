@@ -4,9 +4,99 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MedicalLibrary.View.CustomControls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:icon ="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Label Content="Wróć do logowania online: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button  Width="20" Height="20" Command="{Binding NavLog}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Grid>
+                                    <Ellipse Stroke="Black" StrokeThickness="1" x:Name="Ellipse" Fill="White"/>
+                                    <ContentPresenter HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"/>
+                                    <icon:PackIconMaterial Kind="ArrowRight" Height="8" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Fill" Value="LightGray" TargetName="Ellipse" />
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Fill" Value="Gray" TargetName="Ellipse" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+                <Label  Content="Logowanie Offline" TextBlock.FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </DockPanel>
+            <GridSplitter Grid.Row="1" Margin="10,0,10,0" BorderBrush="Gray" BorderThickness="1"/>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Nazwa Użytkownika:" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="20,0,0,20" />
+                <Label Grid.Row="1" Grid.Column="0" Content="Hasło:" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="20,20,0,0"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Height="25" Width="150"  Text="{Binding Username , UpdateSourceTrigger=PropertyChanged}" MaxLength="25" VerticalAlignment="Bottom" Margin="0,0,0,20"/>
+                <PasswordBox Grid.Row="1" Grid.Column="1" Height="25" Width="150" PasswordChanged="PasswordBox_PasswordChanged" MaxLength="16" VerticalAlignment="Top" Margin="0,20,0,0"/>
+            </Grid>
+            <GridSplitter Grid.Row="3" Margin="10,0,10,0" BorderBrush="Gray" BorderThickness="1"/>
+            <Grid Grid.Row="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Content="Zaloguj"  VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding LogIn}" IsDefault="True" IsEnabled="{Binding IsEnabled}"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition Width="0.3*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Content="{Binding LoginMessage}"/>
+                    <mah:ProgressRing Grid.Column="1" Height="23" Width="23" IsActive="{Binding IsActive}"/>
+                </Grid>
+                <GroupBox Header="Lista Baz Lokalnych" Grid.Row="2" Grid.IsSharedSizeScope="True" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <ScrollViewer Grid.IsSharedSizeScope="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                        <DataGrid DataContext="{Binding DataToBind}"  
+                          ItemsSource="{Binding}" 
+                          SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedItem, Mode=TwoWay}" 
+                          IsReadOnly="True" 
+                          SelectionMode="Single"
+                          AutoGenerateColumns="False"
+                          VerticalAlignment="Stretch"
+                          RowHeaderWidth="1"
+                          BorderBrush="LightBlue"
+                          BorderThickness="1">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nazwa użytkownika" Binding="{Binding Path=Element[login].Value}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Numer Wersji" Binding="{Binding Path=Element[version].Value}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Data Modyfikacji" Binding="{Binding Path=Element[last_modified].Value}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
+                </GroupBox>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

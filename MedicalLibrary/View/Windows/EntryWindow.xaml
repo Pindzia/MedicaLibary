@@ -12,6 +12,7 @@
             <mui:ModernTab.Links>
                 <mui:Link Source="/View/CustomControls/RegisterControl.xaml" />
                 <mui:Link Source="/View/CustomControls/LoginControl.xaml" />
+                <mui:Link DisplayName="Offline" Source="/View/CustomControls/LoginOfflineControl.xaml" />
             </mui:ModernTab.Links>
         </mui:ModernTab>
     </Grid>
