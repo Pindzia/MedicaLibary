@@ -239,6 +239,9 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                     UpdateData();
                     MyTime = MyTime.AddMilliseconds(1);//trick to update Calendar highlights :)
                 }
+            }else
+            {
+                MessageBox.Show("Wybierz Pacjenta Aby dodać wizytę");
             }
         }
 

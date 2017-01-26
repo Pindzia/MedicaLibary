@@ -407,10 +407,10 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             switch(propName)
             {
                 case "FirstName":
-                    NameFlag = (FirstName.Length >= 1) ? true : false;
+                    NameFlag = (System.Text.RegularExpressions.Regex.IsMatch(FirstName, @"^[^\\\?;/]+$")) ? true : false;
                     break;
                 case "LastName":
-                    LastFlag = (LastName.Length >= 1) ? true : false;
+                    LastFlag = (System.Text.RegularExpressions.Regex.IsMatch(FirstName, @"^[^\\\?;/]+$")) ? true : false;
                     break;
                 case "Pesel":
                     PesFlag = (System.Text.RegularExpressions.Regex.IsMatch(Pesel, "^\\d{11}$")) ? true : false;

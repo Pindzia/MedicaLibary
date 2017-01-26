@@ -37,8 +37,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="2.5*"/>
             </Grid.ColumnDefinitions>
             <GroupBox Grid.Column="0" Header="Lista Niestandardowych Pól">
                 <DataGrid
@@ -80,9 +80,9 @@
                     <Setter Property="Margin" Value="25,10,25,10"/>
                 </Style>
             </StackPanel.Resources>
-            <Button Command="{Binding AddField}" Height="25" Width="150">Dodaj Niestandardowe Pole</Button>
-            <Button Command="{Binding EditField}" Height="25" Width="150">Edytuj Niestandardowe Pola</Button>
-            <Button Command="{Binding DeleteField}" Height="25" Width="150">Usuń Niestandardowe Pola</Button>
+            <Button Command="{Binding AddField}" Height="25" Width="130">Dodaj Pole</Button>
+            <Button Command="{Binding EditField}" Height="25" Width="130">Edytuj Pola</Button>
+            <Button Command="{Binding DeleteField}" Height="25" Width="130">Usuń Pola</Button>
         </StackPanel>
     </Grid>
 </UserControl>

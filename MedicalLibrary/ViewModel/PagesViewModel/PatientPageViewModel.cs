@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Threading.Tasks;
 using MedicalLibrary.Converters;
+using System.Text.RegularExpressions;
 
 namespace MedicalLibrary.ViewModel.WindowsViewModel
 {
@@ -103,7 +104,8 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _FindQuery = value;
-                if (SelectedQuery != "" && SelectedQuery != null) { Search(); }
+                Regex reg = new Regex(@"^[^\\\?';/]$"); 
+                if (SelectedQuery != "" && SelectedQuery != null && reg.IsMatch(FindQuery)) { SearchAsync(); }
                 if (FindQuery == "" && SelectedQuery != null && SelectedQuery != "pacjent") { Clear(false); }
                 OnPropertyChanged("FindQuery");
             }
@@ -323,7 +325,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 binding.Path = new PropertyPath("Element.[" + field.Element("fieldname").Value + "].Value");
                 binding.StringFormat = "{0} " + field.Element("suffix").Value;
                 binding.Converter = converter;
-                binding.FallbackValue = converter.Convert(field.Element("fielddefault").Value) +" "+ field.Element("suffix").Value;
+                binding.FallbackValue = converter.ConvertSpecial(field.Element("fielddefault").Value) +" "+ field.Element("suffix").Value;
                 fieldColumn.Binding = binding;
                 grid.Columns.Add(fieldColumn);
                 ColumnAdded += 1;

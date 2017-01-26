@@ -39,6 +39,7 @@ namespace MedicalLibrary
                 linkWrong = WrongPatient;
                 linkMod = Modifications;
                 linkRest = RestAPI;
+                linkOld = Old;
                 GlobalUpdate();
             }
             else
@@ -49,6 +50,7 @@ namespace MedicalLibrary
         }
         public static Link linkWrong;
         public static Link linkMod;
+        public static Link linkOld;
         public static Link linkRest;
 
         public static void GlobalUpdate()
@@ -64,6 +66,7 @@ namespace MedicalLibrary
                 linkWrong.DisplayName = "Źle Umieszczeni Pacjenci: ?";
                 linkMod.DisplayName = "Ilość Modyfikacji: ?";
                 linkRest.DisplayName = "Zalogowany jako: ?";
+                linkOld.DisplayName = "Ilość Przedawnionych Dokumentacji:?";
             }
         }
 
@@ -75,9 +78,18 @@ namespace MedicalLibrary
         {
             linkMod.DisplayName = "Ilość Modyfikacji: " + XElementon.Instance.Modification.Modifications().Count().ToString();
         }
+        private static void ChangeOld()
+        {
+            linkOld.DisplayName = "Ilość Przedawnionych Dokumentacji:?"; // do uzupełnienia
+        }
         private static void ChangeRest()
         {
             linkRest.DisplayName = "Zalogowany jako: " + XElementon.Instance.nazwaLekarz + ", Numer Wersji: " + XElementon.Instance.numerWersji;
+        }
+
+        private void ModernWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBox.Show("Dzieje się");
         }
     }
 }

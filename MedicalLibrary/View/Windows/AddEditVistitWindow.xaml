@@ -18,16 +18,61 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3.5*"/>
                 <ColumnDefinition Width="6.5*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" >Data Wizyty:</Label>
-            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" >Komentarz:</Label>
+            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" >Czas trwania(minuty):</Label>
+            <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" >Czas przedawniena(Lata):</Label>
+            <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" >Komentarz:</Label>
 
             <custom:DateTimePicker Grid.Column ="1" Grid.Row="0"  Width="200" Height="25"  HorizontalAlignment="Center" Format="Custom" FormatString="yyyy/MM/dd HH:mm" Value="{Binding FullDate}"/>
-            <TextBox Grid.Column="1" Grid.Row="1" Name="Nazwisko"  Width="200" Height="25" Text="{Binding Comment}"/>
+            <TextBox Grid.Column="1" Grid.Row="1"   Width="100" Height="25" Text="{Binding Minutes ,UpdateSourceTrigger=PropertyChanged}" ToolTipService.IsEnabled="{Binding IsGoodM}" ToolTipService.ToolTip="Pole powinno posiadać tylko cyfry" MaxLength="4">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsGoodM}" Value="false">
+                                <Setter  Property="Background" Value="LightGreen"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsGoodM}" Value="true">
+                                <Setter  Property="Background" Value="#FFE54F3D"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="2"   Width="100" Height="25" Text="{Binding Years, UpdateSourceTrigger=PropertyChanged}" ToolTipService.IsEnabled="{Binding IsGoodY}" ToolTipService.ToolTip="Pole powinno posiadać tylko cyfry" MaxLength="4">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsGoodY}" Value="false">
+                                <Setter  Property="Background" Value="LightGreen"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsGoodY}" Value="true">
+                                <Setter  Property="Background" Value="#FFE54F3D"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="3"   Width="200" Height="25" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" ToolTipService.IsEnabled="{Binding IsGoodK}" ToolTipService.ToolTip="Pole powinno byc niepuste" MaxLength="50">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsGoodK}" Value="false">
+                                <Setter  Property="Background" Value="LightGreen"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsGoodK}" Value="true">
+                                <Setter  Property="Background" Value="#FFE54F3D"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
 
         </Grid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -52,7 +53,23 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _Comment = value;
+                Regex regex = new Regex("^[a-zA-Z0-9_ ]+$");
+                IsGoodK = (!regex.IsMatch(Comment)) ? true : false;
                 OnPropertyChanged("Comment");
+            }
+        }
+
+        private bool _IsGoodK = false;
+        public bool IsGoodK
+        {
+            get
+            {
+                return _IsGoodK;
+            }
+            set
+            {
+                _IsGoodK = value;
+                OnPropertyChanged("IsGoodK");
             }
         }
 
@@ -66,7 +83,53 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _Years = value;
+                Regex regex = new Regex("-?[0-9,]+");
+                IsGoodY = (!regex.IsMatch(Years)) ? true : false;
                 OnPropertyChanged("Years");
+            }
+        }
+
+        private bool _IsGoodY = false;
+        public bool IsGoodY
+        {
+            get
+            {
+                return _IsGoodY;
+            }
+            set
+            {
+                _IsGoodY = value;
+                OnPropertyChanged("IsGoodY");
+            }
+        }
+
+        private string _Minutes = "0";
+        public string Minutes
+        {
+            get
+            {
+                return _Minutes;
+            }
+            set
+            {
+                _Minutes = value;
+                Regex regex = new Regex("-?[0-9,]+");
+                IsGoodM = (!regex.IsMatch(Minutes)) ? true : false;
+                OnPropertyChanged("Minutes");
+            }
+        }
+
+        private bool _IsGoodM = false;
+        public bool IsGoodM
+        {
+            get
+            {
+                return _IsGoodM;
+            }
+            set
+            {
+                _IsGoodM = value;
+                OnPropertyChanged("IsGoodM");
             }
         }
 
@@ -91,7 +154,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
         {
             if (FullDate != null)
             {
-                if (Comment.Length >= 1)
+                if (IsGoodK&&IsGoodM&&IsGoodY)
                 {
 
                     string Id = ""; //TODO - zmiana na zapis obiektowy a';a AddEditPatientViewMode z ichnijszym IDP?
@@ -120,7 +183,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Komentarz jest za krótki");
+                    MessageBox.Show("Conajmniej Jedno z pól jest źle wypełnione");
                 }
             }
             else

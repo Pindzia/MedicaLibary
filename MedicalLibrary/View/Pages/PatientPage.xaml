@@ -35,6 +35,7 @@
             <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
         </Style>
         <cnv:NodeConverterRule x:Key="Nodes" />
+        <cnv:BoolConverter x:Key="BoolText" />
     </Page.Resources>
 
     <i:Interaction.Triggers>
@@ -59,7 +60,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
                         <Label Content="Nazwa Pola :" Margin="0,0,10,0"/>
-                        <TextBox Text="{Binding FindQuery, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
+                        <TextBox Text="{Binding FindQuery, UpdateSourceTrigger=PropertyChanged ,Converter={StaticResource BoolText}}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center">

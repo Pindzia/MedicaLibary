@@ -85,7 +85,23 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             set
             {
                 _FieldName = value;
+                Regex regex = new Regex("[a-zA-Z_]+");
+                IsGoodName = (!regex.IsMatch(_FieldName)) ? true : false;
                 OnPropertyChanged("FieldName");
+            }
+        }
+
+        private bool _IsGoodName = true;
+        public bool IsGoodName
+        {
+            get
+            {
+                return _IsGoodName;
+            }
+            set
+            {
+                _IsGoodName = value;
+                OnPropertyChanged("IsGoodName");
             }
         }
 
@@ -100,7 +116,7 @@ namespace MedicalLibrary.ViewModel.WindowsViewModel
             {
                 _Suffix = value;
                 Regex regex = new Regex("^[a-zA-Z0-9_ ]{0,9}$");
-                IsGoodSuf = (!regex.IsMatch(Suffix)) ? true : false;
+                IsGoodSuf = (!regex.IsMatch(_Suffix)) ? true : false;
                 OnPropertyChanged("Suffix");
             }
         }

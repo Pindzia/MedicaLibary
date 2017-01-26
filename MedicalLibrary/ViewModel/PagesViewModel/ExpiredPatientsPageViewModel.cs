@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using System.Xml.Linq;
 
 namespace MedicalLibrary.ViewModel.PagesViewModel
@@ -14,8 +16,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
         public ExpiredPatientsPageViewModel()
         {
             UpdateData();
-            DestroyPatient = new RelayCommand(pars => What());
-            FixStorehouse = new RelayCommand(pars => Fix());
+            DestroyPatient = new RelayCommand(pars => Destroy());
             LoadedCommand = new RelayCommand(pars => Loaded());
         }
 
@@ -35,6 +36,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             set
             {
                 _ExpiredPatients = value;
+                SelectedItem = ExpiredPatients.FirstOrDefault();
                 OnPropertyChanged("ExpiredPatients");
             }
         }
@@ -56,10 +58,9 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
 
         public ICommand DestroyPatient { get; set; }
-        public ICommand FixStorehouse { get; set; }
         public ICommand LoadedCommand { get; set; }
 
-        private void What()
+        private void Destroy()
         {
             if (SelectedItem != null)
             {
@@ -69,19 +70,6 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
             else
             {
                 MessageBox.Show("Wybierz Pacjenta by dowiedzieć się do jakiego magazynu należy");
-            }
-        }
-
-        private void Fix()
-        {
-            if (SelectedItem != null)
-            {
-                XElementon.Instance.Patient.FixStorehouseEnvelope((int)SelectedItem.Element("idp"));
-                UpdateData();
-            }
-            else
-            {
-                MessageBox.Show("Wybierz Pacjenta by naprawić jego Magazyn i Kopertę");
             }
         }
 

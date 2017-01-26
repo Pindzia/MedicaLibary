@@ -23,11 +23,20 @@ namespace MedicalLibrary.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             //walinas
-            if ((string)value == "Pacjenta")
-                return "patient";
-            if ((string)value == "Wizyty")
-                return "visit";
-            return "Error Konwersji Wstecznej PV";
+            if ((string)value == "Prawda")
+                return "true";
+            if ((string)value == "Fałsz")
+                return "false";
+            return value;
+        }
+
+        public string ConvertSpecial(string value)
+        {
+            if (value == "true")
+                return "Prawda";
+            if (value == "false")
+                return "Fałsz";
+            return value;
         }
     }
 }
