@@ -95,24 +95,25 @@ namespace MedicalLibrary.Model
 
 
 
-        public void LoadEncrypted()
+        public void LoadEncrypted(string filename)
         {
             XElementon.Instance.SetKey(XElementon.Instance.Haslo);
             CryptoClass crypt = CryptoClass.Instance;
-            if (File.Exists("encrypted.xml"))
+            if (File.Exists(filename))
             {
-                setDatabase(crypt.Decrypt(LoadEncrypted(crypt)));
+                setDatabase(crypt.Decrypt(LoadEncrypted(filename, crypt)));
             }
             else
             {
+                System.Windows.MessageBox.Show("Brak wybranego pliku");
                 LoadRaw();
             }
             InitializeComponents();
         }
 
-        private byte[] LoadEncrypted(CryptoClass cryptor)
+        private byte[] LoadEncrypted(string filename, CryptoClass cryptor)
         {
-            FileStream file = new FileStream("encrypted.xml", FileMode.Open, FileAccess.Read);
+            FileStream file = new FileStream(filename, FileMode.Open, FileAccess.Read);
             int length = (int)file.Length;
 
             byte[] buffer = new byte[length];
@@ -610,14 +611,14 @@ namespace MedicalLibrary.Model
         }
 
 
-        public List<List<string>> getLocalDatabases()
+        public List<XElement> getLocalDatabases()
         {
-            Regex reg = new Regex(@"^encrypted![0-9]*!.*$");
+            List<XElement> databases = new List<XElement>();
+            Regex reg = new Regex(@"encrypted![0-9]*!.*$");
             var files = Directory.GetFiles(Environment.CurrentDirectory).Where(path => reg.IsMatch(path));
             //var files = Directory.GetFiles(Environment.CurrentDirectory).Where(path => g = reg.Match(Path));
 
-
-            Regex cath = new Regex(@"^encrypted!([0-9]*)!(.*)$");
+            Regex cath = new Regex(@"(encrypted!([0-9]*)!(.*))$");
             Match m;
             Group g;
             List<string> a = new List<string>();
@@ -628,22 +629,27 @@ namespace MedicalLibrary.Model
             {
                 m = cath.Match(file);
 
-                var g1 = m.Groups[1];
-                var g2 = m.Groups[2];
+                var g1 = m.Groups[2];
+                var g2 = m.Groups[3];
 
                 var t1 = g1.Captures.ToString();
                 var t2 = g1.Captures.ToString();
 
+                DateTime lastModified = File.GetLastWriteTime(m.Groups[1].ToString());
+                var lm = (lastModified.ToString("dd/MM/yy HH:mm:ss"));
 
-                a.Add(file);
-                b.Add(t1);
-                c.Add(t2);
-
-                DateTime lastModified = File.GetLastWriteTime(file);
-                d.Add(lastModified.ToString("dd/MM/yy HH:mm:ss"));
-
+                databases.Add(new XElement("Database",
+                    new XElement("path",m.Groups[1].ToString()),
+                    new XElement("version",t1),
+                    new XElement("login",t2),
+                    new XElement("last_modified",lm)));
             }
-            return new List<List<string>> { a, b, c, d };
+            return databases;
+        }
+
+        public int loginDatabase(string path, string pass)
+        {
+            return 1;
         }
     }
 }

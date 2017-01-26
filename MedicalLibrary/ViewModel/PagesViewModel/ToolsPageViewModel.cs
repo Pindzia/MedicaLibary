@@ -50,6 +50,9 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void AddSome()
         {
+
+            XElementon.Instance.getLocalDatabases();
+            return;
             //Zapisz modyfikacje do pliku
             XElementon.Instance.Modification.saveToFile();
             //Debug stuff :V
@@ -63,7 +66,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
 
         private void LoadEncrypted()
         {
-            XElementon.Instance.LoadEncrypted();
+            XElementon.Instance.LoadEncrypted("encrypted.xml");
         }
 
         private void AddALot()
