@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MedicalLibrary.View.Pages"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       xmlns:custom="clr-namespace:OutlookCalendar.Controls;assembly=OutlookCalendar"
+      xmlns:cnv="clr-namespace:MedicalLibrary.Converters"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       x:Name="Page"
@@ -20,6 +21,7 @@
             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
             <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
         </Style>
+        <cnv:DateConverter x:Key="Date"/>
     </Page.Resources>
 
     <i:Interaction.Triggers>
@@ -113,7 +115,8 @@
                 </DockPanel>
                 <DockPanel Grid.Row="1">
                     <GroupBox Header="Wizyty Danego Pacjenta">
-                        <DataGrid DataContext="{Binding VisitList}"  
+                        <ScrollViewer Margin="10,10,10,5" Grid.IsSharedSizeScope="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                            <DataGrid DataContext="{Binding VisitList}"  
                           ItemsSource="{Binding}" 
                           SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.SelectedVisit, Mode=TwoWay}" 
                           IsReadOnly="True" 
@@ -122,15 +125,18 @@
                           RowHeaderWidth="1"
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center" 
-                          Margin="10,10,10,5"
                           BorderBrush="AliceBlue" 
                           BorderThickness="2">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Id" Binding="{Binding Path=Element[idv].Value}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Data Wizyty" Binding="{Binding Path=Element[visit_addition_date].Value}"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Komentarz" Binding="{Binding Path=Element[comment].Value}"></DataGridTextColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Element[idv].Value}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Data Poczatku Wizyty" Binding="{Binding Path=Element[visit_addition_date].Value, Converter={StaticResource Date}}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Data Końca Wizyty" Binding="{Binding Path=Element[visit_time].Value, Converter={StaticResource Date}}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Lata wazności" Binding="{Binding Path=Element[years_to_keep].Value}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Komentarz" Binding="{Binding Path=Element[comment].Value}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </ScrollViewer>
+                        
                     </GroupBox>
                 </DockPanel>
             </Grid>

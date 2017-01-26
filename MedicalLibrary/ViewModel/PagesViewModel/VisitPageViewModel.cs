@@ -323,7 +323,7 @@ namespace MedicalLibrary.ViewModel.PagesViewModel
                 XElement startTime = visit.Element("visit_addition_date");
                 appoint.Subject = "Wizyta Pacjenta " + visit.Parent.Element("imie").Value + " " + visit.Parent.Element("nazwisko").Value + " " + visit.Parent.Element("pesel").Value;
                 appoint.StartTime = Convert.ToDateTime((string)startTime);
-                appoint.EndTime = appoint.StartTime.AddMinutes(16);
+                appoint.EndTime = Convert.ToDateTime(visit.Element("visit_time").Value);
                 collection.Add(appoint);
             }
             return collection;

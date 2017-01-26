@@ -76,8 +76,8 @@
 
         </Grid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button  Width="120" Height="25" Command="{Binding SaveVisit}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</Button>
-            <Button  Width="120" Height="25" Command="{Binding CancelVisit}" CommandParameter="{Binding ElementName=WindowToClose}">Anuluj</Button>
+            <Button  Width="120" Height="27" Command="{Binding SaveVisit}" CommandParameter="{Binding ElementName=WindowToClose}">Zapisz Dane</Button>
+            <Button  Width="120" Height="27" Command="{Binding CancelVisit}" CommandParameter="{Binding ElementName=WindowToClose}">Anuluj</Button>
         </StackPanel>
             </Grid>
 </Window>

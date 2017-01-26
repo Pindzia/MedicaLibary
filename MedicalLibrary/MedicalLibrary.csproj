@@ -118,6 +118,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BoolConverter.cs" />
     <Compile Include="Converters\CustomTypeConverter.cs" />
+    <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\ElementsConverter.cs" />
     <Compile Include="Converters\NodeConverterRule.cs" />
     <Compile Include="Converters\RuleOperationConverter.cs" />
