@@ -47,6 +47,7 @@ namespace MedicalLibrary.Model
             string idv = null;
             string comment = "";
             string time = "";
+            string length = "";
             string years_to_keep = "";
             foreach (var dat in data)
             {
@@ -61,6 +62,10 @@ namespace MedicalLibrary.Model
                 else if (dat.Item1 == "years_to_keep")
                 {
                     years_to_keep = dat.Item2;
+                }
+                else if (dat.Item1 == "visit_time")
+                {
+                    length = dat.Item2;
                 }
             }
 
