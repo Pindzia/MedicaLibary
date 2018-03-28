@@ -588,6 +588,8 @@ namespace MedicalLibrary.Model
                 Tuple<string, string> a = new Tuple<string, string>("visit_addition_date", randomdate);
                 Tuple<string, string> b = new Tuple<string, string>("comment", listakomentarzy[RNG.Next(listakomentarzy.Count)]);
                 Tuple<string, string> c = new Tuple<string, string>("years_to_keep", "1 ");
+                Tuple<string, string> d = new Tuple<string, string>("idv", (string)losowypacjent);
+                Tuple<string, string> e = new Tuple<string, string>("visit_end_date", now.AddYears(1).ToString());
 
                 Tuple<string, string>[] randomvisit = { a, b, c };
                 XElementon.instance.Visit.Add((int)losowypacjent, randomvisit);

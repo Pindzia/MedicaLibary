@@ -46,9 +46,9 @@ namespace MedicalLibrary.Model
             //Szczytywanie danych z źródła
             string idv = null;
             string comment = "";
-            string time = "";
-            string endtime = "";
-            string years_to_keep = "";
+            string time = DateTime.Now.ToString();
+            string endtime = DateTime.Now.AddYears(2).ToString();
+            string years_to_keep = "2 ";
             foreach (var dat in data)
             {
                 if (dat.Item1 == "comment")
